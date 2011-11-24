@@ -8,7 +8,7 @@ C# & XNA 4.0 minecraft like voxel-engine.
 * voxlr engine II http://www.youtube.com/watch?v=wOPPvCtRgf0
 * voxlr engine I http://www.youtube.com/watch?v=ZNcEoNqqhso
 
-Copyright (C) 2011 mooege project
+Copyright (C) 2011 voxlr project
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
