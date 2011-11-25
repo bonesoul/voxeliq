@@ -19,7 +19,7 @@ namespace VolumetricStudios.VoxeliqClient.Graphics.Graphics
     {
         /// <summary>
         /// The block texture atlas size.
-        /// Marks the texture atlas as made of nXn textures.
+        /// Marks the texture atlas as made of n * n textures.
         /// </summary>
         public const int BlockTextureAtlasSize = 8;
 

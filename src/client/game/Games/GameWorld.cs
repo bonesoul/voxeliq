@@ -117,7 +117,7 @@ namespace VolumetricStudios.VoxeliqClient.Games
             this.ChunkBuilder = new QueuedBuilder(this._player, this); // the chunk builder.        
 
             this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
-            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\blocks");
+            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\terrain");
             this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
 
             this._cameraController.LookAt(Vector3.Down);

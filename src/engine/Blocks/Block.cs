@@ -53,7 +53,7 @@ namespace VolumetricStudios.VoxeliqEngine.Blocks
         }
 
         /// <summary>
-        /// Return the appropriate texture to render a given face of a block
+        /// Return the appropriate texture to render a given face of a block.
         /// </summary>
         /// <param name="blockType"></param>
         /// <param name="faceDir"></param>
