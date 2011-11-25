@@ -11,7 +11,6 @@ using VolumetricStudios.VoxeliqEngine.Screen;
 
 namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
 {
-    // TODO: client stuff.
     public class Sky: DrawableGameComponent
     {
         // the sky dome

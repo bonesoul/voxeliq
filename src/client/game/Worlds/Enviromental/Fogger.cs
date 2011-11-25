@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
 {
@@ -31,9 +32,16 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
             new Vector2(250, 400) // far
         };
 
+
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public Fogger(Game game)
             :base(game)
         {
+            Logger.Trace("init()");
             this.State = FogState.None;
             this.Game.Services.AddService(typeof(IFogService), this);
         }

@@ -107,7 +107,7 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
         /// <summary>
         /// Highest solid blocks offset.
         /// </summary>
-        public byte HighestSolidBlockOffset = 0;
+        public byte HighestSolidBlockOffset;
 
         /// <summary>
         /// Lowest empty block offset.
@@ -184,10 +184,12 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
             switch (block.Exists)
             {
                 case false:
-                    if (this.LowestEmptyBlockOffset > y) this.LowestEmptyBlockOffset = (byte)(y - 1);
+                    if (this.LowestEmptyBlockOffset > y && y > 0)
+                        this.LowestEmptyBlockOffset = (byte) (y - 1);
                     break;
                 case true:
-                    if (y > this.HighestSolidBlockOffset) this.HighestSolidBlockOffset = (byte) (y + 1);
+                    if (y > this.HighestSolidBlockOffset && y < MaxHeightInBlocks)
+                        this.HighestSolidBlockOffset = (byte) (y + 1);
                     break;
             }
 
