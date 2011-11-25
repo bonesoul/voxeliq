@@ -21,6 +21,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VolumetricStudios.VoxlrClient.GraphicsEngine.Graphics;
+using VolumetricStudios.VoxlrEngine.Blocks;
 using VolumetricStudios.VoxlrEngine.Universe;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
 

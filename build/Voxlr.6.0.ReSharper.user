@@ -1,7 +1,64 @@
 <Configuration>
   <RecentFiles>
-    <RecentFiles />
-    <RecentEdits />
+    <RecentFiles>
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:States/f:PlayingState.cs" caret="988" fromTop="25" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:States/f:LoadingState.cs" caret="1" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/d:Terrain/f:TerrainGenerator.cs" caret="1056" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Graphics/f:DualTextured.cs" caret="2920" fromTop="58" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:Interface/d:Debug/f:Statistics.cs" caret="1492" fromTop="21" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:Input/f:InputManager.cs" caret="4619" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:Universe.cs" caret="1244" fromTop="6" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:ChunkBuilder.cs" caret="10353" fromTop="14" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:BlockVertex.cs" caret="1082" fromTop="0" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:QueuedBuilder.cs" caret="1100" fromTop="25" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:TaskedBuilder.cs" caret="1128" fromTop="26" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:GameWorld.cs" caret="5302" fromTop="18" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:World.cs" caret="809" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/f:Player.cs" caret="1859" fromTop="20" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/f:Shovel.cs" caret="0" fromTop="0" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Graphics/f:TextureHelper.cs" caret="17929" fromTop="250" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/d:Terrain/d:Generators/d:Debug/f:FlatTerrain.cs" caret="0" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:Chunk.cs" caret="0" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:PositionedBlock.cs" caret="0" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/d:Terrain/d:Generators/f:BiomedTerrain.cs" caret="0" fromTop="0" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:Lightning.cs" caret="12651" fromTop="255" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/d:Terrain/d:Generators/d:Biomes/f:RainForest.cs" caret="0" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/d:Terrain/d:Generators/d:Biomes/f:AntarticTundra.cs" caret="0" fromTop="0" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5220" fromTop="142" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:VertexBuilder.cs" caret="21637" fromTop="13" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:Chunk.cs" caret="6161" fromTop="28" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:VertexBuilder.cs" caret="2140" fromTop="13" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:VertexBuilder.cs" caret="3457" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:VertexBuilder.cs" caret="1363" fromTop="10" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Processors/d:ChunkProcessor/f:VertexBuilder.cs" caret="1763" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:ChunkBuilder.cs" caret="1695" fromTop="18" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:ChunkBuilder.cs" caret="2096" fromTop="28" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:ChunkBuilder.cs" caret="10353" fromTop="14" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:QueuedBuilder.cs" caret="1180" fromTop="19" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GraphicsEngine/d:Builders/f:TaskedBuilder.cs" caret="1212" fromTop="19" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:GameWorld.cs" caret="1118" fromTop="17" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:GameWorld.cs" caret="4156" fromTop="18" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:World.cs" caret="1448" fromTop="14" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:GameWorld.cs" caret="1424" fromTop="12" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:World.cs" caret="2382" fromTop="24" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:World.cs" caret="1856" fromTop="10" />
+      <File id="72BE671F-8476-4C25-B6BD-48DFE25E9CCF/d:GameEngine/f:GameWorld.cs" caret="2181" fromTop="21" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Universe/f:World.cs" caret="809" fromTop="18" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="23" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="35" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="11" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="21" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="28" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="22" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="17" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="16" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="24" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5911" fromTop="186" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="4949" fromTop="18" />
+      <File id="6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8/d:Blocks/f:Block.cs" caret="5220" fromTop="25" />
+    </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
     <NAntPath value="" />

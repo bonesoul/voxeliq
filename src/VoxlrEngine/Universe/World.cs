@@ -17,7 +17,7 @@
  */
 
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxlrEngine.Screen;
+using VolumetricStudios.VoxlrEngine.Blocks;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxlrEngine.Universe
@@ -41,11 +41,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
     public class World : IWorldService
     {
         /// <summary>
-        /// fog vectors.
-        /// </summary>
-        protected readonly Vector2[] _fogVectors = new[] {new Vector2(0, 0), new Vector2(175, 250), new Vector2(250, 400)};
-
-        /// <summary>
         /// Chunk manager
         /// </summary>
         public ChunkManager Chunks { get; protected set; }
@@ -59,11 +54,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// View range for the world.
         /// </summary>
         public const byte ViewRange = 6;
-
-        /// <summary>
-        /// The camera service.
-        /// </summary>
-        public ICameraService Camera;
 
         /// <summary>
         /// Chunks drawn statistics.
@@ -81,9 +71,9 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         public bool IsInfinitive { get; private set; }
         
         /// <summary>
-        /// TODO: shouldn't be getting game object really and abstract of game.
+        /// Creates a new world.
         /// </summary>
-        /// <param name="game"></param>
+        /// <param name="isInfinitive"></param>
         public World(bool isInfinitive)
         {
             this.IsInfinitive = isInfinitive;

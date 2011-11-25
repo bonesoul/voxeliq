@@ -19,6 +19,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxlrClient.GameEngine;
+using VolumetricStudios.VoxlrEngine.Blocks;
 using VolumetricStudios.VoxlrEngine.Screen;
 using VolumetricStudios.VoxlrEngine.Universe;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;

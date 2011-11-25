@@ -16,67 +16,32 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-namespace VolumetricStudios.VoxlrEngine.Universe
+namespace VolumetricStudios.VoxlrEngine.Blocks
 {
-    public enum BlockFaceDirection
-    {
-        XIncreasing = 1,
-        XDecreasing = 2,
-        YIncreasing = 4,
-        YDecreasing = 8,
-        ZIncreasing = 16,
-        ZDecreasing = 32,
-    }
-
-    public enum BlockType : byte
-    {
-        None,
-        Brick,
-        Dirt,
-        Gold,
-        Grass,
-        Iron,
-        Lava,
-        Leaves,
-        Gravel,
-        Rock,
-        Sand,
-        Snow,
-        Tree,
-        Water,
-        Maximum
-    }
-
     /// <summary>
-    /// Available block textures.
+    /// Basic block structure.
     /// </summary>
-    public enum BlockTexture
-    {
-        Brick,
-        Dirt,
-        Gold,
-        GrassSide,
-        GrassTop,
-        Iron,
-        Lava,
-        Leaves,
-        Gravel,
-        Rock,
-        Sand,
-        Snow,
-        TreeTop,
-        TreeSide,
-        Water,
-        Maximum
-    }
-
     public struct Block
     {
-        public static Block Empty { get { return new Block(BlockType.None); } }
+        /// <summary>
+        /// Block type.
+        /// </summary>
         public BlockType Type;
+        
+        /// <summary>
+        /// Propogated sun-light value.
+        /// </summary>
         public byte Sun;
+
+        /// <summary>
+        /// Propated light's RGB.
+        /// </summary>
         public byte R, G, B;
         
+        /// <summary>
+        /// Creates a new block from given type.
+        /// </summary>
+        /// <param name="type"></param>
         public Block(BlockType type)
         {
             Type = type;
@@ -84,6 +49,17 @@ namespace VolumetricStudios.VoxlrEngine.Universe
             R = 16; G = 16; B = 16;
         }
 
+        /// <summary>
+        /// Returns an empty block (air).
+        /// </summary>
+        public static Block Empty
+        {
+            get { return new Block(BlockType.None); }
+        }
+
+        /// <summary>
+        /// Returns true if a block exists, false it it's air.
+        /// </summary>
         public bool Exists
         {
             get { return Type != BlockType.None; }
@@ -94,7 +70,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// </summary>
         /// <param name="blockType"></param>
         /// <param name="faceDir"></param>
-        /// <param name="blockAbove">Reserved for blocks which behave differently if certain blocks are above them</param>
         /// <returns></returns>
         public static BlockTexture GetTexture(BlockType blockType, BlockFaceDirection faceDir)
         {
@@ -155,5 +130,63 @@ namespace VolumetricStudios.VoxlrEngine.Universe
                     return BlockTexture.Rock;
             }
         }
+    }
+
+    /// <summary>
+    /// Facing direction.
+    /// </summary>
+    public enum BlockFaceDirection
+    {
+        XIncreasing = 1,
+        XDecreasing = 2,
+        YIncreasing = 4,
+        YDecreasing = 8,
+        ZIncreasing = 16,
+        ZDecreasing = 32,
+    }
+
+    /// <summary>
+    /// Block types.
+    /// </summary>
+    public enum BlockType : byte
+    {
+        None,
+        Brick,
+        Dirt,
+        Gold,
+        Grass,
+        Iron,
+        Lava,
+        Leaves,
+        Gravel,
+        Rock,
+        Sand,
+        Snow,
+        Tree,
+        Water,
+        Maximum
+    }
+
+    /// <summary>
+    /// Available block textures.
+    /// </summary>
+    public enum BlockTexture
+    {
+        Brick,
+        Dirt,
+        Gold,
+        GrassSide,
+        GrassTop,
+        Iron,
+        Lava,
+        Leaves,
+        Gravel,
+        Rock,
+        Sand,
+        Snow,
+        TreeTop,
+        TreeSide,
+        Water,
+        Maximum
     }
 }

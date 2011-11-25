@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+using VolumetricStudios.VoxlrEngine.Blocks;
 using VolumetricStudios.VoxlrEngine.Utils.Algorithms;
 
 namespace VolumetricStudios.VoxlrEngine.Universe.Terrain.Generators

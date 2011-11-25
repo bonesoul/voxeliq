@@ -33,6 +33,11 @@ namespace VolumetricStudios.VoxlrClient.GameEngine
     public class GameWorld : World, IGameComponent, IDrawable, IWorldStatisticsService
     {
         /// <summary>
+        /// fog vectors.
+        /// </summary>
+        private readonly Vector2[] _fogVectors = new[] { new Vector2(0, 0), new Vector2(175, 250), new Vector2(250, 400) };
+
+        /// <summary>
         /// Fog state.
         /// </summary>
         public FogState FogState { get; private set; }
@@ -51,6 +56,11 @@ namespace VolumetricStudios.VoxlrClient.GameEngine
 
         public event EventHandler<EventArgs> VisibleChanged;
         public event EventHandler<EventArgs> DrawOrderChanged;
+
+        /// <summary>
+        /// The camera service.
+        /// </summary>
+        public ICameraService Camera;
 
         /// <summary>
         /// Chunk builder.

@@ -18,6 +18,7 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using VolumetricStudios.VoxlrEngine.Blocks;
 using VolumetricStudios.VoxlrEngine.Universe;
 
 namespace VolumetricStudios.VoxlrClient.GraphicsEngine.Graphics
