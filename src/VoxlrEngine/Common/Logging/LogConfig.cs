@@ -22,7 +22,7 @@ namespace VolumetricStudios.VoxlrEngine.Common.Logging
     {
         public string LoggingRoot { get { return this.GetString("Root", @"logs"); } set { this.Set("Root", value); } }
 
-        public LogTargetConfig[] Targets = new[] { new LogTargetConfig("ConsoleLog"), new LogTargetConfig("ServerLog"), new LogTargetConfig("PacketLog") };
+        public LogTargetConfig[] Targets = new[] { new LogTargetConfig("ConsoleLog") };
 
         private static readonly LogConfig _instance = new LogConfig();
         public static LogConfig Instance { get { return _instance; } }
