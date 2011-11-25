@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrClient", "VoxlrClient\VoxlrClient\VoxlrClient.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrClient", "..\src\VoxlrClient\VoxlrClient\VoxlrClient.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrClientContent", "VoxlrClient\VoxlrClientContent\VoxlrClientContent.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrClientContent", "..\src\VoxlrClient\VoxlrClientContent\VoxlrClientContent.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrEngine", "VoxlrEngine\VoxlrEngine.csproj", "{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrEngine", "..\src\VoxlrEngine\VoxlrEngine.csproj", "{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrServer", "VoxlrServer\VoxlrServer.csproj", "{C5086086-4FEF-4D30-A9E2-8A28A9628352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxlrServer", "..\src\VoxlrServer\VoxlrServer.csproj", "{C5086086-4FEF-4D30-A9E2-8A28A9628352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
