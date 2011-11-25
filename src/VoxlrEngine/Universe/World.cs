@@ -54,17 +54,17 @@ namespace VolumetricStudios.VoxlrEngine.Universe
     /// <summary>
     /// World.
     /// </summary>
-    public sealed class World : DrawableGameComponent, IWorldStatisticsService, IWorldService
+    public class World : DrawableGameComponent, IWorldStatisticsService, IWorldService
     {
         /// <summary>
         /// block effect.
         /// </summary>
-        private Effect _blockEffect;
+        protected Effect _blockEffect;
 
         /// <summary>
         /// block texture atlas
         /// </summary>
-        private Texture2D _blockTextureAtlas;
+        protected Texture2D _blockTextureAtlas;
 
         /// <summary>
         /// crack texture atlas
@@ -84,7 +84,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// <summary>
         /// fog vectors.
         /// </summary>
-        private readonly Vector2[] _fogVectors = new[] {new Vector2(0, 0), new Vector2(175, 250), new Vector2(250, 400)};
+        protected readonly Vector2[] _fogVectors = new[] {new Vector2(0, 0), new Vector2(175, 250), new Vector2(250, 400)};
 
         /// <summary>
         /// Chunk manager
@@ -119,7 +119,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// <summary>
         /// Chunks drawn statistics.
         /// </summary>
-        public int ChunksDrawn { get; private set; } // chunks drawn statistics.
+        public int ChunksDrawn { get; protected set; } // chunks drawn statistics.
 
         /// <summary>
         /// Total chunks
@@ -148,8 +148,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         public World(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(IWorldStatisticsService), this);
-            game.Services.AddService(typeof(IWorldService), this);
         }
 
         public override void Initialize()
@@ -256,51 +254,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
             
             this.ChunkBuilder.Start();
         }
-
-        // TODO: client stuff.
-        #region world-drawer
-
-        public override void Draw(GameTime gameTime)
-        {
-            var viewFrustrum = new BoundingFrustum(this.Camera.View * this.Camera.Projection);
-
-            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            Game.GraphicsDevice.BlendState = BlendState.Opaque;
-
-            _blockEffect.Parameters["World"].SetValue(Matrix.Identity);
-            _blockEffect.Parameters["View"].SetValue(this.Camera.View);
-            _blockEffect.Parameters["Projection"].SetValue(this.Camera.Projection);
-            _blockEffect.Parameters["CameraPosition"].SetValue(this.Camera.Position);
-            _blockEffect.Parameters["FogColor"].SetValue(Color.White.ToVector4());
-            _blockEffect.Parameters["FogNear"].SetValue(this._fogVectors[(byte)this.FogState].X);
-            _blockEffect.Parameters["FogFar"].SetValue(this._fogVectors[(byte)this.FogState].Y);
-            _blockEffect.Parameters["SunColor"].SetValue(Color.White.ToVector3());
-            _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
-
-            this.ChunksDrawn = 0;
-            foreach (EffectPass pass in this._blockEffect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
-
-                foreach (Chunk chunk in this.Chunks.Values)
-                {
-                    if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue; 
-
-                    lock (chunk)
-                    {
-                        if (chunk.IndexBuffer.IndexCount == 0) continue;
-                        Game.GraphicsDevice.SetVertexBuffer(chunk.VertexBuffer);
-                        Game.GraphicsDevice.Indices = chunk.IndexBuffer;
-                        Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.VertexBuffer.VertexCount, 0, chunk.IndexBuffer.IndexCount/3);
-                    }
-
-                    this.ChunksDrawn++;
-                }              
-            }
-        }
-
-
-        #endregion
     }
 
     #region enums

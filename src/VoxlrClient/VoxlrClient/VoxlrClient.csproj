@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="GameEngine\GameWorld.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\Debug\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="States\PlayingState.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="States\TitleState.cs" />
-    <Compile Include="Universe.cs" />
+    <Compile Include="GameEngine\Universe.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="VoxlrClient.cs" />
     <Compile Include="Screen\Camera.cs" />

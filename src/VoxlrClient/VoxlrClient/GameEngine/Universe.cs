@@ -25,14 +25,14 @@ using VolumetricStudios.VoxlrClient.Screen;
 using VolumetricStudios.VoxlrEngine;
 using VolumetricStudios.VoxlrEngine.Universe;
 
-namespace VolumetricStudios.VoxlrClient
+namespace VolumetricStudios.VoxlrClient.GameEngine
 {
     public class Universe : GameComponent
     {
         private World _world;
         private bool WaitForDebugger=false;
 
-        public Universe(Game game):base(game) { }
+        public Universe(Microsoft.Xna.Framework.Game game):base(game) { }
 
         public override void Initialize()
         {
@@ -40,7 +40,7 @@ namespace VolumetricStudios.VoxlrClient
 
             Game.Components.Add(new InputManager(this.Game) { UpdateOrder = 1 });
             Game.Components.Add(new Sky(this.Game) {UpdateOrder = 2, DrawOrder = 0});
-            this._world = new World(this.Game) { UpdateOrder = 3, DrawOrder = 1 };
+            this._world = new GameWorld(this.Game) {UpdateOrder = 3, DrawOrder = 1};
             Game.Components.Add(this._world);
             Game.Components.Add(new Camera(this.Game) { UpdateOrder = 5 });
             Game.Components.Add(new Player(this.Game, this._world) { UpdateOrder = 4,DrawOrder = 2 });

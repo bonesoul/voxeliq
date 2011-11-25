@@ -18,6 +18,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxlrClient.GameEngine;
 
 namespace VolumetricStudios.VoxlrClient.States
 {
