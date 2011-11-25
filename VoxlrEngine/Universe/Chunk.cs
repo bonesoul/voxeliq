@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011 - Hüseyin Uslu shalafiraistlin@gmail.com
+ * Copyright (C) 2011 voxlr project 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         public Chunk SouthWest { get { return World.Chunks[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
         public Chunk SouthEast { get { return World.Chunks[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
 
-        public static byte MAX_SUN_VALUE = 16;
+        public static byte MaxSunValue = 16;
 
         /// <summary>
         /// Chunk width in blocks.
@@ -180,7 +180,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
             }
         }
 
-                public bool IsInBounds(float x, float z)
+        public bool IsInBounds(float x, float z)
         {
             if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z) return false;
             return true;

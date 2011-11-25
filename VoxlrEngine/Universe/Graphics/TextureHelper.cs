@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011 - Hüseyin Uslu shalafiraistlin@gmail.com
+ * Copyright (C) 2011 voxlr project 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -107,6 +107,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.XDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -115,6 +116,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     break;
+
                 case BlockFaceDirection.YIncreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     mapping[1] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
@@ -123,6 +125,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.YDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -131,6 +134,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.ZIncreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -139,6 +143,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     break;
+
                 case BlockFaceDirection.ZDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -192,6 +197,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.XDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -200,6 +206,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     break;
+
                 case BlockFaceDirection.YIncreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     mapping[1] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
@@ -208,6 +215,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.YDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -216,6 +224,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
                     mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     break;
+
                 case BlockFaceDirection.ZIncreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0
@@ -224,6 +233,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);   // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset);                            // 0,1
                     break;
+
                 case BlockFaceDirection.ZDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset);                                                     // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset);                            // 1,0

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011 - Hüseyin Uslu shalafiraistlin@gmail.com
+ * Copyright (C) 2011 voxlr project 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -153,7 +153,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
                     return BlockTexture.Water;
                 default:
                     return BlockTexture.Rock;
-
             }
         }
     }

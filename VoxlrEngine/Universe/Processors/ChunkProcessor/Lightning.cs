@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011 - Hüseyin Uslu shalafiraistlin@gmail.com
+ * Copyright (C) 2011 voxlr project 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,9 @@
 
 namespace VolumetricStudios.VoxlrEngine.Universe.Processors.ChunkProcessor
 {
+    /// <summary>
+    /// TODO: client stuff.
+    /// </summary>
     public static class Lightning
     {        
         public static void Process(Chunk chunk)
@@ -28,7 +31,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Processors.ChunkProcessor
 
         private static void ClearLighting(Chunk chunk)
         {
-            byte sunValue = Chunk.MAX_SUN_VALUE;
+            byte sunValue = Chunk.MaxSunValue;
 
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
@@ -59,9 +62,9 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Processors.ChunkProcessor
         private static void FillLighting(Chunk chunk)
         {
             FillSunLightning(chunk);
-            //FillLightningR(chunk);
-            //FillLightningG(chunk);
-            //FillLightningB(chunk);
+            FillLightningR(chunk);
+            FillLightningG(chunk);
+            FillLightningB(chunk);
         }
 
         private static void FillSunLightning(Chunk chunk)
