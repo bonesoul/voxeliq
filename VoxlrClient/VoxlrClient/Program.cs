@@ -22,7 +22,8 @@ namespace VolumetricStudios.VoxlrClient
     {
         static void Main(string[] args)
         {
-            using (var game = new VolumetricStudios.VoxlrClient.VoxlrClient())
+            // run the game.
+            using (var game = new VoxlrClient())
             {
                 game.Run();
             }
