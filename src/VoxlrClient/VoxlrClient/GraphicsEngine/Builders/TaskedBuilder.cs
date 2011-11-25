@@ -17,14 +17,16 @@
  */
 
 using System.Threading.Tasks;
+using VolumetricStudios.VoxlrClient.GameEngine;
+using VolumetricStudios.VoxlrEngine.Universe;
 
-namespace VolumetricStudios.VoxlrEngine.Universe.Builders
+namespace VolumetricStudios.VoxlrClient.GraphicsEngine.Builders
 {
     // pattern used: http://stackoverflow.com/questions/3700724/what-is-the-blockingcollection-takefromany-method-useful-for
 
     public class TaskedBuilder : ChunkBuilder
     {
-        public TaskedBuilder(IPlayer player, World world) : base(player, world) { }
+        public TaskedBuilder(IPlayer player, GameWorld world) : base(player, world) { }
 
         protected override void QueueChunks()
         {

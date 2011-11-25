@@ -21,19 +21,21 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxlrEngine.Universe.Processors.ChunkProcessor;
+using VolumetricStudios.VoxlrClient.GameEngine;
+using VolumetricStudios.VoxlrClient.GraphicsEngine.Processors.ChunkProcessor;
+using VolumetricStudios.VoxlrEngine.Universe;
 using VolumetricStudios.VoxlrEngine.Universe.Terrain;
 using VolumetricStudios.VoxlrEngine.Universe.Terrain.Generators.Biomes;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
 
-namespace VolumetricStudios.VoxlrEngine.Universe.Builders
+namespace VolumetricStudios.VoxlrClient.GraphicsEngine.Builders
 {
     public class ChunkBuilder
     {
         protected readonly BlockingCollection<Chunk> _generationQueue = new BlockingCollection<Chunk>(); // uses concurrent queues by default.
         protected readonly BlockingCollection<Chunk> _buildingQueue = new BlockingCollection<Chunk>();
         protected IPlayer _player;
-        protected World _world;
+        protected GameWorld _world;
         protected bool _active = false;
         protected readonly TerrainGenerator Generator;
         
@@ -42,7 +44,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Builders
 
         protected virtual void QueueChunks() { }
 
-        protected ChunkBuilder(IPlayer player, World world)
+        protected ChunkBuilder(IPlayer player, GameWorld world)
         {
             this._player = player;
             this._world = world;
@@ -220,7 +222,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe.Builders
             else if (chunk.Dirty)
             {
                 Lightning.Process(chunk);
-                VertexBuilder.Build(chunk);
+                VertexBuilder.Build(this._world.Game.GraphicsDevice, chunk);
             }
         }     
     }

@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxlrEngine.Screen;
-using VolumetricStudios.VoxlrEngine.Universe.Graphics;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxlrEngine.Universe
@@ -115,20 +114,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// </summary>
         public bool QueuedForGeneration { get; set; }
 
-        /// <summary>
-        /// Vertex buffer for chunk's blocks.
-        /// </summary>
-        public VertexBuffer VertexBuffer { get; set; }
-
-        public IndexBuffer IndexBuffer { get; set; }
-
-        /// <summary>
-        /// The vertex list.
-        /// </summary>
-        public List<BlockVertex> VertexList;
-
-        public List<short> IndexList;
-
         public short Index;
 
         /// <summary>
@@ -146,6 +131,20 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// </summary>
         public bool Disposed = false;
 
+        /// <summary>
+        /// Vertex buffer for chunk's blocks.
+        /// </summary>
+        public VertexBuffer VertexBuffer { get; set; }
+
+        public IndexBuffer IndexBuffer { get; set; }
+
+        /// <summary>
+        /// The vertex list.
+        /// </summary>
+        public List<BlockVertex> VertexList;
+
+        public List<short> IndexList;
+
         public Chunk(World world, Vector2Int relativePosition)
         {
             this.Generated = false;
@@ -158,6 +157,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
             this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks);
             this.Blocks = new Block[WidthInBlocks*LenghtInBlocks*HeightInBlocks];
             this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks));
+
             this.VertexList = new List<BlockVertex>();
             this.IndexList = new List<short>();
 

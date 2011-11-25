@@ -29,7 +29,7 @@ namespace VolumetricStudios.VoxlrClient.GameEngine
 {
     public class Universe : GameComponent
     {
-        private World _world;
+        private GameWorld _world;
         private bool WaitForDebugger=false;
 
         public Universe(Microsoft.Xna.Framework.Game game):base(game) { }

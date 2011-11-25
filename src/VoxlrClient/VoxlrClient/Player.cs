@@ -18,6 +18,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxlrClient.GameEngine;
 using VolumetricStudios.VoxlrEngine.Screen;
 using VolumetricStudios.VoxlrEngine.Universe;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
@@ -38,7 +39,7 @@ namespace VolumetricStudios.VoxlrClient
         public PositionedBlock? AimedEmptyBlock { get; private set; } // nullable object.        
         public Vector3 Velocity;
 
-        private readonly World _world;
+        private readonly GameWorld _world;
         private ICameraService _camera;
         private BasicEffect _aimedBlockEffect;
         private Model _aimedBlockModel;
@@ -48,7 +49,7 @@ namespace VolumetricStudios.VoxlrClient
         private const float Gravity = -15f;
         private const float JumpVelocity = 6f;
         
-        public Player(Game game,World world)
+        public Player(Game game,GameWorld world)
             : base(game)
         {
             game.Services.AddService(typeof(IPlayer), this);

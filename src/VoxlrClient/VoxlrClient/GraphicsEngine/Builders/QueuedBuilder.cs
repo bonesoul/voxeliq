@@ -16,13 +16,16 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-namespace VolumetricStudios.VoxlrEngine.Universe.Builders
+using VolumetricStudios.VoxlrClient.GameEngine;
+using VolumetricStudios.VoxlrEngine.Universe;
+
+namespace VolumetricStudios.VoxlrClient.GraphicsEngine.Builders
 {
     // pattern used: http://stackoverflow.com/questions/3700724/what-is-the-blockingcollection-takefromany-method-useful-for
 
     public class QueuedBuilder: ChunkBuilder
     {
-        public QueuedBuilder(IPlayer player, World world) : base(player, world) { }
+        public QueuedBuilder(IPlayer player, GameWorld world) : base(player, world) { }
 
         protected override void QueueChunks()
         {

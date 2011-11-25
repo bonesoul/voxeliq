@@ -109,6 +109,13 @@
   <ItemGroup>
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="GameEngine\GameWorld.cs" />
+    <Compile Include="GraphicsEngine\Builders\ChunkBuilder.cs" />
+    <Compile Include="GraphicsEngine\Builders\QueuedBuilder.cs" />
+    <Compile Include="GraphicsEngine\Builders\TaskedBuilder.cs" />
+    <Compile Include="GraphicsEngine\Graphics\DualTextured.cs" />
+    <Compile Include="GraphicsEngine\Graphics\TextureHelper.cs" />
+    <Compile Include="GraphicsEngine\Processors\ChunkProcessor\Lightning.cs" />
+    <Compile Include="GraphicsEngine\Processors\ChunkProcessor\VertexBuilder.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\Debug\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />

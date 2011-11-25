@@ -16,26 +16,152 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxlrClient.GraphicsEngine.Builders;
+using VolumetricStudios.VoxlrEngine.Profiling;
+using VolumetricStudios.VoxlrEngine.Screen;
 using VolumetricStudios.VoxlrEngine.Universe;
+using VolumetricStudios.VoxlrEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxlrClient.GameEngine
 {
     /// <summary>
     /// The game world.
     /// </summary>
-    public class GameWorld : World, IGameComponent, IDrawable
+    public class GameWorld : World, IGameComponent, IDrawable, IWorldStatisticsService
     {
-        public GameWorld(Game game) : base(game)
+        /// <summary>
+        /// Fog state.
+        /// </summary>
+        public FogState FogState { get; private set; }
+
+        /// <summary>
+        /// camera controller
+        /// </summary>
+        private ICameraControlService _cameraController;
+
+        public bool Visible
         {
-            game.Services.AddService(typeof(IWorldStatisticsService), this);
-            game.Services.AddService(typeof(IWorldService), this);
+            get { return true; }
+        }
+
+        public int DrawOrder { get; set; }
+
+        public event EventHandler<EventArgs> VisibleChanged;
+        public event EventHandler<EventArgs> DrawOrderChanged;
+
+        /// <summary>
+        /// Chunk builder.
+        /// </summary>
+        public ChunkBuilder ChunkBuilder { get; protected set; }
+
+        /// <summary>
+        /// Generation queue count.
+        /// </summary>
+        public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } }
+
+        /// <summary>
+        /// Building queue count.
+        /// </summary>
+        public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } }
+
+        public Game Game { get; private set; }
+
+        /// <summary>
+        /// player
+        /// </summary>
+        private IPlayer _player;
+
+        /// <summary>
+        /// block effect.
+        /// </summary>
+        private Effect _blockEffect;
+
+        /// <summary>
+        /// block texture atlas
+        /// </summary>
+        private Texture2D _blockTextureAtlas;
+
+        /// <summary>
+        /// crack texture atlas
+        /// </summary>
+        private Texture2D _crackTextureAtlas;
+
+        public int UpdateOrder { get; set; }
+
+        public GameWorld(Game game):
+            base(true) // set world to infinitive.
+        {
+            this.Game = game;
+            this.Game.Services.AddService(typeof(IWorldStatisticsService), this);
+            this.Game.Services.AddService(typeof(IWorldService), this);
+        }
+
+        public void Initialize()
+        {
+            this.FogState = FogState.None; // fog-state.
+
+            // TODO: these are client stuff.
+            this.Camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService)); //
+            this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
+            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
+
+            this.Chunks = new ChunkManager(); // startup the chunk manager.
+            this.ChunkBuilder = new QueuedBuilder(this._player, this); // the chunk builder.        
+
+            this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
+            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\blocks");
+            this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
+
+            this._cameraController.LookAt(Vector3.Down);
+            this._player.SpawnPlayer(new Vector2Int(1000, 1000)); // TODO: client stuff.
+        }
+
+        // TODO: client stuff.
+        public void ToggleFog()
+        {
+            switch (FogState)
+            {
+                case FogState.None:
+                    FogState = FogState.Near;
+                    break;
+                case FogState.Near:
+                    FogState = FogState.Far;
+                    break;
+                case FogState.Far:
+                    FogState = FogState.None;
+                    break;
+            }
+        }
+
+        // TODO: client stuff.
+        public void SpawnPlayer(Vector2Int relativePosition)
+        {
+            Profiler.Start("terrain-generation");
+            for (int z = -ViewRange; z <= ViewRange; z++)
+            {
+                for (int x = -ViewRange; x <= ViewRange; x++)
+                {
+                    var chunk = new Chunk(this, new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
+                    this.Chunks[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
+
+                    if (chunk.RelativePosition == relativePosition) this._player.CurrentChunk = chunk;
+                }
+            }
+
+            this.Chunks.SouthWestEdge = new Vector2Int(relativePosition.X - ViewRange, relativePosition.Z - ViewRange);
+            this.Chunks.NorthEastEdge = new Vector2Int(relativePosition.X + ViewRange, relativePosition.Z + ViewRange);
+
+            BoundingBox = new BoundingBox(new Vector3(this.Chunks.SouthWestEdge.X * Chunk.WidthInBlocks, 0, this.Chunks.SouthWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((this.Chunks.NorthEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.Chunks.NorthEastEdge.Z + 1) * Chunk.LenghtInBlocks));
+
+            this.ChunkBuilder.Start();
         }
 
         #region world-drawer
 
-        public override void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime)
         {
             var viewFrustrum = new BoundingFrustum(this.Camera.View * this.Camera.Projection);
 
@@ -74,7 +200,27 @@ namespace VolumetricStudios.VoxlrClient.GameEngine
             }
         }
 
-
         #endregion
+    }
+
+    // TODO: client stuff.
+    public enum FogState : byte
+    {
+        None,
+        Near,
+        Far
+    }
+
+    /// <summary>
+    /// Statistics interface.
+    /// </summary>
+    public interface IWorldStatisticsService
+    {
+        int TotalChunks { get; }
+        int ChunksDrawn { get; }
+        int GenerationQueueCount { get; }
+        int BuildingQueueCount { get; }
+        bool IsInfinitive { get; }
+        FogState FogState { get; }
     }
 }

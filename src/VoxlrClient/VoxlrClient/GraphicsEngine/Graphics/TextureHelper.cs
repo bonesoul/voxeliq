@@ -18,8 +18,9 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
+using VolumetricStudios.VoxlrEngine.Universe;
 
-namespace VolumetricStudios.VoxlrEngine.Universe.Graphics
+namespace VolumetricStudios.VoxlrClient.GraphicsEngine.Graphics
 {    
     /// <summary>
     /// Provides texture-helper methods like uv-mappings for blocks.

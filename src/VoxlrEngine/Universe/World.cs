@@ -17,11 +17,8 @@
  */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxlrEngine.Profiling;
 using VolumetricStudios.VoxlrEngine.Screen;
 using VolumetricStudios.VoxlrEngine.Utils.Vector;
-using VolumetricStudios.VoxlrEngine.Universe.Builders;
 
 namespace VolumetricStudios.VoxlrEngine.Universe
 {
@@ -31,7 +28,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
     public interface IWorldService
     {
         ChunkManager Chunks { get; }
-        void ToggleFog();
+        //void ToggleFog();
         void ToggleInfinitiveWorld();
         void SetBlock(int x, int y, int z, Block block);
         void SetBlock(Vector3Int position, Block block);
@@ -39,48 +36,10 @@ namespace VolumetricStudios.VoxlrEngine.Universe
     }
 
     /// <summary>
-    /// Statistics interface.
-    /// </summary>
-    public interface IWorldStatisticsService
-    {
-        int TotalChunks { get; }
-        int ChunksDrawn { get; }
-        int GenerationQueueCount { get; }
-        int BuildingQueueCount { get; }
-        bool IsInfinitive { get; }
-        FogState FogState { get; }
-    }
-
-    /// <summary>
     /// World.
     /// </summary>
-    public class World : DrawableGameComponent, IWorldStatisticsService, IWorldService
+    public class World : IWorldService
     {
-        /// <summary>
-        /// block effect.
-        /// </summary>
-        protected Effect _blockEffect;
-
-        /// <summary>
-        /// block texture atlas
-        /// </summary>
-        protected Texture2D _blockTextureAtlas;
-
-        /// <summary>
-        /// crack texture atlas
-        /// </summary>
-        private Texture2D _crackTextureAtlas;        
-
-        /// <summary>
-        /// camera controller
-        /// </summary>
-        private ICameraControlService _cameraController;
-
-        /// <summary>
-        /// player
-        /// </summary>
-        private IPlayer _player;
-
         /// <summary>
         /// fog vectors.
         /// </summary>
@@ -89,12 +48,7 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// <summary>
         /// Chunk manager
         /// </summary>
-        public ChunkManager Chunks { get; private set; }
-
-        /// <summary>
-        /// Chunk builder.
-        /// </summary>
-        public ChunkBuilder ChunkBuilder { get; private set; }
+        public ChunkManager Chunks { get; protected set; }
 
         /// <summary>
         /// Bounding box for the world.
@@ -105,11 +59,6 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// View range for the world.
         /// </summary>
         public const byte ViewRange = 6;
-
-        /// <summary>
-        /// Fog state.
-        /// </summary>
-        public FogState FogState { get; private set; }
 
         /// <summary>
         /// The camera service.
@@ -130,64 +79,14 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         /// Is the world infinitive?
         /// </summary>
         public bool IsInfinitive { get; private set; }
-
-        /// <summary>
-        /// Generation queue count.
-        /// </summary>
-        public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } }
-
-        /// <summary>
-        /// Building queue count.
-        /// </summary>
-        public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } }
         
         /// <summary>
         /// TODO: shouldn't be getting game object really and abstract of game.
         /// </summary>
         /// <param name="game"></param>
-        public World(Game game)
-            : base(game)
+        public World(bool isInfinitive)
         {
-        }
-
-        public override void Initialize()
-        {
-            this.IsInfinitive = true; // set infinitive.
-            this.FogState = FogState.None; // fog-state.
-
-            // TODO: these are client stuff.
-            this.Camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService)); //
-            this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));    
-
-            this.Chunks = new ChunkManager(); // startup the chunk manager.
-            this.ChunkBuilder = new TaskedBuilder(this._player, this); // the chunk builder.        
-
-            this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
-            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\blocks");
-            this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
-
-            this._cameraController.LookAt(Vector3.Down);
-            this._player.SpawnPlayer(new Vector2Int(1000, 1000)); // TODO: client stuff.
-
-            base.Initialize();
-        }
-
-        // TODO: client stuff.
-        public void ToggleFog()
-        {
-            switch (FogState)
-            {
-                case FogState.None:
-                    FogState = FogState.Near;
-                    break;
-                case FogState.Near:
-                    FogState = FogState.Far;
-                    break;
-                case FogState.Far:
-                    FogState = FogState.None;
-                    break;
-            }
+            this.IsInfinitive = isInfinitive;
         }
 
         public void ToggleInfinitiveWorld()
@@ -231,40 +130,5 @@ namespace VolumetricStudios.VoxlrEngine.Universe
         {
             return !this.Chunks.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks) ? null : this.Chunks[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks];
         }
-
-        // TODO: client stuff.
-        public void SpawnPlayer(Vector2Int relativePosition)
-        {
-            Profiler.Start("terrain-generation");
-            for (int z = -ViewRange; z <= ViewRange; z++)
-            {
-                for (int x = -ViewRange; x <= ViewRange; x++)
-                {
-                    var chunk = new Chunk(this, new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
-                    this.Chunks[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
-
-                    if (chunk.RelativePosition == relativePosition) this._player.CurrentChunk = chunk;
-                }
-            }
-
-            this.Chunks.SouthWestEdge = new Vector2Int(relativePosition.X - ViewRange, relativePosition.Z - ViewRange);
-            this.Chunks.NorthEastEdge = new Vector2Int(relativePosition.X + ViewRange, relativePosition.Z + ViewRange);
-
-            BoundingBox = new BoundingBox(new Vector3(this.Chunks.SouthWestEdge.X * Chunk.WidthInBlocks, 0, this.Chunks.SouthWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((this.Chunks.NorthEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.Chunks.NorthEastEdge.Z + 1) * Chunk.LenghtInBlocks));
-            
-            this.ChunkBuilder.Start();
-        }
     }
-
-    #region enums
-
-    // TODO: client stuff.
-    public enum FogState:byte
-    {
-        None,
-        Near,
-        Far
-    }
-
-    #endregion
 }
