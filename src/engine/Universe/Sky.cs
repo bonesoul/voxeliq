@@ -6,6 +6,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 
 namespace VolumetricStudios.VoxeliqEngine.Universe
@@ -23,6 +24,11 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
         private Texture2D _staticCloudMap;
         private VertexPositionTexture[] _fullScreenVertices;
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         private ICameraService _camera;
 
         public bool Dynamic { get; private set; }
@@ -31,6 +37,12 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
             : base(game)
         {
             this.Dynamic = true;
+        }
+
+        public override void Initialize()
+        {
+            Logger.Trace("init()");
+            base.Initialize();
         }
 
         protected override void LoadContent()

@@ -5,17 +5,18 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
 namespace VolumetricStudios.VoxeliqEngine
 {
-    public interface InGameDebuggerService
+    public interface IInGameDebuggerService
     {
         void ToggleInGameDebugger();
     }
 
-    public sealed class InGameDebugger:DrawableGameComponent, InGameDebuggerService
+    public sealed class InGameDebugger:DrawableGameComponent, IInGameDebuggerService
     {
         private ICameraService _camera;
         private IWorldService _world;
@@ -24,10 +25,15 @@ namespace VolumetricStudios.VoxeliqEngine
         private SpriteFont _spriteFont;
         private bool _active = false;
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public InGameDebugger(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(InGameDebuggerService), this);
+            game.Services.AddService(typeof(IInGameDebuggerService), this);
         }
 
         public void ToggleInGameDebugger()
@@ -37,6 +43,8 @@ namespace VolumetricStudios.VoxeliqEngine
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
             this._world = (IWorldService)this.Game.Services.GetService(typeof(IWorldService));
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));

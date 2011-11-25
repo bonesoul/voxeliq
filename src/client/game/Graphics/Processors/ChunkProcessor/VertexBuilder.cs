@@ -14,7 +14,6 @@ using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqClient.Graphics.Processors.ChunkProcessor
 {
-    // TODO: client stuff.
     public static class VertexBuilder
     {
         public static void Build(GraphicsDevice device, Chunk chunk)

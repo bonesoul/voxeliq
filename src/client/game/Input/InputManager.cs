@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VolumetricStudios.VoxeliqClient.Screen;
 using VolumetricStudios.VoxeliqEngine;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
@@ -19,11 +20,16 @@ namespace VolumetricStudios.VoxeliqClient.Input
         private IPlayer _player;
         private IScreenService _screenManager;
         private ICameraControlService _cameraController;
-        private InGameDebuggerService _ingameDebuggerService;
+        private IInGameDebuggerService _ingameDebuggerService;
         private MouseState _oldMouseState;
         private MouseState _oldMouseClickState;
         private KeyboardState _oldKeyboardState;
         private bool _mouseFocused = true;
+
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
 
         public InputManager(Game game)
             : base(game)
@@ -36,11 +42,13 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             this._world = (IWorldService) this.Game.Services.GetService(typeof (IWorldService));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._screenManager = (IScreenService) this.Game.Services.GetService(typeof (IScreenService));
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
-            this._ingameDebuggerService = (InGameDebuggerService)this.Game.Services.GetService(typeof(InGameDebuggerService));
+            this._ingameDebuggerService = (IInGameDebuggerService)this.Game.Services.GetService(typeof(IInGameDebuggerService));
             this._oldKeyboardState = Keyboard.GetState();
             this._oldMouseState = Mouse.GetState();
             this._oldMouseClickState = Mouse.GetState();
@@ -87,7 +95,7 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
             if (_oldKeyboardState.IsKeyUp(Keys.F10) && keyState.IsKeyDown(Keys.F10)) this._ingameDebuggerService.ToggleInGameDebugger();
             if (_oldKeyboardState.IsKeyUp(Keys.F11) && keyState.IsKeyDown(Keys.F11)) this._screenManager.ToggleFPSLimiting();
-            if (_oldKeyboardState.IsKeyUp(Keys.F12) && keyState.IsKeyDown(Keys.F12)) ((Client) Game).ToggleRasterMode();
+            if (_oldKeyboardState.IsKeyUp(Keys.F12) && keyState.IsKeyDown(Keys.F12)) ((Client) Game).Rasterizer.ToggleRasterMode();
 
             this._oldKeyboardState = keyState;
         }

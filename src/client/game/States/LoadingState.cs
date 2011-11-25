@@ -23,7 +23,6 @@ namespace VolumetricStudios.VoxeliqClient.States
         public override void Initialize()
         {
             this._spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            Game.Components.Add(new Universe(this.Game) {UpdateOrder = 2});
         }
 
         public override void LoadContent()

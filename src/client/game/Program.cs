@@ -34,36 +34,15 @@ namespace VolumetricStudios.VoxeliqClient
 
             using (var game = new Client()) // startup voxlr client.
             {
-                Logger.Info("Starting game loop..");
+                Logger.Trace("Starting game loop..");
                 game.Run();
             }
         }
 
         private static void InitLoggers()
         {
-            LogManager.Enabled = true;
-
-            foreach (var targetConfig in LogConfig.Instance.Targets)
-            {
-                if (!targetConfig.Enabled) 
-                    continue;
-
-                LogTarget target = null;
-                switch (targetConfig.Target.ToLower())
-                {
-                    case "console":
-                        target = new ConsoleTarget(targetConfig.MinimumLevel, targetConfig.MaximumLevel,
-                                                   targetConfig.IncludeTimeStamps);
-                        break;
-                    case "file":
-                        target = new FileTarget(targetConfig.FileName, targetConfig.MinimumLevel,
-                                                targetConfig.MaximumLevel, targetConfig.IncludeTimeStamps,
-                                                targetConfig.ResetOnStartup);
-                        break;
-                }
-
-                if (target != null) LogManager.AttachLogTarget(target);
-            }
+            LogManager.Enabled = true; // enable logging facility.
+            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
         }
 
         private static void PrintBanner()

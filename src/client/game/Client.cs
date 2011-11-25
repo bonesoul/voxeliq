@@ -5,11 +5,16 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.VoxeliqClient.Games;
+using VolumetricStudios.VoxeliqClient.Graphics.Helpers;
+using VolumetricStudios.VoxeliqClient.Input;
+using VolumetricStudios.VoxeliqClient.Interface;
+using VolumetricStudios.VoxeliqClient.Interface.Debug;
 using VolumetricStudios.VoxeliqClient.Screen;
-using VolumetricStudios.VoxeliqClient.States;
+using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
+using VolumetricStudios.VoxeliqEngine.Universe;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -21,25 +26,21 @@ namespace VolumetricStudios.VoxeliqClient
         /// <summary>
         /// Graphics device manager.
         /// </summary>
-        private readonly GraphicsDeviceManager _graphicsDeviceManager;       
+        private readonly GraphicsDeviceManager _graphicsDeviceManager;
 
         /// <summary>
-        /// Wire-framed rasterizer.
+        /// Rasterizer helper.
         /// </summary>
-        private readonly RasterizerState _wireframedRaster = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.WireFrame };
+        public readonly Rasterizer Rasterizer;
 
         /// <summary>
-        /// Normal rasterizer.
+        /// Screen manager.
         /// </summary>
-        private readonly RasterizerState _normalRaster = new RasterizerState() { CullMode = CullMode.CullCounterClockwiseFace, FillMode = FillMode.Solid };
-
-        /// <summary>
-        /// Sets if rendering mode is wire-framed.
-        /// </summary>
-        public bool Wireframed { get; private set; }
-
         public ScreenManager ScreenManager { get; private set; }
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         /// <summary>
@@ -47,9 +48,9 @@ namespace VolumetricStudios.VoxeliqClient
         /// </summary>
         public Client()
         {
-            this.Wireframed = false;
-            this.Content.RootDirectory = "Content";
+            this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
+            this.Rasterizer = new Rasterizer();
         }
 
         /// <summary>
@@ -57,13 +58,33 @@ namespace VolumetricStudios.VoxeliqClient
         /// </summary>
         protected override void Initialize()
         {
-            Logger.Info("Game:Initialize()");
+            Logger.Trace("init()");
             this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
             
-            this.ScreenManager = new ScreenManager(this._graphicsDeviceManager, this); // startup the screen manager.
-            this.Components.Add(new StateManager(this) { UpdateOrder = 0, ActiveState = new LoadingState(this) });
+            this.ScreenManager = new ScreenManager(this._graphicsDeviceManager, this); // start the screen manager.
+            // this.Components.Add(new StateManager(this) { UpdateOrder = 0, ActiveState = new LoadingState(this) }); // TODO: introduce back states.
+
+            this.AddComponents(); // add the main compontents.
 
             base.Initialize();
+        }
+
+        /// <summary>
+        /// Adds game-components.
+        /// </summary>
+        private void AddComponents()
+        {           
+            this.Components.Add(new InputManager(this) { UpdateOrder = 0 });
+            this.Components.Add(new Sky(this) { UpdateOrder = 1, DrawOrder = 0 });
+            
+            var world = new GameWorld(this) { UpdateOrder = 2, DrawOrder = 1 };
+            this.Components.Add(world);
+
+            this.Components.Add(new Player(this, world) { UpdateOrder = 3, DrawOrder = 2 });
+            this.Components.Add(new Camera(this) { UpdateOrder = 4 });
+            this.Components.Add(new UserInterface(this) { UpdateOrder = 5, DrawOrder = 3 });
+            this.Components.Add(new InGameDebugger(this) { UpdateOrder = 6, DrawOrder = 4 });
+            this.Components.Add(new Statistics(this) { UpdateOrder = 7, DrawOrder = 5 });
         }
 
         /// <summary>
@@ -79,19 +100,14 @@ namespace VolumetricStudios.VoxeliqClient
         }
 
         /// <summary>
-        /// Draw function.
+        /// Draws the scene.
         /// </summary>
         /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.RasterizerState = !this.Wireframed ? this._normalRaster : this._wireframedRaster; // set the rasterizer state.
-
+            this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
+                
             base.Draw(gameTime);
-        }
-
-        public void ToggleRasterMode()
-        {
-            this.Wireframed = !this.Wireframed;
         }
     }
 }

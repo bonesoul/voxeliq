@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqClient.Games;
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
@@ -36,6 +37,11 @@ namespace VolumetricStudios.VoxeliqClient
         private const float FlySpeed = 25f; // the fly speed.
         private const float Gravity = -15f;
         private const float JumpVelocity = 6f;
+
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
         
         public Player(Game game,GameWorld world)
             : base(game)
@@ -46,6 +52,8 @@ namespace VolumetricStudios.VoxeliqClient
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
             this.FlyingEnabled = true;
             this.Weapon = new Shovel(Game);

@@ -5,40 +5,69 @@
 
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqClient.Configuration;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqClient.Screen
 {
+    /// <summary>
+    /// Screen service for controlling screen.
+    /// </summary>
     public interface IScreenService
     {
         void ToggleFPSLimiting();
     }
 
+    /// <summary>
+    /// The screen manager that controls various graphical aspects.
+    /// </summary>
     public sealed class ScreenManager : IScreenService
     {
-        private bool _fpsLimited=false;
+        /// <summary>
+        /// Limit the game FPS to 60?
+        /// </summary>
+        public bool LimitFPS { get; private set; }
+
+        /// <summary>
+        /// The attached game.
+        /// </summary>
         private readonly Game _game;
+
+        /// <summary>
+        /// Attached graphics device.
+        /// </summary>
         private readonly GraphicsDeviceManager _graphics;
+
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
 
         public ScreenManager(GraphicsDeviceManager graphics, Game game)
         {
-            game.Services.AddService(typeof(IScreenService), this);
+            Logger.Trace("ctor()");
 
-            this._game=game;
-            this._graphics=graphics;
+            this.LimitFPS = false;
+            this._game = game;
+            this._graphics = graphics;
 
-            graphics.IsFullScreen = Settings.IsFullScreen;
-            graphics.PreferredBackBufferWidth = Settings.Width;
-            graphics.PreferredBackBufferHeight = Settings.Height;
-            game.IsFixedTimeStep = false;
-            graphics.SynchronizeWithVerticalRetrace = false;
-            graphics.ApplyChanges();
+            this._game.Services.AddService(typeof(IScreenService), this); // add screen-manager as a service for the game.
+
+            this._graphics.IsFullScreen = Settings.IsFullScreen;
+            this._graphics.PreferredBackBufferWidth = Settings.Width;
+            this._graphics.PreferredBackBufferHeight = Settings.Height;
+            this._game.IsFixedTimeStep = false;
+            this._graphics.SynchronizeWithVerticalRetrace = false;
+            this._graphics.ApplyChanges();
         }
 
+        /// <summary>
+        /// Toggles FPS limiting.
+        /// </summary>
         public void ToggleFPSLimiting()
         {
-            _fpsLimited = !_fpsLimited;
-            this._game.IsFixedTimeStep = _fpsLimited;
-            this._graphics.SynchronizeWithVerticalRetrace = _fpsLimited;
+            LimitFPS = !LimitFPS;
+            this._game.IsFixedTimeStep = LimitFPS;
+            this._graphics.SynchronizeWithVerticalRetrace = LimitFPS;
             this._graphics.ApplyChanges();
         }
     }

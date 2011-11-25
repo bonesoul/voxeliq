@@ -5,21 +5,29 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
 namespace VolumetricStudios.VoxeliqClient.Interface
 {
-    public class UserInterface:DrawableGameComponent
+    public class UserInterface : DrawableGameComponent
     {
         private Texture2D _crosshairNormalTexture;
         private Texture2D _crosshairShovelTexture;
         private SpriteBatch _spriteBatch;
         private IPlayer _player;
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public UserInterface(Game game) : base(game) { }
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             this.LoadContent();

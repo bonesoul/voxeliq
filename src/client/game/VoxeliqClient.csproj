@@ -119,7 +119,7 @@
     <Compile Include="Graphics\Graphics\TextureHelper.cs" />
     <Compile Include="Graphics\Processors\ChunkProcessor\Lightning.cs" />
     <Compile Include="Graphics\Processors\ChunkProcessor\VertexBuilder.cs" />
-    <Compile Include="Graphics\Worlds\WorldRenderer.cs" />
+    <Compile Include="Graphics\Helpers\Rasterizer.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\Debug\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
@@ -131,7 +131,6 @@
     <Compile Include="States\PlayingState.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="States\TitleState.cs" />
-    <Compile Include="Games\Universe.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Screen\Camera.cs" />

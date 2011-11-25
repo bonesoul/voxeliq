@@ -7,6 +7,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqClient.Games;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
@@ -25,7 +26,18 @@ namespace VolumetricStudios.VoxeliqClient.Interface.Debug
         private ICameraService _camera;
         private IPlayer _player;
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public Statistics(Game game) : base(game) { }
+
+        public override void Initialize()
+        {
+            Logger.Trace("init()");
+            base.Initialize();
+        }
 
         protected override void LoadContent()
         {

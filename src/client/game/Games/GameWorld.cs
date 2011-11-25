@@ -7,6 +7,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqClient.Graphics.Builders;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Profiling;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
@@ -88,6 +89,11 @@ namespace VolumetricStudios.VoxeliqClient.Games
 
         public int UpdateOrder { get; set; }
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public GameWorld(Game game):
             base(true) // set world to infinitive.
         {
@@ -98,6 +104,8 @@ namespace VolumetricStudios.VoxeliqClient.Games
 
         public void Initialize()
         {
+            Logger.Trace("init()");
+
             this.FogState = FogState.None; // fog-state.
 
             // TODO: these are client stuff.

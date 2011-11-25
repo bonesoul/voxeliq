@@ -4,6 +4,7 @@
  */
 
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
@@ -25,6 +26,11 @@ namespace VolumetricStudios.VoxeliqClient.Screen
         private const float RotationSpeed = 0.025f; // the rotation speed.
         private float _aspectRatio; //aspect ratio of the field of view (width/height). 
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         public Camera(Game game)
             : base(game)
         {
@@ -34,6 +40,8 @@ namespace VolumetricStudios.VoxeliqClient.Screen
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             this._aspectRatio = Game.GraphicsDevice.Viewport.AspectRatio;
             this.World = Matrix.Identity;
