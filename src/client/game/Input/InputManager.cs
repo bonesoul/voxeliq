@@ -7,6 +7,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VolumetricStudios.VoxeliqClient.Screen;
+using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
 using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
@@ -16,15 +17,55 @@ namespace VolumetricStudios.VoxeliqClient.Input
 {
     public class InputManager : GameComponent
     {
+        /// <summary>
+        /// IWorldService to interract with the world.
+        /// </summary>
         private IWorldService _world;
+
+        /// <summary>
+        /// IPlayerService to interract with the player.
+        /// </summary>
         private IPlayer _player;
+
+        /// <summary>
+        /// IScreenService to interrract with screen manager.
+        /// </summary>
         private IScreenService _screenManager;
+
+        /// <summary>
+        /// ICameraContoller to interract with the camera.
+        /// </summary>
         private ICameraControlService _cameraController;
+
+        /// <summary>
+        /// IInGameDebuggerService to interract with the ingame debugger.
+        /// </summary>
         private IInGameDebuggerService _ingameDebuggerService;
+
+        /// <summary>
+        /// IForService to interract with fog-effect.
+        /// </summary>
+        private IFogService _fogService;
+
+        /// <summary>
+        /// The last known mouse state.
+        /// </summary>
         private MouseState _oldMouseState;
+
+        /// <summary>
+        /// The last known mouse click state.
+        /// </summary>
         private MouseState _oldMouseClickState;
+
+        /// <summary>
+        /// The last known keyboard state.
+        /// </summary>
         private KeyboardState _oldKeyboardState;
-        private bool _mouseFocused = true;
+
+        /// <summary>
+        /// Is cursor captured in game window?
+        /// </summary>
+        public bool MouseFocused { get; private set; }
 
         /// <summary>
         /// Logging facility.
@@ -34,7 +75,9 @@ namespace VolumetricStudios.VoxeliqClient.Input
         public InputManager(Game game)
             : base(game)
         {
+            this.MouseFocused = true;
             this.CenterMouse();    
+
             #if DEBUG 
             this.PrintDebugKeys(); 
             #endif
@@ -44,11 +87,15 @@ namespace VolumetricStudios.VoxeliqClient.Input
         {
             Logger.Trace("init()");
 
+            // chain the required services.
             this._world = (IWorldService) this.Game.Services.GetService(typeof (IWorldService));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._screenManager = (IScreenService) this.Game.Services.GetService(typeof (IScreenService));
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
             this._ingameDebuggerService = (IInGameDebuggerService)this.Game.Services.GetService(typeof(IInGameDebuggerService));
+            this._fogService = (IFogService) this.Game.Services.GetService(typeof (IFogService));
+
+            // get current mouse & keyboard states.
             this._oldKeyboardState = Keyboard.GetState();
             this._oldMouseState = Mouse.GetState();
             this._oldMouseClickState = Mouse.GetState();
@@ -63,7 +110,7 @@ namespace VolumetricStudios.VoxeliqClient.Input
         private void ProcessMouse()
         {
             MouseState currentState = Mouse.GetState();
-            if (currentState == this._oldMouseState || !this._mouseFocused) return;
+            if (currentState == this._oldMouseState || !this.MouseFocused) return;
 
             float rotation = currentState.X - this._oldMouseState.X;
             if (rotation != 0) _cameraController.RotateCamera(rotation);
@@ -90,8 +137,8 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
             if (_oldKeyboardState.IsKeyUp(Keys.F1) && keyState.IsKeyDown(Keys.F1)) this._world.ToggleInfinitiveWorld();
             if (_oldKeyboardState.IsKeyUp(Keys.F2) && keyState.IsKeyDown(Keys.F2)) this._player.ToggleFlyForm();
-            //if (_oldKeyboardState.IsKeyUp(Keys.F3) && keyState.IsKeyDown(Keys.F3)) this._world.ToggleFog();
-            if (_oldKeyboardState.IsKeyUp(Keys.F4) && keyState.IsKeyDown(Keys.F4)) this._mouseFocused = !this._mouseFocused;
+            if (_oldKeyboardState.IsKeyUp(Keys.F3) && keyState.IsKeyDown(Keys.F3)) this._fogService.ToggleFog();
+            if (_oldKeyboardState.IsKeyUp(Keys.F4) && keyState.IsKeyDown(Keys.F4)) this.MouseFocused = !this.MouseFocused;
 
             if (_oldKeyboardState.IsKeyUp(Keys.F10) && keyState.IsKeyDown(Keys.F10)) this._ingameDebuggerService.ToggleInGameDebugger();
             if (_oldKeyboardState.IsKeyUp(Keys.F11) && keyState.IsKeyDown(Keys.F11)) this._screenManager.ToggleFPSLimiting();

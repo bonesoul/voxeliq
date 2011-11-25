@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe
+namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
 {
     // TODO: client stuff.
     public class Sky: DrawableGameComponent

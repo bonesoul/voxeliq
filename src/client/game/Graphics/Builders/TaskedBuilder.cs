@@ -4,7 +4,7 @@
  */
 
 using System.Threading.Tasks;
-using VolumetricStudios.VoxeliqClient.Games;
+using VolumetricStudios.VoxeliqClient.Worlds;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
 namespace VolumetricStudios.VoxeliqClient.Graphics.Builders

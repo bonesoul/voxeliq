@@ -7,29 +7,20 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqClient.Graphics.Builders;
+using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Profiling;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqClient.Games
+namespace VolumetricStudios.VoxeliqClient.Worlds
 {
     /// <summary>
     /// The game world.
     /// </summary>
     public class GameWorld : World, IGameComponent, IDrawable, IWorldStatisticsService
-    {
-        /// <summary>
-        /// fog vectors.
-        /// </summary>
-        private readonly Vector2[] _fogVectors = new[] { new Vector2(0, 0), new Vector2(175, 250), new Vector2(250, 400) };
-
-        /// <summary>
-        /// Fog state.
-        /// </summary>
-        public FogState FogState { get; private set; }
-
+    {        
         /// <summary>
         /// camera controller
         /// </summary>
@@ -90,6 +81,11 @@ namespace VolumetricStudios.VoxeliqClient.Games
         public int UpdateOrder { get; set; }
 
         /// <summary>
+        /// IForService to interract with fog-effect.
+        /// </summary>
+        private IFogService _fogService;
+
+        /// <summary>
         /// Logging facility.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
@@ -105,13 +101,11 @@ namespace VolumetricStudios.VoxeliqClient.Games
         public void Initialize()
         {
             Logger.Trace("init()");
-
-            this.FogState = FogState.None; // fog-state.
-
-            // TODO: these are client stuff.
+            
             this.Camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService)); //
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
+            this._fogService = (IFogService)this.Game.Services.GetService(typeof(IFogService));
 
             this.Chunks = new ChunkManager(); // startup the chunk manager.
             this.ChunkBuilder = new QueuedBuilder(this._player, this); // the chunk builder.        
@@ -122,24 +116,7 @@ namespace VolumetricStudios.VoxeliqClient.Games
 
             this._cameraController.LookAt(Vector3.Down);
             this._player.SpawnPlayer(new Vector2Int(1000, 1000)); // TODO: client stuff.
-        }
-
-        // TODO: client stuff.
-        public void ToggleFog()
-        {
-            switch (FogState)
-            {
-                case FogState.None:
-                    FogState = FogState.Near;
-                    break;
-                case FogState.Near:
-                    FogState = FogState.Far;
-                    break;
-                case FogState.Far:
-                    FogState = FogState.None;
-                    break;
-            }
-        }
+        }       
 
         // TODO: client stuff.
         public void SpawnPlayer(Vector2Int relativePosition)
@@ -178,8 +155,8 @@ namespace VolumetricStudios.VoxeliqClient.Games
             _blockEffect.Parameters["Projection"].SetValue(this.Camera.Projection);
             _blockEffect.Parameters["CameraPosition"].SetValue(this.Camera.Position);
             _blockEffect.Parameters["FogColor"].SetValue(Color.White.ToVector4());
-            _blockEffect.Parameters["FogNear"].SetValue(this._fogVectors[(byte)this.FogState].X);
-            _blockEffect.Parameters["FogFar"].SetValue(this._fogVectors[(byte)this.FogState].Y);
+            _blockEffect.Parameters["FogNear"].SetValue(this._fogService.FogVector.X);
+            _blockEffect.Parameters["FogFar"].SetValue(this._fogService.FogVector.Y);
             _blockEffect.Parameters["SunColor"].SetValue(Color.White.ToVector3());
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
 
@@ -208,14 +185,6 @@ namespace VolumetricStudios.VoxeliqClient.Games
         #endregion
     }
 
-    // TODO: client stuff.
-    public enum FogState : byte
-    {
-        None,
-        Near,
-        Far
-    }
-
     /// <summary>
     /// Statistics interface.
     /// </summary>
@@ -226,6 +195,5 @@ namespace VolumetricStudios.VoxeliqClient.Games
         int GenerationQueueCount { get; }
         int BuildingQueueCount { get; }
         bool IsInfinitive { get; }
-        FogState FogState { get; }
     }
 }

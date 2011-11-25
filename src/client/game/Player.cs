@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqClient.Games;
+using VolumetricStudios.VoxeliqClient.Worlds;
 using VolumetricStudios.VoxeliqEngine.Blocks;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;

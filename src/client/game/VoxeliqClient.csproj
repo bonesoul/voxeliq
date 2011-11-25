@@ -111,7 +111,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Games\GameWorld.cs" />
+    <Compile Include="Worlds\Enviromental\Fogger.cs" />
+    <Compile Include="Worlds\Enviromental\IFogService.cs" />
+    <Compile Include="Worlds\Enviromental\ISkyService.cs" />
+    <Compile Include="Worlds\Enviromental\Sky.cs" />
+    <Compile Include="Worlds\GameWorld.cs" />
     <Compile Include="Graphics\Builders\ChunkBuilder.cs" />
     <Compile Include="Graphics\Builders\QueuedBuilder.cs" />
     <Compile Include="Graphics\Builders\TaskedBuilder.cs" />

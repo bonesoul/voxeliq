@@ -6,7 +6,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqClient.Games;
+using VolumetricStudios.VoxeliqClient.Worlds;
+using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
@@ -27,6 +28,11 @@ namespace VolumetricStudios.VoxeliqClient.Interface.Debug
         private IPlayer _player;
 
         /// <summary>
+        /// IForService to interract with fog-effect.
+        /// </summary>
+        private IFogService _fogService;
+
+        /// <summary>
         /// Logging facility.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
@@ -41,9 +47,12 @@ namespace VolumetricStudios.VoxeliqClient.Interface.Debug
 
         protected override void LoadContent()
         {
+            // chain the required services.
             this._worldStatistics = (IWorldStatisticsService)this.Game.Services.GetService(typeof(IWorldStatisticsService));
             this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
+            this._fogService = (IFogService)this.Game.Services.GetService(typeof(IFogService));
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
         }
@@ -72,7 +81,7 @@ namespace VolumetricStudios.VoxeliqClient.Interface.Debug
             _spriteBatch.DrawString(_spriteFont, "gen/buildQ: " + this._worldStatistics.GenerationQueueCount + "/" + this._worldStatistics.BuildingQueueCount, new Vector2(320, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Inf: " + (this._worldStatistics.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
             _spriteBatch.DrawString(_spriteFont, "Fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "Fog: " + this._worldStatistics.FogState, new Vector2(120, 35), Color.White);            
+            _spriteBatch.DrawString(_spriteFont, "Fog: " + this._fogService.State, new Vector2(120, 35), Color.White);            
             _spriteBatch.End();
         }
 

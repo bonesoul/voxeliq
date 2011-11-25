@@ -6,15 +6,15 @@
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using VolumetricStudios.VoxeliqClient.Games;
 using VolumetricStudios.VoxeliqClient.Graphics.Helpers;
 using VolumetricStudios.VoxeliqClient.Input;
 using VolumetricStudios.VoxeliqClient.Interface;
 using VolumetricStudios.VoxeliqClient.Interface.Debug;
 using VolumetricStudios.VoxeliqClient.Screen;
+using VolumetricStudios.VoxeliqClient.Worlds;
+using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
 using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
-using VolumetricStudios.VoxeliqEngine.Universe;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -62,7 +62,7 @@ namespace VolumetricStudios.VoxeliqClient
             this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
             
             this.ScreenManager = new ScreenManager(this._graphicsDeviceManager, this); // start the screen manager.
-            // this.Components.Add(new StateManager(this) { UpdateOrder = 0, ActiveState = new LoadingState(this) }); // TODO: introduce back states.
+            // this.Components.Add(new StateManager(this) { UpdateOrder = 0, ActiveState = new LoadingState(this) }); // TODO: introduce back states. /raist.
 
             this.AddComponents(); // add the main compontents.
 
@@ -75,16 +75,17 @@ namespace VolumetricStudios.VoxeliqClient
         private void AddComponents()
         {           
             this.Components.Add(new InputManager(this) { UpdateOrder = 0 });
-            this.Components.Add(new Sky(this) { UpdateOrder = 1, DrawOrder = 0 });
+            this.Components.Add(new Sky(this) { UpdateOrder = 1, DrawOrder = 0 });            
             
             var world = new GameWorld(this) { UpdateOrder = 2, DrawOrder = 1 };
             this.Components.Add(world);
 
-            this.Components.Add(new Player(this, world) { UpdateOrder = 3, DrawOrder = 2 });
-            this.Components.Add(new Camera(this) { UpdateOrder = 4 });
-            this.Components.Add(new UserInterface(this) { UpdateOrder = 5, DrawOrder = 3 });
-            this.Components.Add(new InGameDebugger(this) { UpdateOrder = 6, DrawOrder = 4 });
-            this.Components.Add(new Statistics(this) { UpdateOrder = 7, DrawOrder = 5 });
+            this.Components.Add(new Fogger(this) { UpdateOrder = 3 });
+            this.Components.Add(new Player(this, world) { UpdateOrder = 4, DrawOrder = 2 });
+            this.Components.Add(new Camera(this) { UpdateOrder = 5 });
+            this.Components.Add(new UserInterface(this) { UpdateOrder = 6, DrawOrder = 3 });
+            this.Components.Add(new InGameDebugger(this) { UpdateOrder = 7, DrawOrder = 4 });
+            this.Components.Add(new Statistics(this) { UpdateOrder = 8, DrawOrder = 5 });
         }
 
         /// <summary>

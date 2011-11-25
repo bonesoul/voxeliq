@@ -5,7 +5,6 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqClient.Games;
 
 namespace VolumetricStudios.VoxeliqClient.States
 {
