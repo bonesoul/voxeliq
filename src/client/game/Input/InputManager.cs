@@ -97,7 +97,7 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
             // get current mouse & keyboard states.
             this._oldKeyboardState = Keyboard.GetState();
-            this._oldMouseState = Mouse.GetState();
+            this._oldMouseState = Mouse.GetState(); // You realize this is just center of the screen and it never changes? /fasbat
             this._oldMouseClickState = Mouse.GetState();
         }
 
@@ -110,7 +110,9 @@ namespace VolumetricStudios.VoxeliqClient.Input
         private void ProcessMouse()
         {
             MouseState currentState = Mouse.GetState();
-            if (currentState == this._oldMouseState || !this.MouseFocused) return;
+
+            // Hold your mouse still and dig without this change ;) /fabsat
+            if ((currentState == this._oldMouseState && currentState == this._oldMouseClickState) || !this.MouseFocused) return;
 
             float rotation = currentState.X - this._oldMouseState.X;
             if (rotation != 0) _cameraController.RotateCamera(rotation);

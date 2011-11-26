@@ -153,8 +153,13 @@ namespace VolumetricStudios.VoxeliqClient
             testVector.Normalize();
             testVector *= moveVector.Length() + 0.3f;
             var footPosition = Position + new Vector3(0f, -0.5f, 0f);
-            Vector3 testPosition = footPosition + testVector;            
+            Vector3 testPosition = footPosition + testVector;
             if(_world.BlockAt(testPosition).Exists) return;
+
+            // There should be some bounding box so his head does not enter a block above ;) /fasbat
+            testPosition -= 2 * new Vector3(0f, -0.5f, 0f);
+            if (_world.BlockAt(testPosition).Exists) return;
+
 
             this.Position += moveVector;
         }
