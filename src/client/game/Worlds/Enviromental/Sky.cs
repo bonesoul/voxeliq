@@ -11,16 +11,39 @@ using VolumetricStudios.VoxeliqEngine.Screen;
 
 namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
 {
-    public class Sky: DrawableGameComponent
+    /// <summary>
+    /// Sky.
+    /// </summary>
+    public class Sky : DrawableGameComponent, ISkyService
     {
-        // the sky dome
+        /// <summary>
+        /// Sky dome model.
+        /// </summary>
         private Model _dome;
+
+        /// <summary>
+        /// Cloud map.
+        /// </summary>
         private Texture2D _cloudMap;
+
+        /// <summary>
+        /// Cloud map for gpu generated clouds.
+        /// </summary>
+        private Texture2D _staticCloudMap;
+
+        /// <summary>
+        /// Noitse.
+        /// </summary>
         private Effect _perlinNoiseEffect;
+
+        /// <summary>
+        /// Render target for clouds.
+        /// </summary>
         private RenderTarget2D _cloudsRenderTarget;
 
-        // the gpu generated clouds
-        private Texture2D _staticCloudMap;
+        /// <summary>
+        /// Full screen vertices.
+        /// </summary>
         private VertexPositionTexture[] _fullScreenVertices;
 
         /// <summary>
@@ -28,68 +51,69 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
+        /// <summary>
+        /// ICameraService to interract with camera.
+        /// </summary>
         private ICameraService _camera;
 
-        public bool Dynamic { get; private set; }
+        /// <summary>
+        /// Enables dynamic clouds.
+        /// </summary>
+        public bool DynamicCloudsEnabled { get; private set; }
 
-        public Sky(Game game)
+        public Sky(Game game, bool enableDynamicClouds = true)
             : base(game)
         {
-            this.Dynamic = true;
+            this.DynamicCloudsEnabled = enableDynamicClouds;
+            this.Game.Services.AddService(typeof(ISkyService), this);
         }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
+
+            // chain to required game services.
+            this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            if (!Enabled) return;
+            if (!this.Enabled) 
+                return;           
 
-            this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
+            // load required assets.
+            this._dome = Game.Content.Load<Model>("Models\\SkyDome");
+            this._dome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
+            this._cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");
+            this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
 
-            _dome = Game.Content.Load<Model>("Models\\SkyDome");
-            _dome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
-            _cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");
-            _perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
-
-            PresentationParameters presentation = GraphicsDevice.PresentationParameters;
+            var presentation = GraphicsDevice.PresentationParameters;
             this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentation.BackBufferWidth, presentation.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            
-            this._staticCloudMap = CreateStaticCloudMap(32);
+            this._staticCloudMap = this.CreateStaticCloudMap(32);
             this._fullScreenVertices = SetUpFullscreenVertices();
         }
 
-        private Texture2D CreateStaticCloudMap(int resolution)
+        /// <summary>
+        /// Toggled dynamic clouds.
+        /// </summary>
+        public void ToggleDynamicClouds()
         {
-            var rand = new Random();
-            var noisyColors = new Color[resolution * resolution];
-            for (int x = 0; x < resolution; x++)
-                for (int y = 0; y < resolution; y++)
-                    noisyColors[x + y * resolution] = new Color(new Vector3((float)rand.Next(1000) / 1000.0f, 0, 0));
-
-            var noiseImage = new Texture2D(GraphicsDevice, resolution, resolution, true, SurfaceFormat.Color);
-            noiseImage.SetData(noisyColors);
-            return noiseImage;
+            this.DynamicCloudsEnabled = !this.DynamicCloudsEnabled;
         }
 
-        private VertexPositionTexture[] SetUpFullscreenVertices()
-        {
-            var vertices = new VertexPositionTexture[4];
-
-            vertices[0] = new VertexPositionTexture(new Vector3(-1, 1, 0f), new Vector2(0, 1));
-            vertices[1] = new VertexPositionTexture(new Vector3(1, 1, 0f), new Vector2(1, 1));
-            vertices[2] = new VertexPositionTexture(new Vector3(-1, -1, 0f), new Vector2(0, 0));
-            vertices[3] = new VertexPositionTexture(new Vector3(1, -1, 0f), new Vector2(1, 0));
-
-            return vertices;
-        }
-
+        /// <summary>
+        /// Draws the sky.
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            if (!Enabled) return;
-            if(Dynamic) this.GenerateClouds(gameTime);
+            if (!Enabled) 
+                return;
+
+            if (this.DynamicCloudsEnabled) // if dynamic-cloud generation is on, generate them.
+                this.GenerateClouds(gameTime);
 
             this.GraphicsDevice.Clear(Color.WhiteSmoke);
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
@@ -97,10 +121,14 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
             var modelTransforms = new Matrix[this._dome.Bones.Count];
             this._dome.CopyAbsoluteBoneTransformsTo(modelTransforms);
 
-            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)* Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y-40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
-            foreach(ModelMesh mesh in _dome.Meshes)
+            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100) *
+                         Matrix.CreateTranslation(
+                            new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            
+                       
+            foreach (var mesh in _dome.Meshes)
             {
-                foreach(Effect currentEffect in mesh.Effects)
+                foreach (var currentEffect in mesh.Effects)
                 {
                     var worldMatrix = modelTransforms[mesh.ParentBone.Index] * matrix;
                     currentEffect.CurrentTechnique = currentEffect.Techniques["SkyDome"];
@@ -115,6 +143,31 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
             }
 
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        }
+
+        private static VertexPositionTexture[] SetUpFullscreenVertices()
+        {
+            var vertices = new VertexPositionTexture[4];
+
+            vertices[0] = new VertexPositionTexture(new Vector3(-1, 1, 0f), new Vector2(0, 1));
+            vertices[1] = new VertexPositionTexture(new Vector3(1, 1, 0f), new Vector2(1, 1));
+            vertices[2] = new VertexPositionTexture(new Vector3(-1, -1, 0f), new Vector2(0, 0));
+            vertices[3] = new VertexPositionTexture(new Vector3(1, -1, 0f), new Vector2(1, 0));
+
+            return vertices;
+        }
+
+        private Texture2D CreateStaticCloudMap(int resolution)
+        {
+            var rand = new Random();
+            var noisyColors = new Color[resolution * resolution];
+            for (int x = 0; x < resolution; x++)
+                for (int y = 0; y < resolution; y++)
+                    noisyColors[x + y * resolution] = new Color(new Vector3(rand.Next(1000) / 1000.0f, 0, 0));
+
+            var noiseImage = new Texture2D(GraphicsDevice, resolution, resolution, true, SurfaceFormat.Color);
+            noiseImage.SetData(noisyColors);
+            return noiseImage;
         }
 
         private void GenerateClouds(GameTime gameTime)

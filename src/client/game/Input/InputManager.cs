@@ -43,9 +43,14 @@ namespace VolumetricStudios.VoxeliqClient.Input
         private IInGameDebuggerService _ingameDebuggerService;
 
         /// <summary>
-        /// IForService to interract with fog-effect.
+        /// IFogService to interract with fog-effect.
         /// </summary>
         private IFogService _fogService;
+
+        /// <summary>
+        /// ISkyService to interract with the sky.
+        /// </summary>
+        private ISkyService _skyService;
 
         /// <summary>
         /// The last known mouse state.
@@ -94,6 +99,7 @@ namespace VolumetricStudios.VoxeliqClient.Input
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
             this._ingameDebuggerService = (IInGameDebuggerService)this.Game.Services.GetService(typeof(IInGameDebuggerService));
             this._fogService = (IFogService) this.Game.Services.GetService(typeof (IFogService));
+            this._skyService = (ISkyService)this.Game.Services.GetService(typeof(ISkyService));
 
             // get current mouse & keyboard states.
             this._oldKeyboardState = Keyboard.GetState();
@@ -140,7 +146,8 @@ namespace VolumetricStudios.VoxeliqClient.Input
             if (_oldKeyboardState.IsKeyUp(Keys.F1) && keyState.IsKeyDown(Keys.F1)) this._world.ToggleInfinitiveWorld();
             if (_oldKeyboardState.IsKeyUp(Keys.F2) && keyState.IsKeyDown(Keys.F2)) this._player.ToggleFlyForm();
             if (_oldKeyboardState.IsKeyUp(Keys.F3) && keyState.IsKeyDown(Keys.F3)) this._fogService.ToggleFog();
-            if (_oldKeyboardState.IsKeyUp(Keys.F4) && keyState.IsKeyDown(Keys.F4)) this.MouseFocused = !this.MouseFocused;
+            if (_oldKeyboardState.IsKeyUp(Keys.F4) && keyState.IsKeyDown(Keys.F4)) this._skyService.ToggleDynamicClouds();
+            if (_oldKeyboardState.IsKeyUp(Keys.F5) && keyState.IsKeyDown(Keys.F5)) this.MouseFocused = !this.MouseFocused;
 
             if (_oldKeyboardState.IsKeyUp(Keys.F10) && keyState.IsKeyDown(Keys.F10)) this._ingameDebuggerService.ToggleInGameDebugger();
             if (_oldKeyboardState.IsKeyUp(Keys.F11) && keyState.IsKeyDown(Keys.F11)) this._screenManager.ToggleFPSLimiting();
@@ -161,7 +168,8 @@ namespace VolumetricStudios.VoxeliqClient.Input
             Debug.WriteLine("F1: Infinitive-world: On/Off.");
             Debug.WriteLine("F2: Fly-mode: On/Off.");
             Debug.WriteLine("F3: Fog-mode: None/Near/Far.");
-            Debug.WriteLine("F4: Window-focus: On/Off.");
+            Debug.WriteLine("F4: Dynamic Clouds: On/Off.");
+            Debug.WriteLine("F5: Window-focus: On/Off.");
             Debug.WriteLine("F10: In-game Debugger: On/Off.");
             Debug.WriteLine("F11: Frame-limiter: On/Off.");
             Debug.WriteLine("F12: Wireframe mode: On/Off.");

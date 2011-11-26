@@ -7,5 +7,9 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
 {
     public interface ISkyService
     {
+        /// <summary>
+        /// Toggled dynamic clouds.
+        /// </summary>
+        void ToggleDynamicClouds();
     }
 }
