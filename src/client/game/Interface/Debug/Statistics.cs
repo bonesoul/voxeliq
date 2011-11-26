@@ -69,15 +69,33 @@ namespace VolumetricStudios.VoxeliqClient.Interface.Debug
 
         public override void Draw(GameTime gameTime)
         {
+            // Attention: DO NOT use string.format as it's slower than string concat: https://www.assembla.com/wiki/show/voxlr/StringFormat_vs_StringConcat
+
             _frameCounter++;
 
-            _spriteBatch.Begin();
-            // Attention: DO NOT use string.format as it's slower than string concat: https://www.assembla.com/wiki/show/voxlr/StringFormat_vs_StringConcat
+            string drawnBlocksText;
+            string totalBlocksText;
+
+            if (this._worldStatistics.ChunksDrawn >= 31)
+                drawnBlocksText = (this._worldStatistics.ChunksDrawn / 31f).ToString("F2") + "M";
+            else if (this._worldStatistics.ChunksDrawn > 1)
+                drawnBlocksText = (this._worldStatistics.ChunksDrawn / 0.03f).ToString("F2") + "K";
+            else
+                drawnBlocksText = "0";
+
+            if (this._worldStatistics.TotalChunks > 31)
+                totalBlocksText = (this._worldStatistics.TotalChunks / 31f).ToString("F2") + "M";
+            else if (this._worldStatistics.TotalChunks > 1)
+                totalBlocksText = (this._worldStatistics.TotalChunks / 0.03f).ToString("F2") + "K";
+            else
+                totalBlocksText = Chunk.Volume.ToString();
+
+            _spriteBatch.Begin();            
             _spriteBatch.DrawString(_spriteFont, "fps: " + _fps, new Vector2(5, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "mem: " +  this.GetSize(GC.GetTotalMemory(false)), new Vector2(75, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "chunks: " + this._worldStatistics.ChunksDrawn + "/" + this._worldStatistics.TotalChunks, new Vector2(5, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "blocks: " + this._worldStatistics.ChunksDrawn * Chunk.Volume + "/" + this._worldStatistics.TotalChunks * Chunk.Volume, new Vector2(130, 20), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "blocks: " + drawnBlocksText + "/" + totalBlocksText, new Vector2(130, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "gen/buildQ: " + this._worldStatistics.GenerationQueueCount + "/" + this._worldStatistics.BuildingQueueCount, new Vector2(320, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "Inf: " + (this._worldStatistics.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
             _spriteBatch.DrawString(_spriteFont, "Fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);

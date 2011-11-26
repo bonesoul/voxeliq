@@ -97,7 +97,7 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
             var modelTransforms = new Matrix[this._dome.Bones.Count];
             this._dome.CopyAbsoluteBoneTransformsTo(modelTransforms);
 
-            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)* Matrix.CreateTranslation(_camera.Position); // move sky to camera position and should be scaled -- bigger than the world.
+            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)* Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y-40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
             foreach(ModelMesh mesh in _dome.Meshes)
             {
                 foreach(Effect currentEffect in mesh.Effects)
