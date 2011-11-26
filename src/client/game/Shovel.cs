@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqEngine.Blocks;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;
+using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -32,7 +33,10 @@ namespace VolumetricStudios.VoxeliqClient
 
         public override void SecondaryUse()
         {
-            if (!_player.AimedSolidBlock.HasValue) return;
+            // Test for not pushing the player into walls.. this really should be handled differently /fasbat
+            if (!_player.AimedEmptyBlock.HasValue 
+                || _player.AimedEmptyBlock.Value.Position == new Vector3Int(_player.Position + new Vector3(0f, -0.5f, 0f)))
+                return;
             _world.SetBlock(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
         }
 
