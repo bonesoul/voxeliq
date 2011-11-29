@@ -4,7 +4,6 @@
  */
 
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqClient.Configuration;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqClient.Screen
@@ -52,9 +51,9 @@ namespace VolumetricStudios.VoxeliqClient.Screen
 
             this._game.Services.AddService(typeof(IScreenService), this); // add screen-manager as a service for the game.
 
-            this._graphics.IsFullScreen = Settings.IsFullScreen;
-            this._graphics.PreferredBackBufferWidth = Settings.Width;
-            this._graphics.PreferredBackBufferHeight = Settings.Height;
+            this._graphics.IsFullScreen = ScreenConfig.Instance.FullScreenEnabled;
+            this._graphics.PreferredBackBufferWidth = ScreenConfig.Instance.ScreenWidth;
+            this._graphics.PreferredBackBufferHeight = ScreenConfig.Instance.ScreenHeight;
             this._game.IsFixedTimeStep = false;
             this._graphics.SynchronizeWithVerticalRetrace = false;
             this._graphics.ApplyChanges();
