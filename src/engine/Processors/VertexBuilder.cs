@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using VolumetricStudios.VoxeliqClient.Graphics.Graphics;
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Chunks;
+using VolumetricStudios.VoxeliqEngine.Texture;
 using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqClient.Graphics.Processors.ChunkProcessor
+namespace VolumetricStudios.VoxeliqEngine.Processors
 {
     public static class VertexBuilder
     {

@@ -4,32 +4,32 @@
  */
 
 using System.Threading.Tasks;
-using VolumetricStudios.VoxeliqClient.Worlds;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Universe;
 
-namespace VolumetricStudios.VoxeliqClient.Graphics.Builders
+namespace VolumetricStudios.VoxeliqEngine.Builders
 {
     // pattern used: http://stackoverflow.com/questions/3700724/what-is-the-blockingcollection-takefromany-method-useful-for
 
     public class TaskedBuilder : ChunkBuilder
     {
-        public TaskedBuilder(IPlayer player, GameWorld world) : base(player, world) { }
+        public TaskedBuilder(IPlayer player, World world) : base(player, world) { }
 
         protected override void QueueChunks()
         {
-            foreach (Chunk chunk in _world.Chunks.Values)
+            foreach (Chunk chunk in World.Chunks.Values)
             {
                 if (!chunk.Generated && !chunk.QueuedForGeneration)
                 {
                     chunk.QueuedForGeneration = true;
-                    this._generationQueue.Add(chunk);
+                    this.GenerationQueue.Add(chunk);
                     Task.Factory.StartNew(Process);
                 }
 
                 if (chunk.Dirty && !chunk.QueuedForBuilding)
                 {
                     chunk.QueuedForBuilding = true;
-                    this._buildingQueue.Add(chunk);
+                    this.BuildingQueue.Add(chunk);
                     Task.Factory.StartNew(Process);
                 }
             }

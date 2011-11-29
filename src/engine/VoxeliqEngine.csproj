@@ -95,24 +95,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\ChunkBuilder.cs" />
+    <Compile Include="Builders\QueuedBuilder.cs" />
+    <Compile Include="Builders\TaskedBuilder.cs" />
     <Compile Include="Common\Config\Config.cs" />
     <Compile Include="Common\Config\ConfigManager.cs" />
     <Compile Include="Common\Helpers\IO\FileHelpers.cs" />
     <Compile Include="Common\Helpers\Math\FastRandom.cs" />
     <Compile Include="Common\Logging\LogConfig.cs" />
     <Compile Include="Common\Logging\TinyLogger.cs" />
+    <Compile Include="Processors\Lightning.cs" />
+    <Compile Include="Processors\VertexBuilder.cs" />
+    <Compile Include="Texture\DualTextured.cs" />
+    <Compile Include="Texture\TextureHelper.cs" />
     <Compile Include="InGameDebugger.cs" />
     <Compile Include="Universe\BlockVertex.cs" />
-    <Compile Include="Universe\ChunkManager.cs" />
+    <Compile Include="Chunks\ChunkStorage.cs" />
     <Compile Include="Universe\PositionedBlock.cs" />
     <Compile Include="Profiling\Profiler.cs" />
     <Compile Include="Screen\ICameraService.cs" />
     <Compile Include="Universe\IPlayer.cs" />
-    <Compile Include="Universe\Terrain\Generators\BiomedTerrain.cs" />
-    <Compile Include="Universe\Terrain\Generators\Biomes\AntarticTundra.cs" />
-    <Compile Include="Universe\Terrain\Generators\Biomes\RainForest.cs" />
-    <Compile Include="Universe\Terrain\Generators\Debug\FlatTerrain.cs" />
-    <Compile Include="Universe\Terrain\TerrainGenerator.cs" />
+    <Compile Include="Terrain\Generators\BiomedTerrain.cs" />
+    <Compile Include="Terrain\Generators\Biomes\AntarticTundra.cs" />
+    <Compile Include="Terrain\Generators\Biomes\RainForest.cs" />
+    <Compile Include="Terrain\Generators\Debug\FlatTerrain.cs" />
+    <Compile Include="Terrain\TerrainGenerator.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Utils\Algorithms\PerlinSimplexNoise.cs" />
     <Compile Include="Utils\DoubleIndexedDictionary.cs" />
@@ -122,7 +129,7 @@
     <Compile Include="Utils\Vector\Vector4Byte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Blocks\Block.cs" />
-    <Compile Include="Universe\Chunk.cs" />
+    <Compile Include="Chunks\Chunk.cs" />
     <Compile Include="Universe\World.cs" />
   </ItemGroup>
   <ItemGroup />

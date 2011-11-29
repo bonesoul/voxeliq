@@ -9,9 +9,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqEngine.Blocks;
 using VolumetricStudios.VoxeliqEngine.Screen;
+using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe
+namespace VolumetricStudios.VoxeliqEngine.Chunks
 {
     /// <summary>
     /// Unit drawable chunk of blocks.

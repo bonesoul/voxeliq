@@ -4,8 +4,9 @@
  */
 
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe.Terrain.Generators.Biomes
+namespace VolumetricStudios.VoxeliqEngine.Terrain.Generators.Biomes
 {
     /// <summary>
     /// Rain forest generator.

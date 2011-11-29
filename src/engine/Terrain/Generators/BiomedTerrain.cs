@@ -4,9 +4,10 @@
  */
 
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Utils.Algorithms;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe.Terrain.Generators
+namespace VolumetricStudios.VoxeliqEngine.Terrain.Generators
 {
     /// <summary>
     /// Biomed terrain generators.

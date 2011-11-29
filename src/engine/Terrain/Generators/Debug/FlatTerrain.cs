@@ -4,8 +4,9 @@
  */
 
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe.Terrain.Generators.Debug
+namespace VolumetricStudios.VoxeliqEngine.Terrain.Generators.Debug
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.

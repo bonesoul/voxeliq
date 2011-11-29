@@ -4,9 +4,9 @@
  */
 
 using VolumetricStudios.VoxeliqEngine.Blocks;
-using VolumetricStudios.VoxeliqEngine.Universe;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 
-namespace VolumetricStudios.VoxeliqClient.Graphics.Processors.ChunkProcessor
+namespace VolumetricStudios.VoxeliqEngine.Processors
 {
     /// <summary>
     /// TODO: client stuff.

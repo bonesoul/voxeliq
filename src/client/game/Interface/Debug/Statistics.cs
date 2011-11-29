@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqClient.Worlds;
 using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Universe;

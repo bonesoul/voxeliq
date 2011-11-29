@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using VolumetricStudios.VoxeliqEngine.Utils;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqEngine.Universe
+namespace VolumetricStudios.VoxeliqEngine.Chunks
 {
     /// <summary>
     /// Chunk manager that can load & save chunks to disk.
     /// </summary>
-    public class ChunkManager
+    public class ChunkStorage
     {
         private readonly DoubleIndexedDictionary<Chunk> _dictionary = new DoubleIndexedDictionary<Chunk>();
 

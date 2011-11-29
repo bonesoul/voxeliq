@@ -3,7 +3,9 @@
  *
  */
 
-namespace VolumetricStudios.VoxeliqEngine.Universe.Terrain
+using VolumetricStudios.VoxeliqEngine.Chunks;
+
+namespace VolumetricStudios.VoxeliqEngine.Terrain
 {
     public class TerrainGenerator
     {

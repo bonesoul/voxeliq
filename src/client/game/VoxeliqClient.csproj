@@ -116,13 +116,6 @@
     <Compile Include="Worlds\Enviromental\ISkyService.cs" />
     <Compile Include="Worlds\Enviromental\Sky.cs" />
     <Compile Include="Worlds\GameWorld.cs" />
-    <Compile Include="Graphics\Builders\ChunkBuilder.cs" />
-    <Compile Include="Graphics\Builders\QueuedBuilder.cs" />
-    <Compile Include="Graphics\Builders\TaskedBuilder.cs" />
-    <Compile Include="Graphics\Graphics\DualTextured.cs" />
-    <Compile Include="Graphics\Graphics\TextureHelper.cs" />
-    <Compile Include="Graphics\Processors\ChunkProcessor\Lightning.cs" />
-    <Compile Include="Graphics\Processors\ChunkProcessor\VertexBuilder.cs" />
     <Compile Include="Graphics\Helpers\Rasterizer.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\Debug\Statistics.cs" />

@@ -4,6 +4,7 @@
  */
 
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqEngine.Universe

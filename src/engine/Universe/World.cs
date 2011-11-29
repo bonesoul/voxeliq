@@ -4,7 +4,9 @@
  */
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqEngine.Blocks;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqEngine.Universe
@@ -14,7 +16,7 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
     /// </summary>
     public interface IWorldService
     {
-        ChunkManager Chunks { get; }
+        ChunkStorage Chunks { get; }
         //void ToggleFog();
         void ToggleInfinitiveWorld();
         void SetBlock(int x, int y, int z, Block block);
@@ -30,7 +32,7 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
         /// <summary>
         /// Chunk manager
         /// </summary>
-        public ChunkManager Chunks { get; protected set; }
+        public ChunkStorage Chunks { get; protected set; }
 
         /// <summary>
         /// Bounding box for the world.
@@ -56,14 +58,18 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
         /// Is the world infinitive?
         /// </summary>
         public bool IsInfinitive { get; private set; }
-        
+
+        public GraphicsDevice GraphicsDevice {get; private set;}
+
         /// <summary>
         /// Creates a new world.
         /// </summary>
         /// <param name="isInfinitive"></param>
-        public World(bool isInfinitive)
+        /// <param name="graphicsDevice"></param>
+        public World(bool isInfinitive, GraphicsDevice graphicsDevice = null)
         {
             this.IsInfinitive = isInfinitive;
+            this.GraphicsDevice = graphicsDevice;
         }
 
         public void ToggleInfinitiveWorld()

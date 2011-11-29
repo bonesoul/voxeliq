@@ -6,8 +6,9 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqClient.Graphics.Builders;
 using VolumetricStudios.VoxeliqClient.Worlds.Enviromental;
+using VolumetricStudios.VoxeliqEngine.Builders;
+using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Profiling;
 using VolumetricStudios.VoxeliqEngine.Screen;
@@ -91,7 +92,7 @@ namespace VolumetricStudios.VoxeliqClient.Worlds
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         public GameWorld(Game game):
-            base(true) // set world to infinitive.
+            base(true, game.GraphicsDevice) // set world to infinitive.
         {
             this.Game = game;
             this.Game.Services.AddService(typeof(IWorldStatisticsService), this);
@@ -107,7 +108,7 @@ namespace VolumetricStudios.VoxeliqClient.Worlds
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             this._fogService = (IFogService)this.Game.Services.GetService(typeof(IFogService));
 
-            this.Chunks = new ChunkManager(); // startup the chunk manager.
+            this.Chunks = new ChunkStorage(); // startup the chunk manager.
             this.ChunkBuilder = new QueuedBuilder(this._player, this); // the chunk builder.        
 
             this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
