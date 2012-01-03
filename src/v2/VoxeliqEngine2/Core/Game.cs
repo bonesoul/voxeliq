@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Ninject;
 using SlimDX.Windows;
 using VolumetricStudios.VoxeliqEngine.Graphics.Rendering;
 using VolumetricStudios.VoxeliqEngine.Input;
@@ -8,64 +7,72 @@ using VolumetricStudios.VoxeliqEngine.Utils.Logging;
 
 namespace VolumetricStudios.VoxeliqEngine.Core
 {
-    public interface IGameService: IService
-    { }
-
-    public class Game : IGameService, IDisposable
+    public class Game : IDisposable
     {
+        private readonly Dictionary<Type, object> _services = new Dictionary<Type, object>(); // client-provided services.
+        private readonly List<GameComponent> _components = new List<GameComponent>(); // game components. 
+
         private readonly RenderWindow _gameWindow; // The game render-form.        
-        private readonly List<IService> _coreServices = new List<IService>(); // engine core-services. 
-        private readonly List<IUpdateable> _components = new List<IUpdateable>(); // game components. 
-        private readonly List<IDrawable> _drawableComponents = new List<IDrawable>(); // drawable game components.
-        private IKernel _kernel = new StandardKernel(EngineModule.Engine);
 
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         public Game()
         {
-            this._gameWindow = new RenderWindow();
-            this._coreServices.Add(_kernel.Get<IInputService>()); 
+            this._gameWindow = new RenderWindow();            
         }
 
         public void Run()
         {
+            this.Initialize();
             MessagePump.Run(this._gameWindow, this.MainLoop); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
         }
 
         private void MainLoop()
         {
-            this.UpdateCoreServices();
-            this.UpdateComponents();
-            this.DrawComponents();
+            foreach (var component in this._components) // update & draw components
+            {
+                component.Update(); // update the component.
+
+                if (!component.Drawable) // if it's not drawable
+                    continue; // just skip.
+
+                component.Draw(); // draw the component.
+            }
+
             this._gameWindow.RenderFrame();
         }
 
-        internal void UpdateCoreServices()
+        private void Initialize()
         {
-            for (int i = 0; i < this._coreServices.Count; i++)
+            Keyboard.Initialize();
+            Mouse.Initialize();
+
+            foreach(var component in this._components)
             {
-                this._coreServices[i].Update();
+                component.Initialize();
             }
         }
 
-        internal void UpdateComponents()
+        public void AddComponent(GameComponent component)
         {
-            for (int i = 0; i < this._components.Count; i++)
-            {
-                this._components[i].Update();
-            }
+            this._components.Add(component);
         }
 
-        internal void DrawComponents()
+        public void AddService(Type serviceType, object provider)
         {
-            for (int i = 0; i < this._drawableComponents.Count; i++)
-            {
-                this._drawableComponents[i].Draw();
-            }
+            this._services.Add(serviceType, provider);
         }
 
-        public void Update()
-        { }
+        public IGameService GetService(Type serviceType)
+        {
+            foreach (var pair in this._services)
+            {
+                if ((Type)pair.Key == serviceType)
+                    return (IGameService)pair.Value;
+            }
+
+            return null;
+        }
 
         #region de-ctor
 

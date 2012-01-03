@@ -3,7 +3,7 @@ using System.Reflection;
 using VolumetricStudios.VoxeliqClient.Screen;
 using VolumetricStudios.VoxeliqEngine.Graphics.Rendering;
 
-namespace VolumetricStudios.VoxeliqClient.Game
+namespace VolumetricStudios.VoxeliqClient
 {
     public class GameWindow:RenderWindow
     {

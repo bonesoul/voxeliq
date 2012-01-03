@@ -34,9 +34,6 @@
     <Reference Include="Nini">
       <HintPath>..\..\..\dep\nini\Nini.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\..\..\dep\ninject\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,19 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\EngineModule.cs" />
-    <Compile Include="Core\IService.cs" />
+    <Compile Include="Core\GameComponent.cs" />
+    <Compile Include="Core\IGameService.cs" />
+    <Compile Include="Input\Keyboard.cs" />
+    <Compile Include="Input\Mouse.cs" />
     <Compile Include="Utils\Config\ConfigurationManager.cs" />
     <Compile Include="Utils\Config\Config.cs" />
     <Compile Include="Core\Game.cs" />
-    <Compile Include="Core\IUpdateable.cs" />
-    <Compile Include="Core\IDrawable.cs" />
     <Compile Include="Graphics\Rendering\RenderWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Utils\Helpers\ConsoleHelper.cs" />
     <Compile Include="Utils\Helpers\FileHelper.cs" />
-    <Compile Include="Input\InputService.cs" />
     <Compile Include="Utils\Logging\LogConfig.cs" />
     <Compile Include="Utils\Logging\TinyLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
