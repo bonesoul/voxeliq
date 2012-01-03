@@ -6,9 +6,9 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VolumetricStudios.VoxeliqClient.Core;
-using VolumetricStudios.VoxeliqClient.Utils.Helpers;
-using VolumetricStudios.VoxeliqEngine.Logging;
+using VolumetricStudios.VoxeliqClient.Game;
+using VolumetricStudios.VoxeliqEngine.Utils.Helpers;
+using VolumetricStudios.VoxeliqEngine.Utils.Logging;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -35,10 +35,10 @@ namespace VolumetricStudios.VoxeliqClient
             InitLoggers(); // init logging facility.
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
 
-            using (var game=new Game())
+            using (var gameClient=new GameClient())
             {
                 Logger.Trace("Starting game loop..");
-                game.Run();
+                gameClient.Run();
             }
         }
 

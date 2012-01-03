@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 
-namespace VolumetricStudios.VoxeliqEngine.Logging
+namespace VolumetricStudios.VoxeliqEngine.Utils.Logging
 {
     public static class LogManager
     {

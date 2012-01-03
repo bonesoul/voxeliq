@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VolumetricStudios.VoxeliqClient.Core
+namespace VolumetricStudios.VoxeliqEngine.Core
 {
     /// <summary>
-    /// Updateable game component.
+    /// An updateable component.
     /// </summary>
-    public interface IComponent
+    public interface IUpdateable
     {
         void Update();
     }

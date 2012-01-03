@@ -34,8 +34,11 @@
     <Reference Include="Nini">
       <HintPath>..\..\..\dep\nini\Nini.dll</HintPath>
     </Reference>
+    <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\ConfigurationManager.cs" />
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Logging\LogConfig.cs" />
-    <Compile Include="Logging\TinyLogger.cs" />
+    <Compile Include="Core\ICoreService.cs" />
+    <Compile Include="Utils\Config\ConfigurationManager.cs" />
+    <Compile Include="Utils\Config\Config.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\IUpdateable.cs" />
+    <Compile Include="Core\IDrawable.cs" />
+    <Compile Include="Graphics\Rendering\RenderWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\Helpers\ConsoleHelper.cs" />
+    <Compile Include="Utils\Helpers\FileHelper.cs" />
+    <Compile Include="Input\InputService.cs" />
+    <Compile Include="Utils\Logging\LogConfig.cs" />
+    <Compile Include="Utils\Logging\TinyLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

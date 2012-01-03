@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VolumetricStudios.VoxeliqEngine.Config;
+﻿using VolumetricStudios.VoxeliqEngine.Utils.Config;
 
-namespace VolumetricStudios.VoxeliqClient
+namespace VolumetricStudios.VoxeliqClient.Screen
 {
     public sealed class ScreenConfig : Config
     {

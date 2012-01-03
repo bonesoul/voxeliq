@@ -5,28 +5,26 @@ using SlimDX;
 using SlimDX.Direct3D11;
 using SlimDX.DXGI;
 using SlimDX.Windows;
-using VolumetricStudios.VoxeliqClient.Core;
 using Device = SlimDX.Direct3D11.Device;
 using Resource = SlimDX.Direct3D11.Resource;
 
-namespace VolumetricStudios.VoxeliqClient
+namespace VolumetricStudios.VoxeliqEngine.Graphics.Rendering
 {
-    public class GameWindow : RenderForm
+    public class RenderWindow : RenderForm
     {
         private Device _device; // the graphics-device.
         private SwapChain _swapChain; // the swap-chain.
         private RenderTargetView _renderTarget;
         private DeviceContext _context;
 
-        public GameWindow():base("Voxeliq")
-        { }
+        public RenderWindow():base("Voxeliq")
+        {
+            this.InitSwapChain(); // init the swap-chain.         
+        }
 
         protected override void OnLoad(EventArgs e)
         {
-            this.Text = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
-            this.Width = ScreenConfig.Instance.ScreenWidth;
-            this.Height = ScreenConfig.Instance.ScreenHeight;
-            this.InitSwapChain(); // init the swap-chain.
+            this.Text = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;         
         }
 
         public void RenderFrame()

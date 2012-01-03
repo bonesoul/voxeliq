@@ -48,15 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="Core\Game.cs" />
-    <Compile Include="Core\IComponent.cs" />
-    <Compile Include="Core\IDrawableComponent.cs" />
-    <Compile Include="GameWindow.cs">
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Screen\Config.cs" />
+    <Compile Include="Game\GameClient.cs" />
+    <Compile Include="Game\GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Utils\Helpers\ConsoleHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -90,6 +87,7 @@
       <Name>VoxeliqEngine2</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
