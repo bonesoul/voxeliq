@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ninject;
 using SlimDX.Windows;
 using VolumetricStudios.VoxeliqEngine.Graphics.Rendering;
 using VolumetricStudios.VoxeliqEngine.Input;
@@ -7,19 +8,23 @@ using VolumetricStudios.VoxeliqEngine.Utils.Logging;
 
 namespace VolumetricStudios.VoxeliqEngine.Core
 {
-    public class Game : IDisposable
+    public interface IGameService: IService
+    { }
+
+    public class Game : IGameService, IDisposable
     {
-        private readonly RenderWindow _gameWindow; // The game render-form.
-        private readonly List<ICoreService> _coreServices = new List<ICoreService>(); // engine core-services. 
+        private readonly RenderWindow _gameWindow; // The game render-form.        
+        private readonly List<IService> _coreServices = new List<IService>(); // engine core-services. 
         private readonly List<IUpdateable> _components = new List<IUpdateable>(); // game components. 
-        private readonly List<IDrawable> _drawableComponents = new List<IDrawable>(); // drawable game components. 
+        private readonly List<IDrawable> _drawableComponents = new List<IDrawable>(); // drawable game components.
+        private IKernel _kernel = new StandardKernel(EngineModule.Engine);
 
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         public Game()
         {
             this._gameWindow = new RenderWindow();
-            this._coreServices.Add(new InputService());
+            this._coreServices.Add(_kernel.Get<IInputService>()); 
         }
 
         public void Run()
@@ -35,7 +40,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             this._gameWindow.RenderFrame();
         }
 
-        private void UpdateCoreServices()
+        internal void UpdateCoreServices()
         {
             for (int i = 0; i < this._coreServices.Count; i++)
             {
@@ -43,7 +48,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             }
         }
 
-        private void UpdateComponents()
+        internal void UpdateComponents()
         {
             for (int i = 0; i < this._components.Count; i++)
             {
@@ -51,13 +56,16 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             }
         }
 
-        private void DrawComponents()
+        internal void DrawComponents()
         {
             for (int i = 0; i < this._drawableComponents.Count; i++)
             {
                 this._drawableComponents[i].Draw();
             }
         }
+
+        public void Update()
+        { }
 
         #region de-ctor
 

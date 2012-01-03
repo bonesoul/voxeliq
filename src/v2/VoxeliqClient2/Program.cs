@@ -6,7 +6,8 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VolumetricStudios.VoxeliqClient.Game;
+using Ninject;
+using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Utils.Helpers;
 using VolumetricStudios.VoxeliqEngine.Utils.Logging;
 
@@ -35,10 +36,11 @@ namespace VolumetricStudios.VoxeliqClient
             InitLoggers(); // init logging facility.
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
 
-            using (var gameClient=new GameClient())
+            var kernel = new StandardKernel(EngineModule.Engine);
+            using (var game = kernel.Get<VoxeliqEngine.Core.Game>())
             {
                 Logger.Trace("Starting game loop..");
-                gameClient.Run();
+                game.Run();
             }
         }
 

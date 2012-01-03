@@ -34,6 +34,9 @@
     <Reference Include="Nini">
       <HintPath>..\..\..\dep\nini\Nini.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\..\dep\ninject\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\ICoreService.cs" />
+    <Compile Include="Core\EngineModule.cs" />
+    <Compile Include="Core\IService.cs" />
     <Compile Include="Utils\Config\ConfigurationManager.cs" />
     <Compile Include="Utils\Config\Config.cs" />
     <Compile Include="Core\Game.cs" />

@@ -8,7 +8,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
     /// <summary>
     /// An updateable component that only engine itself can use for critical services.
     /// </summary>
-    internal interface ICoreService
+    public interface IService
     {
         void Update();
     }

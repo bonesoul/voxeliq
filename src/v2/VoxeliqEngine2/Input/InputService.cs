@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using Ninject.Modules;
 using SlimDX;
 using SlimDX.Multimedia;
 using SlimDX.RawInput;
@@ -8,8 +9,11 @@ using VolumetricStudios.VoxeliqEngine.Utils.Logging;
 
 namespace VolumetricStudios.VoxeliqEngine.Input
 {
+    public interface IInputService : IService
+    { }
+
     // http://code.google.com/p/adtengine/source/browse/trunk/Engine/Input.cs?r=2  
-    public class InputService : ICoreService
+    public sealed class InputService :  IInputService
     {
         public MouseState MouseState;
         public KeyboardState KeyboardState;

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\..\..\dep\ninject\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX, Version=4.0.11.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,7 +53,6 @@
   <ItemGroup>
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Screen\Config.cs" />
-    <Compile Include="Game\GameClient.cs" />
     <Compile Include="Game\GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
