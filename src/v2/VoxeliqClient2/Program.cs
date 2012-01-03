@@ -6,15 +6,9 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D11;
-using SlimDX.DXGI;
-using SlimDX.Windows;
+using VolumetricStudios.VoxeliqClient.Core;
 using VolumetricStudios.VoxeliqClient.Utils.Helpers;
 using VolumetricStudios.VoxeliqEngine.Logging;
-using Device = SlimDX.Direct3D11.Device;
-using Resource = SlimDX.Direct3D11.Resource;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -41,8 +35,11 @@ namespace VolumetricStudios.VoxeliqClient
             InitLoggers(); // init logging facility.
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
 
-            var renderForm = new GameForm();
-            renderForm.StartRendering();
+            using (var game=new Game())
+            {
+                Logger.Trace("Starting game loop..");
+                game.Run();
+            }
         }
 
         private static void PrintBanner()

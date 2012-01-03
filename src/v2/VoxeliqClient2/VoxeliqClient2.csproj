@@ -49,9 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="GameForm.cs">
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Core\IComponent.cs" />
+    <Compile Include="Core\IDrawableComponent.cs" />
+    <Compile Include="GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Utils\Helpers\ConsoleHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

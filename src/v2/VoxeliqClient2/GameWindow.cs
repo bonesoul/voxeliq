@@ -5,19 +5,20 @@ using SlimDX;
 using SlimDX.Direct3D11;
 using SlimDX.DXGI;
 using SlimDX.Windows;
+using VolumetricStudios.VoxeliqClient.Core;
 using Device = SlimDX.Direct3D11.Device;
 using Resource = SlimDX.Direct3D11.Resource;
 
 namespace VolumetricStudios.VoxeliqClient
 {
-    public class GameForm : RenderForm
+    public class GameWindow : RenderForm
     {
-        private Device device; // the graphics-device.
-        private SwapChain swapChain; // the swap-chain.
-        private RenderTargetView renderTarget;
-        private DeviceContext context;
+        private Device _device; // the graphics-device.
+        private SwapChain _swapChain; // the swap-chain.
+        private RenderTargetView _renderTarget;
+        private DeviceContext _context;
 
-        public GameForm():base("Voxeliq")
+        public GameWindow():base("Voxeliq")
         { }
 
         protected override void OnLoad(EventArgs e)
@@ -25,18 +26,13 @@ namespace VolumetricStudios.VoxeliqClient
             this.Text = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
             this.Width = ScreenConfig.Instance.ScreenWidth;
             this.Height = ScreenConfig.Instance.ScreenHeight;
+            this.InitSwapChain(); // init the swap-chain.
         }
 
-        public void StartRendering()
+        public void RenderFrame()
         {
-            this.InitSwapChain(); // init the swap-chain.            
-            MessagePump.Run(this, this.GameLoop); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
-        }
-
-        private void GameLoop()
-        {
-            this.context.ClearRenderTargetView(renderTarget, new Color4(0.5f, 0.5f, 1.0f)); // clear the render target to a soothing blue
-            this.swapChain.Present(0, PresentFlags.None); // flip back-buffer into front buffer memory.
+            this._context.ClearRenderTargetView(_renderTarget, new Color4(0.5f, 0.5f, 1.0f)); // clear the render target to a soothing blue
+            this._swapChain.Present(0, PresentFlags.None); // flip back-buffer into front buffer memory.
         }
 
         private void InitSwapChain()
@@ -54,42 +50,42 @@ namespace VolumetricStudios.VoxeliqClient
                 SwapEffect = SwapEffect.Discard // Discard lets DXGI dump all back buffer data after it has been used, which allows it to do things in the most efficient manner.
             };
 
-            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.None, swapChainDescription, out device, out swapChain); // create the device & swap-chain.
-            context = device.ImmediateContext; // immediate-context doesn't care about multithreaded rendering.
+            Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.None, swapChainDescription, out _device, out _swapChain); // create the device & swap-chain.
+            _context = _device.ImmediateContext; // immediate-context doesn't care about multithreaded rendering.
 
             // create a view of our render target, which is the backbuffer of the swap chain we just created
-            using (var resource = Resource.FromSwapChain<Texture2D>(swapChain, 0))
+            using (var resource = Resource.FromSwapChain<Texture2D>(_swapChain, 0))
             {
-                renderTarget = new RenderTargetView(device, resource);
+                _renderTarget = new RenderTargetView(_device, resource);
             }
 
             //  The Rasterizer Stage will use the viewport to transform vertices that are in homogenous clip space (-1 to 1 for X and Y and 0 to 1 for the Z range) into pixel coordinates. Typically, you set the viewport to be the size of the window to which you’ll be rendering.
             var viewport = new Viewport(0.0f, 0.0f, this.ClientSize.Width, this.ClientSize.Height);
 
-            context.OutputMerger.SetTargets(renderTarget);
-            context.Rasterizer.SetViewports(viewport);
+            _context.OutputMerger.SetTargets(_renderTarget);
+            _context.Rasterizer.SetViewports(viewport);
 
             // prevent DXGI handling of alt+enter, which doesn't work properly with Winforms
-            using (var factory = swapChain.GetParent<Factory>())
+            using (var factory = _swapChain.GetParent<Factory>())
                 factory.SetWindowAssociation(this.Handle, WindowAssociationFlags.IgnoreAltEnter);
 
             // handle alt+enter on our own.
             this.KeyDown += (o, e) =>
             {
                 if (!e.Alt || e.KeyCode != Keys.Enter) return;
-                swapChain.IsFullScreen = !swapChain.IsFullScreen;
+                _swapChain.IsFullScreen = !_swapChain.IsFullScreen;
             };
         }
 
         protected override void Dispose(bool disposing)
         {            
             // clean up all resources - anything we missed will show up in the debug output.
-            if(renderTarget!=null)
-                renderTarget.Dispose();
-            if(swapChain!=null)
-                swapChain.Dispose();
-            if(device!=null)
-                device.Dispose();
+            if(_renderTarget!=null)
+                _renderTarget.Dispose();
+            if(_swapChain!=null)
+                _swapChain.Dispose();
+            if(_device!=null)
+                _device.Dispose();
         }
     }
 }
