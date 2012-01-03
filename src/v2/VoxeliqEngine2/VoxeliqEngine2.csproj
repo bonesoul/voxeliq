@@ -8,7 +8,7 @@
     <ProjectGuid>{52078644-9A47-402C-8012-78DA05815477}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VoxeliqEngine2</RootNamespace>
+    <RootNamespace>VolumetricStudios.VoxeliqEngine</RootNamespace>
     <AssemblyName>VoxeliqEngine2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nini">
+      <HintPath>..\..\..\dep\nini\Nini.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,9 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Config\ConfigurationManager.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Logging\LogConfig.cs" />
+    <Compile Include="Logging\TinyLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

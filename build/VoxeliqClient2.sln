@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqClient2", "..\src\v2\VoxeliqClient2\VoxeliqClient2\VoxeliqClient2.csproj", "{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqEngine2", "..\src\v2\VoxeliqEngine2\VoxeliqEngine2.csproj", "{52078644-9A47-402C-8012-78DA05815477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqClient2", "..\src\v2\VoxeliqClient2\VoxeliqClient2.csproj", "{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,16 +15,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|x86.ActiveCfg = Debug|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|x86.Build.0 = Debug|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Any CPU.ActiveCfg = Release|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Mixed Platforms.Build.0 = Release|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|x86.ActiveCfg = Release|x86
-		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|x86.Build.0 = Release|x86
 		{52078644-9A47-402C-8012-78DA05815477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{52078644-9A47-402C-8012-78DA05815477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52078644-9A47-402C-8012-78DA05815477}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -35,6 +25,16 @@ Global
 		{52078644-9A47-402C-8012-78DA05815477}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{52078644-9A47-402C-8012-78DA05815477}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{52078644-9A47-402C-8012-78DA05815477}.Release|x86.ActiveCfg = Release|Any CPU
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|x86.ActiveCfg = Debug|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Debug|x86.Build.0 = Debug|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Any CPU.ActiveCfg = Release|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|Mixed Platforms.Build.0 = Release|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|x86.ActiveCfg = Release|x86
+		{91FD0DA8-78EA-4F6E-8CA0-B32C6B74D311}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,21 +2,45 @@
  * Voxeliq Project - http://www.voxeliq.org
  */
 
+using System;
+using System.Globalization;
+using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D11;
 using SlimDX.DXGI;
 using SlimDX.Windows;
+using VolumetricStudios.VoxeliqClient.Utils.Helpers;
+using VolumetricStudios.VoxeliqEngine.Logging;
 using Device = SlimDX.Direct3D11.Device;
 using Resource = SlimDX.Direct3D11.Resource;
 
-namespace VoxeliqClient2
+namespace VolumetricStudios.VoxeliqClient
 {
     static class Program
     {
+        private static readonly Logger Logger = LogManager.CreateLogger();
+
         static void Main()
         {
-            var renderForm = new RenderForm("Voxeliq");
+            // Watch for unhandled exceptions
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+
+            // Use invariant culture - we have to set it explicitly for every thread we create.
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            // TODO: check if console is enabled in configs.
+            ConsoleHelper.InitConsole(); // init a log-console.
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintBanner();
+            PrintLicense();
+            Console.ResetColor();
+
+            InitLoggers(); // init logging facility.
+            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
+
+            var renderForm = new GameForm();
 
             // the swap-chain descriptor - http://msdn.microsoft.com/en-us/library/bb173075.aspx, http://slimdx.org/tutorials/DeviceCreation.php
             var swapChainDescription = new SwapChainDescription()
@@ -74,6 +98,45 @@ namespace VoxeliqClient2
             renderTarget.Dispose();
             swapChain.Dispose();
             device.Dispose();
+        }
+
+        private static void PrintBanner()
+        {
+            Console.WriteLine(@"                          .__  .__        ");
+            Console.WriteLine(@" ___  _________  ___ ____ |  | |__| ______");
+            Console.WriteLine(@" \  \/ /  _ \  \/  // __ \|  | |  |/ ____/");
+            Console.WriteLine(@"  \   (  <_> >    <\  ___/|  |_|  < <_|  |");
+            Console.WriteLine(@"   \_/ \____/__/\_ \\___  >____/__|\__   |");
+            Console.WriteLine(@"                  \/    \/            |__|");
+
+            Console.WriteLine();
+        }
+
+        private static void PrintLicense()
+        {
+            Console.WriteLine(@"Copyright (C) 2011-2012 voxeliq project");
+            Console.WriteLine();
+        }
+
+        private static void InitLoggers()
+        {
+            LogManager.Enabled = true; // enable logging facility.
+            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
+            LogManager.AttachLogTarget(new FileTarget("client.log", Logger.Level.Trace, Logger.Level.Fatal, true, false)); // attach a file-target.
+        }
+
+        /// <summary>
+        /// Unhandled exception handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">UnhandledExceptionEventArgs</param>
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.IsTerminating)
+                Logger.FatalException((e.ExceptionObject as Exception), "voxeliq-client terminating because of unhandled exception.");
+            else
+                Logger.ErrorException((e.ExceptionObject as Exception), "Caught unhandled exception.");
+            Console.ReadLine();
         }
     }
 }
