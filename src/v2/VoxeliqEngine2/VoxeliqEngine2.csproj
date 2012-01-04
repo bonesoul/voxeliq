@@ -46,10 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\GameClock.cs" />
     <Compile Include="Core\GameComponent.cs" />
+    <Compile Include="Core\GameTime.cs" />
     <Compile Include="Environment\Sky.cs" />
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
+    <Compile Include="IPlayer.cs" />
+    <Compile Include="Movement\Movement.cs" />
     <Compile Include="Screen\Config.cs" />
     <Compile Include="Screen\ICameraMen.cs" />
     <Compile Include="Screen\ICameraService.cs" />

@@ -24,7 +24,7 @@ namespace VolumetricStudios.VoxeliqClient.Screen
         private const float FarPlaneDistance = 1000f; // the far plance distance, objects behinds this will not get rendered.
         private const float RotationSpeed = 0.025f; // the rotation speed.
         
-        private readonly IGameWindow _gameWindow;
+        private IGameWindow _gameWindow;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // Logging facility.
 
@@ -34,14 +34,14 @@ namespace VolumetricStudios.VoxeliqClient.Screen
             // export services.
             this.Game.AddService(typeof(ICameraService), this);
             this.Game.AddService(typeof(ICameraMen), this);
-
-            // import required services.
-            this._gameWindow = (IGameWindow) this.Game.GetService(typeof (IGameWindow));
         }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
+
+            // import required services.
+            this._gameWindow = (IGameWindow)this.Game.GetService(typeof(IGameWindow));
 
             this.World = Matrix.Identity; // set world.
             this.Projection = Matrix.PerspectiveFovRH(ViewAngle, this._gameWindow.AspectRatio, NearPlaneDistance, FarPlaneDistance); // set field of view of the camera.
@@ -49,7 +49,7 @@ namespace VolumetricStudios.VoxeliqClient.Screen
             this.Position = new Vector3(0f, 0f, 0f);
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {            
             var rotation = Matrix.RotationX(CurrentElevation) * Matrix.RotationY(CurrentRotation); // transform camera position based on rotation and elevation.
             var target = Vector3.Transform(Vectors.ForwardVector, rotation) + new Vector4(this.Position, 0);

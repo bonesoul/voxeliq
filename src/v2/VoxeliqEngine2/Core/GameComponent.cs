@@ -19,10 +19,10 @@ namespace VolumetricStudios.VoxeliqEngine.Core
         public virtual void Initialize()
         { }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         { }
 
-        public virtual void Draw()
+        public virtual void Draw(GameTime gameTime)
         { }
     }
 }

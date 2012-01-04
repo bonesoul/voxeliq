@@ -12,6 +12,7 @@ namespace VolumetricStudios.VoxeliqClient
             this.AddComponent(new InputService(this));
             this.AddComponent(new Camera(this));
             this.AddComponent(new Sky(this));
+            this.AddComponent(new Player(this));
         }
     }
 }

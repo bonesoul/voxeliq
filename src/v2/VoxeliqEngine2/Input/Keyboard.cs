@@ -7,35 +7,54 @@ namespace VolumetricStudios.VoxeliqEngine.Input
 {
     public static class Keyboard
     {
-        public static KeyboardState State { get; private set; }
+        private static KeyboardState _state;
 
         internal static void Initialize()
         {
-            State = new KeyboardState();
+            _state = new KeyboardState();
             Device.RegisterDevice(UsagePage.Generic, UsageId.Keyboard, DeviceFlags.None);
             Device.KeyboardInput += OnInput;
+        }
+
+        public static KeyboardState GetState()
+        {
+            return new KeyboardState(_state);
         }
 
         private static void OnInput(object sender, KeyboardInputEventArgs e)
         {
             var isKeyDown = (e.State == KeyState.Pressed || e.State == KeyState.SystemKeyPressed);
-            State.KeyPressed(e.Key, isKeyDown);
+            _state.KeyPressed(e.Key, isKeyDown);
         }
     }
 
     public class KeyboardState
     {
-        private readonly Dictionary<int, bool> _keysPressed = new Dictionary<int, bool>();
+        public readonly Dictionary<int, bool> Keys;
+
+        public KeyboardState()
+        {
+            this.Keys = new Dictionary<int, bool>();
+        }
+
+        public KeyboardState(KeyboardState state)
+        {
+            this.Keys = new Dictionary<int, bool>(state.Keys);
+        }
 
         public void KeyPressed(Keys key, bool isKeyDown)
         {
-            _keysPressed[(int)key] = isKeyDown;
+            Keys[(int)key] = isKeyDown;
         }
 
         public bool IsKeyDown(Keys key)
         {
-            bool isKeyDown;
-            return _keysPressed.TryGetValue((int)key, out isKeyDown) && isKeyDown;
+            return Keys.ContainsKey((int)key) && Keys[(int)key];
+        }
+
+        public bool IsKeyUp(Keys key)
+        {
+            return !Keys.ContainsKey((int) key) || !Keys[(int) key];
         }
     }
 }

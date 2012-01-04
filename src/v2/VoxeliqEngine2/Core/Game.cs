@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using SlimDX.Windows;
 using VolumetricStudios.VoxeliqEngine.Input;
 using VolumetricStudios.VoxeliqEngine.Screen;
@@ -12,44 +13,160 @@ namespace VolumetricStudios.VoxeliqEngine.Core
         private readonly Dictionary<Type, object> _services = new Dictionary<Type, object>(); // client-provided services.
         private readonly List<GameComponent> _components = new List<GameComponent>(); // game components. 
 
-        private readonly RenderWindow _renderWindow; // The game render-form.        
+        private readonly RenderWindow _renderWindow; // The game render-form.
 
+        private GameTime gameTime = new GameTime();
+        private GameClock clock = new GameClock();
+        private TimeSpan totalGameTime;
+        private TimeSpan inactiveSleepTime = TimeSpan.FromMilliseconds(20.0);
+        private readonly TimeSpan maximumElapsedTime = TimeSpan.FromMilliseconds(500.0);
+        private TimeSpan lastFrameElapsedGameTime;
+        private bool forceElapsedTimeToZero;
+        private bool drawRunningSlowly;
+        private int updatesSinceRunningSlowly1 = int.MaxValue;
+        private int updatesSinceRunningSlowly2 = int.MaxValue;
+
+        long lastUpdateFrame;
+        float lastUpdateTime;
+  
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         public Game()
         {
+            this.IsRunning = false;
+            this.IsExiting = false;
+
             this._renderWindow = new RenderWindow(this);
-        }
-
-        public void Run()
-        {
-            this.Initialize();
-            MessagePump.Run(this._renderWindow, this.MainLoop); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
-        }
-
-        private void MainLoop()
-        {
-            foreach (var component in this._components) // update & draw components
+            this._renderWindow.AppActivated += (sender, e) =>
             {
-                component.Update(); // update the component.
-
-                if (!component.Drawable) // if it's not drawable
-                    continue; // just skip.
-
-                component.Draw(); // draw the component.
-            }
-
-            this._renderWindow.RenderFrame();
+                if(!this.IsActive)
+                    this.IsActive = true;
+            };
+            this._renderWindow.AppDeactivated += (sender, e) =>
+            {
+                if (this.IsActive)
+                    this.IsActive = false;
+            };
         }
+
 
         private void Initialize()
         {
             Keyboard.Initialize();
             Mouse.Initialize();
 
-            foreach(var component in this._components)
+            foreach (var component in this._components)
             {
                 component.Initialize();
+            }
+        }
+
+        /// <summary>
+        /// Runs the game.
+        /// </summary>
+        public void Run()
+        {
+            this.Initialize();
+
+            this.IsRunning = true;
+            this.IsExiting = false;
+
+            this.Update(this.gameTime);
+            MessagePump.Run(this._renderWindow, this.Tick); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
+        }
+
+        public bool IsRunning { get; internal set; }
+        public bool IsExiting { get; internal set; }
+        public bool IsActive { get; internal set; }
+
+
+        /// <summary>
+        /// Allows the game to perform logic processing.
+        /// </summary>
+        protected virtual void Update(GameTime xgameTime)
+        {
+            foreach (var component in this._components) // update & draw components
+            {
+                component.Update(xgameTime); // update the component.
+            }
+        }
+
+        /// <summary>
+        /// Performs one complete frame for the game.
+        /// </summary>
+        private void Tick()
+        {
+            if(this.IsExiting)
+                return;
+            
+            if(!this.IsActive)
+                Thread.Sleep((int) this.inactiveSleepTime.TotalMilliseconds);
+
+            this.clock.Step();
+
+            var elapsedAdjustedTime = this.clock.ElapsedAdjustedTime;
+            if (elapsedAdjustedTime < TimeSpan.Zero)
+                elapsedAdjustedTime = TimeSpan.Zero;
+
+            if (this.forceElapsedTimeToZero)
+            {
+                elapsedAdjustedTime = TimeSpan.Zero;
+                this.forceElapsedTimeToZero = false;
+            }
+
+            // cap the adjusted time
+            if (elapsedAdjustedTime > this.maximumElapsedTime)
+                elapsedAdjustedTime = this.maximumElapsedTime;
+
+            var elapsed = elapsedAdjustedTime;
+            this.drawRunningSlowly = false;
+            this.updatesSinceRunningSlowly1 = int.MaxValue;
+            this.updatesSinceRunningSlowly2 = int.MaxValue;
+
+            if (this.IsExiting)
+                return;
+
+            this.gameTime.ElapsedGameTime = this.lastFrameElapsedGameTime = elapsed;
+            this.gameTime.TotalGameTime = this.totalGameTime;
+            this.gameTime.IsRunningSlowly = false;
+            this.Update(this.gameTime);
+            this.totalGameTime += elapsed;
+
+            this.DrawFrame();            
+            this.UpdateFPS();
+        }
+
+        private void UpdateFPS()
+        {
+            // refresh the FPS counter once per second
+            lastUpdateFrame++;
+
+            if ((float) clock.CurrentTime.TotalSeconds - lastUpdateTime <= 1.0f) return;
+
+            gameTime.FramesPerSecond = (float)lastUpdateFrame / (float)(clock.CurrentTime.TotalSeconds - lastUpdateTime);
+            lastUpdateTime = (float)clock.CurrentTime.TotalSeconds;
+            lastUpdateFrame = 0;
+        }
+     
+        private void DrawFrame()
+        {
+            this.gameTime.TotalGameTime = this.totalGameTime;
+            this.gameTime.ElapsedGameTime = this.lastFrameElapsedGameTime;
+            this.gameTime.IsRunningSlowly = this.drawRunningSlowly;
+            this.DrawComponents(this.gameTime);
+            this.lastFrameElapsedGameTime = TimeSpan.Zero;
+
+            this._renderWindow.RenderFrame();
+        }
+
+        private void DrawComponents(GameTime xgameTime)
+        {
+            foreach (var component in this._components) // draw components
+            {
+                if(!component.Drawable)
+                    continue;
+
+                component.Draw(xgameTime); // draw the component.
             }
         }
 

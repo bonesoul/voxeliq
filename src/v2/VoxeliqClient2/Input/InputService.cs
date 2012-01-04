@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Windows.Forms;
 using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Input;
 using VolumetricStudios.VoxeliqEngine.Utility.Logging;
+using ButtonState = VolumetricStudios.VoxeliqEngine.Input.ButtonState;
 
 namespace VolumetricStudios.VoxeliqClient.Input
 {    
@@ -27,15 +29,34 @@ namespace VolumetricStudios.VoxeliqClient.Input
             Logger.Trace("init()");
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
+            Logger.Trace(gameTime.FramesPerSecond + " || " + gameTime.TotalGameTime.ToString());
             this.ProcessKeyboard();
             this.ProcessMouse();
         }
 
         private void ProcessKeyboard()
         {
-            
+            var currentState = Keyboard.GetState();
+
+            if(currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) Logger.Trace("up");
+            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) Logger.Trace("down");
+            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) Logger.Trace("left");
+            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) Logger.Trace("right");
+
+            if(this._previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) Logger.Trace("Space!");
+
+            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) Logger.Trace("F1");
+            if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2)) Logger.Trace("F2");
+            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) Logger.Trace("F3");
+            if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4)) Logger.Trace("F4");
+            if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5)) Logger.Trace("F5");
+            if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10)) Logger.Trace("F10");
+            if (_previousKeyboardState.IsKeyUp(Keys.F11) && currentState.IsKeyDown(Keys.F11)) Logger.Trace("F11");
+            if (_previousKeyboardState.IsKeyUp(Keys.F12) && currentState.IsKeyDown(Keys.F12)) Logger.Trace("F12");
+
+            this._previousKeyboardState = currentState;
         }
 
         private void ProcessMouse()
