@@ -1,10 +1,14 @@
-﻿using VolumetricStudios.VoxeliqEngine.Core;
+﻿using System.Diagnostics;
+using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Input;
-using VolumetricStudios.VoxeliqEngine.Utils.Logging;
+using VolumetricStudios.VoxeliqEngine.Utility.Logging;
 
 namespace VolumetricStudios.VoxeliqClient.Input
 {    
-    public class InputService : GameComponent, IGameService
+    public interface IInputService
+    { }
+
+    public class InputService : GameComponent, IInputService
     {
         private static readonly Logger Logger = LogManager.CreateLogger();
 
@@ -12,12 +16,14 @@ namespace VolumetricStudios.VoxeliqClient.Input
         private MouseState _previousMouseState = new MouseState();
 
         public InputService(Game game)
+            :base(game)
         {
-            game.AddService(typeof (InputService), this);
+            game.AddService(typeof(IInputService), this);
         }
 
         public override void Initialize()
         {
+            this.PrintDebugKeys();
             Logger.Trace("init()");
         }
 
@@ -52,6 +58,21 @@ namespace VolumetricStudios.VoxeliqClient.Input
                 Logger.Trace("MiddleButton");
 
             this._previousMouseState = currentState;
+        }
+
+        private void PrintDebugKeys()
+        {
+            Debug.WriteLine("Debug keys:");
+            Debug.WriteLine("-----------------------------");
+            Debug.WriteLine("F1: Infinitive-world: On/Off.");
+            Debug.WriteLine("F2: Fly-mode: On/Off.");
+            Debug.WriteLine("F3: Fog-mode: None/Near/Far.");
+            Debug.WriteLine("F4: Dynamic Clouds: On/Off.");
+            Debug.WriteLine("F5: Window-focus: On/Off.");
+            Debug.WriteLine("F10: In-game Debugger: On/Off.");
+            Debug.WriteLine("F11: Frame-limiter: On/Off.");
+            Debug.WriteLine("F12: Wireframe mode: On/Off.");
+            Debug.WriteLine("-----------------------------");
         }
     }
 }

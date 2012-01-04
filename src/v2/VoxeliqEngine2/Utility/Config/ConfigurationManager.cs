@@ -1,9 +1,8 @@
 ﻿using System;
 using Nini.Config;
-using VolumetricStudios.VoxeliqEngine.Utils.Helpers;
-using VolumetricStudios.VoxeliqEngine.Utils.Logging;
+using VolumetricStudios.VoxeliqEngine.Utility.Logging;
 
-namespace VolumetricStudios.VoxeliqEngine.Utils.Config
+namespace VolumetricStudios.VoxeliqEngine.Utility.Config
 {
     public sealed class ConfigurationManager
     {

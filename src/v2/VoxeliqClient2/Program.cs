@@ -6,8 +6,8 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VolumetricStudios.VoxeliqEngine.Utils.Helpers;
-using VolumetricStudios.VoxeliqEngine.Utils.Logging;
+using VolumetricStudios.VoxeliqEngine.Utility;
+using VolumetricStudios.VoxeliqEngine.Utility.Logging;
 
 namespace VolumetricStudios.VoxeliqClient
 {

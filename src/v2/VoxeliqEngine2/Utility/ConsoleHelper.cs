@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
 
-namespace VolumetricStudios.VoxeliqEngine.Utils.Helpers
+namespace VolumetricStudios.VoxeliqEngine.Utility
 {
     public class ConsoleHelper
     {

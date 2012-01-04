@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace VolumetricStudios.VoxeliqEngine.Utils.Logging
+namespace VolumetricStudios.VoxeliqEngine.Utility.Logging
 {
     public static class LogManager
     {
@@ -148,13 +148,13 @@ namespace VolumetricStudios.VoxeliqEngine.Utils.Logging
         public FileTarget(string fileName, Logger.Level minLevel, Logger.Level maxLevel, bool includeTimeStamps, bool reset = false)
         {
             this._fileName = fileName;
-            this._filePath = string.Format("{0}/{1}", LogConfig.Instance.LoggingRoot, _fileName);
+            this._filePath = string.Format("logs/{0}", _fileName);
             this.MinimumLevel = minLevel;
             this.MaximumLevel = maxLevel;
             this.IncludeTimeStamps = includeTimeStamps;
 
-            if (!Directory.Exists(LogConfig.Instance.LoggingRoot)) // create logging directory if it does not exist.
-                Directory.CreateDirectory(LogConfig.Instance.LoggingRoot);
+            if (!Directory.Exists("logs")) // create logging directory if it does not exist.
+                Directory.CreateDirectory("logs");
 
             this._fileStream = new FileStream(_filePath, reset ? FileMode.Create : FileMode.Append, FileAccess.Write, FileShare.Read);
             this._logStream = new StreamWriter(this._fileStream) { AutoFlush = true };

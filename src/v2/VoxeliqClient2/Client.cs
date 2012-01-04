@@ -1,5 +1,7 @@
 ﻿using VolumetricStudios.VoxeliqClient.Input;
+using VolumetricStudios.VoxeliqClient.Screen;
 using VolumetricStudios.VoxeliqEngine.Core;
+using VolumetricStudios.VoxeliqEngine.Environment;
 
 namespace VolumetricStudios.VoxeliqClient
 {
@@ -7,8 +9,9 @@ namespace VolumetricStudios.VoxeliqClient
     {
         public Client()
         {
-            var inputManager = new InputService(this);
-            this.AddComponent(inputManager);
+            this.AddComponent(new InputService(this));
+            this.AddComponent(new Camera(this));
+            this.AddComponent(new Sky(this));
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿using VolumetricStudios.VoxeliqEngine.Utils.Config;
+﻿using VolumetricStudios.VoxeliqEngine.Utility.Config;
 
-namespace VolumetricStudios.VoxeliqClient.Screen
+namespace VolumetricStudios.VoxeliqEngine.Screen
 {
     public sealed class ScreenConfig : Config
     {
@@ -12,12 +12,12 @@ namespace VolumetricStudios.VoxeliqClient.Screen
         /// <summary>
         /// Sets the screen width.
         /// </summary>
-        public int ScreenWidth { get { return this.GetInt("Width", 1280); } set { this.Set("ScreenWidth", value); } }
+        public int Width { get { return this.GetInt("Width", 1280); } set { this.Set("ScreenWidth", value); } }
 
         /// <summary>
         /// Sets the screen height.
         /// </summary>
-        public int ScreenHeight { get { return this.GetInt("Height", 720); } set { this.Set("ScreenHeight", value); } }
+        public int Height { get { return this.GetInt("Height", 720); } set { this.Set("ScreenHeight", value); } }
 
         /// <summary>
         /// The memory instance of ScreenConfig.

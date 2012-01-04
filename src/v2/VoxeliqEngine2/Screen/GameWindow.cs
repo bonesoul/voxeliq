@@ -1,30 +1,41 @@
 ﻿using System;
-using System.Reflection;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D11;
 using SlimDX.DXGI;
 using SlimDX.Windows;
+using VolumetricStudios.VoxeliqEngine.Core;
 using Device = SlimDX.Direct3D11.Device;
 using Resource = SlimDX.Direct3D11.Resource;
 
-namespace VolumetricStudios.VoxeliqEngine.Graphics.Rendering
+namespace VolumetricStudios.VoxeliqEngine.Screen
 {
-    public class RenderWindow : RenderForm
+    public interface IGameWindow
+    {
+        float AspectRatio { get; }
+    }
+
+    public class RenderWindow : RenderForm, IGameWindow
     {
         private Device _device; // the graphics-device.
         private SwapChain _swapChain; // the swap-chain.
         private RenderTargetView _renderTarget;
         private DeviceContext _context;
+        private Viewport _viewport;
+        private Game _game;
 
-        public RenderWindow():base("Voxeliq")
+        public RenderWindow(Game game)
         {
+            this._game = game;
+            this._game.AddService(typeof(IGameWindow), this);
             this.InitSwapChain(); // init the swap-chain.         
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            this.Text = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;         
+            this.Text = "Voxeliq";
+            this.Width = ScreenConfig.Instance.Width;
+            this.Height = ScreenConfig.Instance.Height;            
         }
 
         public void RenderFrame()
@@ -58,10 +69,10 @@ namespace VolumetricStudios.VoxeliqEngine.Graphics.Rendering
             }
 
             //  The Rasterizer Stage will use the viewport to transform vertices that are in homogenous clip space (-1 to 1 for X and Y and 0 to 1 for the Z range) into pixel coordinates. Typically, you set the viewport to be the size of the window to which you’ll be rendering.
-            var viewport = new Viewport(0.0f, 0.0f, this.ClientSize.Width, this.ClientSize.Height);
+            this._viewport = new Viewport(0.0f, 0.0f, this.ClientSize.Width, this.ClientSize.Height);
 
             _context.OutputMerger.SetTargets(_renderTarget);
-            _context.Rasterizer.SetViewports(viewport);
+            _context.Rasterizer.SetViewports(this._viewport);
 
             // prevent DXGI handling of alt+enter, which doesn't work properly with Winforms
             using (var factory = _swapChain.GetParent<Factory>())
@@ -72,8 +83,19 @@ namespace VolumetricStudios.VoxeliqEngine.Graphics.Rendering
             {
                 if (!e.Alt || e.KeyCode != Keys.Enter) return;
                 _swapChain.IsFullScreen = !_swapChain.IsFullScreen;
-            };
+            };            
         }
+
+        public float AspectRatio
+        {
+            get
+            {
+                return (this._viewport.Height != 0f) && (this._viewport.Width != 0f)
+                           ? this._viewport.Width/this._viewport.Height
+                           : 0f;
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {            

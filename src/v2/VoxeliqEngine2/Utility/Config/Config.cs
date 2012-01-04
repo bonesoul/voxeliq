@@ -1,6 +1,6 @@
 ﻿using Nini.Config;
 
-namespace VolumetricStudios.VoxeliqEngine.Utils.Config
+namespace VolumetricStudios.VoxeliqEngine.Utility.Config
 {
     public class Config
     {

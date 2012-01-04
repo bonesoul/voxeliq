@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using SlimDX.Windows;
-using VolumetricStudios.VoxeliqEngine.Graphics.Rendering;
 using VolumetricStudios.VoxeliqEngine.Input;
-using VolumetricStudios.VoxeliqEngine.Utils.Logging;
+using VolumetricStudios.VoxeliqEngine.Screen;
+using VolumetricStudios.VoxeliqEngine.Utility.Logging;
 
 namespace VolumetricStudios.VoxeliqEngine.Core
 {
@@ -12,19 +12,19 @@ namespace VolumetricStudios.VoxeliqEngine.Core
         private readonly Dictionary<Type, object> _services = new Dictionary<Type, object>(); // client-provided services.
         private readonly List<GameComponent> _components = new List<GameComponent>(); // game components. 
 
-        private readonly RenderWindow _gameWindow; // The game render-form.        
+        private readonly RenderWindow _renderWindow; // The game render-form.        
 
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         public Game()
         {
-            this._gameWindow = new RenderWindow();            
+            this._renderWindow = new RenderWindow(this);
         }
 
         public void Run()
         {
             this.Initialize();
-            MessagePump.Run(this._gameWindow, this.MainLoop); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
+            MessagePump.Run(this._renderWindow, this.MainLoop); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
         }
 
         private void MainLoop()
@@ -39,7 +39,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
                 component.Draw(); // draw the component.
             }
 
-            this._gameWindow.RenderFrame();
+            this._renderWindow.RenderFrame();
         }
 
         private void Initialize()
@@ -63,12 +63,12 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             this._services.Add(serviceType, provider);
         }
 
-        public IGameService GetService(Type serviceType)
+        public object GetService(Type serviceType)
         {
             foreach (var pair in this._services)
             {
                 if ((Type)pair.Key == serviceType)
-                    return (IGameService)pair.Value;
+                    return pair.Value;
             }
 
             return null;

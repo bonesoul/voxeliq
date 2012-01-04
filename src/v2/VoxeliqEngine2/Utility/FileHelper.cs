@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace VolumetricStudios.VoxeliqEngine.Utils.Helpers
+namespace VolumetricStudios.VoxeliqEngine.Utility
 {
     public static class FileHelper
     {

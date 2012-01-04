@@ -7,10 +7,12 @@ namespace VolumetricStudios.VoxeliqEngine.Core
 {
     public class GameComponent
     {
+        protected Game Game { get; private set; }
         public bool Drawable { get; private set; }
 
-        public GameComponent(bool drawable = false)
+        public GameComponent(Game game, bool drawable = false)
         {
+            this.Game = game;
             this.Drawable = drawable;
         }
 
