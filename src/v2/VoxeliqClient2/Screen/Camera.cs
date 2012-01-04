@@ -1,5 +1,6 @@
 ﻿using System;
 using SlimDX;
+using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Utility.Logging;
@@ -23,6 +24,8 @@ namespace VolumetricStudios.VoxeliqClient.Screen
         private const float NearPlaneDistance = 0.01f; // the near plane distance. objects between near and far plane distance will be get rendered.
         private const float FarPlaneDistance = 1000f; // the far plance distance, objects behinds this will not get rendered.
         private const float RotationSpeed = 0.025f; // the rotation speed.
+
+        private IPlayer _player; // the player.
         
         private IGameWindow _gameWindow;
 
@@ -42,15 +45,16 @@ namespace VolumetricStudios.VoxeliqClient.Screen
 
             // import required services.
             this._gameWindow = (IGameWindow)this.Game.GetService(typeof(IGameWindow));
+            this._player = (IPlayer)this.Game.GetService(typeof(IPlayer));
 
             this.World = Matrix.Identity; // set world.
             this.Projection = Matrix.PerspectiveFovRH(ViewAngle, this._gameWindow.AspectRatio, NearPlaneDistance, FarPlaneDistance); // set field of view of the camera.
-
-            this.Position = new Vector3(0f, 0f, 0f);
+            this.Position = this._player.Position;
         }
 
         public override void Update(GameTime gameTime)
-        {            
+        {
+            this.Position = this._player.Position;
             var rotation = Matrix.RotationX(CurrentElevation) * Matrix.RotationY(CurrentRotation); // transform camera position based on rotation and elevation.
             var target = Vector3.Transform(Vectors.ForwardVector, rotation) + new Vector4(this.Position, 0);
             var upVector = Vector3.Transform(Vectors.UpVector, rotation);

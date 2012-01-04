@@ -206,10 +206,14 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             this.gameTime.TotalGameTime = this.totalGameTime;
             this.gameTime.ElapsedGameTime = this.lastFrameElapsedGameTime;
             this.gameTime.IsRunningSlowly = this.drawRunningSlowly;
+
+            this._renderWindow.BeingRender(gameTime);
+            this._renderWindow.GameWindowRender();
+
             this.DrawComponents(this.gameTime);
             this.lastFrameElapsedGameTime = TimeSpan.Zero;
 
-            this._renderWindow.RenderFrame();
+            this._renderWindow.EndRender(gameTime);
         }
 
         private void DrawComponents(GameTime xgameTime)

@@ -1,7 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Windows.Forms;
+using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Input;
+using VolumetricStudios.VoxeliqEngine.Movement;
+using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Utility.Logging;
 using ButtonState = VolumetricStudios.VoxeliqEngine.Input.ButtonState;
 
@@ -12,10 +15,20 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
     public class InputService : GameComponent, IInputService
     {
-        private static readonly Logger Logger = LogManager.CreateLogger();
+        /// <summary>
+        /// ICameraMen to interract with the camera.
+        /// </summary>
+        private ICameraMen _cameraController;
 
+        /// <summary>
+        /// The player.
+        /// </summary>
+        private IPlayer _player;
+        
         private KeyboardState _previousKeyboardState = new KeyboardState();
         private MouseState _previousMouseState = new MouseState();
+
+        private static readonly Logger Logger = LogManager.CreateLogger();
 
         public InputService(Game game)
             :base(game)
@@ -25,25 +38,28 @@ namespace VolumetricStudios.VoxeliqClient.Input
 
         public override void Initialize()
         {
-            this.PrintDebugKeys();
             Logger.Trace("init()");
+            this.PrintDebugKeys();            
+
+            // import required services.
+            this._cameraController = (ICameraMen)this.Game.GetService(typeof(ICameraMen));
+            this._player = (IPlayer)this.Game.GetService(typeof(IPlayer));
         }
 
         public override void Update(GameTime gameTime)
-        {
-            Logger.Trace(gameTime.FramesPerSecond + " || " + gameTime.TotalGameTime.ToString());
-            this.ProcessKeyboard();
+        {            
+            this.ProcessKeyboard(gameTime);
             this.ProcessMouse();
         }
 
-        private void ProcessKeyboard()
+        private void ProcessKeyboard(GameTime gameTime)
         {
             var currentState = Keyboard.GetState();
 
-            if(currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) Logger.Trace("up");
-            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) Logger.Trace("down");
-            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) Logger.Trace("left");
-            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) Logger.Trace("right");
+            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) this._player.Move(gameTime, MoveDirection.Forward);
+            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) this._player.Move(gameTime, MoveDirection.Backward);
+            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) this._player.Move(gameTime, MoveDirection.Left);
+            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) this._player.Move(gameTime, MoveDirection.Right);
 
             if(this._previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) Logger.Trace("Space!");
 

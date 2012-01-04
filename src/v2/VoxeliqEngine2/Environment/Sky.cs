@@ -10,12 +10,12 @@ namespace VolumetricStudios.VoxeliqEngine.Environment
         public Sky(Game game)
             :base(game, true)
         {
-            Logger.Trace("init()");
+            
         }
 
         public override void Initialize()
         {
-            base.Initialize();
+            Logger.Trace("init()");
         }
     }
 }
