@@ -15,6 +15,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
 
         private readonly RenderWindow _renderWindow; // The game render-form.
 
+        // gametime, frame-limiter code by XNA 4.0 framework and http://code.google.com/p/slimdx/source/browse/trunk/samples/SampleFramework/Core/Game.cs?r=784
         private GameTime gameTime = new GameTime();
         private GameClock clock = new GameClock();
         private TimeSpan totalGameTime;
@@ -25,9 +26,16 @@ namespace VolumetricStudios.VoxeliqEngine.Core
         private bool drawRunningSlowly;
         private int updatesSinceRunningSlowly1 = int.MaxValue;
         private int updatesSinceRunningSlowly2 = int.MaxValue;
+        private TimeSpan targetElapsedTime = TimeSpan.FromTicks(166667);
+        private TimeSpan accumulatedElapsedGameTime = TimeSpan.Zero;
 
-        long lastUpdateFrame;
-        float lastUpdateTime;
+        private long lastUpdateFrame;
+        private float lastUpdateTime;
+
+        public bool IsRunning { get; protected set; }
+        public bool IsExiting { get; protected set; }
+        public bool IsActive { get; protected set; }
+        public bool IsFixedTimeStep { get; protected set; }
   
         private static readonly Logger Logger = LogManager.CreateLogger();
 
@@ -35,6 +43,7 @@ namespace VolumetricStudios.VoxeliqEngine.Core
         {
             this.IsRunning = false;
             this.IsExiting = false;
+            this.IsFixedTimeStep = false;
 
             this._renderWindow = new RenderWindow(this);
             this._renderWindow.AppActivated += (sender, e) =>
@@ -75,11 +84,6 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             MessagePump.Run(this._renderWindow, this.Tick); // uses interop to directly call into Win32 methods to bypass any allocations on the managed side.
         }
 
-        public bool IsRunning { get; internal set; }
-        public bool IsExiting { get; internal set; }
-        public bool IsActive { get; internal set; }
-
-
         /// <summary>
         /// Allows the game to perform logic processing.
         /// </summary>
@@ -118,19 +122,68 @@ namespace VolumetricStudios.VoxeliqEngine.Core
             if (elapsedAdjustedTime > this.maximumElapsedTime)
                 elapsedAdjustedTime = this.maximumElapsedTime;
 
-            var elapsed = elapsedAdjustedTime;
-            this.drawRunningSlowly = false;
-            this.updatesSinceRunningSlowly1 = int.MaxValue;
-            this.updatesSinceRunningSlowly2 = int.MaxValue;
 
-            if (this.IsExiting)
-                return;
+            if (!this.IsFixedTimeStep)
+            {
+                this.drawRunningSlowly = false;
+                this.updatesSinceRunningSlowly1 = int.MaxValue;
+                this.updatesSinceRunningSlowly2 = int.MaxValue;
 
-            this.gameTime.ElapsedGameTime = this.lastFrameElapsedGameTime = elapsed;
-            this.gameTime.TotalGameTime = this.totalGameTime;
-            this.gameTime.IsRunningSlowly = false;
-            this.Update(this.gameTime);
-            this.totalGameTime += elapsed;
+                if (this.IsExiting)
+                    return;
+
+                this.gameTime.ElapsedGameTime = this.lastFrameElapsedGameTime = elapsedAdjustedTime;
+                this.gameTime.TotalGameTime = this.totalGameTime;
+                this.gameTime.IsRunningSlowly = false;
+                this.Update(this.gameTime);
+                this.totalGameTime += elapsedAdjustedTime;
+            }
+            else
+            {
+                if (Math.Abs(elapsedAdjustedTime.Ticks - this.targetElapsedTime.Ticks) < (this.targetElapsedTime.Ticks >> 6)) elapsedAdjustedTime = this.targetElapsedTime;
+
+                this.accumulatedElapsedGameTime += elapsedAdjustedTime;
+                long num = this.accumulatedElapsedGameTime.Ticks/this.targetElapsedTime.Ticks;
+                this.accumulatedElapsedGameTime =
+                    TimeSpan.FromTicks(this.accumulatedElapsedGameTime.Ticks%this.targetElapsedTime.Ticks);
+                this.lastFrameElapsedGameTime = TimeSpan.Zero;
+
+                if (num == 0)
+                    return;
+
+                if (num > 1)
+                {
+                    this.updatesSinceRunningSlowly2 = this.updatesSinceRunningSlowly1;
+                    this.updatesSinceRunningSlowly1 = 0;
+                }
+
+                else
+                {
+                    if (this.updatesSinceRunningSlowly1 < int.MaxValue)
+                        this.updatesSinceRunningSlowly1++;
+                    if (this.updatesSinceRunningSlowly2 < int.MaxValue)
+                        this.updatesSinceRunningSlowly2++;
+                }
+
+                this.drawRunningSlowly = this.updatesSinceRunningSlowly2 < 20;
+
+                while ((num > 0) && !this.IsExiting)
+                {
+                    num -= 1;
+                    try
+                    {
+                        this.gameTime.ElapsedGameTime = targetElapsedTime;
+                        this.gameTime.TotalGameTime = this.totalGameTime;
+                        this.gameTime.IsRunningSlowly = this.drawRunningSlowly;
+                        this.Update(this.gameTime);
+                    }
+                    finally
+                    {
+                        this.lastFrameElapsedGameTime += targetElapsedTime;
+                        this.totalGameTime += targetElapsedTime;
+                    }
+                }
+            }
 
             this.DrawFrame();            
             this.UpdateFPS();

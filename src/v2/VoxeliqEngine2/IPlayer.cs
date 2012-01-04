@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SlimDX;
+﻿using SlimDX;
+using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Movement;
 
 namespace VolumetricStudios.VoxeliqEngine
@@ -21,6 +18,6 @@ namespace VolumetricStudios.VoxeliqEngine
         /// Moves player in given direction.
         /// </summary>
         /// <param name="direction"><see cref="MoveDirection"/></param>
-        void Move(MoveDirection direction);
+        void Move(GameTime gameTime, MoveDirection direction);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SlimDX;
+﻿using SlimDX;
 using VolumetricStudios.VoxeliqEngine;
 using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Movement;
