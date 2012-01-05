@@ -19,6 +19,7 @@ namespace VolumetricStudios.VoxeliqEngine.Screen
     {
         Device Device { get; } // the graphics-device.
         SwapChain SwapChain { get; } // the swap-chain.
+        RenderTargetView RenderTarget { get; }
         float AspectRatio { get; }
     }
 
@@ -26,6 +27,7 @@ namespace VolumetricStudios.VoxeliqEngine.Screen
     {
         public Device Device { get { return this._device; } }
         public SwapChain SwapChain { get { return this._swapChain; } }
+        public RenderTargetView RenderTarget { get { return this._renderTarget; } }
 
         private readonly Game _game;
         private Device _device; // the graphics-device.
@@ -61,7 +63,7 @@ namespace VolumetricStudios.VoxeliqEngine.Screen
 
         public void BeingRender(GameTime gameTime)
         {
-            this.Device.ClearRenderTargetView(_renderTarget, new Color4(0.3f, 0.3f, 0.3f)); // clear the render target to a soothing blue
+            //this.Device.ClearRenderTargetView(_renderTarget, new Color4(0.3f, 0.3f, 0.3f)); // clear the render target to a soothing blue
         }
 
         public void GameWindowRender()
@@ -123,9 +125,9 @@ namespace VolumetricStudios.VoxeliqEngine.Screen
 
             var signature = pass.Description.Signature;
             this.inputLayout = new InputLayout(this.Device, signature, new[] {
-				new InputElement("POSITION", 0, Format.R32G32B32A32_Float, 0, 0),
-				new InputElement("COLOR", 0, Format.R32G32B32A32_Float, 16, 0) 
-			});
+                new InputElement("POSITION", 0, Format.R32G32B32A32_Float, 0, 0),
+                new InputElement("COLOR", 0, Format.R32G32B32A32_Float, 16, 0) 
+            });
 
             this.vertexBuffer = new Buffer(
                     this.Device, 3 * 32, ResourceUsage.Dynamic, BindFlags.VertexBuffer, CpuAccessFlags.Write, ResourceOptionFlags.None
@@ -133,10 +135,10 @@ namespace VolumetricStudios.VoxeliqEngine.Screen
 
             DataStream stream = vertexBuffer.Map(MapMode.WriteDiscard, SlimDX.Direct3D10.MapFlags.None);
             stream.WriteRange(new[] {
-				new Vector4(0.0f, 0.5f, 0.5f, 1.0f), new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
-				new Vector4(0.5f, -0.5f, 0.5f, 1.0f), new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
-				new Vector4(-0.5f, -0.5f, 0.5f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f)
-			});
+                new Vector4(0.0f, 0.5f, 0.5f, 1.0f), new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+                new Vector4(0.5f, -0.5f, 0.5f, 1.0f), new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+                new Vector4(-0.5f, -0.5f, 0.5f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f)
+            });
             vertexBuffer.Unmap();            
         }
 

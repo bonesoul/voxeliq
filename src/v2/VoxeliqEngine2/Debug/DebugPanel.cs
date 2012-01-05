@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Drawing;
 using SlimDX;
+using SlimDX.DXGI;
 using SlimDX.Direct3D10;
 using VolumetricStudios.VoxeliqEngine.Core;
 using VolumetricStudios.VoxeliqEngine.Screen;
 using VolumetricStudios.VoxeliqEngine.Utility.Logging;
+using Buffer = SlimDX.Direct3D10.Buffer;
 using Font = SlimDX.Direct3D10.Font;
+using FontDescription = SlimDX.Direct3D10.FontDescription;
+using FontQuality = SlimDX.Direct3D10.FontQuality;
+using FontWeight = SlimDX.Direct3D10.FontWeight;
+using ImageFileFormat = SlimDX.Direct3D10.ImageFileFormat;
+using Resource = SlimDX.Direct3D10.Resource;
+using SpriteFlags = SlimDX.Direct3D10.SpriteFlags;
 
 namespace VolumetricStudios.VoxeliqEngine.Debug
 {
@@ -60,6 +68,25 @@ namespace VolumetricStudios.VoxeliqEngine.Debug
             this.DrawText("inf: off", 5, 70, Color.White);
             this.DrawText("fly: off", 75, 70, Color.White);
             this.DrawText("fog: off", 145, 70, Color.White);
+
+            this.DrawGraph();
+        }
+
+        private void DrawGraph()
+        {
+            var panelBounds = new Rectangle(250, 100, 200, 100);
+            var panel = new Vector2[] {
+                new Vector2(panelBounds.X, panelBounds.Y),
+                new Vector2(panelBounds.X, panelBounds.Y + panelBounds.Height),
+                new Vector2(panelBounds.X + panelBounds.Width, panelBounds.Y + panelBounds.Height),
+                new Vector2(panelBounds.X + panelBounds.Width, panelBounds.Y)
+            };            
+
+            //this.DrawSolidPolygon(panel, 4, Color.DarkGray, true);
+        }
+
+        private void DrawSolidPolygon(Vector2[] vertices, int count, Color color, bool outline)
+        {
         }
 
         private void DrawText(string text, int left, int top, Color4 color)
