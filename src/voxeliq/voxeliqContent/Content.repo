@@ -1,0 +1,7 @@
+<root>
+  <ContentRepository>
+  </ContentRepository>
+  <classes>
+    <ContentRepository fullname="SynapseGaming.LightingSystem.Core.ContentRepository" assembly="SynapseGaming-SunBurn-Pro" fullyqualifiedname="SynapseGaming.LightingSystem.Core.ContentRepository, SynapseGaming-SunBurn-Pro, Version=2.0.0.1, Culture=neutral, PublicKeyToken=c23c60523565dbfd" />
+  </classes>
+</root>
