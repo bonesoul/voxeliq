@@ -1,20 +1,26 @@
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.Voxeliq.Graphics;
+using VolumetricStudios.Voxeliq.Input;
+using VolumetricStudios.VoxeliqEngine.Logging;
 
 namespace VolumetricStudios.Voxeliq
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
-    {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+    public class VoxeliqGame : Game
+    {        
+        private GraphicsDeviceManager _graphicsDeviceManager; // graphics device manager.     
+        private GraphicsManager _graphicsManager; // graphics manager.
 
-        public Game1()
+        private static readonly Logger Logger = LogManager.CreateLogger(); // loggin-facility.
+
+        public VoxeliqGame()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -26,9 +32,18 @@ namespace VolumetricStudios.Voxeliq
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            Logger.Trace("init()");
+
+            this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
+            this._graphicsManager = new GraphicsManager(this, this._graphicsDeviceManager);
+            this.AddGameComponents(); // add game-components.
 
             base.Initialize();
+        }
+
+        private void AddGameComponents()
+        {
+            this.Components.Add(new InputManager(this) {UpdateOrder = 0});
         }
 
         /// <summary>
@@ -36,21 +51,7 @@ namespace VolumetricStudios.Voxeliq
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
+        { }
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -59,12 +60,6 @@ namespace VolumetricStudios.Voxeliq
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -74,11 +69,16 @@ namespace VolumetricStudios.Voxeliq
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            this.GraphicsDevice.Clear(Color.WhiteSmoke);
 
             base.Draw(gameTime);
         }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent()
+        { }
     }
 }

@@ -84,7 +84,7 @@ namespace VolumetricStudios.VoxeliqClient.Input
             this.CenterMouse();    
 
             #if DEBUG 
-            this.PrintDebugKeys(); 
+                this.PrintDebugKeys(); 
             #endif
         }
 

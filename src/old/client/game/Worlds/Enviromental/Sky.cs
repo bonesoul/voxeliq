@@ -113,7 +113,7 @@ namespace VolumetricStudios.VoxeliqClient.Worlds.Enviromental
                 return;
 
             if (this.DynamicCloudsEnabled) // if dynamic-cloud generation is on, generate them.
-                //this.GenerateClouds(gameTime);
+                this.GenerateClouds(gameTime);
 
             this.GraphicsDevice.Clear(Color.WhiteSmoke);
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.

@@ -43,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
   </PropertyGroup>
@@ -72,9 +72,12 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphics\Config.cs" />
+    <Compile Include="Graphics\GraphicsManager.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="VoxeliqGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -83,7 +86,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VoxeliqRetakeContent\VoxeliqContent.contentproj">
+    <ProjectReference Include="..\..\engine\VoxeliqEngine.csproj">
+      <Project>{56F7CE1B-8C69-4400-B787-133D40FAA92D}</Project>
+      <Name>VoxeliqEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VoxeliqContent\VoxeliqContent.contentproj">
       <Name>VoxeliqContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{1D5CAEB3-90B4-4392-B53E-0BFCB08A7847}</Project>
@@ -115,6 +122,11 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
