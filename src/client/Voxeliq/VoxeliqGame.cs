@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.Voxeliq.Debugging;
 using VolumetricStudios.Voxeliq.Environment;
 using VolumetricStudios.Voxeliq.Graphics;
 using VolumetricStudios.Voxeliq.Input;
@@ -52,6 +53,8 @@ namespace VolumetricStudios.Voxeliq
             this.Components.Add(new Player(this) {UpdateOrder = 1});
             this.Components.Add(new Camera(this) {UpdateOrder = 2});
             this.Components.Add(new Sky(this) { UpdateOrder = 3, DrawOrder = 0 });
+            this.Components.Add(new Statistics(this) { UpdateOrder = 4, DrawOrder = 1});
+            this.Components.Add(new StatisticsGraphs(this) {UpdateOrder = 5, DrawOrder = 2});
         }
 
         /// <summary>

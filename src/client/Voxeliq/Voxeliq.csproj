@@ -73,10 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Debugging\Statistics.cs" />
+    <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Sky.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\Rasterizer.cs" />
+    <Compile Include="Graphics\Utility\PrimitiveBatch.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

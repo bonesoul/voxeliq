@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.Voxeliq.Debugging;
 using VolumetricStudios.VoxeliqEngine.Logging;
 
 namespace VolumetricStudios.Voxeliq.Input
@@ -28,6 +29,7 @@ namespace VolumetricStudios.Voxeliq.Input
 
         // required services.
         private ICameraController _cameraController;
+        private IStatisticsGraphs _statisticsGraphs;
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
@@ -46,6 +48,7 @@ namespace VolumetricStudios.Voxeliq.Input
 
             // import required services.
             this._cameraController = (ICameraController) this.Game.Services.GetService(typeof (ICameraController));
+            this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
 
             #if DEBUG // if in debug mode, print debug-keys.
                 this.PrintDebugKeys();
@@ -102,6 +105,10 @@ namespace VolumetricStudios.Voxeliq.Input
             if (currentState.IsKeyDown(Keys.F3) && _previousKeyboardState.IsKeyUp(Keys.F3)) { }
             if (currentState.IsKeyDown(Keys.F4) && _previousKeyboardState.IsKeyUp(Keys.F4)) { }
             if (currentState.IsKeyDown(Keys.F5) && _previousKeyboardState.IsKeyUp(Keys.F5)) { }
+            
+            if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9)) // enable statistics graphs rendering.
+                this._statisticsGraphs.Toggle();
+            
             if (currentState.IsKeyDown(Keys.F10) && _previousKeyboardState.IsKeyUp(Keys.F10)) { }
             if (currentState.IsKeyDown(Keys.F11) && _previousKeyboardState.IsKeyUp(Keys.F11)) { }
             
@@ -128,6 +135,7 @@ namespace VolumetricStudios.Voxeliq.Input
             Debug.WriteLine("F3: Fog-mode: None/Near/Far.");
             Debug.WriteLine("F4: Dynamic Clouds: On/Off.");
             Debug.WriteLine("F5: Window-focus: On/Off.");
+            Debug.WriteLine("F9: Debug Graphs: On/Off.");
             Debug.WriteLine("F10: In-game Debugger: On/Off.");
             Debug.WriteLine("F11: Frame-limiter: On/Off.");
             Debug.WriteLine("F12: Wireframe mode: On/Off.");
