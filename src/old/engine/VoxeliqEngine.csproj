@@ -74,7 +74,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Nini">
-      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
+      <HintPath>..\..\..\dep\nini\Nini.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
