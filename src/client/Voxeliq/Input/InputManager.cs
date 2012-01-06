@@ -18,11 +18,18 @@ namespace VolumetricStudios.Voxeliq.Input
 
     public class InputManager : GameComponent, IInputManager
     {
+        // properties.
         public bool CaptureMouse { get; private set; } // Should the game capture mouse?
         public bool CenterCursor { get; private set; } // Should the mouse cursor centered on screen?
-        private KeyboardState _previosuKeyboardState; // previous keyboard-state.
-        private MouseState _previousMouseState; // previous mouse-state.
 
+        // previous input states.
+        private KeyboardState _previousKeyboardState; // previous keyboard-state.
+        private MouseState _previousMouseState; // previous mouse click-state.
+
+        // required services.
+        private ICameraController _cameraController;
+
+        // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public InputManager(Game game) : base(game)
@@ -30,47 +37,31 @@ namespace VolumetricStudios.Voxeliq.Input
             this.Game.Services.AddService(typeof(IInputManager), this); // export the service.
 
             this.CaptureMouse = true; // capture the mouse by default.
-            this.CenterCursor = true; // center the mouse by default.
+            this.CenterCursor = true; // center the mouse by default.            
         }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
 
-            #if DEBUG
+            // import required services.
+            this._cameraController = (ICameraController) this.Game.Services.GetService(typeof (ICameraController));
+
+            #if DEBUG // if in debug mode, print debug-keys.
                 this.PrintDebugKeys();
             #endif
+
+            // get current mouse & keyboard states.
+            this._previousKeyboardState = Keyboard.GetState();
+            this._previousMouseState = Mouse.GetState();
+
+            base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
             this.ProcessKeyboard(gameTime);
             this.ProcessMouse();
-        }
-
-        private void ProcessKeyboard(GameTime gameTime)
-        {
-            var currentState = Keyboard.GetState();
-
-            if (currentState.IsKeyDown(Keys.Escape) && this._previosuKeyboardState.IsKeyUp(Keys.Escape)) // allows quick exiting the game.
-                this.Game.Exit();
-
-            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) {}
-            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) { }
-            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) { }
-            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) { }
-            if (_previosuKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) { }
-
-            if (currentState.IsKeyDown(Keys.F1) && _previosuKeyboardState.IsKeyUp(Keys.F1)) { }
-            if (currentState.IsKeyDown(Keys.F2) && _previosuKeyboardState.IsKeyUp(Keys.F2)) { }
-            if (currentState.IsKeyDown(Keys.F3) && _previosuKeyboardState.IsKeyUp(Keys.F3)) { }
-            if (currentState.IsKeyDown(Keys.F4) && _previosuKeyboardState.IsKeyUp(Keys.F4)) { }
-            if (currentState.IsKeyDown(Keys.F5) && _previosuKeyboardState.IsKeyUp(Keys.F5)) { }
-            if (currentState.IsKeyDown(Keys.F10) && _previosuKeyboardState.IsKeyUp(Keys.F10)) { }
-            if (currentState.IsKeyDown(Keys.F11) && _previosuKeyboardState.IsKeyUp(Keys.F11)) { }
-            if (currentState.IsKeyDown(Keys.F12) && _previosuKeyboardState.IsKeyUp(Keys.F12)) { }
-
-            this._previosuKeyboardState = currentState;
         }
 
         private void ProcessMouse()
@@ -80,17 +71,44 @@ namespace VolumetricStudios.Voxeliq.Input
             if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
-            float rotation = currentState.X - this._previousMouseState.X;
-            if (rotation != 0) { }
+            float rotation = currentState.X - Graphics.GraphicsConfig.Instance.Width/2;
+            if (rotation != 0) this._cameraController.RotateCamera(rotation);
 
-            float elevation = currentState.Y - this._previousMouseState.Y;
-            if (elevation != 0) { }
+            float elevation = currentState.Y - Graphics.GraphicsConfig.Instance.Height/2;
+            if (elevation != 0) this._cameraController.ElevateCamera(elevation);
 
             if (currentState.LeftButton == ButtonState.Pressed && this._previousMouseState.LeftButton == ButtonState.Released) { }
             if (currentState.RightButton == ButtonState.Pressed && this._previousMouseState.RightButton == ButtonState.Released) { }
 
             this._previousMouseState = currentState;
-            if (CenterCursor) CenterMouseCursor();
+            if (CenterCursor) CenterMouseCursor();            
+        }
+
+        private void ProcessKeyboard(GameTime gameTime)
+        {
+            var currentState = Keyboard.GetState();
+
+            if (currentState.IsKeyDown(Keys.Escape) && this._previousKeyboardState.IsKeyUp(Keys.Escape)) // allows quick exiting the game.
+                this.Game.Exit();
+
+            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) {}
+            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) { }
+            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) { }
+            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) { }
+            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) { }
+
+            if (currentState.IsKeyDown(Keys.F1) && _previousKeyboardState.IsKeyUp(Keys.F1)) { }
+            if (currentState.IsKeyDown(Keys.F2) && _previousKeyboardState.IsKeyUp(Keys.F2)) { }
+            if (currentState.IsKeyDown(Keys.F3) && _previousKeyboardState.IsKeyUp(Keys.F3)) { }
+            if (currentState.IsKeyDown(Keys.F4) && _previousKeyboardState.IsKeyUp(Keys.F4)) { }
+            if (currentState.IsKeyDown(Keys.F5) && _previousKeyboardState.IsKeyUp(Keys.F5)) { }
+            if (currentState.IsKeyDown(Keys.F10) && _previousKeyboardState.IsKeyUp(Keys.F10)) { }
+            if (currentState.IsKeyDown(Keys.F11) && _previousKeyboardState.IsKeyUp(Keys.F11)) { }
+            
+            if (currentState.IsKeyDown(Keys.F12) && _previousKeyboardState.IsKeyUp(Keys.F12)) // toggles rasterizer-mode.
+                ((VoxeliqGame) this.Game).Rasterizer.ToggleRasterMode();
+
+            this._previousKeyboardState = currentState;
         }
 
         /// <summary>

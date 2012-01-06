@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.Voxeliq.Environment;
 using VolumetricStudios.Voxeliq.Graphics;
 using VolumetricStudios.Voxeliq.Input;
 using VolumetricStudios.VoxeliqEngine.Logging;
@@ -13,15 +14,19 @@ namespace VolumetricStudios.Voxeliq
     /// </summary>
     public class VoxeliqGame : Game
     {        
-        private GraphicsDeviceManager _graphicsDeviceManager; // graphics device manager.     
+        // principal stuff.
+        private readonly GraphicsDeviceManager _graphicsDeviceManager; // graphics device manager.     
         private GraphicsManager _graphicsManager; // graphics manager.
+        public Rasterizer Rasterizer { get; private set; } // the rasterizer.
 
+        // misc stuff.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loggin-facility.
 
         public VoxeliqGame()
         {
-            _graphicsDeviceManager = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
+            this.Content.RootDirectory = "Content"; // the content root directory.
+            this._graphicsDeviceManager = new GraphicsDeviceManager(this); // the graphics device manager.
+            this.Rasterizer = new Rasterizer(); // start the rasterizer.
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace VolumetricStudios.Voxeliq
             Logger.Trace("init()");
 
             this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
-            this._graphicsManager = new GraphicsManager(this, this._graphicsDeviceManager);
+            this._graphicsManager = new GraphicsManager(this, this._graphicsDeviceManager); // start graphics-manager.
             this.AddGameComponents(); // add game-components.
 
             base.Initialize();
@@ -44,23 +49,9 @@ namespace VolumetricStudios.Voxeliq
         private void AddGameComponents()
         {
             this.Components.Add(new InputManager(this) {UpdateOrder = 0});
-        }
-
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        { }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
+            this.Components.Add(new Player(this) {UpdateOrder = 1});
+            this.Components.Add(new Camera(this) {UpdateOrder = 2});
+            this.Components.Add(new Sky(this) { UpdateOrder = 3, DrawOrder = 0 });
         }
 
         /// <summary>
@@ -69,16 +60,8 @@ namespace VolumetricStudios.Voxeliq
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            this.GraphicsDevice.Clear(Color.WhiteSmoke);
-
+            this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
             base.Draw(gameTime);
         }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        { }
     }
 }

@@ -24,18 +24,29 @@ namespace VolumetricStudios.Voxeliq.Graphics
         /// </summary>
         bool FullScreenEnabled { get; }
 
+        /// <summary>
+        /// Toggles fixed time steps.
+        /// </summary>
         void ToggleFixedTimeSteps();
+
+        /// <summary>
+        /// Toggles vertical sync.
+        /// </summary>
         void ToggleVerticalSync();
     }
 
     public class GraphicsManager : IGraphicsManager
     {
+        // settings
         public bool IsFixedTimeStep { get; private set; } // Returns true if game is set to fixed time steps.
         public bool VerticalSyncEnabled { get; private set; } // Returns true if vertical sync is enabled.
         public bool FullScreenEnabled { get; private set; } // Returns true if full-screen is enabled.
 
+        // principal stuff
         private readonly Game _game; // the attached game.
         private readonly GraphicsDeviceManager _graphicsDeviceManager; // attached graphics device manager.
+
+        // misc
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.   
 
         public GraphicsManager(Game game, GraphicsDeviceManager graphicsDeviceManager)
