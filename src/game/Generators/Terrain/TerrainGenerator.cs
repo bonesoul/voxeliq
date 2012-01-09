@@ -5,11 +5,11 @@
 
 using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Generators
+namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
 {
     public class TerrainGenerator
     {
-        protected int Seed;
+        protected int Seed { get; private set; }
 
         public TerrainGenerator()
             : this(56) { }

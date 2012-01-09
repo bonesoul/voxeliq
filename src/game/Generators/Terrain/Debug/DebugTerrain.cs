@@ -6,12 +6,12 @@
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Generators.Debug
+namespace VolumetricStudios.VoxeliqGame.Generators.Terrain.Debug
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.
     /// </summary>
-    public sealed class FlatTerrain : TerrainGenerator
+    public sealed class DebugTerrain : TerrainGenerator
     {
         protected override void GenerateChunk(Chunk chunk)
         {
