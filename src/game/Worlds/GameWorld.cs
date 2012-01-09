@@ -20,22 +20,12 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
     /// <summary>
     /// The game world.
     /// </summary>
-    public class GameWorld : World, IGameComponent, IDrawable, IWorldStatisticsService
+    public class GameWorld : World, IWorldStatisticsService
     {        
         /// <summary>
         /// camera controller
         /// </summary>
         private ICameraControlService _cameraController;
-
-        public bool Visible
-        {
-            get { return true; }
-        }
-
-        public int DrawOrder { get; set; }
-
-        public event EventHandler<EventArgs> VisibleChanged;
-        public event EventHandler<EventArgs> DrawOrderChanged;
 
         /// <summary>
         /// The camera service.
@@ -57,8 +47,6 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
         /// </summary>
         public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } }
 
-        public Game Game { get; private set; }
-
         /// <summary>
         /// player
         /// </summary>
@@ -79,8 +67,6 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
         /// </summary>
         private Texture2D _crackTextureAtlas;
 
-        public int UpdateOrder { get; set; }
-
         /// <summary>
         /// IForService to interract with fog-effect.
         /// </summary>
@@ -91,15 +77,14 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        public GameWorld(Game game):
-            base(true, game.GraphicsDevice) // set world to infinitive.
+        public GameWorld(Game game, ChunkStorage chunkStorage, ChunkCache chunkCache) :
+            base(game, true, chunkStorage, chunkCache) // set world to infinitive.
         {
-            this.Game = game;
             this.Game.Services.AddService(typeof(IWorldStatisticsService), this);
             this.Game.Services.AddService(typeof(IWorldService), this);
         }
 
-        public void Initialize()
+        public override void Initialize()
         {
             Logger.Trace("init()");
             
@@ -108,7 +93,6 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             this._fogService = (IFogService)this.Game.Services.GetService(typeof(IFogService));
 
-            this.Chunks = new ChunkStorage(); // startup the chunk manager.
             this.ChunkBuilder = new QueuedBuilder(this._player, this); // the chunk builder.        
 
             this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
@@ -119,7 +103,6 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
             this._player.SpawnPlayer(new Vector2Int(1000, 1000)); // TODO: client stuff.
         }       
 
-        // TODO: client stuff.
         public void SpawnPlayer(Vector2Int relativePosition)
         {
             Profiler.Start("terrain-generation");
@@ -144,7 +127,7 @@ namespace VolumetricStudios.VoxeliqGame.Worlds
 
         #region world-drawer
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             var viewFrustrum = new BoundingFrustum(this.Camera.View * this.Camera.Projection);
 

@@ -27,12 +27,10 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
     /// <summary>
     /// World.
     /// </summary>
-    public class World : IWorldService
+    public class World : DrawableGameComponent, IWorldService
     {
-        /// <summary>
-        /// Chunk manager
-        /// </summary>
-        public ChunkStorage Chunks { get; protected set; }
+        public ChunkStorage Chunks { get; private set; }
+        public ChunkCache ChunkCache { get; private set; }
 
         /// <summary>
         /// Bounding box for the world.
@@ -59,17 +57,19 @@ namespace VolumetricStudios.VoxeliqEngine.Universe
         /// </summary>
         public bool IsInfinitive { get; private set; }
 
-        public GraphicsDevice GraphicsDevice {get; private set;}
-
         /// <summary>
         /// Creates a new world.
         /// </summary>
+        /// <param name="game"> </param>
         /// <param name="isInfinitive"></param>
-        /// <param name="graphicsDevice"></param>
-        public World(bool isInfinitive, GraphicsDevice graphicsDevice = null)
+        /// <param name="chunkStorage"> </param>
+        /// <param name="chunkCache"> </param>
+        public World(Game game, bool isInfinitive, ChunkStorage chunkStorage, ChunkCache chunkCache)
+            :base(game)
         {
+            this.Chunks = chunkStorage;
+            this.ChunkCache = chunkCache;
             this.IsInfinitive = isInfinitive;
-            this.GraphicsDevice = graphicsDevice;
         }
 
         public void ToggleInfinitiveWorld()

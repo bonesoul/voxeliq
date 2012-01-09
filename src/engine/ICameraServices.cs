@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework;
 
 namespace VolumetricStudios.VoxeliqEngine
 {
-    // TODO: move to client!
-
     /// <summary>
     /// Interface that provides camera information.
     /// </summary>

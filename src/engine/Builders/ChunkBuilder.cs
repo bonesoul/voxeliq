@@ -209,7 +209,7 @@ namespace VolumetricStudios.VoxeliqEngine.Builders
             else if (chunk.Dirty)
             {
                 Lightning.Process(chunk);
-                VertexBuilder.Build(this.World.GraphicsDevice, chunk);
+                VertexBuilder.Build(this.World.Game.GraphicsDevice, chunk);
             }
         }     
     }

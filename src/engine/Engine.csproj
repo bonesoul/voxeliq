@@ -98,6 +98,7 @@
     <Compile Include="Builders\ChunkBuilder.cs" />
     <Compile Include="Builders\QueuedBuilder.cs" />
     <Compile Include="Builders\TaskedBuilder.cs" />
+    <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Common\Config\Config.cs" />
     <Compile Include="Common\Config\ConfigManager.cs" />
     <Compile Include="Common\Helpers\IO\FileHelpers.cs" />

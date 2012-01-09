@@ -110,7 +110,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Fogger.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
@@ -124,11 +123,6 @@
     <Compile Include="Shovel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="States\GameState.cs" />
-    <Compile Include="States\LoadingState.cs" />
-    <Compile Include="States\PlayingState.cs" />
-    <Compile Include="States\StateManager.cs" />
-    <Compile Include="States\TitleState.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="VoxeliqGame.cs" />
     <Compile Include="Graphics\Camera.cs" />
