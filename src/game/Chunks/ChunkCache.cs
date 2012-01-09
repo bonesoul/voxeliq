@@ -77,7 +77,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     public class ChunkCache: DrawableGameComponent, IChunkCache
     {
         // properties
-        public const byte ViewRange = 6; // View range for the world.
+        public const byte ViewRange = 10; // View range for the world.
         public bool IsInfinitive { get; private set; } // Is the world infinitive?
 
         // stuff.
