@@ -112,10 +112,9 @@
   <ItemGroup>
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
+    <Compile Include="Environment\Fogger.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
-    <Compile Include="Worlds\Enviromental\Fogger.cs" />
-    <Compile Include="Worlds\Enviromental\IFogService.cs" />
     <Compile Include="Environment\Sky.cs" />
     <Compile Include="Worlds\GameWorld.cs" />
     <Compile Include="Graphics\Rasterizer.cs" />
@@ -140,7 +139,7 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\content\Content.contentproj">
+    <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>

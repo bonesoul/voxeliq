@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqEngine.Chunks;
 using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Universe;
+using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Worlds;
-using VolumetricStudios.VoxeliqGame.Worlds.Enviromental;
 
 namespace VolumetricStudios.VoxeliqGame.Debugging
 {

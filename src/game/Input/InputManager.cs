@@ -12,7 +12,6 @@ using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Worlds.Enviromental;
 
 namespace VolumetricStudios.VoxeliqGame.Input
 {

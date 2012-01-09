@@ -13,7 +13,6 @@ using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Input;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Worlds;
-using VolumetricStudios.VoxeliqGame.Worlds.Enviromental;
 
 namespace VolumetricStudios.VoxeliqGame
 {

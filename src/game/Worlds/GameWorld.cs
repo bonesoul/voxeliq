@@ -13,7 +13,7 @@ using VolumetricStudios.VoxeliqEngine.Common.Logging;
 using VolumetricStudios.VoxeliqEngine.Profiling;
 using VolumetricStudios.VoxeliqEngine.Universe;
 using VolumetricStudios.VoxeliqEngine.Utils.Vector;
-using VolumetricStudios.VoxeliqGame.Worlds.Enviromental;
+using VolumetricStudios.VoxeliqGame.Environment;
 
 namespace VolumetricStudios.VoxeliqGame.Worlds
 {
