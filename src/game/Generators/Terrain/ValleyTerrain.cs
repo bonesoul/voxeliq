@@ -14,7 +14,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         protected override void GenerateTerrain(Chunk chunk, int x, int z, int worldPositionX, int worldPositionZ)
         {
             this.RockHeight = this.GetRockHeight(worldPositionX, worldPositionZ);
-            this.DirtHeight = this.GetDirtHeight(worldPositionX, worldPositionZ, DirtHeight);
+            this.DirtHeight = this.GetDirtHeight(worldPositionX, worldPositionZ, RockHeight);
             int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
 
             for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--)
