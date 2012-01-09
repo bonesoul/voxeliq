@@ -44,7 +44,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
         private KeyboardState _previousKeyboardState;
 
         // required services.
-        private IWorldService _world;
+        private IWorld _world;
         private IPlayer _player;
         private IGraphicsManager _graphicsManager;       
         private ICameraControlService _cameraController;        
@@ -76,7 +76,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
             Logger.Trace("init()");
 
             // import required services.
-            this._world = (IWorldService) this.Game.Services.GetService(typeof (IWorldService));
+            this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._graphicsManager = (IGraphicsManager)this.Game.Services.GetService(typeof(IGraphicsManager));
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));

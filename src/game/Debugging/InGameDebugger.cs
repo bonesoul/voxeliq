@@ -20,7 +20,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
     public sealed class InGameDebugger:DrawableGameComponent, IInGameDebuggerService
     {
         private ICameraService _camera;
-        private IWorldService _world;
+        private IWorld _world;
         private IPlayer _player;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
@@ -47,7 +47,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             Logger.Trace("init()");
 
             this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
-            this._world = (IWorldService)this.Game.Services.GetService(typeof(IWorldService));
+            this._world = (IWorld)this.Game.Services.GetService(typeof(IWorld));
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//CalibriDebug");

@@ -41,9 +41,11 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         private SpriteFont _spriteFont;
                 
         // required services.       
+        private IWorld _world;
         private IWorldStatisticsService _worldStatistics;
         private IPlayer _player;
         private IFogService _fogService;
+        private IChunkStorage _chunkStorage;
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loging-facility
@@ -65,10 +67,12 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         {
             Logger.Trace("init()");
 
-            // import required services.
-            this._worldStatistics = (IWorldStatisticsService)this.Game.Services.GetService(typeof(IWorldStatisticsService));
+            // import required services.            
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             this._fogService = (IFogService)this.Game.Services.GetService(typeof(IFogService));
+            this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
+            this._worldStatistics = (IWorldStatisticsService)this.Game.Services.GetService(typeof(IWorldStatisticsService));
+            this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
 
             base.Initialize();
         }
@@ -109,18 +113,18 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             else if (this._worldStatistics.ChunksDrawn > 1) _drawnBlocks = (this._worldStatistics.ChunksDrawn / 0.03f).ToString("F2") + "K";
             else _drawnBlocks = "0";
 
-            if (this._worldStatistics.TotalChunks > 31) _totalBlocks = (this._worldStatistics.TotalChunks / 31f).ToString("F2") + "M";
-            else if (this._worldStatistics.TotalChunks > 1) _totalBlocks = (this._worldStatistics.TotalChunks / 0.03f).ToString("F2") + "K";
+            if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
+            else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
             else _totalBlocks = Chunk.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);            
             _spriteBatch.DrawString(_spriteFont, "fps: " + this.FPS, new Vector2(5, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "mem: " +  this.GetMemSize(GC.GetTotalMemory(false)), new Vector2(75, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "chunks: " + this._worldStatistics.ChunksDrawn + "/" + this._worldStatistics.TotalChunks, new Vector2(5, 20), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "chunks: " + this._worldStatistics.ChunksDrawn + "/" + this._chunkStorage.Count, new Vector2(5, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "gen/buildQ: " + this._worldStatistics.GenerationQueueCount + "/" + this._worldStatistics.BuildingQueueCount, new Vector2(320, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "inf: " + (this._worldStatistics.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
+            _spriteBatch.DrawString(_spriteFont, "inf: " + (this._world.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
             _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
             _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogService.State, new Vector2(120, 35), Color.White);            
             _spriteBatch.End();

@@ -4,6 +4,7 @@
  */
 
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
@@ -12,7 +13,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
 
     public class TaskedBuilder : ChunkBuilder
     {
-        public TaskedBuilder(IPlayer player, World world) : base(player, world) { }
+        public TaskedBuilder(Game game, IPlayer player, World world) 
+            : base(game, player, world) { }
 
         protected override void QueueChunks()
         {

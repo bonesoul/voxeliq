@@ -81,7 +81,7 @@ namespace VolumetricStudios.VoxeliqGame
             var chunkCache = new ChunkCache(this) {UpdateOrder = 4, DrawOrder = 1};
             this.Components.Add(chunkCache);
 
-            var world = new World(this, true, chunkStorage, chunkCache) { UpdateOrder = 5, DrawOrder = 2 };
+            var world = new World(this, chunkStorage, chunkCache) { UpdateOrder = 5, DrawOrder = 2 };
             this.Components.Add(world);
 
             this.Components.Add(new Player(this, world) { UpdateOrder = 6, DrawOrder = 3 });

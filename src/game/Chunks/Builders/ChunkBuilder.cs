@@ -16,7 +16,7 @@ using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
 {
-    public class ChunkBuilder
+    public class ChunkBuilder : GameComponent
     {
         protected readonly BlockingCollection<Chunk> GenerationQueue = new BlockingCollection<Chunk>(); // uses concurrent queues by default.
         protected readonly BlockingCollection<Chunk> BuildingQueue = new BlockingCollection<Chunk>();
@@ -28,14 +28,27 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         public int GenerationQueueCount { get { return this.GenerationQueue.Count; } }
         public int BuildingQueueCount { get { return this.BuildingQueue.Count; } }
 
-        protected virtual void QueueChunks() { }
+        // import services.
+        private IChunkCache _chunkCache;
+        private IVertexBuilder _vertexBuilder;
 
-        protected ChunkBuilder(IPlayer player, World world)
+        protected ChunkBuilder(Game game, IPlayer player, World world)
+            :base(game)
         {
             this.Player = player;
             this.World = world;
-            this.Generator = new RainForest();
+            this.Generator = new RainForest();            
         }
+
+        public override void Initialize()
+        {
+            // import required services.
+            this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this._vertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
+        }
+
+        protected virtual void QueueChunks()
+        { }
 
         public void Start()
         {
@@ -55,7 +68,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         private bool CheckIfPlayerChunkChanged()
         {
             if (!this.World.IsInfinitive || Player.CurrentChunk.IsInBounds(Player.Position.X, Player.Position.Z)) return false; // he's already in same chunk.
-            var chunk = this.World.GetChunk((int)Player.Position.X, (int)Player.Position.Z);
+            var chunk = this._chunkCache.GetChunk((int)Player.Position.X, (int)Player.Position.Z);                
 
             Player.LastChunk = Player.CurrentChunk;
             Player.CurrentChunk = chunk;
@@ -72,7 +85,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             if (displacement.X != 0) RecacheHorizantalChunks(displacement.X < 0 ? Direction.West : Direction.East, Math.Abs(displacement.X));
             if (displacement.Z != 0) RecacheVerticalChunks(displacement.Z < 0 ? Direction.South : Direction.North, Math.Abs(displacement.Z));
 
-            World.BoundingBox = new BoundingBox(new Vector3(this.World.Chunks.SouthWestEdge.X * Chunk.WidthInBlocks, 0, this.World.Chunks.SouthWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((this.World.Chunks.NorthEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.World.Chunks.NorthEastEdge.Z + 1) * Chunk.LenghtInBlocks));
+            this._chunkCache.BoundingBox = new BoundingBox(new Vector3(this.World.Chunks.SouthWestEdge.X * Chunk.WidthInBlocks, 0, this.World.Chunks.SouthWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((this.World.Chunks.NorthEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.World.Chunks.NorthEastEdge.Z + 1) * Chunk.LenghtInBlocks));
         }
 
         private void RecacheHorizantalChunks(Direction direction, int delta)
@@ -82,7 +95,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             int xCord = World.Chunks.SouthWestEdge.X;
             if (direction == Direction.West) xCord--;
 
-            for (int z = this.World.Chunks.SouthWestEdge.Z; z <= this.World.Chunks.SouthWestEdge.Z + World.ViewRange * 2; z++)
+            for (int z = this.World.Chunks.SouthWestEdge.Z; z <= this.World.Chunks.SouthWestEdge.Z + ChunkCache.ViewRange * 2; z++)
             {
                 var pos = new Vector2Int(xCord, z);
                 Chunk chunk;
@@ -103,7 +116,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             xCord = this.World.Chunks.NorthEastEdge.X;
             if (direction == Direction.East) xCord++;
 
-            for (int z = this.World.Chunks.NorthEastEdge.Z; z >= this.World.Chunks.NorthEastEdge.Z - World.ViewRange * 2; z--)
+            for (int z = this.World.Chunks.NorthEastEdge.Z; z >= this.World.Chunks.NorthEastEdge.Z - ChunkCache.ViewRange * 2; z--)
             {
                 var pos = new Vector2Int(xCord, z);
                 Chunk chunk;
@@ -141,7 +154,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             int zCord = this.World.Chunks.SouthWestEdge.Z;
             if (direction == Direction.South) zCord--;
 
-            for (int x = this.World.Chunks.SouthWestEdge.X; x <= this.World.Chunks.SouthWestEdge.X + World.ViewRange * 2; x++)
+            for (int x = this.World.Chunks.SouthWestEdge.X; x <= this.World.Chunks.SouthWestEdge.X + ChunkCache.ViewRange * 2; x++)
             {
                 var pos = new Vector2Int(x, zCord);
                 Chunk chunk;
@@ -162,7 +175,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             zCord = this.World.Chunks.NorthEastEdge.Z;
             if (direction == Direction.North) zCord++;
 
-            for (int x = this.World.Chunks.NorthEastEdge.X; x >= this.World.Chunks.NorthEastEdge.X - World.ViewRange * 2; x--)
+            for (int x = this.World.Chunks.NorthEastEdge.X; x >= this.World.Chunks.NorthEastEdge.X - ChunkCache.ViewRange * 2; x--)
             {
                 var pos = new Vector2Int(x, zCord);
                 Chunk chunk;
@@ -208,7 +221,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             else if (chunk.Dirty)
             {
                 Lightning.Process(chunk);
-                VertexBuilder.Build(this.World.Game.GraphicsDevice, chunk);
+                this._vertexBuilder.Build(chunk);
             }
         }     
     }

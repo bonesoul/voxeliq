@@ -3,6 +3,7 @@
  *
  */
 
+using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
@@ -11,7 +12,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
 
     public class QueuedBuilder: ChunkBuilder
     {
-        public QueuedBuilder(IPlayer player, World world) : base(player, world) { }
+        public QueuedBuilder(Game game, IPlayer player, World world) 
+            : base(game, player, world) { }
 
         protected override void QueueChunks()
         {
