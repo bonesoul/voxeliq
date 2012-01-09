@@ -6,7 +6,7 @@
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Terrain.Generators.Debug
+namespace VolumetricStudios.VoxeliqGame.Generators.Debug
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.

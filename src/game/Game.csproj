@@ -129,6 +129,8 @@
     <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Fogger.cs" />
+    <Compile Include="Generators\Biomes\BiomeGenerator.cs" />
+    <Compile Include="Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
     <Compile Include="Environment\Sky.cs" />
@@ -144,11 +146,11 @@
     <Compile Include="Shovel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Terrain\Generators\BiomedTerrain.cs" />
-    <Compile Include="Terrain\Generators\Biomes\AntarticTundra.cs" />
-    <Compile Include="Terrain\Generators\Biomes\RainForest.cs" />
-    <Compile Include="Terrain\Generators\Debug\FlatTerrain.cs" />
-    <Compile Include="Terrain\TerrainGenerator.cs" />
+    <Compile Include="Generators\Biomes\AntarticTundra.cs" />
+    <Compile Include="Generators\Biomes\RainForest.cs" />
+    <Compile Include="Generators\Debug\FlatTerrain.cs" />
+    <Compile Include="Generators\Terrain\BasicTerrain.cs" />
+    <Compile Include="Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
     <Compile Include="Universe\BlockVertex.cs" />

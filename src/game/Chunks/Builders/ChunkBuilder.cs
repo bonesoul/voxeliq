@@ -8,9 +8,10 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqGame.Generators;
+using VolumetricStudios.VoxeliqGame.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Processors;
-using VolumetricStudios.VoxeliqGame.Terrain;
-using VolumetricStudios.VoxeliqGame.Terrain.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
@@ -37,7 +38,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         {
             this.Player = player;
             this.World = world;
-            this.Generator = new RainForest();            
+            this.Generator = new MountainousTerrain(new RainForest());            
         }
 
         public override void Initialize()

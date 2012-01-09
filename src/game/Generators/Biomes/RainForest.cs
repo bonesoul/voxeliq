@@ -6,14 +6,14 @@
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Terrain.Generators.Biomes
+namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
 {
     /// <summary>
     /// Rain forest generator.
     /// </summary>
-    public sealed class RainForest : BiomedTerrain
+    public sealed class RainForest : BiomeGenerator
     {
-        protected override void ApplyBiome(Chunk chunk)
+        public override void ApplyBiome(Chunk chunk)
         {
             for (int x = 0; x < Chunk.WidthInBlocks; x++)
             {
@@ -23,7 +23,7 @@ namespace VolumetricStudios.VoxeliqGame.Terrain.Generators.Biomes
                     for(int y=chunk.HighestSolidBlockOffset; y>= 0 ;y--)
                     {
                         if (!chunk.Blocks[offset + y - 1].Exists) continue;
-                        chunk.Blocks[offset+y].Type= BlockType.Grass;
+                        chunk.Blocks[offset+y].Type = BlockType.Grass;
                         break;        
                     }
                 }

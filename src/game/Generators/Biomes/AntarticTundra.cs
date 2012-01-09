@@ -6,14 +6,14 @@
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Terrain.Generators.Biomes
+namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
 {
     /// <summary>
     /// Antartic tundra generator.
     /// </summary>
-    public sealed class AntarticTundra:BiomedTerrain
+    public sealed class AntarticTundra : BiomeGenerator
     {
-        protected override void ApplyBiome(Chunk chunk)
+        public override void ApplyBiome(Chunk chunk)
         {
             for (int x = 0; x < Chunk.WidthInBlocks; x++)
             {
