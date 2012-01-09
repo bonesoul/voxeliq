@@ -7,9 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VolumetricStudios.VoxeliqGame.Debugging
 {
     public interface IInGameDebuggerService
     {

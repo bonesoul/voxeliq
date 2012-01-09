@@ -6,6 +6,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 

@@ -6,7 +6,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
-using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Interface
 {

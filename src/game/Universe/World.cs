@@ -9,8 +9,9 @@ using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Environment;
-using VolumetricStudios.VoxeliqGame.Profiling;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Universe

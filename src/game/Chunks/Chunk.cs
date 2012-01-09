@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 

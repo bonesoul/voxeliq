@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace VolumetricStudios.VoxeliqGame.Profiling
+namespace VolumetricStudios.VoxeliqGame.Debugging.Profiling
 {
     /// <summary>
     /// Provides methods for profiling.

@@ -8,11 +8,71 @@ using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame
 {
+    /// <summary>
+    /// Interface for controlling player.
+    /// </summary>
+    public interface IPlayer
+    {
+        /// <summary>
+        /// The real player position.
+        /// </summary>
+        Vector3 Position { get; }
+
+        /// <summary>
+        /// Last chunk the player was on.
+        /// </summary>
+        Chunk LastChunk { get; set; }
+
+        /// <summary>
+        /// The current chunk the player is in.
+        /// </summary>
+        Chunk CurrentChunk { get; set; }
+
+        /// <summary>
+        /// The weapon player is wielding.
+        /// </summary>
+        Weapon Weapon { get; set; }
+
+        PositionedBlock? AimedSolidBlock { get; }
+
+        PositionedBlock? AimedEmptyBlock { get; }
+
+        /// <summary>
+        /// Moves camera in given direction.
+        /// </summary>
+        /// <param name="gameTime"> </param>
+        /// <param name="direction"><see cref="MoveDirection"/></param>
+        void Move(GameTime gameTime, MoveDirection direction);
+
+        /// <summary>
+        /// Let's the player jump.
+        /// </summary>
+        void Jump();
+
+        /// <summary>
+        /// Sets camera position.
+        /// </summary>
+        /// <param name="position">The position in Vector3.</param>
+        void SpawnPlayer(Vector2Int position);
+
+        /// <summary>
+        /// Is flying enabled?
+        /// </summary>
+        /// <returns></returns>
+        bool FlyingEnabled { get; }
+
+        /// <summary>
+        /// Toggles fly form.
+        /// </summary>
+        void ToggleFlyForm();
+    }
+
     public sealed class Player : DrawableGameComponent, IPlayer
     {        
         public bool FlyingEnabled { get; private set; }
@@ -230,5 +290,13 @@ namespace VolumetricStudios.VoxeliqGame
                 }
             }
         }
+    }
+
+    public enum MoveDirection
+    {
+        Forward,
+        Backward,
+        Left,
+        Right,
     }
 }
