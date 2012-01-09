@@ -1,11 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Environment;
+using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     public interface IChunkCache
     {
+        /// <summary>
+        /// Returns true if world is in infinitive mode.
+        /// </summary>
+        bool IsInfinitive { get; }
+
+        /// <summary>
+        /// Toggles infitinitive world.
+        /// </summary>
+        void ToggleInfinitiveWorld();     
+
         /// <summary>
         /// Bounding box for the cache.
         /// </summary>
@@ -50,6 +64,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="z"></param>
         /// <returns></returns>
         Block BlockAt(int x, int y, int z);
+
+        /// <summary>
+        /// Returns chunks drawn in last draw() call.
+        /// </summary>
+        int ChunksDrawn { get; }
     }
 
     /// <summary>
@@ -57,23 +76,52 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     /// </summary>
     public class ChunkCache: DrawableGameComponent, IChunkCache
     {
+        // properties
         public const byte ViewRange = 6; // View range for the world.
+        public bool IsInfinitive { get; private set; } // Is the world infinitive?
+
+        // stuff.
+        public int ChunksDrawn { get; protected set; } // chunks drawn statistics.
+
+        // assets & resources
+        private Effect _blockEffect; // block effect.
+        private Texture2D _blockTextureAtlas; // block texture atlas
+        private Texture2D _crackTextureAtlas; // crack texture atlas
 
         public BoundingBox BoundingBox { get; set; } // Bounding box for the cache.
 
         // required services.
         private IChunkStorage _chunkStorage;
+        private ICamera _camera;
+        private IFogger _fogger;
+
+        // misc.
+        private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public ChunkCache(Game game) 
             : base(game)
         {
+            this.IsInfinitive = true;
             this.Game.Services.AddService(typeof(IChunkCache), this); // export service.
         }
 
         public override void Initialize()
         {
+            Logger.Trace("init()");
+
             // import required services.
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
+            this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
+            this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
+            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\terrain");
+            this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
         }
 
         // Returns the chunk in given x-z position.
@@ -117,6 +165,50 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
             return true;
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            var viewFrustrum = new BoundingFrustum(this._camera.View * this._camera.Projection);
+
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            Game.GraphicsDevice.BlendState = BlendState.Opaque;
+
+            _blockEffect.Parameters["World"].SetValue(Matrix.Identity);
+            _blockEffect.Parameters["View"].SetValue(this._camera.View);
+            _blockEffect.Parameters["Projection"].SetValue(this._camera.Projection);
+            _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
+            _blockEffect.Parameters["FogColor"].SetValue(Color.White.ToVector4());
+            _blockEffect.Parameters["FogNear"].SetValue(this._fogger.FogVector.X);
+            _blockEffect.Parameters["FogFar"].SetValue(this._fogger.FogVector.Y);
+            _blockEffect.Parameters["SunColor"].SetValue(Color.White.ToVector3());
+            _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+
+            this.ChunksDrawn = 0;
+            foreach (EffectPass pass in this._blockEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                foreach (Chunk chunk in this._chunkStorage.Values)
+                {
+                    if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
+
+                    lock (chunk)
+                    {
+                        if (chunk.IndexBuffer.IndexCount == 0) continue;
+                        Game.GraphicsDevice.SetVertexBuffer(chunk.VertexBuffer);
+                        Game.GraphicsDevice.Indices = chunk.IndexBuffer;
+                        Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.VertexBuffer.VertexCount, 0, chunk.IndexBuffer.IndexCount / 3);
+                    }
+
+                    this.ChunksDrawn++;
+                }
+            }
+        }
+
+        public void ToggleInfinitiveWorld()
+        {
+            this.IsInfinitive = !this.IsInfinitive;
         }
     }
 }

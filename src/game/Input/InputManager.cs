@@ -6,6 +6,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Environment;
@@ -49,9 +50,10 @@ namespace VolumetricStudios.VoxeliqGame.Input
         private IGraphicsManager _graphicsManager;       
         private ICameraControlService _cameraController;        
         private IInGameDebuggerService _ingameDebuggerService;
-        private IFogService _fogService;
+        private IFogger _fogger;
         private ISkyService _skyService;
         private IStatisticsGraphs _statisticsGraphs;
+        private IChunkCache _chunkCache;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -81,9 +83,10 @@ namespace VolumetricStudios.VoxeliqGame.Input
             this._graphicsManager = (IGraphicsManager)this.Game.Services.GetService(typeof(IGraphicsManager));
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
             this._ingameDebuggerService = (IInGameDebuggerService)this.Game.Services.GetService(typeof(IInGameDebuggerService));
-            this._fogService = (IFogService) this.Game.Services.GetService(typeof (IFogService));
+            this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._skyService = (ISkyService)this.Game.Services.GetService(typeof(ISkyService));
             this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
+            this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
             #if DEBUG // if in debug mode, print debug-keys.
                 this.PrintDebugKeys();
@@ -148,9 +151,9 @@ namespace VolumetricStudios.VoxeliqGame.Input
             if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();  
 
             // debug keys.
-            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) this._world.ToggleInfinitiveWorld();
+            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) this._chunkCache.ToggleInfinitiveWorld();
             if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2)) this._player.ToggleFlyForm();
-            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) this._fogService.ToggleFog();
+            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) this._fogger.ToggleFog();
             if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4)) this._skyService.ToggleDynamicClouds();
             if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5)) this.CaptureMouse = !this.CaptureMouse;
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9)) this._statisticsGraphs.Toggle();

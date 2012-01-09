@@ -206,7 +206,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         }
 
-        public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICameraService camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
+        public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + LowestEmptyBlockOffset + "/" + HighestSolidBlockOffset;
             var positionSize = spriteFont.MeasureString(position);

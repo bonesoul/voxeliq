@@ -45,6 +45,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
             // import required services.
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
             this._vertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
+
+            this.Start();
         }
 
         protected virtual void QueueChunks()
@@ -60,14 +62,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         {
             while (this.Active)
             {
-                if (this.World.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
+                if (this._chunkCache.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
                 this.QueueChunks();
             }
         }
 
         private bool CheckIfPlayerChunkChanged()
         {
-            if (!this.World.IsInfinitive || Player.CurrentChunk.IsInBounds(Player.Position.X, Player.Position.Z)) return false; // he's already in same chunk.
+            if (!this._chunkCache.IsInfinitive || Player.CurrentChunk.IsInBounds(Player.Position.X, Player.Position.Z)) return false; // he's already in same chunk.
             var chunk = this._chunkCache.GetChunk((int)Player.Position.X, (int)Player.Position.Z);                
 
             Player.LastChunk = Player.CurrentChunk;
@@ -78,7 +80,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
 
         private void RecacheChunks()
         {
-            if (!this.World.IsInfinitive) return;
+            if (!this._chunkCache.IsInfinitive) return;
 
             var displacement = new Vector2Int(this.Player.CurrentChunk.RelativePosition.X - this.Player.LastChunk.RelativePosition.X, this.Player.CurrentChunk.RelativePosition.Z - this.Player.LastChunk.RelativePosition.Z);
 

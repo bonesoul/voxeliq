@@ -42,7 +42,7 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
 
         // required services.
-        private ICameraService _camera;
+        private ICamera _camera;
 
         public Sky(Game game, bool enableDynamicClouds = true)
             : base(game)
@@ -56,7 +56,7 @@ namespace VolumetricStudios.VoxeliqGame.Environment
             Logger.Trace("init()");
 
             // import require services.
-            this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
+            this._camera = (ICamera)this.Game.Services.GetService(typeof(ICamera));
 
             base.Initialize();
         }

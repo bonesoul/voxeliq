@@ -97,7 +97,7 @@ namespace VolumetricStudios.VoxeliqGame
         private const float JumpVelocity = 6f;
 
         // required services.
-        private ICameraService _camera;
+        private ICamera _camera;
         private IChunkCache _chunkCache;
 
         // misc
@@ -119,7 +119,7 @@ namespace VolumetricStudios.VoxeliqGame
             this.LoadContent();
 
             // import required services.
-            this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
+            this._camera = (ICamera)this.Game.Services.GetService(typeof(ICamera));
             this._chunkCache = (IChunkCache)this.Game.Services.GetService(typeof(IChunkCache));
 
             this.Weapon.Initialize();

@@ -17,14 +17,22 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         void ToggleInGameDebugger();
     }
 
+    public interface IInGameDebuggable
+    {
+        void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont);
+    }
+
     public sealed class InGameDebugger:DrawableGameComponent, IInGameDebuggerService
     {
-        private ICameraService _camera;
-        private IWorld _world;
-        private IPlayer _player;
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
         private bool _active = false;
+
+        // required services.
+        private ICamera _camera;
+        private IWorld _world;
+        private IPlayer _player;
+        private IChunkStorage _chunkStorage;
 
         /// <summary>
         /// Logging facility.
@@ -34,23 +42,21 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         public InGameDebugger(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(IInGameDebuggerService), this);
-        }
-
-        public void ToggleInGameDebugger()
-        {
-            _active = !_active;
+            game.Services.AddService(typeof(IInGameDebuggerService), this); // export service.
         }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
 
-            this._camera = (ICameraService)this.Game.Services.GetService(typeof(ICameraService));
-            this._world = (IWorld)this.Game.Services.GetService(typeof(IWorld));
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//CalibriDebug");
+
+            // import service.
+            this._camera = (ICamera)this.Game.Services.GetService(typeof(ICamera));
+            this._world = (IWorld)this.Game.Services.GetService(typeof(IWorld));
+            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
+            this._chunkStorage = (IChunkStorage)this.Game.Services.GetService(typeof(IChunkStorage));
         }
 
         public override void Draw(GameTime gameTime)
@@ -60,7 +66,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
 
             _spriteBatch.Begin();
 
-            foreach (Chunk chunk in _world.Chunks.Values)
+            foreach (Chunk chunk in this._chunkStorage.Values)
             {
                 if (!chunk.BoundingBox.Intersects(viewFrustrum)) continue;
                 chunk.PrintDebugInfo(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
@@ -71,10 +77,10 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _spriteBatch.End();
 
         }
-    }
 
-    public interface IInGameDebuggable
-    {
-        void PrintDebugInfo(GraphicsDevice graphicsDevice, ICameraService camera, SpriteBatch spriteBatch, SpriteFont spriteFont);
+        public void ToggleInGameDebugger()
+        {
+            _active = !_active;
+        }
     }
 }

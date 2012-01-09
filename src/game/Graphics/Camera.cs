@@ -11,7 +11,7 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
     /// <summary>
     /// Interface that provides camera information.
     /// </summary>
-    public interface ICameraService
+    public interface ICamera
     {
         /// <summary>
         /// Camera's projection matrix (lens).
@@ -64,7 +64,7 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         void LookAt(Vector3 target);
     }
 
-    public class Camera : GameComponent, ICameraService, ICameraControlService
+    public class Camera : GameComponent, ICamera, ICameraControlService
     {
         public Matrix Projection { get; private set; } // the camera lens.
         public Matrix View { get; private set; } // the camera position.
@@ -88,7 +88,7 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         public Camera(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(ICameraService), this);
+            game.Services.AddService(typeof(ICamera), this);
             game.Services.AddService(typeof(ICameraControlService), this);
         }
 

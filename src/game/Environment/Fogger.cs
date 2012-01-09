@@ -7,7 +7,7 @@ using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame.Environment
 {
-    public interface IFogService
+    public interface IFogger
     {
         /// <summary>
         /// Fog state.
@@ -25,7 +25,7 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         void ToggleFog();
     }
 
-    public class Fogger : GameComponent, IFogService
+    public class Fogger : GameComponent, IFogger
     {
         // properties
         public FogState State { get; private set; }
@@ -46,7 +46,7 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         {
             Logger.Trace("init()");
             this.State = FogState.None;
-            this.Game.Services.AddService(typeof(IFogService), this);
+            this.Game.Services.AddService(typeof(IFogger), this);
         }
 
         /// <summary>
