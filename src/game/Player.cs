@@ -5,13 +5,11 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqEngine;
-using VolumetricStudios.VoxeliqEngine.Blocks;
-using VolumetricStudios.VoxeliqEngine.Chunks;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
-using VolumetricStudios.VoxeliqEngine.Universe;
-using VolumetricStudios.VoxeliqEngine.Utils.Vector;
-using VolumetricStudios.VoxeliqGame.Worlds;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame
 {
@@ -29,7 +27,7 @@ namespace VolumetricStudios.VoxeliqGame
         public PositionedBlock? AimedEmptyBlock { get; private set; } // nullable object.        
         public Vector3 Velocity;
 
-        private readonly GameWorld _world;
+        private readonly World _world;
         private ICameraService _camera;
         private BasicEffect _aimedBlockEffect;
         private Model _aimedBlockModel;
@@ -43,8 +41,8 @@ namespace VolumetricStudios.VoxeliqGame
         /// Logging facility.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
-        
-        public Player(Game game,GameWorld world)
+
+        public Player(Game game, World world)
             : base(game)
         {
             game.Services.AddService(typeof(IPlayer), this);

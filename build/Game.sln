@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "..\src\game\Game.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game-Content", "..\src\game-content\Game-Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "..\src\engine\Engine.csproj", "{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,10 +17,6 @@ Global
 		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|x86.Build.0 = Release|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Debug|x86.ActiveCfg = Debug|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Release|x86.ActiveCfg = Release|x86
-		{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}.Debug|x86.ActiveCfg = Debug|x86
-		{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}.Debug|x86.Build.0 = Debug|x86
-		{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}.Release|x86.ActiveCfg = Release|x86
-		{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
  */
 
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame.Graphics
 {

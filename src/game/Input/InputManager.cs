@@ -6,12 +6,11 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using VolumetricStudios.VoxeliqEngine;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
-using VolumetricStudios.VoxeliqEngine.Universe;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Input
 {

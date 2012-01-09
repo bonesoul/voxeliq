@@ -5,15 +5,14 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqEngine;
-using VolumetricStudios.VoxeliqEngine.Chunks;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Input;
 using VolumetricStudios.VoxeliqGame.Interface;
-using VolumetricStudios.VoxeliqGame.Worlds;
+using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame
 {
@@ -82,7 +81,7 @@ namespace VolumetricStudios.VoxeliqGame
             var chunkCache = new ChunkCache(this) {UpdateOrder = 4, DrawOrder = 1};
             this.Components.Add(chunkCache);
 
-            var world = new GameWorld(this, chunkStorage, chunkCache) { UpdateOrder = 5, DrawOrder = 2 };
+            var world = new World(this, true, chunkStorage, chunkCache) { UpdateOrder = 5, DrawOrder = 2 };
             this.Components.Add(world);
 
             this.Components.Add(new Player(this, world) { UpdateOrder = 6, DrawOrder = 3 });

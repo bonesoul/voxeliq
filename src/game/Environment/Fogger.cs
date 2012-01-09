@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame.Environment
 {

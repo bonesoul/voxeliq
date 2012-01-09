@@ -3,7 +3,7 @@
  *
  */
 
-using VolumetricStudios.VoxeliqEngine.Common.Config;
+using VolumetricStudios.VoxeliqGame.Common.Config;
 
 namespace VolumetricStudios.VoxeliqGame.Graphics
 {

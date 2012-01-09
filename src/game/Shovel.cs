@@ -5,10 +5,9 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqEngine;
-using VolumetricStudios.VoxeliqEngine.Blocks;
-using VolumetricStudios.VoxeliqEngine.Universe;
-using VolumetricStudios.VoxeliqEngine.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame
 {

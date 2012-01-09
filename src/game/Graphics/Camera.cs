@@ -4,9 +4,8 @@
  */
 
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqEngine;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
-using VolumetricStudios.VoxeliqEngine.Universe;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Graphics
 {    

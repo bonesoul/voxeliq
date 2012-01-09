@@ -93,6 +93,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -110,20 +114,55 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Chunks\Builders\ChunkBuilder.cs" />
+    <Compile Include="Chunks\Builders\QueuedBuilder.cs" />
+    <Compile Include="Chunks\Builders\TaskedBuilder.cs" />
+    <Compile Include="Chunks\Chunk.cs" />
+    <Compile Include="Chunks\ChunkCache.cs" />
+    <Compile Include="Chunks\ChunkStorage.cs" />
+    <Compile Include="Common\Config\Config.cs" />
+    <Compile Include="Common\Config\ConfigManager.cs" />
+    <Compile Include="Common\Helpers\IO\FileHelpers.cs" />
+    <Compile Include="Common\Helpers\Math\FastRandom.cs" />
+    <Compile Include="Common\Logging\LogConfig.cs" />
+    <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Fogger.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
     <Compile Include="Environment\Sky.cs" />
-    <Compile Include="Worlds\GameWorld.cs" />
     <Compile Include="Graphics\Rasterizer.cs" />
+    <Compile Include="ICameraServices.cs" />
+    <Compile Include="InGameDebugger.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
+    <Compile Include="Processors\Lightning.cs" />
+    <Compile Include="Processors\VertexBuilder.cs" />
+    <Compile Include="Profiling\Profiler.cs" />
     <Compile Include="Shovel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Terrain\Generators\BiomedTerrain.cs" />
+    <Compile Include="Terrain\Generators\Biomes\AntarticTundra.cs" />
+    <Compile Include="Terrain\Generators\Biomes\RainForest.cs" />
+    <Compile Include="Terrain\Generators\Debug\FlatTerrain.cs" />
+    <Compile Include="Terrain\TerrainGenerator.cs" />
+    <Compile Include="Texture\DualTextured.cs" />
+    <Compile Include="Texture\TextureHelper.cs" />
+    <Compile Include="Universe\BlockVertex.cs" />
+    <Compile Include="Universe\IPlayer.cs" />
+    <Compile Include="Universe\PositionedBlock.cs" />
+    <Compile Include="Universe\Weapon.cs" />
+    <Compile Include="Universe\World.cs" />
+    <Compile Include="Utils\Algorithms\PerlinSimplexNoise.cs" />
+    <Compile Include="Utils\DoubleIndexedDictionary.cs" />
+    <Compile Include="Utils\SparseMatrix.cs" />
+    <Compile Include="Utils\Vector\Vector2Int.cs" />
+    <Compile Include="Utils\Vector\Vector3Int.cs" />
+    <Compile Include="Utils\Vector\Vector4Byte.cs" />
     <Compile Include="VoxeliqGame.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
@@ -137,10 +176,6 @@
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\engine\Engine.csproj">
-      <Project>{6BEB3C5B-3F3D-40DB-A009-B34CBB0915E8}</Project>
-      <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VolumetricStudios.VoxeliqEngine.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame
 {
