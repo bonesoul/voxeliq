@@ -38,7 +38,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         {
             this.Player = player;
             this.World = world;
-            this.Generator = new ValleyTerrain(new RainForest());            
+            this.Generator = new MountainousTerrain(new RainForest());            
         }
 
         public override void Initialize()
