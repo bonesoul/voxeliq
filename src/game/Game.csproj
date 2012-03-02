@@ -116,11 +116,14 @@
   <ItemGroup>
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Chunks\Builders\ChunkBuilder.cs" />
+    <Compile Include="Chunks\ChunkState.cs" />
     <Compile Include="Chunks\Builders\QueuedBuilder.cs" />
     <Compile Include="Chunks\Builders\TaskedBuilder.cs" />
     <Compile Include="Chunks\Chunk.cs" />
     <Compile Include="Chunks\ChunkCache.cs" />
+    <Compile Include="Chunks\Processors\ChunkProcessor.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
+    <Compile Include="Chunks\Processors\SingleThreadProcessor.cs" />
     <Compile Include="Common\Config\Config.cs" />
     <Compile Include="Common\Config\ConfigManager.cs" />
     <Compile Include="Common\Helpers\IO\FileHelpers.cs" />

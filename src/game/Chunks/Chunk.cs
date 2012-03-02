@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
@@ -85,6 +86,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public readonly World World;
 
         /// <summary>
+        /// The chunk state.
+        /// </summary>
+        public ChunkState ChunkState { get; set; }
+
+        /// <summary>
         /// Does chunk need a re-build of vertices?
         /// </summary>
         public bool Dirty { get; set; }
@@ -137,6 +143,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Chunk(World world, Vector2Int relativePosition)
         {
+            this.ChunkState = ChunkState.AwaitingGenerate;
+
             this.Generated = false;
             this.Dirty = true;
             this.QueuedForBuilding = false;

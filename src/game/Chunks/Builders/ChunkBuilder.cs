@@ -8,7 +8,6 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.VoxeliqGame.Generators;
 using VolumetricStudios.VoxeliqGame.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Processors;
@@ -63,8 +62,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         {
             while (this.Active)
             {
-                if (this._chunkCache.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
-                this.QueueChunks();
+                //if (this._chunkCache.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
+                //this.QueueChunks();
             }
         }
 

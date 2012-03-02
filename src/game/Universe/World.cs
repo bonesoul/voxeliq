@@ -6,6 +6,7 @@
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Chunks.Builders;
+using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Graphics;
@@ -38,6 +39,11 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         private readonly ChunkCache _chunkCache;// chunk cache.
 
         public ChunkBuilder ChunkBuilder { get; protected set; } // Chunk builder.
+        
+        /// <summary>
+        /// The chunk processor.
+        /// </summary>
+        public ChunkProcessor ChunkProcessor { get; private set; }
 
         public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } } // Generation queue count.
         public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } } // Building queue count.
@@ -76,6 +82,9 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
             this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
             this.Game.Components.Add(this.ChunkBuilder);
+
+            this.ChunkProcessor = new SingleThreadProcessor(this.Game, this);
+            this.Game.Components.Add(this.ChunkProcessor);
 
             var vertexBuilder = new VertexBuilder(this.Game);
             this.Game.Components.Add(vertexBuilder);

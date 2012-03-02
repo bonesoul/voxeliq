@@ -191,7 +191,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                 foreach (Chunk chunk in this._chunkStorage.Values)
                 {
-                    if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
+                    if(chunk.ChunkState != ChunkState.Ready)  // if chunk is not clean & ready yet,
+                        continue;   // just pass it.
+
+                    //if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
 
                     lock (chunk)
                     {

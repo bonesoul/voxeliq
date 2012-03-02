@@ -19,7 +19,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         {
             foreach (Chunk chunk in World.Chunks.Values)
             {
-                if (!chunk.Generated && !chunk.QueuedForGeneration)
+                /*if (!chunk.Generated && !chunk.QueuedForGeneration)
                 {
                     chunk.QueuedForGeneration = true;
                     this.GenerationQueue.Add(chunk);
@@ -29,7 +29,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
                 {
                     chunk.QueuedForBuilding = true;
                     this.BuildingQueue.Add(chunk);
-                }
+                }*/
             }
 
             int count = GenerationQueue.Count + BuildingQueue.Count;
