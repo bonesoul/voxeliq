@@ -76,12 +76,26 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     /// </summary>
     public class ChunkCache: DrawableGameComponent, IChunkCache
     {
-        // properties
-        public const byte ViewRange = 10; // View range for the world.
-        public bool IsInfinitive { get; private set; } // Is the world infinitive?
 
-        // stuff.
-        public int ChunksDrawn { get; protected set; } // chunks drawn statistics.
+        /// <summary>
+        /// Range of viewable chunks.
+        /// </summary>
+        public const byte ViewRange = 10; 
+
+        /// <summary>
+        /// Chunk range cache.
+        /// </summary>
+        public const byte CacheRange = 15;
+
+        /// <summary>
+        /// Is the world infinitive?
+        /// </summary>
+        public bool IsInfinitive { get; private set; }
+
+        /// <summary>
+        /// Chunks drawn statistics.
+        /// </summary>
+        public int ChunksDrawn { get; protected set; }
 
         // assets & resources
         private Effect _blockEffect; // block effect.
@@ -196,13 +210,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                     //if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
 
-                    lock (chunk)
-                    {
+                    //lock (chunk)
+                    //{
                         if (chunk.IndexBuffer.IndexCount == 0) continue;
                         Game.GraphicsDevice.SetVertexBuffer(chunk.VertexBuffer);
                         Game.GraphicsDevice.Indices = chunk.IndexBuffer;
                         Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.VertexBuffer.VertexCount, 0, chunk.IndexBuffer.IndexCount / 3);
-                    }
+                    //}
 
                     this.ChunksDrawn++;
                 }

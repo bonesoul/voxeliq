@@ -1,6 +1,12 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2011-2012 voxeliq project 
+ *
+ */
+
+using System;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.Universe;
@@ -32,6 +38,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         /// </summary>
         protected IVertexBuilder VertexBuilder { get; set; }
 
+        /// <summary>
+        /// Logging facility.
+        /// </summary>
+        protected static readonly Logger Logger = LogManager.CreateLogger();
+
         public ChunkProcessor(Game game, World world)
             : base(game)
         {
@@ -48,14 +59,45 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             Task.Factory.StartNew(Run, TaskCreationOptions.LongRunning);
         }
 
+        /// <summary>
+        /// Run the chunk processor.
+        /// </summary>
         protected virtual void Run()
         {            
-            throw new NotSupportedException();
+            throw new NotSupportedException(); // method should be overloadded.
         }
 
-        protected virtual void Process()
+        /// <summary>
+        /// Generates the chunk.
+        /// </summary>
+        /// <param name="chunk">Chunk to be generated.</param>
+        protected void Generate(Chunk chunk)
         {
-            throw new NotSupportedException();
+            chunk.ChunkState = ChunkState.Generating; // set chunk state to generating.
+            Generator.Generate(chunk);
+            chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.
+        }
+
+        /// <summary>
+        /// Ligtens the chunk (calculates the lighting amount on chunks blocks).
+        /// </summary>
+        /// <param name="chunk">Chunk to lighten.</param>
+        protected void Lighten(Chunk chunk)
+        {
+            chunk.ChunkState = ChunkState.Lighting; // set chunk state to generating.
+            Lightning.Process(chunk);
+            chunk.ChunkState = ChunkState.AwaitingBuild; // chunk should be built now.
+        }
+
+        /// <summary>
+        /// Builds the chunk (calculates vertexes and indices).
+        /// </summary>
+        /// <param name="chunk">Chunk to build</param>
+        protected void Build(Chunk chunk)
+        {
+            chunk.ChunkState = ChunkState.Building; // set chunk state to building.
+            this.VertexBuilder.Build(chunk);
+            chunk.ChunkState = ChunkState.Ready; // chunk is al ready now.
         }
     }
 }

@@ -60,11 +60,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
         
         private void Worker()
         {
-            while (this.Active)
-            {
-                //if (this._chunkCache.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
-                //this.QueueChunks();
-            }
+            //while (this.Active)
+            //{
+            //    if (this._chunkCache.IsInfinitive && this.CheckIfPlayerChunkChanged()) this.RecacheChunks();                                    
+            //    this.QueueChunks();
+            //}
         }
 
         private bool CheckIfPlayerChunkChanged()

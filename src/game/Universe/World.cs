@@ -83,7 +83,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
             this.Game.Components.Add(this.ChunkBuilder);
 
-            this.ChunkProcessor = new SingleThreadProcessor(this.Game, this);
+            this.ChunkProcessor = new SingleThreadedChunkProcessor(this.Game, this);
             this.Game.Components.Add(this.ChunkProcessor);
 
             var vertexBuilder = new VertexBuilder(this.Game);
