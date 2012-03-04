@@ -63,6 +63,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DigitalRune, Version=1.6.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\digitalrune\DigitalRune.dll</HintPath>
+    </Reference>
+    <Reference Include="DigitalRune.Game, Version=1.0.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\digitalrune\DigitalRune.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="DigitalRune.Mathematics, Version=1.5.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\digitalrune\DigitalRune.Mathematics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -135,6 +147,7 @@
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Fogger.cs" />
     <Compile Include="Generators\Biomes\BiomeGenerator.cs" />
+    <Compile Include="Generators\Biomes\FlatTerrain.cs" />
     <Compile Include="Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Generators\Terrain\ValleyTerrain.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
@@ -145,6 +158,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
+    <Compile Include="Managers\MusicManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Processors\Lightning.cs" />
     <Compile Include="Processors\VertexBuilder.cs" />
@@ -159,6 +173,9 @@
     <Compile Include="Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
+    <Compile Include="UI\DebugConsole.cs" />
+    <Compile Include="UI\SampleConsole.cs" />
+    <Compile Include="UI\GameScreenOverlay.cs" />
     <Compile Include="Universe\BlockVertex.cs" />
     <Compile Include="Universe\PositionedBlock.cs" />
     <Compile Include="Universe\Weapon.cs" />
@@ -178,6 +195,19 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\dep\digitalrune\UI\DigitalRune.Game.Input\DigitalRune.Game.Input %28XNA, Windows%29.csproj">
+      <Project>{716F2448-5602-451E-B1A8-1E1C46DD4A0E}</Project>
+      <Name>DigitalRune.Game.Input %28XNA, Windows%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\digitalrune\UI\DigitalRune.Game.UI\DigitalRune.Game.UI %28XNA, Windows%29.csproj">
+      <Project>{8ADF4A57-4257-47B7-A2C3-3BA700613DB0}</Project>
+      <Name>DigitalRune.Game.UI %28XNA, Windows%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\digitalrune\UI\Themes\BlendBlue\BlendBlueTheme.contentproj">
+      <Project>{68CA309E-2F40-4DA1-82D8-95B6CA2FB996}</Project>
+      <Name>BlendBlueTheme</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>

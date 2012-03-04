@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DigitalRune.Game.UI.Content.Pipeline</name>
+    </assembly>
+    <members>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent">
+            <summary>
+            Represents a visual state of a UI control.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent"/> class.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.Name">
+            <summary>
+            Gets or sets the name of the state.
+            </summary>
+            <value>The name of the state.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.IsInherited">
+            <summary>
+            Gets or sets a value indicating whether this state is inherited.
+            </summary>
+            <value>
+            <see langword="true"/> if this state is inherited; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.Images">
+            <summary>
+            Gets the images that create the appearance of the control.
+            </summary>
+            <value>The images.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.Background">
+            <summary>
+            Gets or sets the background color.
+            </summary>
+            <value>The background color.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.Foreground">
+            <summary>
+            Gets or sets the foreground color.
+            </summary>
+            <value>The foreground color.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStateContent.Opacity">
+            <summary>
+            Gets or sets the opacity.
+            </summary>
+            <value>The opacity.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeTextureContent">
+            <summary>
+            Represents a texture of the UI theme.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeTextureContent.Name">
+            <summary>
+            Gets or sets the name of the texture.
+            </summary>
+            <value>The name of the texture.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeTextureContent.IsDefault">
+            <summary>
+            Gets or sets a value indicating whether this texture is the default texture.
+            </summary>
+            <value>
+            <see langword="true"/> if this texture is the default texture; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeTextureContent.Texture">
+            <summary>
+            Gets or sets the texture.
+            </summary>
+            <value>The texture.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent">
+            <summary>
+            Represents an image of the UI theme.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.Name">
+            <summary>
+            Gets or sets the name of the image.
+            </summary>
+            <value>The name of the image.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.Texture">
+            <summary>
+            Gets or sets the name of the texture atlas containing the image.
+            </summary>
+            <value>The name of the texture atlas containing the image.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.SourceRectangle">
+            <summary>
+            Gets or sets the source rectangle of the image in the texture atlas of the theme.
+            </summary>
+            <value>The source rectangle.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.Margin">
+            <summary>
+            Gets or sets the margin (left, top, right, bottom).
+            </summary>
+            <value>
+            The margin (left, top, right, bottom). Can be negative to draw outside of the control area.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.HorizontalAlignment">
+            <summary>
+            Gets or sets the horizontal alignment.
+            </summary>
+            <value>The horizontal alignment.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.VerticalAlignment">
+            <summary>
+            Gets or sets the vertical alignment.
+            </summary>
+            <value>The vertical alignment.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.TileMode">
+            <summary>
+            Gets or sets the tile mode.
+            </summary>
+            <value>
+            The tile mode that defines whether the image is repeated and how.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.Border">
+            <summary>
+            Gets or sets the border that defines the 9-grid layout for image stretching.
+            </summary>
+            <value>The border that defines the 9-grid layout.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.IsOverlay">
+            <summary>
+            Gets or sets a value indicating whether this image is drawn on top of the control.
+            </summary>
+            <value>
+            <see langword="true"/> if this image is drawn on top of the control; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeImageContent.Color">
+            <summary>
+            Gets or sets the tint color.
+            </summary>
+            <value>The tint color.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeCursorContent">
+            <summary>
+            Represents a mouse cursor of the UI theme.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeCursorContent.Name">
+            <summary>
+            Gets the name of the cursor.
+            </summary>
+            <value>The name of the cursor.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeCursorContent.IsDefault">
+            <summary>
+            Gets or sets a value indicating whether this cursor is the default cursor.
+            </summary>
+            <value>
+            <see langword="true"/> if this cursor is the default cursor; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeCursorContent.FileName">
+            <summary>
+            Gets or sets the file name of the cursor.
+            </summary>
+            <value>The file name of the cursor.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeContent">
+            <summary>
+            Represents a UI theme that defines the properties and visual appearance of UI controls.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.#ctor(Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,System.Xml.Linq.XDocument)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DigitalRune.Game.UI.Content.Pipeline.ThemeContent"/> class.
+            </summary>
+            <param name="identity">The identity of the content item.</param>
+            <param name="description">The theme description (XML file).</param>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.Description">
+            <summary>
+            Gets the theme description (XML file).
+            </summary>
+            <value>The theme description (XML file).</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.Cursors">
+            <summary>
+            Gets the cursor definitions.
+            </summary>
+            <value>The cursors.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.Fonts">
+            <summary>
+            Gets or sets the fonts definitions.
+            </summary>
+            <value>The fonts.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.Textures">
+            <summary>
+            Gets or sets the textures.
+            </summary>
+            <value>The textures.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeContent.Styles">
+            <summary>
+            Gets or sets the styles of the controls.
+            </summary>
+            <value>The styles.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeAttributeContent">
+            <summary>
+            Represents an attribute of the UI theme (<see cref="P:DigitalRune.Game.UI.Content.Pipeline.ThemeAttributeContent.Name"/> and <see cref="P:DigitalRune.Game.UI.Content.Pipeline.ThemeAttributeContent.Value"/>).
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeAttributeContent.Name">
+            <summary>
+            Gets or sets the name of the attribute.
+            </summary>
+            <value>The name of the attribute.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeAttributeContent.Value">
+            <summary>
+            Gets or sets the value of the attribute.
+            </summary>
+            <value>The value of the attribute.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeImporter">
+            <summary>
+            Imports the XML description of a UI theme.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeImporter.Import(System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentImporterContext)">
+            <summary>
+            Called by the framework when importing a game asset. This is the method called by XNA when
+            an asset is to be imported into an object that can be recognized by the Content Pipeline.
+            </summary>
+            <param name="filename">Name of a game asset file.</param>
+            <param name="context">
+            Contains information for importing a game asset, such as a logger interface.
+            </param>
+            <returns>Resulting game asset.</returns>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent">
+            <summary>
+            Represents a visual style of a UI control.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DigitalRune.Game.UI.Rendering.ThemeStyle"/> class.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent.Name">
+            <summary>
+            Gets or sets the name of the style.
+            </summary>
+            <value>The name of the style.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent.Inherits">
+            <summary>
+            Gets or sets the name of the parent style from which this style inherits settings.
+            </summary>
+            <value>The name of the parent style.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent.Attributes">
+            <summary>
+            Gets the attributes that have been defined for this style.
+            </summary>
+            <value>The attributes.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeStyleContent.States">
+            <summary>
+            Gets the visual states.
+            </summary>
+            <value>The visual states.</value>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeWriter">
+            <summary>
+            Write a UI theme to binary format.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Game.UI.Content.Pipeline.ThemeContent)">
+            <summary>
+            Compiles an object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="theme">The resultant object.</param>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeProcessor">
+            <summary>
+            Builds a UI theme including cursors, textures, fonts, etc.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeProcessor.Process(DigitalRune.Game.UI.Content.Pipeline.ThemeContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Processes the specified input data and returns the result.
+            </summary>
+            <param name="theme">Existing content object being processed.</param>
+            <param name="context">Contains any required custom process parameters.</param>
+            <returns>A typed object representing the processed input.</returns>
+        </member>
+        <member name="M:DigitalRune.Game.UI.Content.Pipeline.ThemeProcessor.IsXmlFile(System.String)">
+            <summary>
+            Determines whether the given file is an XML file.
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Game.UI.Content.Pipeline.ThemeFontContent">
+            <summary>
+            Represents a font of the UI theme.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeFontContent.Name">
+            <summary>
+            Gets or sets the name of the font.
+            </summary>
+            <value>The name of the font.</value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeFontContent.IsDefault">
+            <summary>
+            Gets or sets a value indicating whether this font is the default font.
+            </summary>
+            <value>
+            <see langword="true"/> if this font is the default font; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Game.UI.Content.Pipeline.ThemeFontContent.Font">
+            <summary>
+            Gets or sets the font.
+            </summary>
+            <value>The font.</value>
+        </member>
+    </members>
+</doc>
