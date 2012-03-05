@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 
-namespace VolumetricStudios.VoxeliqGame.Environment
+namespace VolumetricStudios.VoxeliqGame.Universe
 {
     /// <summary>
     /// Allows interaction with sky service.
@@ -30,13 +30,37 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         // settings
         private bool _dynamicCloudsEnabled;
 
-        // mdoel, textures, effects.
-        private Model _dome; // sky dome model.
-        private Texture2D _cloudMap; // the cloud map.
+        /// <summary>
+        /// Sky dome model
+        /// </summary>
+        private Model _skyDome;
+
+        /// <summary>
+        /// Cloud map.
+        /// </summary>
+        private Texture2D _cloudMap;
+
+        /// <summary>
+        /// Star map.
+        /// </summary>
+        private Texture2D _starMap;
+
         private Texture2D _staticCloudMap; // gpu generated cloud maps.
         private Effect _perlinNoiseEffect; // noise used for generating clouds.
         private RenderTarget2D _cloudsRenderTarget; // render target for clouds.
         private VertexPositionTexture[] _fullScreenVertices; // vertices.
+
+        protected Vector3 SUNCOLOR = Color.White.ToVector3();
+
+        protected Vector4 OVERHEADSUNCOLOR = Color.DarkBlue.ToVector4();
+        protected Vector4 NIGHTCOLOR = Color.Black.ToVector4();
+        protected Vector4 HORIZONCOLOR = Color.White.ToVector4();
+        protected Vector4 EVENINGTINT = Color.Red.ToVector4();
+        protected Vector4 MORNINGTINT = Color.Gold.ToVector4();
+        protected float CLOUDOVERCAST = 1.0f;
+
+        protected float rotationClouds;
+        protected float rotationStars;
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
@@ -64,16 +88,30 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         protected override void LoadContent()
         {    
             // load required assets.
-            this._dome = Game.Content.Load<Model>("Models\\SkyDome");
-            this._dome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
+            
+            // load the dome.
+            this._skyDome = Game.Content.Load<Model>("Models\\SkyDome");
+            this._skyDome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
+            
+            // load maps.
             this._cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");
-            this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
+            this._starMap = Game.Content.Load<Texture2D>("Textures\\starmap");
 
-            var presentation = GraphicsDevice.PresentationParameters;
-            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentation.BackBufferWidth, presentation.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            
+            // for gpu generated clouds.
+            this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
+            var presentationParameters = GraphicsDevice.PresentationParameters;
+            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth, presentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            
             this._staticCloudMap = this.CreateStaticCloudMap(32);
             this._fullScreenVertices = SetUpFullscreenVertices();
-        }               
+        }
+
+        public override void Update(GameTime gameTime) 
+        {
+            if (!this._dynamicCloudsEnabled) 
+                return;
+
+            this.GeneratePerlinNoise(gameTime); // if dynamic-cloud generation is on, generate them.
+        }
 
         /// <summary>
         /// Draws the sky.
@@ -81,29 +119,59 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            if (this._dynamicCloudsEnabled) // if dynamic-cloud generation is on, generate them.
-                this.GenerateClouds(gameTime);
-
-            this.GraphicsDevice.Clear(Color.WhiteSmoke);
+            //this.GraphicsDevice.Clear(Color.WhiteSmoke);
+            this.GraphicsDevice.Clear(Color.Black);
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
-            var modelTransforms = new Matrix[this._dome.Bones.Count]; // transform dome's bones.
-            this._dome.CopyAbsoluteBoneTransformsTo(modelTransforms);
+                        
+            var modelTransforms = new Matrix[this._skyDome.Bones.Count]; // transform dome's bones.
+            this._skyDome.CopyAbsoluteBoneTransformsTo(modelTransforms);
 
-            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100) * Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            rotationStars += 0.0001f;
+            rotationClouds = 0;            
             
-                       
-            foreach (var mesh in _dome.Meshes)
+            // draw stars
+            Matrix wStarMatrix = Matrix.CreateTranslation(Vector3.Zero) * Matrix.CreateScale(100) * Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            foreach (ModelMesh mesh in _skyDome.Meshes)
+            {
+                foreach (Effect currentEffect in mesh.Effects)
+                {
+                    Matrix worldMatrix = modelTransforms[mesh.ParentBone.Index] * wStarMatrix;
+
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["SkyStarDome"];
+
+                    currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
+                    currentEffect.Parameters["xView"].SetValue(_camera.View);
+                    currentEffect.Parameters["xProjection"].SetValue(_camera.Projection);
+                    currentEffect.Parameters["xTexture"].SetValue(this._starMap);
+                    currentEffect.Parameters["NightColor"].SetValue(NIGHTCOLOR);
+                    currentEffect.Parameters["SunColor"].SetValue(OVERHEADSUNCOLOR);
+                    currentEffect.Parameters["HorizonColor"].SetValue(HORIZONCOLOR);
+
+                    currentEffect.Parameters["MorningTint"].SetValue(MORNINGTINT);
+                    currentEffect.Parameters["EveningTint"].SetValue(EVENINGTINT);
+                    currentEffect.Parameters["timeOfDay"].SetValue(Time.GetGameTimeOfDay());
+                }
+                mesh.Draw();
+            }
+
+            // draw clouds
+            var matrix = Matrix.CreateTranslation(Vector3.Zero) * Matrix.CreateScale(100) * Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            foreach (var mesh in _skyDome.Meshes)
             {
                 foreach (var currentEffect in mesh.Effects)
                 {
                     var worldMatrix = modelTransforms[mesh.ParentBone.Index] * matrix;
-                    currentEffect.CurrentTechnique = currentEffect.Techniques["SkyDome"];
+                    currentEffect.CurrentTechnique = currentEffect.Techniques["SkyStarDome"];
                     currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
                     currentEffect.Parameters["xView"].SetValue(_camera.View);
                     currentEffect.Parameters["xProjection"].SetValue(_camera.Projection);
                     currentEffect.Parameters["xTexture"].SetValue(this._cloudMap);
-                    currentEffect.Parameters["SunColor"].SetValue(Color.Blue.ToVector4());
-                    currentEffect.Parameters["HorizonColor"].SetValue(Color.White.ToVector4());
+                    currentEffect.Parameters["NightColor"].SetValue(NIGHTCOLOR);
+                    currentEffect.Parameters["SunColor"].SetValue(OVERHEADSUNCOLOR);
+                    currentEffect.Parameters["HorizonColor"].SetValue(HORIZONCOLOR);
+                    currentEffect.Parameters["MorningTint"].SetValue(MORNINGTINT);
+                    currentEffect.Parameters["EveningTint"].SetValue(EVENINGTINT);
+                    currentEffect.Parameters["timeOfDay"].SetValue(Time.GetGameTimeOfDay());
                 }
                 mesh.Draw();
             }
@@ -141,16 +209,16 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         }
 
         /// <summary>
-        /// Genereates dynamic clouds.
+        /// Generates dynamic clouds within GPU.
         /// </summary>
-        private void GenerateClouds(GameTime gameTime)
+        private void GeneratePerlinNoise(GameTime gameTime)
         {
             GraphicsDevice.SetRenderTarget(this._cloudsRenderTarget);
-            GraphicsDevice.Clear(Color.White);
+            //GraphicsDevice.Clear(Color.White);
 
             _perlinNoiseEffect.CurrentTechnique = _perlinNoiseEffect.Techniques["PerlinNoise"];
             _perlinNoiseEffect.Parameters["xTexture"].SetValue(this._staticCloudMap);
-            _perlinNoiseEffect.Parameters["xOvercast"].SetValue(0.8f);
+            _perlinNoiseEffect.Parameters["xOvercast"].SetValue(CLOUDOVERCAST);
             _perlinNoiseEffect.Parameters["xTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds / 100000.0f);
 
             foreach(EffectPass pass in _perlinNoiseEffect.CurrentTechnique.Passes)

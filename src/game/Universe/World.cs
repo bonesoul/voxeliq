@@ -8,7 +8,6 @@ using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
-using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
@@ -51,6 +50,18 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         // required services.
         private ICameraControlService _cameraController;
         private IPlayer _player;
+
+
+        #region Atmospheric Settings
+
+            public static Vector4 NightColor = Color.Black.ToVector4();
+            public static Vector4 SunColor = Color.White.ToVector4();
+            public static Vector4 HorizonColor = Color.White.ToVector4();
+
+            public Vector4 EveningTint = Color.Red.ToVector4();
+            public Vector4 MorningTint = Color.Gold.ToVector4();
+
+        #endregion
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.

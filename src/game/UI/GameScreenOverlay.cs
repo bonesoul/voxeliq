@@ -71,7 +71,7 @@ namespace VolumetricStudios.VoxeliqGame.UI
             //stackPanel.Children.Add(button4);
             //_screen.Children.Add(stackPanel);
 
-            _screen.Children.Add(button4);
+            //_screen.Children.Add(button4);
         }
 
         public override void Draw(GameTime gameTime)

@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
-using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks
@@ -226,15 +226,25 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             Game.GraphicsDevice.BlendState = BlendState.Opaque;
 
+            // general parameters
             _blockEffect.Parameters["World"].SetValue(Matrix.Identity);
             _blockEffect.Parameters["View"].SetValue(this._camera.View);
             _blockEffect.Parameters["Projection"].SetValue(this._camera.Projection);
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
-            _blockEffect.Parameters["FogColor"].SetValue(Color.White.ToVector4());
+            // texture parameters
+            _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+            // atmospheric settings
+            _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);
+            _blockEffect.Parameters["NightColor"].SetValue(World.NightColor);
+            _blockEffect.Parameters["HorizonColor"].SetValue(World.HorizonColor);
+            _blockEffect.Parameters["MorningTint"].SetValue(World.HorizonColor);
+            _blockEffect.Parameters["EveningTint"].SetValue(World.HorizonColor);
+            // time of day parameters
+            _blockEffect.Parameters["TimeOfDay"].SetValue(Time.GetGameTimeOfDay());
+            // fog parameters
             _blockEffect.Parameters["FogNear"].SetValue(this._fogger.FogVector.X);
             _blockEffect.Parameters["FogFar"].SetValue(this._fogger.FogVector.Y);
-            _blockEffect.Parameters["SunColor"].SetValue(Color.White.ToVector3());
-            _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+            
 
             this.ChunksDrawn = 0;
             foreach (EffectPass pass in this._blockEffect.CurrentTechnique.Passes)

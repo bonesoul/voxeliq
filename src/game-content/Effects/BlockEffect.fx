@@ -3,10 +3,18 @@ float4x4 View; // the camera-view matrix.
 float4x4 Projection; // the camera-projection.
 float3 CameraPosition; // the camera-position.
 
-float FogNear;
-float FogFar;
-float4 FogColor = {0.5,0.5,0.5,1.0};
-float3 SunColor = float3(1,1,1);
+
+float TimeOfDay; // Time of day.
+
+float4 HorizonColor; // Horizon color used for fogging.
+float4 SunColor;		
+float4 NightColor;
+
+float4 MorningTint;		
+float4 EveningTint;	
+
+float FogNear; // Near fog plane.
+float FogFar; // Far fog plane.
 
 Texture BlockTextureAtlas;
 sampler BlockTextureAtlasSampler = sampler_state
@@ -42,12 +50,21 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
     float4 worldPosition = mul(input.Position, World);
     float4 viewPosition = mul(worldPosition, View);
+
     output.Position = mul(viewPosition, Projection);
     output.CameraView = normalize(CameraPosition - worldPosition);
     output.Distance = length(CameraPosition - worldPosition);
 
     output.blockTextureCoord = input.blockTextureCoord;
-	output.Color.rgb = (SunColor * input.SunLight); // + (input.LocalLight.rgb);
+
+	float sunColor = SunColor;
+
+	if(TimeOfDay <= 12)
+		sunColor *= TimeOfDay / 12;	
+	else
+		sunColor *= (TimeOfDay - 24) / -12;	
+
+	output.Color.rgb = (sunColor * input.SunLight); // + (input.LocalLight.rgb);
 	output.Color.a = 1;
 
     return output;
@@ -63,7 +80,23 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	color.a = blockTextureColor.a;
     if(color.a == 0) { clip(-1); }
 
-    return lerp(FogColor, color ,fog);
+	float4 sunColor = SunColor;	 
+	float4 fogColor = HorizonColor;
+    float4 nightColor = NightColor;
+
+	nightColor *= (4 - input.blockTextureCoord.y) * .125f;
+
+	if(TimeOfDay <= 12)
+		fogColor *= TimeOfDay / 12;
+	else
+		fogColor *= (TimeOfDay - 24) / -12;	
+
+	fogColor += (MorningTint * .05) * ((24 - TimeOfDay)/24);
+	fogColor += (EveningTint * .05) * (TimeOfDay / 24);	
+	sunColor += nightColor;
+	fogColor += nightColor;
+
+    return lerp(fogColor, color ,fog);
 }
 
 technique BlockTechnique

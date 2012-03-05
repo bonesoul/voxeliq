@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 

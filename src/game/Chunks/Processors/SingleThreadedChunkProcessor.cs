@@ -27,7 +27,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         public SingleThreadedChunkProcessor(Game game, World world) 
             : base(game, world)
         {
-            this.Generator = new MountainousTerrain(new RainForest()); 
+            this.Generator = new ValleyTerrain(new RainForest()); 
         }
 
         public override void Initialize()

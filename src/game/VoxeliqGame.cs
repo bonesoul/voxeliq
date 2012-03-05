@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Environment;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Managers;

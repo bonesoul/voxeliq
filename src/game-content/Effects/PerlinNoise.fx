@@ -56,7 +56,7 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINE
      
      Output.Color.rgb = 1.0f-pow(perlin.r, xOvercast)*2.0f;
 	 
-     Output.Color.a =1;
+     Output.Color.a = 1;
  
      return Output;
  }

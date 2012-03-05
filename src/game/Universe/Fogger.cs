@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 
-namespace VolumetricStudios.VoxeliqGame.Environment
+namespace VolumetricStudios.VoxeliqGame.Universe
 {
     public interface IFogger
     {

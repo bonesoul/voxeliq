@@ -145,13 +145,13 @@
     <Compile Include="Common\Logging\LogConfig.cs" />
     <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
-    <Compile Include="Environment\Fogger.cs" />
+    <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Generators\Biomes\BiomeGenerator.cs" />
     <Compile Include="Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Generators\Terrain\ValleyTerrain.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
-    <Compile Include="Environment\Sky.cs" />
+    <Compile Include="Universe\Sky.cs" />
     <Compile Include="Graphics\Rasterizer.cs" />
     <Compile Include="Debugging\InGameDebugger.cs" />
     <Compile Include="Input\InputManager.cs" />
@@ -177,6 +177,7 @@
     <Compile Include="UI\GameScreenOverlay.cs" />
     <Compile Include="Universe\BlockVertex.cs" />
     <Compile Include="Universe\PositionedBlock.cs" />
+    <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
     <Compile Include="Utils\Algorithms\PerlinSimplexNoise.cs" />
