@@ -45,6 +45,15 @@ namespace VolumetricStudios.VoxeliqGame.UI
 
             _uiService.Screens.Add(_screen);
 
+            var progressbar = new ProgressBar()
+                                  {
+                                      Value = 50,
+                                      Margin = new Vector4F(4),
+                                      Padding = new Vector4F(6),
+                                      HorizontalAlignment = HorizontalAlignment.Center,
+                                  };
+
+
             var button4 = new Button
             {
                 Content = new TextBlock { Text = "Sample #5: Console" },

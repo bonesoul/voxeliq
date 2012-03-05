@@ -131,7 +131,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "chunks: " + this._chunkCache.ChunksDrawn + "/" + this._chunkStorage.Count, new Vector2(5, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "gen/buildQ: " + this._worldStatistics.GenerationQueueCount + "/" + this._worldStatistics.BuildingQueueCount, new Vector2(320, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "inf: " + (this._chunkCache.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
             _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
             _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);            

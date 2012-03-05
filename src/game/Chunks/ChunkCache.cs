@@ -69,6 +69,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// Returns chunks drawn in last draw() call.
         /// </summary>
         int ChunksDrawn { get; }
+
+        bool IsChunkInViewRange(Chunk chunk);
+
+        bool IsChunkInCacheRange(Chunk chunk);
     }
 
     /// <summary>
@@ -80,12 +84,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 10; 
+        public const byte ViewRange = 10;
+
+        public static int ViewRangeWidthInBlocks = Chunk.WidthInBlocks*ViewRange;
+        public static int ViewRangeLenghtInBlocks = Chunk.LenghtInBlocks * ViewRange;
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
         public const byte CacheRange = 15;
+
+        public static int CacheRangeWidthInBlocks = Chunk.WidthInBlocks * CacheRange;
+        public static int CacheRangeLenghtInBlocks = Chunk.LenghtInBlocks * CacheRange;
 
         /// <summary>
         /// Is the world infinitive?
@@ -107,6 +117,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         // required services.
         private IChunkStorage _chunkStorage;
         private ICamera _camera;
+        private IPlayer _player;
         private IFogger _fogger;
 
         // misc.
@@ -126,6 +137,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             // import required services.
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
 
             base.Initialize();
@@ -142,6 +154,32 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public Chunk GetChunk(int x, int z)
         {
             return !this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks) ? null : this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks];
+        }
+
+        public bool IsChunkInViewRange(Chunk chunk)
+        {
+            if ((chunk.WorldPosition.X > this._player.Position.X + ViewRangeWidthInBlocks) ||
+                (chunk.WorldPosition.X < this._player.Position.X - ViewRangeWidthInBlocks))
+                return false;
+
+            if ((chunk.WorldPosition.Z > this._player.Position.Z + ViewRangeLenghtInBlocks) ||
+                (chunk.WorldPosition.Z < this._player.Position.Z - ViewRangeLenghtInBlocks))
+                return false;
+
+            return true;
+        }
+
+        public bool IsChunkInCacheRange(Chunk chunk)
+        {
+            if ((chunk.WorldPosition.X > this._player.Position.X + CacheRangeWidthInBlocks) ||
+                (chunk.WorldPosition.X < this._player.Position.X - CacheRangeWidthInBlocks))
+                return false;
+
+            if ((chunk.WorldPosition.Z > this._player.Position.Z + CacheRangeLenghtInBlocks) ||
+                (chunk.WorldPosition.Z < this._player.Position.Z - CacheRangeLenghtInBlocks))
+                return false;
+
+            return true;
         }
 
         // Sets a block in given x-y-z coordinate.
@@ -207,6 +245,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                 {
                     if(chunk.ChunkState != ChunkState.Ready)  // if chunk is not clean & ready yet,
                         continue;  // just pass it.
+
+                    if(!IsChunkInViewRange(chunk))
+                        continue;
 
                     if(!chunk.BoundingBox.Intersects(viewFrustrum)) // if chunk is not in view frustrum,
                         continue; // pas it.

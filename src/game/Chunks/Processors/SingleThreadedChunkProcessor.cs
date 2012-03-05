@@ -4,11 +4,13 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 {
@@ -18,11 +20,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
     public class SingleThreadedChunkProcessor:ChunkProcessor
     {
         /// <summary>
-        /// Gets or sets if a dirty chunk exist.
-        /// </summary>
-        private bool Dirty { get; set; }
-
-        /// <summary>
         /// Creates a new SingleThreadProcessor.
         /// </summary>
         /// <param name="game"></param>
@@ -30,7 +27,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         public SingleThreadedChunkProcessor(Game game, World world) 
             : base(game, world)
         {
-            this.Generator = new BasicTerrain(new RainForest()); 
+            this.Generator = new MountainousTerrain(new RainForest()); 
         }
 
         public override void Initialize()
@@ -41,8 +38,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 
         protected override void Run()
         {
-            this.Dirty = true;
-
             var processorThread = new Thread(ProcessorThread) { IsBackground = true };
             processorThread.Start();
         }
@@ -51,50 +46,93 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         {
             while (this.Active)
             {
-                if (!this.Dirty) // if there is no dirty chunk (which awaits generation, lighting or building),
-                    continue;  // just return.
-
                 this.Process();
             }            
         }
 
         protected void Process()
         {
-            this.Dirty = false; // set dirty to false;
-
             foreach (var chunk in this.World.Chunks.Values)
             {
-                switch(chunk.ChunkState) // switch on the chunk state.
-                {
-                    case ChunkState.AwaitingGenerate:
-                        this.Generate(chunk);
-                        break;
-                    case ChunkState.AwaitingLighting:
-                        this.Lighten(chunk);
-                        break;
-                    case ChunkState.AwaitingBuild:
-                        this.Build(chunk);
-                        break;
-                    case ChunkState.AwaitingRelighting:
-                        this.Lighten(chunk);
-                        break;
-                    case ChunkState.AwaitingRebuild:
-                        this.Build(chunk);
-                        break;
-                    case ChunkState.AwaitingRemoval:
-                        break;
-                    case ChunkState.Generating:
-                    case ChunkState.Building:
-                    case ChunkState.Lighting:
-                        break;
-                    case ChunkState.Ready:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState == ChunkState.AwaitingRemoval)
+                    continue;
 
-                if (chunk.ChunkState != ChunkState.Ready) // if there exists a chunk which is dirty,
-                    this.Dirty = true; // next process() should just run.
+                if(this.ChunkCache.IsChunkInViewRange(chunk))
+                {
+                    this.ProcessChunkInViewRange(chunk);
+                }
+                else
+                {
+                    if (this.ChunkCache.IsChunkInCacheRange(chunk))
+                        this.ProcessChunkInCacheRange(chunk);
+                    else
+                    {
+                        chunk.ChunkState = ChunkState.AwaitingRemoval;
+                        this.ChunkStorage.Remove(chunk.RelativePosition.X, chunk.RelativePosition.Z);
+                        chunk.Dispose();
+                    }
+                }                
+            }
+
+            if(this.ChunkCache.IsInfinitive)
+                this.RecacheChunks();
+        }
+
+        private void RecacheChunks()
+        {
+            this.Player.CurrentChunk = this.ChunkCache.GetChunk((int)Player.Position.X, (int)Player.Position.Z);  
+
+            for (int z = -Chunks.ChunkCache.CacheRange; z <= Chunks.ChunkCache.CacheRange; z++)
+            {
+                for (int x = -Chunks.ChunkCache.CacheRange; x <= Chunks.ChunkCache.CacheRange; x++)
+                {
+                    if (this.ChunkStorage.ContainsKey(this.Player.CurrentChunk.RelativePosition.X + x, this.Player.CurrentChunk.RelativePosition.Z + z))
+                        continue;
+
+                    var chunk = new Chunk(this.World, new Vector2Int(this.Player.CurrentChunk.RelativePosition.X + x, this.Player.CurrentChunk.RelativePosition.Z + z));
+                    this.ChunkStorage[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
+                }
+            }
+
+            var southWestEdge = new Vector2Int(this.Player.CurrentChunk.RelativePosition.X - Chunks.ChunkCache.ViewRange, this.Player.CurrentChunk.RelativePosition.Z - Chunks.ChunkCache.ViewRange);
+            var northEastEdge = new Vector2Int(this.Player.CurrentChunk.RelativePosition.X + Chunks.ChunkCache.ViewRange, this.Player.CurrentChunk.RelativePosition.Z + Chunks.ChunkCache.ViewRange);
+
+            this.ChunkCache.BoundingBox = new BoundingBox(new Vector3(southWestEdge.X * Chunk.WidthInBlocks, 0, southWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((northEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (northEastEdge.Z + 1) * Chunk.LenghtInBlocks));
+        }
+
+        private void ProcessChunkInCacheRange(Chunk chunk)
+        {
+            switch (chunk.ChunkState) // switch on the chunk state.
+            {
+                case ChunkState.AwaitingGenerate:
+                    this.Generate(chunk);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ProcessChunkInViewRange(Chunk chunk)
+        {
+            switch (chunk.ChunkState) // switch on the chunk state.
+            {
+                case ChunkState.AwaitingGenerate:
+                    this.Generate(chunk);
+                    break;
+                case ChunkState.AwaitingLighting:
+                    this.Lighten(chunk);
+                    break;
+                case ChunkState.AwaitingBuild:
+                    this.Build(chunk);
+                    break;
+                case ChunkState.AwaitingRelighting:
+                    this.Lighten(chunk);
+                    break;
+                case ChunkState.AwaitingRebuild:
+                    this.Build(chunk);
+                    break;
+                default:
+                    break;
             }
         }
     }

@@ -38,6 +38,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         /// </summary>
         protected IVertexBuilder VertexBuilder { get; set; }
 
+        protected IChunkCache ChunkCache { get; set; }
+
+        protected IChunkStorage ChunkStorage { get; set; }
+
+        protected IPlayer Player { get; set; }
+
         /// <summary>
         /// Logging facility.
         /// </summary>
@@ -54,6 +60,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
         {
             // import required services.
             this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
+            this.ChunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this.ChunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
+            this.Player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
 
             this.Active = true;
             Task.Factory.StartNew(Run, TaskCreationOptions.LongRunning);

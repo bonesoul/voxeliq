@@ -97,10 +97,10 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
         public void SpawnPlayer(Vector2Int relativePosition)
         {
-            Profiler.Start("terrain-generation");
-            for (int z = -ChunkCache.ViewRange; z <= ChunkCache.ViewRange; z++)
+            //Profiler.Start("terrain-generation");
+            for (int z = -ChunkCache.CacheRange; z <= ChunkCache.CacheRange; z++)
             {
-                for (int x = -ChunkCache.ViewRange; x <= ChunkCache.ViewRange; x++)
+                for (int x = -ChunkCache.CacheRange; x <= ChunkCache.CacheRange; x++)
                 {
                     var chunk = new Chunk(this, new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
                     this.Chunks[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;

@@ -91,6 +91,9 @@ namespace VolumetricStudios.VoxeliqGame
         private BasicEffect _aimedBlockEffect;
         private Model _aimedBlockModel;
         private Texture2D _aimedBlockTexture;
+
+        private Model _sampleModel;
+
         private const float MoveSpeed = 5f; // the move speed.
         private const float FlySpeed = 25f; // the fly speed.
         private const float Gravity = -15f;
@@ -130,6 +133,8 @@ namespace VolumetricStudios.VoxeliqGame
             this._aimedBlockEffect = new BasicEffect(Game.GraphicsDevice);
             this._aimedBlockModel = Game.Content.Load<Model>("Models\\AimedBlock");
             this._aimedBlockTexture = Game.Content.Load<Texture2D>("Textures\\AimedBlock");
+
+            this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
         }
 
         public override void Update(GameTime gameTime)
@@ -259,6 +264,27 @@ namespace VolumetricStudios.VoxeliqGame
         public override void Draw(GameTime gameTime)
         {
             if (this.AimedSolidBlock.HasValue) RenderAimedBlock();
+
+            //// draw sample model
+            //var transforms = new Matrix[_sampleModel.Bones.Count];
+            //_sampleModel.CopyAbsoluteBoneTransformsTo(transforms);
+
+            //Vector3 modelPosition = new Vector3(this.Position.X, this.Position.Y, this.Position.Z);
+            //float modelRotation = 0.0f;
+
+            //foreach(var mesh in _sampleModel.Meshes)
+            //{
+            //    foreach(BasicEffect effect in mesh.Effects)
+            //    {
+            //        effect.EnableDefaultLighting();
+
+            //        effect.World = transforms[mesh.ParentBone.Index] * Matrix.CreateRotationY(modelRotation) * Matrix.CreateTranslation(modelPosition);
+            //        effect.View = Matrix.CreateLookAt(this._camera.Position, Vector3.Zero, Vector3.Up);
+            //        effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45.0f), Game.GraphicsDevice.Viewport.AspectRatio, 1.0f, 10000.0f);
+            //    }
+
+            //    mesh.Draw();
+            //}
         }
 
         private void RenderAimedBlock()

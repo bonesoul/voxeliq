@@ -147,7 +147,6 @@
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Environment\Fogger.cs" />
     <Compile Include="Generators\Biomes\BiomeGenerator.cs" />
-    <Compile Include="Generators\Biomes\FlatTerrain.cs" />
     <Compile Include="Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Generators\Terrain\ValleyTerrain.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
@@ -168,7 +167,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Generators\Biomes\AntarticTundra.cs" />
     <Compile Include="Generators\Biomes\RainForest.cs" />
-    <Compile Include="Generators\Terrain\Debug\DebugTerrain.cs" />
+    <Compile Include="Generators\Terrain\FlatDebugTerrain.cs" />
     <Compile Include="Generators\Terrain\BasicTerrain.cs" />
     <Compile Include="Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Texture\DualTextured.cs" />

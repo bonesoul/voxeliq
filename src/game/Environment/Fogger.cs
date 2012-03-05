@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame.Environment
@@ -35,8 +36,8 @@ namespace VolumetricStudios.VoxeliqGame.Environment
         private readonly Vector2[] _fogVectors = new[]
         {
             new Vector2(0, 0),  // none
-            new Vector2(175, 250),  // near
-            new Vector2(250, 400) // far
+            new Vector2(Chunk.WidthInBlocks * (ChunkCache.ViewRange / 2 - 1) , Chunk.WidthInBlocks * (ChunkCache.ViewRange)), // near
+            new Vector2(Chunk.WidthInBlocks * (ChunkCache.ViewRange * 1 - 2) , Chunk.WidthInBlocks * (ChunkCache.ViewRange * 1)) // far
         };
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
