@@ -88,10 +88,6 @@ namespace VolumetricStudios.VoxeliqGame.Input
             this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
-            #if DEBUG // if in debug mode, print debug-keys.
-                this.PrintDebugKeys();
-            #endif
-
             // get current mouse & keyboard states.
             this._previousKeyboardState = Keyboard.GetState();
             this._previousMouseState = Mouse.GetState();
@@ -177,26 +173,6 @@ namespace VolumetricStudios.VoxeliqGame.Input
         private void CenterCursor()
         {
             Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
-        }
-
-        /// <summary>
-        /// Prints debug keys.
-        /// </summary>
-        private void PrintDebugKeys()
-        {
-            // TODO: should only work in #debug mode.
-            Debug.WriteLine("Debug keys:");
-            Debug.WriteLine("-----------------------------");
-            Debug.WriteLine("F1: Infinitive-world: On/Off.");
-            Debug.WriteLine("F2: Fly-mode: On/Off.");
-            Debug.WriteLine("F3: Fog-mode: None/Near/Far.");
-            Debug.WriteLine("F4: Dynamic Clouds: On/Off.");
-            Debug.WriteLine("F5: Capture Mouse: On/Off.");
-            Debug.WriteLine("F9: Debug Graphs: On/Off.");
-            Debug.WriteLine("F10: In-game Debugger: On/Off.");
-            Debug.WriteLine("F11: Frame-limiter: On/Off.");
-            Debug.WriteLine("F12: Wireframe mode: On/Off.");
-            Debug.WriteLine("-----------------------------");
         }
     }
 }

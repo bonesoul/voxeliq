@@ -23,6 +23,12 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         /// Returns current FPS.
         /// </summary>
         int FPS { get; }
+
+        /// <summary>
+        /// Returns used memory size as string.
+        /// </summary>
+        /// <returns></returns>
+        string GetMemoryUsed();
     }
 
     public sealed class Statistics : DrawableGameComponent, IStatistics
@@ -121,7 +127,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);            
             _spriteBatch.DrawString(_spriteFont, "fps: " + this.FPS, new Vector2(5, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "mem: " +  this.GetMemSize(GC.GetTotalMemory(false)), new Vector2(75, 5), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "mem: " +  this.GetMemoryUsed(), new Vector2(75, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "chunks: " + this._chunkCache.ChunksDrawn + "/" + this._chunkStorage.Count, new Vector2(5, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20), Color.White);
@@ -130,6 +136,15 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
             _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);            
             _spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Returns used memory size as string.
+        /// </summary>
+        /// <returns></returns>
+        public string GetMemoryUsed()
+        {
+            return this.GetMemSize(GC.GetTotalMemory(false));
         }
 
         /// <summary>

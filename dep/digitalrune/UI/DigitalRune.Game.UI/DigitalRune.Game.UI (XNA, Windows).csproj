@@ -69,13 +69,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DigitalRune">
-      <HintPath>..\..\References\XNA\v4.0\Windows\x86\DigitalRune.dll</HintPath>
+      <HintPath>..\..\DigitalRune.dll</HintPath>
     </Reference>
     <Reference Include="DigitalRune.Game">
-      <HintPath>..\..\References\XNA\v4.0\Windows\x86\DigitalRune.Game.dll</HintPath>
+      <HintPath>..\..\DigitalRune.Game.dll</HintPath>
     </Reference>
     <Reference Include="DigitalRune.Mathematics">
-      <HintPath>..\..\References\XNA\v4.0\Windows\x86\DigitalRune.Mathematics.dll</HintPath>
+      <HintPath>..\..\DigitalRune.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553">
       <Private>False</Private>

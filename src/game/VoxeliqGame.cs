@@ -111,7 +111,7 @@ namespace VolumetricStudios.VoxeliqGame
             this.Components.Add(new GameScreenOverlay(this) {UpdateOrder = 13, DrawOrder =  8});
 
             // The component that shows a debugging console.
-            Components.Add(new DebugConsole(this));
+            this.Components.Add(new DebugConsole(this));
 
             base.Initialize();
         }
