@@ -135,6 +135,7 @@ namespace VolumetricStudios.VoxeliqGame
         /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
+            //this.GraphicsDevice.Clear(Color.WhiteSmoke);
             this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
                 
             base.Draw(gameTime);

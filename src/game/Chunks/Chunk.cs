@@ -220,6 +220,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var positionSize = spriteFont.MeasureString(position);
             Vector3 projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View, Matrix.CreateTranslation(new Vector3(WorldPosition.X+WidthInBlocks/2, HighestSolidBlockOffset-1, WorldPosition.Z + LenghtInBlocks / 2)));
             spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.White);
+
+            BoundingBoxRenderer.Render(this.BoundingBox , graphicsDevice, camera.View,camera.Projection, Color.DarkRed);
         }
 
         #region de-ctor

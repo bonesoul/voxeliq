@@ -119,8 +119,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
-            //this.GraphicsDevice.Clear(Color.WhiteSmoke);
-            this.GraphicsDevice.Clear(Color.Black);
+            this.GraphicsDevice.Clear(Color.WhiteSmoke);
+            //this.GraphicsDevice.Clear(Color.Black);
             Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
                         
             var modelTransforms = new Matrix[this._skyDome.Bones.Count]; // transform dome's bones.

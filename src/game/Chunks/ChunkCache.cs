@@ -84,7 +84,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 10;
+        public const byte ViewRange = 1;
 
         public static int ViewRangeWidthInBlocks = Chunk.WidthInBlocks*ViewRange;
         public static int ViewRangeLenghtInBlocks = Chunk.LenghtInBlocks * ViewRange;
@@ -92,7 +92,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 15;
+        public const byte CacheRange = 1;
 
         public static int CacheRangeWidthInBlocks = Chunk.WidthInBlocks * CacheRange;
         public static int CacheRangeLenghtInBlocks = Chunk.LenghtInBlocks * CacheRange;

@@ -144,6 +144,7 @@
     <Compile Include="Common\Helpers\Math\FastRandom.cs" />
     <Compile Include="Common\Logging\LogConfig.cs" />
     <Compile Include="Common\Logging\TinyLogger.cs" />
+    <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Generators\Biomes\BiomeGenerator.cs" />
