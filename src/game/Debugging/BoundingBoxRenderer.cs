@@ -30,7 +30,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         };
 
         static BasicEffect effect;
-        static VertexDeclaration vertDecl;
 
         #endregion
 

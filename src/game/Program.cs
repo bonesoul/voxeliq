@@ -59,7 +59,7 @@ namespace VolumetricStudios.VoxeliqGame
 
         private static void PrintLicense()
         {
-            Console.WriteLine("Copyright (C) 2011 voxeliq project");
+            Console.WriteLine("Copyright (C) 2011 - 2012 voxeliq project");
             Console.WriteLine();
         }
 

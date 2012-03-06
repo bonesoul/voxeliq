@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
@@ -88,14 +89,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 1;
+        public const byte ViewRange = 10;
 
         public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 2;
+        public const byte CacheRange = 15;
 
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
@@ -132,6 +133,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         protected IVertexBuilder VertexBuilder { get; set; }
 
+
+        public bool CacheThreadStarted { get; private set; }
+
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -140,6 +144,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             this.IsInfinitive = true;
             this.Game.Services.AddService(typeof(IChunkCache), this); // export service.
+
+            this.CacheThreadStarted = false;
         }
 
         public override void Initialize()
@@ -152,7 +158,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
-            this.Generator = new MountainousTerrain(new RainForest()); 
+            this.Generator = new MountainousTerrain(new RainForest());
 
             base.Initialize();
         }
@@ -176,6 +182,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public override void Update(GameTime gameTime)
         {
+            if(!this.CacheThreadStarted)
+            {
+                var cacheThread = new Thread(CacheThread) { IsBackground = true };
+                cacheThread.Start();
+
+                this.CacheThreadStarted=true;
+            }
+
             this.ViewRangeBoundingBox = new BoundingBox(
                 new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange * Chunk.WidthInBlocks), 0, this._player.CurrentChunk.WorldPosition.Z - (ViewRange * Chunk.LenghtInBlocks)),
                 new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1) * Chunk.WidthInBlocks), Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1) * Chunk.LenghtInBlocks))
@@ -185,8 +199,17 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                 new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange * Chunk.WidthInBlocks), 0, this._player.CurrentChunk.WorldPosition.Z - (CacheRange * Chunk.LenghtInBlocks)),
                 new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1) * Chunk.WidthInBlocks), Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1) * Chunk.LenghtInBlocks))
             );
+        }
 
-            this.Process();
+        private void CacheThread()
+        {
+            while(true)
+            {
+                if (this._player.CurrentChunk == null)
+                    continue;
+
+                this.Process();
+            }
         }
 
         protected void Process()
@@ -203,9 +226,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                         this.ProcessChunkInCacheRange(chunk);
                     else
                     {
-                        //chunk.ChunkState = ChunkState.AwaitingRemoval;
-                        //this.ChunkStorage.Remove(chunk.RelativePosition.X, chunk.RelativePosition.Z);
-                        //chunk.Dispose();
+                        chunk.ChunkState = ChunkState.AwaitingRemoval;
+                        this._chunkStorage.Remove(chunk.RelativePosition.X, chunk.RelativePosition.Z);
+                        chunk.Dispose();
                     }
                 }
             }
@@ -219,14 +242,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             this._player.CurrentChunk = this.GetChunk((int)_player.Position.X, (int)_player.Position.Z);
 
-            for (int z = -Chunks.ChunkCache.CacheRange; z <= Chunks.ChunkCache.CacheRange; z++)
+            for (int z = -CacheRange; z <= CacheRange; z++)
             {
-                for (int x = -Chunks.ChunkCache.CacheRange; x <= Chunks.ChunkCache.CacheRange; x++)
+                for (int x = -CacheRange; x <= CacheRange; x++)
                 {
                     if (this._chunkStorage.ContainsKey(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z))
                         continue;
 
-                    var chunk = new Chunk(this.World, new Vector2Int(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z));
+                    var chunk = new Chunk(new Vector2Int(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z));
                     this._chunkStorage[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
                 }
             }
@@ -289,8 +312,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             chunk.ChunkState = ChunkState.Generating; // set chunk state to generating.
             Generator.Generate(chunk);
             chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.
-
-            Debug.WriteLine(chunk + " generated");
         }
 
         /// <summary>
@@ -302,8 +323,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             chunk.ChunkState = ChunkState.Lighting; // set chunk state to generating.
             Lightning.Process(chunk);
             chunk.ChunkState = ChunkState.AwaitingBuild; // chunk should be built now.
-
-            Debug.WriteLine(chunk + " ligtened");
         }
 
         /// <summary>
@@ -315,8 +334,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             chunk.ChunkState = ChunkState.Building; // set chunk state to building.
             this.VertexBuilder.Build(chunk);
             chunk.ChunkState = ChunkState.Ready; // chunk is al ready now.
-
-            Debug.WriteLine(chunk + " built");
         }
 
 

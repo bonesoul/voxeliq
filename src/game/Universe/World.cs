@@ -8,7 +8,6 @@ using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 namespace VolumetricStudios.VoxeliqGame.Universe
@@ -101,7 +100,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             {
                 for (int x = -ChunkCache.CacheRange; x <= ChunkCache.CacheRange; x++)
                 {
-                    var chunk = new Chunk(this, new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
+                    var chunk = new Chunk(new Vector2Int(relativePosition.X + x, relativePosition.Z + z));
                     this.Chunks[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
 
                     if (chunk.RelativePosition == relativePosition) this._player.CurrentChunk = chunk;

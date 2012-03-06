@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
@@ -21,14 +20,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     /// </summary>
     public sealed class Chunk : IInGameDebuggable
     {
-        public Chunk North { get { return World.Chunks[this.RelativePosition.X, this.RelativePosition.Z + 1]; } }
-        public Chunk South { get { return World.Chunks[this.RelativePosition.X, this.RelativePosition.Z - 1]; } }
-        public Chunk West { get { return World.Chunks[this.RelativePosition.X - 1, this.RelativePosition.Z]; } }
-        public Chunk East { get { return World.Chunks[this.RelativePosition.X + 1, this.RelativePosition.Z]; } }
-        public Chunk NorthWest { get { return World.Chunks[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; } }
-        public Chunk NorthEast { get { return World.Chunks[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; } }
-        public Chunk SouthWest { get { return World.Chunks[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
-        public Chunk SouthEast { get { return World.Chunks[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
+        public Chunk North { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; } }
+        public Chunk South { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; } }
+        public Chunk West { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; } }
+        public Chunk East { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; } }
+        public Chunk NorthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; } }
+        public Chunk NorthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; } }
+        public Chunk SouthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
+        public Chunk SouthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
 
         public static byte MaxSunValue = 16;
 
@@ -79,11 +78,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// The bounding box for the chunk.
         /// </summary>
         public BoundingBox BoundingBox { get; set; }
-
-        /// <summary>
-        /// The attached world object.
-        /// </summary>
-        public readonly World World;
 
         /// <summary>
         /// The chunk state.
@@ -141,7 +135,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public List<short> IndexList;
 
-        public Chunk(World world, Vector2Int relativePosition)
+        public Chunk(Vector2Int relativePosition)
         {
             this.ChunkState = ChunkState.AwaitingGenerate;
 
@@ -150,7 +144,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.QueuedForBuilding = false;
             this.QueuedForGeneration = false;
 
-            this.World = world;
             this.RelativePosition = relativePosition;
             this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks);
             this.Blocks = new Block[WidthInBlocks*LenghtInBlocks*HeightInBlocks];
@@ -211,15 +204,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             if (z == 0) this.South.Dirty = true;
             else if (z == MaxLenghtInBlocks) this.North.Dirty = true;
-
         }
 
         public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
-            var position = RelativePosition + " " + LowestEmptyBlockOffset + "/" + HighestSolidBlockOffset;
+            var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
             Vector3 projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View, Matrix.CreateTranslation(new Vector3(WorldPosition.X+WidthInBlocks/2, HighestSolidBlockOffset-1, WorldPosition.Z + LenghtInBlocks / 2)));
-            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.White);
+            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.Yellow);
 
             BoundingBoxRenderer.Render(this.BoundingBox , graphicsDevice, camera.View,camera.Projection, Color.DarkRed);
         }

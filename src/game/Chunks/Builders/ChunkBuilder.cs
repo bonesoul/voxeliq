@@ -104,7 +104,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
                 switch (direction)
                 {
                     case Direction.West: 
-                        chunk = new Chunk(World, pos);
+                        chunk = new Chunk(pos);
                         this.World.Chunks[xCord, z] = chunk;
                         break;
                     case Direction.East:
@@ -130,7 +130,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
                         chunk.Dispose();
                         break;
                     case Direction.East:
-                        chunk = new Chunk(World, pos);
+                        chunk = new Chunk(pos);
                         this.World.Chunks[xCord, z] = chunk;
                         break;
                 }
@@ -163,7 +163,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
                 switch (direction)
                 {
                     case Direction.South:
-                        chunk = new Chunk(World, pos);
+                        chunk = new Chunk(pos);
                         this.World.Chunks[x, zCord] = chunk;
                         break;
                     case Direction.North:
@@ -189,7 +189,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Builders
                         chunk.Dispose();
                         break;
                     case Direction.North:
-                        chunk = new Chunk(World, pos);
+                        chunk = new Chunk(pos);
                         this.World.Chunks[x, zCord] = chunk;
                         break;
                 }
