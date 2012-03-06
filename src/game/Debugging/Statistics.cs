@@ -132,7 +132,19 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20), Color.White);
             _spriteBatch.DrawString(_spriteFont, "inf: " + (this._chunkCache.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
             _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);            
+            _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);
+
+
+            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
+            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
+            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
+            var readyState = this._chunkCache.StateStatistics[ChunkState.Ready];
+
+            _spriteBatch.DrawString(_spriteFont, "GenerateQ: " + generateQueue, new Vector2(5, 65), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "LightenQ: " + lightenQueue, new Vector2(5, 80), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "BuildQ: " + buildQueue, new Vector2(5, 95), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "Ready: " + readyState, new Vector2(5, 110), Color.White); 
+
             _spriteBatch.End();
         }
 

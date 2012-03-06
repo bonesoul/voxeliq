@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,6 +38,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="z"></param>
         /// <returns></returns>
         Chunk GetChunk(int x, int z);
+
+        Dictionary<ChunkState, int> StateStatistics { get; }                          
 
         /// <summary>
         /// Sets a block in given x-y-z coordinate.
@@ -96,7 +99,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 15;
+        public const byte CacheRange = 12;
 
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
@@ -136,6 +139,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public bool CacheThreadStarted { get; private set; }
 
+        public Dictionary<ChunkState, int> StateStatistics { get; private set; }
+
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -146,6 +151,20 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.Game.Services.AddService(typeof(IChunkCache), this); // export service.
 
             this.CacheThreadStarted = false;
+
+            this.StateStatistics = new Dictionary<ChunkState, int>
+                                       {
+                                           {ChunkState.AwaitingGenerate, 0},
+                                           {ChunkState.Generating, 0},
+                                           {ChunkState.AwaitingLighting, 0},
+                                           {ChunkState.Lighting, 0},
+                                           {ChunkState.AwaitingBuild, 0},
+                                           {ChunkState.Building, 0},
+                                           {ChunkState.Ready, 0},
+                                           {ChunkState.AwaitingRelighting, 0},
+                                           {ChunkState.AwaitingRebuild, 0},
+                                           {ChunkState.AwaitingRemoval, 0},
+                                       };
         }
 
         public override void Initialize()
@@ -214,6 +233,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         protected void Process()
         {
+            this.StateStatistics[ChunkState.AwaitingGenerate] = 0;
+            this.StateStatistics[ChunkState.Generating] = 0;
+            this.StateStatistics[ChunkState.AwaitingLighting] = 0;
+            this.StateStatistics[ChunkState.Lighting] = 0;
+            this.StateStatistics[ChunkState.AwaitingBuild] = 0;
+            this.StateStatistics[ChunkState.Building] = 0;
+            this.StateStatistics[ChunkState.Ready] = 0;
+            this.StateStatistics[ChunkState.AwaitingRelighting] = 0;
+            this.StateStatistics[ChunkState.AwaitingRebuild] = 0;
+            this.StateStatistics[ChunkState.AwaitingRemoval] = 0;
+
+
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
@@ -231,6 +262,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                         chunk.Dispose();
                     }
                 }
+
+                this.StateStatistics[chunk.ChunkState]++;
             }
 
             if (this.IsInfinitive)
@@ -262,13 +295,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         private void ProcessChunkInCacheRange(Chunk chunk)
         {
-            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState != ChunkState.AwaitingBuild)
+            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState != ChunkState.AwaitingGenerate)
                 return;
 
             switch (chunk.ChunkState) // switch on the chunk state.
             {
                 case ChunkState.AwaitingGenerate:
                     this.Generate(chunk);
+                    break;
+                case ChunkState.AwaitingLighting:
+                    this.Lighten(chunk);
                     break;
                 default:
                     break;
