@@ -133,11 +133,7 @@
     <Compile Include="Chunks\Builders\TaskedBuilder.cs" />
     <Compile Include="Chunks\Chunk.cs" />
     <Compile Include="Chunks\ChunkCache.cs" />
-    <Compile Include="Chunks\Processors\ChunkProcessor.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
-    <Compile Include="Chunks\Processors\MultiThreadedChunkProcessor.cs" />
-    <Compile Include="Chunks\Processors\SingleThreadedChunkProcessor.cs" />
-    <Compile Include="Chunks\Processors\TaskedChunkProcessor.cs" />
     <Compile Include="Common\Config\Config.cs" />
     <Compile Include="Common\Config\ConfigManager.cs" />
     <Compile Include="Common\Helpers\IO\FileHelpers.cs" />

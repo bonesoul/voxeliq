@@ -14,6 +14,7 @@ using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Managers;
+using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.UI;
 using VolumetricStudios.VoxeliqGame.Universe;
 using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;
@@ -84,6 +85,9 @@ namespace VolumetricStudios.VoxeliqGame
             
             var chunkStorage = new ChunkStorage(this) {UpdateOrder = 3};
             this.Components.Add(chunkStorage);
+
+            var vertexBuilder = new VertexBuilder(this);
+            this.Components.Add(vertexBuilder);
 
             var chunkCache = new ChunkCache(this) {UpdateOrder = 4, DrawOrder = 1};
             this.Components.Add(chunkCache);

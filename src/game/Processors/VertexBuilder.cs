@@ -55,6 +55,8 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             if(chunk.LowestEmptyBlockOffset > 0)
                 chunk.LowestEmptyBlockOffset--;
 
+            chunk.BoundingBox = new BoundingBox(new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LenghtInBlocks));
+
             this.BuildVertexList(chunk);
             chunk.Dirty = false;
             chunk.QueuedForBuilding = false;

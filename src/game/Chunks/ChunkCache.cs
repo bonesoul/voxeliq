@@ -1,8 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
@@ -86,16 +90,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public const byte ViewRange = 1;
 
-        public static int ViewRangeWidthInBlocks = Chunk.WidthInBlocks*ViewRange;
-        public static int ViewRangeLenghtInBlocks = Chunk.LenghtInBlocks * ViewRange;
+        public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 1;
+        public const byte CacheRange = 2;
 
-        public static int CacheRangeWidthInBlocks = Chunk.WidthInBlocks * CacheRange;
-        public static int CacheRangeLenghtInBlocks = Chunk.LenghtInBlocks * CacheRange;
+        public BoundingBox CacheRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Is the world infinitive?
@@ -120,6 +122,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         private IPlayer _player;
         private IFogger _fogger;
 
+        /// <summary>
+        /// The terrain generator.
+        /// </summary>
+        protected TerrainGenerator Generator { get; set; }
+
+        /// <summary>
+        /// The chunk vertex builder.
+        /// </summary>
+        protected IVertexBuilder VertexBuilder { get; set; }
+
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -139,6 +151,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
+            this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
+            this.Generator = new MountainousTerrain(new RainForest()); 
 
             base.Initialize();
         }
@@ -150,74 +164,161 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
         }
 
-        // Returns the chunk in given x-z position.
-        public Chunk GetChunk(int x, int z)
-        {
-            return !this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks) ? null : this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks];
-        }
-
         public bool IsChunkInViewRange(Chunk chunk)
         {
-            if ((chunk.WorldPosition.X > this._player.Position.X + ViewRangeWidthInBlocks) ||
-                (chunk.WorldPosition.X < this._player.Position.X - ViewRangeWidthInBlocks))
-                return false;
-
-            if ((chunk.WorldPosition.Z > this._player.Position.Z + ViewRangeLenghtInBlocks) ||
-                (chunk.WorldPosition.Z < this._player.Position.Z - ViewRangeLenghtInBlocks))
-                return false;
-
-            return true;
+            return ViewRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
         }
 
         public bool IsChunkInCacheRange(Chunk chunk)
         {
-            if ((chunk.WorldPosition.X > this._player.Position.X + CacheRangeWidthInBlocks) ||
-                (chunk.WorldPosition.X < this._player.Position.X - CacheRangeWidthInBlocks))
-                return false;
-
-            if ((chunk.WorldPosition.Z > this._player.Position.Z + CacheRangeLenghtInBlocks) ||
-                (chunk.WorldPosition.Z < this._player.Position.Z - CacheRangeLenghtInBlocks))
-                return false;
-
-            return true;
+            return CacheRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
         }
 
-        // Sets a block in given x-y-z coordinate.
-        public void SetBlock(Vector3Int position, Block block)
+        public override void Update(GameTime gameTime)
         {
-            this.SetBlock(position.X, position.Y, position.Z, block);
+            this.ViewRangeBoundingBox = new BoundingBox(
+                new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange * Chunk.WidthInBlocks), 0, this._player.CurrentChunk.WorldPosition.Z - (ViewRange * Chunk.LenghtInBlocks)),
+                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1) * Chunk.WidthInBlocks), Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1) * Chunk.LenghtInBlocks))
+            );
+
+            this.CacheRangeBoundingBox = new BoundingBox(
+                new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange * Chunk.WidthInBlocks), 0, this._player.CurrentChunk.WorldPosition.Z - (CacheRange * Chunk.LenghtInBlocks)),
+                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1) * Chunk.WidthInBlocks), Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1) * Chunk.LenghtInBlocks))
+            );
+
+            this.Process();
         }
 
-        // Sets a block in given x-y-z coordinate.
-        public void SetBlock(int x, int y, int z, Block block)
+        protected void Process()
         {
-            var chunk = this.GetChunk(x, z);
-            chunk.SetBlock((byte)(x % Chunk.WidthInBlocks), (byte)y, (byte)(z % Chunk.LenghtInBlocks), block);
+            foreach (var chunk in this._chunkStorage.Values)
+            {
+                if (this.IsChunkInViewRange(chunk))
+                {
+                    this.ProcessChunkInViewRange(chunk);
+                }
+                else
+                {
+                    if (this.IsChunkInCacheRange(chunk))
+                        this.ProcessChunkInCacheRange(chunk);
+                    else
+                    {
+                        //chunk.ChunkState = ChunkState.AwaitingRemoval;
+                        //this.ChunkStorage.Remove(chunk.RelativePosition.X, chunk.RelativePosition.Z);
+                        //chunk.Dispose();
+                    }
+                }
+            }
+
+            if (this.IsInfinitive)
+                this.RecacheChunks();
         }
 
-        // returns the block at given coordinate.
-        public Block BlockAt(Vector3 position)
+
+        private void RecacheChunks()
         {
-            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
+            this._player.CurrentChunk = this.GetChunk((int)_player.Position.X, (int)_player.Position.Z);
+
+            for (int z = -Chunks.ChunkCache.CacheRange; z <= Chunks.ChunkCache.CacheRange; z++)
+            {
+                for (int x = -Chunks.ChunkCache.CacheRange; x <= Chunks.ChunkCache.CacheRange; x++)
+                {
+                    if (this._chunkStorage.ContainsKey(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z))
+                        continue;
+
+                    var chunk = new Chunk(this.World, new Vector2Int(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z));
+                    this._chunkStorage[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
+                }
+            }
+
+            var southWestEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X - Chunks.ChunkCache.ViewRange, this._player.CurrentChunk.RelativePosition.Z - Chunks.ChunkCache.ViewRange);
+            var northEastEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X + Chunks.ChunkCache.ViewRange, this._player.CurrentChunk.RelativePosition.Z + Chunks.ChunkCache.ViewRange);
+
+            this.BoundingBox = new BoundingBox(new Vector3(southWestEdge.X * Chunk.WidthInBlocks, 0, southWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((northEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (northEastEdge.Z + 1) * Chunk.LenghtInBlocks));
         }
 
-        // returns the block at given coordinate.
-        public Block BlockAt(int x, int y, int z)
+        private void ProcessChunkInCacheRange(Chunk chunk)
         {
-            if (!IsInBounds(x, y, z)) return Block.Empty;
+            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState != ChunkState.AwaitingBuild)
+                return;
 
-            if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
-                return Block.Empty;
-
-            return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
+            switch (chunk.ChunkState) // switch on the chunk state.
+            {
+                case ChunkState.AwaitingGenerate:
+                    this.Generate(chunk);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        // returns true if given coordinate is in bounds.
-        public bool IsInBounds(int x, int y, int z)
+        private void ProcessChunkInViewRange(Chunk chunk)
         {
-            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
-            return true;
+            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState == ChunkState.AwaitingRemoval)
+                return;
+
+            switch (chunk.ChunkState) // switch on the chunk state.
+            {
+                case ChunkState.AwaitingGenerate:
+                    this.Generate(chunk);
+                    break;
+                case ChunkState.AwaitingLighting:
+                    this.Lighten(chunk);
+                    break;
+                case ChunkState.AwaitingBuild:
+                    this.Build(chunk);
+                    break;
+                case ChunkState.AwaitingRelighting:
+                    this.Lighten(chunk);
+                    break;
+                case ChunkState.AwaitingRebuild:
+                    this.Build(chunk);
+                    break;
+                default:
+                    break;
+            }
         }
+
+
+        /// <summary>
+        /// Generates the chunk.
+        /// </summary>
+        /// <param name="chunk">Chunk to be generated.</param>
+        protected void Generate(Chunk chunk)
+        {
+            chunk.ChunkState = ChunkState.Generating; // set chunk state to generating.
+            Generator.Generate(chunk);
+            chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.
+
+            Debug.WriteLine(chunk + " generated");
+        }
+
+        /// <summary>
+        /// Ligtens the chunk (calculates the lighting amount on chunks blocks).
+        /// </summary>
+        /// <param name="chunk">Chunk to lighten.</param>
+        protected void Lighten(Chunk chunk)
+        {
+            chunk.ChunkState = ChunkState.Lighting; // set chunk state to generating.
+            Lightning.Process(chunk);
+            chunk.ChunkState = ChunkState.AwaitingBuild; // chunk should be built now.
+
+            Debug.WriteLine(chunk + " ligtened");
+        }
+
+        /// <summary>
+        /// Builds the chunk (calculates vertexes and indices).
+        /// </summary>
+        /// <param name="chunk">Chunk to build</param>
+        protected void Build(Chunk chunk)
+        {
+            chunk.ChunkState = ChunkState.Building; // set chunk state to building.
+            this.VertexBuilder.Build(chunk);
+            chunk.ChunkState = ChunkState.Ready; // chunk is al ready now.
+
+            Debug.WriteLine(chunk + " built");
+        }
+
 
         public override void Draw(GameTime gameTime)
         {
@@ -275,6 +376,49 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     this.ChunksDrawn++;
                 }
             }
+        }
+
+        // Returns the chunk in given x-z position.
+        public Chunk GetChunk(int x, int z)
+        {
+            return !this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks) ? null : this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks];
+        }
+
+        // Sets a block in given x-y-z coordinate.
+        public void SetBlock(Vector3Int position, Block block)
+        {
+            this.SetBlock(position.X, position.Y, position.Z, block);
+        }
+
+        // Sets a block in given x-y-z coordinate.
+        public void SetBlock(int x, int y, int z, Block block)
+        {
+            var chunk = this.GetChunk(x, z);
+            chunk.SetBlock((byte)(x % Chunk.WidthInBlocks), (byte)y, (byte)(z % Chunk.LenghtInBlocks), block);
+        }
+
+        // returns the block at given coordinate.
+        public Block BlockAt(Vector3 position)
+        {
+            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
+        }
+
+        // returns the block at given coordinate.
+        public Block BlockAt(int x, int y, int z)
+        {
+            if (!IsInBounds(x, y, z)) return Block.Empty;
+
+            if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
+                return Block.Empty;
+
+            return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
+        }
+
+        // returns true if given coordinate is in bounds.
+        public bool IsInBounds(int x, int y, int z)
+        {
+            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
+            return true;
         }
 
         public void ToggleInfinitiveWorld()

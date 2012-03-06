@@ -78,7 +78,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// The bounding box for the chunk.
         /// </summary>
-        public BoundingBox BoundingBox { get; private set; }
+        public BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         /// The attached world object.
@@ -224,6 +224,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             BoundingBoxRenderer.Render(this.BoundingBox , graphicsDevice, camera.View,camera.Projection, Color.DarkRed);
         }
 
+        public override string ToString()
+        {
+            return RelativePosition.ToString();
+        }
+
         #region de-ctor
 
         // IDisposable pattern: http://msdn.microsoft.com/en-us/library/fs2xkftw(v=VS.100).aspx
@@ -240,10 +245,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
-                //this.Blocks = null;
-                //this.VertexList.Clear();
-                //this.VertexList = null;
-                //if(this.VertexBuffer!=null) this.VertexBuffer.Dispose();
+                this.Blocks = null;
+                this.VertexList.Clear();
+                this.VertexList = null;
+                if(this.VertexBuffer!=null) this.VertexBuffer.Dispose();
             }
 
             Disposed = true;
