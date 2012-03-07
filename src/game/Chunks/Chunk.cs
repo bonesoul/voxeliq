@@ -179,12 +179,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Block BlockAt(int x, int y, int z)
         {
-            return this.Blocks[x*FlattenOffset + z*HeightInBlocks + y];
+            return BlockCache.Get(x, y, z);
+
+            //return this.Blocks[x*FlattenOffset + z*HeightInBlocks + y];
         }
 
         public void SetBlock(byte x, byte y, byte z, Block block)
         {
-            switch (block.Exists)
+            BlockCache.Set(x, y, z, block);
+
+            /*switch (block.Exists)
             {
                 case false:
                     if (this.LowestEmptyBlockOffset > y && y > 0)
@@ -203,7 +207,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             else if (x == MaxWidthInBlocks) this.East.Dirty = true;
 
             if (z == 0) this.South.Dirty = true;
-            else if (z == MaxLenghtInBlocks) this.North.Dirty = true;
+            else if (z == MaxLenghtInBlocks) this.North.Dirty = true;*/
         }
 
         public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)

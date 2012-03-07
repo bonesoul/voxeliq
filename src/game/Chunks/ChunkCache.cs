@@ -92,14 +92,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 1;
+        public const byte ViewRange = 5;
 
         public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 2;
+        public const byte CacheRange = 5;
 
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
