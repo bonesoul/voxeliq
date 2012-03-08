@@ -86,9 +86,6 @@ namespace VolumetricStudios.VoxeliqGame
             var chunkStorage = new ChunkStorage(this) {UpdateOrder = 3};
             this.Components.Add(chunkStorage);
 
-            var blockStorage = new BlockCache(this) {UpdateOrder = 3};
-            this.Components.Add(blockStorage);
-
             var vertexBuilder = new VertexBuilder(this);
             this.Components.Add(vertexBuilder);
 
