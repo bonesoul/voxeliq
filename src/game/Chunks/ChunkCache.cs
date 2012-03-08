@@ -471,10 +471,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             if (!IsInBounds(x, y, z)) return Block.Empty;
 
-            if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
-                return Block.Empty;
+            return BlockCache.GetByWorldPosition(x, y, z);
 
-            return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
+            //if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
+            //    return Block.Empty;
+
+            //return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
         }
 
         // returns true if given coordinate is in bounds.

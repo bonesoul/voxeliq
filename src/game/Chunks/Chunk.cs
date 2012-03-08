@@ -185,7 +185,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             //return block;
 
             // byvalue!!!
-            return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+            return BlockCache.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
 
             //return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
 
@@ -210,7 +210,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             //this.Blocks[x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y] = block;
             //BlockCache.Set(x, y, z, block);
-            BlockCache.Set(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
+            BlockCache.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
 
             /*this.Dirty = true;
             if (x == 0) this.West.Dirty = true;

@@ -28,33 +28,35 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
                     bool inShade = false;
+
                     for (byte y = Chunk.MaxHeightInBlocks; y > 0; y--)
                     {
-                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
 
                         //if (chunk.Blocks[offset + y].Type != BlockType.None) inShade = true;
-                        if (BlockCache.Instance.Blocks[blockIndex].Type != BlockType.None)
+                        if (BlockCache.Blocks[chunkIndex + y].Type != BlockType.None)
                             inShade = true;
 
                         if (!inShade)
                         {
                             //chunk.Blocks[offset + y].Sun = sunValue;
-                            BlockCache.Instance.Blocks[blockIndex].Sun = sunValue;
+                            BlockCache.Blocks[chunkIndex + y].Sun = sunValue;
                         }
                         else
                         {
                             //chunk.Blocks[offset + y].Sun = 0;
-                            BlockCache.Instance.Blocks[blockIndex].Sun = 0;
+                            BlockCache.Blocks[chunkIndex + y].Sun = 0;
                         }
 
                         //chunk.Blocks[offset + y].R = 0;
                         //chunk.Blocks[offset + y].G = 0;
                         //chunk.Blocks[offset + y].B = 0;
 
-                        BlockCache.Instance.Blocks[blockIndex].R = 0;
-                        BlockCache.Instance.Blocks[blockIndex].G = 0;
-                        BlockCache.Instance.Blocks[blockIndex].B = 0;
+                        BlockCache.Blocks[chunkIndex + y].R = 0;
+                        BlockCache.Blocks[chunkIndex + y].G = 0;
+                        BlockCache.Blocks[chunkIndex + y].B = 0;
                     }
                 }
             }
@@ -75,18 +77,20 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (byte y = 0; y < Chunk.HeightInBlocks; y++)
                     {
-                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
 
                         //if (chunk.Blocks[offset + y].Type == BlockType.None)
-                        if (BlockCache.Instance.Blocks[blockIndex].Type == BlockType.None)
+                        if (BlockCache.Blocks[chunkIndex + y].Type == BlockType.None)
                         {
                             //if (chunk.Blocks[offset + y].Sun > 1)
-                            if (BlockCache.Instance.Blocks[blockIndex].Sun > 1)
+                            if (BlockCache.Blocks[chunkIndex + y].Sun > 1)
                             {
                                 //byte light = Attenuate(chunk.Blocks[offset + y].Sun);
-                                byte light = Attenuate(BlockCache.Instance.Blocks[blockIndex].Sun);
+                                byte light = Attenuate(BlockCache.Blocks[chunkIndex + y].Sun);
 
                                 if (x > 0) PropagateSunLight(chunk, (byte)(x - 1), y, z, light);
                                 if (x < Chunk.MaxWidthInBlocks) PropagateSunLight(chunk, (byte)(x + 1), y, z, light);
@@ -113,17 +117,19 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (byte y = 0; y < Chunk.HeightInBlocks; y++)
                     {
-                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
 
                         //int blockOffset = offset + y;
                         //if (chunk.Blocks[blockOffset].Exists || chunk.Blocks[blockOffset].R <= 1) continue;
-                        if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].R <= 1) 
+                        if (BlockCache.Blocks[chunkIndex + y].Exists || BlockCache.Blocks[chunkIndex + y].R <= 1) 
                             continue;
 
                         //var light = (byte) ((chunk.Blocks[blockOffset].R/10)*9);
-                        var light = (byte)((BlockCache.Instance.Blocks[blockIndex].R / 10) * 9);
+                        var light = (byte)((BlockCache.Blocks[chunkIndex + y].R / 10) * 9);
 
                         if (x > 0) PropagateLightR(chunk, (byte) (x - 1), y, z, light);
                         if (x < Chunk.MaxWidthInBlocks) PropagateLightR(chunk, (byte) (x + 1), y, z, light);
@@ -143,18 +149,20 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (byte y = 0; y < Chunk.HeightInBlocks; y++)
                     {
                         //int blockOffset = offset + y;
-                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
                         
 
                         //if (chunk.Blocks[blockOffset].Exists || chunk.Blocks[blockOffset].G <= 1) continue;
-                        if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].G <= 1) 
+                        if (BlockCache.Blocks[chunkIndex + y].Exists || BlockCache.Blocks[chunkIndex + y].G <= 1) 
                             continue;
 
                         //var light = (byte) ((chunk.Blocks[blockOffset].G/10)*9);
-                        var light = (byte)((BlockCache.Instance.Blocks[blockIndex].G / 10) * 9);
+                        var light = (byte)((BlockCache.Blocks[chunkIndex + y].G / 10) * 9);
 
                         if (x > 0) PropagateLightG(chunk, (byte) (x - 1), y, z, light);
                         if (x < Chunk.MaxWidthInBlocks) PropagateLightG(chunk, (byte) (x + 1), y, z, light);
@@ -174,17 +182,19 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (byte y = 0; y < Chunk.HeightInBlocks; y++)
                     {
                         //int blockOffset = offset + y;
 
-                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
 
                         //if (chunk.Blocks[blockOffset].Exists || chunk.Blocks[blockOffset].B <= 1) continue;
-                        if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].B <= 1) continue;
+                        if (BlockCache.Blocks[chunkIndex + y].Exists || BlockCache.Blocks[chunkIndex + y].B <= 1) continue;
 
                         //var light = (byte) ((chunk.Blocks[blockOffset].B/10)*9);
-                        var light = (byte)((BlockCache.Instance.Blocks[blockIndex].B / 10) * 9);
+                        var light = (byte)((BlockCache.Blocks[chunkIndex + y].B / 10) * 9);
 
                         if (x > 0) PropagateLightB(chunk, (byte) (x - 1), y, z, light);
                         if (x < Chunk.MaxWidthInBlocks) PropagateLightB(chunk, (byte) (x + 1), y, z, light);
@@ -199,19 +209,20 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
         private static void PropagateSunLight(Chunk chunk, byte x, byte y, byte z, byte light)
         {
+            //int chunkIndex = BlockCache.GetChunkIndex(chunk, x, z);
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y;
-            var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+            var blockIndex = BlockCache.BlockIndexByRelativePosition(chunk, (byte)x, (byte)y, (byte)z);
 
             //if (chunk.Blocks[offset].Type != BlockType.None && chunk.Blocks[offset].Type != BlockType.Water) return;
-            if (BlockCache.Instance.Blocks[blockIndex].Type != BlockType.None && BlockCache.Instance.Blocks[blockIndex].Type != BlockType.Water) 
+            if (BlockCache.Blocks[blockIndex].Type != BlockType.None && BlockCache.Blocks[blockIndex].Type != BlockType.Water) 
                 return;
 
             //if (chunk.Blocks[offset].Sun >= light) return;
-            if (BlockCache.Instance.Blocks[blockIndex].Sun >= light) 
+            if (BlockCache.Blocks[blockIndex].Sun >= light) 
                 return;
 
             //chunk.Blocks[offset].Sun = light;
-            BlockCache.Instance.Blocks[blockIndex].Sun = light;
+            BlockCache.Blocks[blockIndex].Sun = light;
 
             if (light > 1)
             {
@@ -235,15 +246,16 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
         private static void PropagateLightR(Chunk chunk, byte x, byte y, byte z, byte lightR)
         {
-            var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+            //int chunkIndex = BlockCache.GetChunkIndex(chunk, x, z);
+            var blockIndex = BlockCache.BlockIndexByRelativePosition(chunk, (byte)x, (byte)y, (byte)z);
             //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks + y;
             
             //if (chunk.Blocks[offset].Exists || chunk.Blocks[offset].R >= lightR) return;
-            if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].R >= lightR) 
+            if (BlockCache.Blocks[blockIndex].Exists || BlockCache.Blocks[blockIndex].R >= lightR) 
                 return;
 
             //chunk.Blocks[offset].R = lightR;
-            BlockCache.Instance.Blocks[blockIndex].R = lightR;
+            BlockCache.Blocks[blockIndex].R = lightR;
 
             if (lightR <= 1) return;
             lightR = (byte) (lightR - 1);
@@ -258,15 +270,16 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
         private static void PropagateLightG(Chunk chunk, byte x, byte y, byte z, byte lightG)
         {
-            var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+            //int chunkIndex = BlockCache.GetChunkIndex(chunk, x, z);
+            var blockIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, y, z);
 
             //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks + y;
             //if (chunk.Blocks[offset].Exists || chunk.Blocks[offset].G >= lightG) return;
-            if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].G >= lightG) 
+            if (BlockCache.Blocks[blockIndex].Exists || BlockCache.Blocks[blockIndex].G >= lightG) 
                 return;
 
             //chunk.Blocks[offset].G = lightG;
-            BlockCache.Instance.Blocks[blockIndex].G = lightG;
+            BlockCache.Blocks[blockIndex].G = lightG;
 
             if (lightG <= 1) return;
             lightG = (byte) (lightG - 1);
@@ -281,15 +294,16 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
         private static void PropagateLightB(Chunk chunk, byte x, byte y, byte z, byte lightB)
         {
-            var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+            //int chunkIndex = BlockCache.GetChunkIndex(chunk, x, z);
+            var blockIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, y, z);
 
             //int offset = x*Chunk.FlattenOffset + z*Chunk.HeightInBlocks + y;
             //if (chunk.Blocks[offset].Exists || chunk.Blocks[offset].B >= lightB) return;
-            if (BlockCache.Instance.Blocks[blockIndex].Exists || BlockCache.Instance.Blocks[blockIndex].B >= lightB) 
+            if (BlockCache.Blocks[blockIndex].Exists || BlockCache.Blocks[blockIndex].B >= lightB) 
                 return;
 
             //chunk.Blocks[offset].B = lightB;
-            BlockCache.Instance.Blocks[blockIndex].B = lightB;
+            BlockCache.Blocks[blockIndex].B = lightB;
 
 
             if (lightB <= 1) return;

@@ -11,17 +11,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 
-    public interface IBlockCache
+    public static class BlockCache
     {
-        Block this[int x, int y, int z] { get; set; }
-    }
-
-    public class BlockCache : GameComponent, IBlockCache
-    {
-        private static BlockCache _instance;
-        public static BlockCache Instance { get { return _instance; } }
-
-        public Block[] Blocks;
+        public static Block[] Blocks;
 
         public static int CacheWidthInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.WidthInBlocks;
         public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.LenghtInBlocks;
@@ -30,23 +22,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        public BlockCache(Game game) 
-            : base(game)
-        {
-            _instance = this;
-            this.Game.Services.AddService(typeof(IBlockCache), this); // export service.
-        }
-
-        public override void Initialize()
+        static BlockCache() 
         {
             Logger.Trace("init()");
-            this.InitStorage();
+            InitStorage();
         }
 
-        private void InitStorage()
+        private static void InitStorage()
         {
             //Console.WriteLine("init array");
-            this.Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
+            Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
 
             //Console.WriteLine("empty blocks");
             for (int x = 0; x < CacheWidthInBlocks; x++)
@@ -62,17 +47,68 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             }
         }
 
-        public static Block Get(int x, int y, int z)
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns></returns>
+        public static Block GetByWorldPosition(int x, int y, int z)
         {
-            return _instance[x, y, z];
+            var wrapX = x%CacheWidthInBlocks;
+            var wrapZ = z%CacheLenghtInBlocks;
+            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+
+            return Blocks[flattenIndex];
         }
 
-        public static void Set(int x, int y, int z, Block value)
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <param name="value">Block value to set.</param>
+        /// <returns></returns>
+        public static void SetByWorldPosition(int x, int y, int z, Block value)
         {
-            _instance[x, y, z] = value;
+            var wrapX = x % CacheWidthInBlocks;
+            var wrapZ = z % CacheLenghtInBlocks;
+            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+
+            Blocks[flattenIndex] = value;
         }
 
-        public static int GetBlockIndex(Chunk chunk, byte x, byte y, byte z)
+        /// <summary>
+        /// Returns block index by relative position of block in chunk.
+        /// </summary>
+        /// <param name="chunk">The chunk block belongs to.</param>
+        /// <param name="x">Blocks relative x position in chunk.</param>
+        /// <param name="z">Blocks relative x position in chunk.</param>
+        /// <returns></returns>
+        public static int BlockIndexByRelativePosition(Chunk chunk, byte x, byte z)
+        {
+            var xIndex = chunk.WorldPosition.X + x;
+            var zIndex = chunk.WorldPosition.Z + z;
+
+            var wrapX = xIndex % CacheWidthInBlocks;
+            var wrapZ = zIndex % CacheLenghtInBlocks;
+
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks;
+
+            return flattenIndex;
+        }
+
+        /// <summary>
+        /// Returns block index by relative position of block in chunk.
+        /// </summary>
+        /// <param name="chunk">The chunk block belongs to.</param>
+        /// <param name="x">Blocks relative x position in chunk.</param>
+        /// <param name="y">Blocks y position in chunk. </param>
+        /// <param name="z">Blocks relative x position in chunk.</param>
+        /// <returns></returns>
+        public static int BlockIndexByRelativePosition(Chunk chunk, byte x, byte y, byte z)
         {
             var xIndex = chunk.WorldPosition.X + x;
             var zIndex = chunk.WorldPosition.Z + z;
@@ -82,26 +118,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
             return flattenIndex;
-        }
-
-        public Block this[int x, int y, int z]
-        {
-            get
-            {
-                var wrapX = x%CacheWidthInBlocks;
-                var wrapZ = z%CacheLenghtInBlocks;
-                var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
-
-                return this.Blocks[flattenIndex];
-            }
-            set
-            {
-                var wrapX = x % CacheWidthInBlocks;
-                var wrapZ = z % CacheLenghtInBlocks;
-                var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
-
-                this.Blocks[flattenIndex] = value;
-            }
         }
     }
 }
