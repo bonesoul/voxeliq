@@ -80,19 +80,19 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             Blocks[flattenIndex] = value;
         }
 
-        public static int BlockIndexByWorldPosition(byte x, byte z)
+        public static int BlockIndexByWorldPosition(int x, int z)
         {
             var wrapX = x % CacheWidthInBlocks;
-            var wrapZ = x % CacheLenghtInBlocks;
+            var wrapZ = z % CacheLenghtInBlocks;
 
             var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks;
             return flattenIndex;
         }
 
-        public static int BlockIndexByWorldPosition(byte x, byte y, byte z)
+        public static int BlockIndexByWorldPosition(int x, byte y, int z)
         {
             var wrapX = x % CacheWidthInBlocks;
-            var wrapZ = x % CacheLenghtInBlocks;
+            var wrapZ = z % CacheLenghtInBlocks;
 
             var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
             return flattenIndex;

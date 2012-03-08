@@ -11,13 +11,13 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             :base(biomeGenerator)
         { }
 
-        protected override void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ)
+        protected override void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
         {
-            this.RockHeight = this.GetRockHeight(worldPositionX, worldPositionZ);
-            this.DirtHeight = this.GetDirtHeight(worldPositionX, worldPositionZ, RockHeight);
+            this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
+            this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
             
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
-            var offset = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+            var offset = BlockCache.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
             for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--)
             {

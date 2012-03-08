@@ -25,12 +25,13 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                int worldPositionX = chunk.WorldPosition.X + x + this.Seed;
+                int worldPositionX = chunk.WorldPosition.X + x;
+                int seededWorldPositionX = worldPositionX + this.Seed;
 
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     int worldPositionZ = chunk.WorldPosition.Z + z;
-                    this.GenerateTerrain(chunk, x, z, worldPositionX, worldPositionZ);
+                    this.GenerateTerrain(chunk, x, z, worldPositionX, worldPositionZ, seededWorldPositionX);
                 }
             }
 
@@ -40,15 +41,15 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                 this.BiomeGenerator.ApplyBiome(chunk);
         }
 
-        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ)
+        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
         {
-            this.RockHeight = this.GetRockHeight(worldPositionX, worldPositionZ);
-            this.DirtHeight = this.GetDirtHeight(worldPositionX, worldPositionZ, RockHeight);
+            this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
+            this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
+
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+            var offset = BlockCache.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
-            var offset = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
-
-            for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--) // TODO: changing y from int to byte brokes drawing?! /raist
+            for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--) 
             {
                 BlockType blockType;
 
