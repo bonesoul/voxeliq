@@ -3,12 +3,14 @@
  *
  */
 
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Texture;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
@@ -78,11 +80,14 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             {
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
                     {
                         //Block block = chunk.Blocks[offset + y];
-                        var block = chunk.BlockAt(x, y, z);
+
+                        var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        var block = BlockCache.Instance.Blocks[blockIndex];
+                        
 
                         if (block.Type == BlockType.None) continue;
 

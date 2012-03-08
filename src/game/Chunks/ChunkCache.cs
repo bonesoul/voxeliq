@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Graphics;
@@ -245,6 +247,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.StateStatistics[ChunkState.AwaitingRemoval] = 0;
 
 
+            Profiler.Start("chunk-cache-loop");
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
@@ -265,6 +268,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                 this.StateStatistics[chunk.ChunkState]++;
             }
+            Profiler.Stop("chunk-cache-loop");
+
+            if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
+                Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
 
             if (this.IsInfinitive)
                 this.RecacheChunks();
