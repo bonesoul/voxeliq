@@ -179,7 +179,15 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Block BlockAt(int x, int y, int z)
         {
+            //var block = Block.Empty;
+            //BlockCache.GetBlockByRef(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, ref block);
+
+            //return block;
+
+            // byvalue!!!
             return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+
+            //return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
 
             //return BlockCache.Get(x, y, z);
 
@@ -187,11 +195,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         }
 
         public void SetBlock(byte x, byte y, byte z, Block block)
-        {
-            //BlockCache.Set(x, y, z, block);
-            BlockCache.Set(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
-
-            /*switch (block.Exists)
+        {            
+            switch (block.Exists)
             {
                 case false:
                     if (this.LowestEmptyBlockOffset > y && y > 0)
@@ -203,9 +208,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     break;
             }
 
-            this.Blocks[x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y] = block;
-            this.Dirty = true;
+            //this.Blocks[x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y] = block;
+            //BlockCache.Set(x, y, z, block);
+            BlockCache.Set(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
 
+            /*this.Dirty = true;
             if (x == 0) this.West.Dirty = true;
             else if (x == MaxWidthInBlocks) this.East.Dirty = true;
 

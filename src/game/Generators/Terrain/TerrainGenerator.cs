@@ -12,7 +12,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         protected int Seed { get; private set; }
 
         public TerrainGenerator()
-            : this(4854) { }
+            : this(56) { }
 
         public TerrainGenerator(int seed)
         {

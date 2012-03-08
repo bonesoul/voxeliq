@@ -45,11 +45,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         private void InitStorage()
         {
+            //Console.WriteLine("init array");
             this.Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
 
-            for (byte x = 0; x < CacheWidthInBlocks; x++)
+            //Console.WriteLine("empty blocks");
+            for (int x = 0; x < CacheWidthInBlocks; x++)
             {
-                for (byte z = 0; z < CacheLenghtInBlocks; z++)
+                for (int z = 0; z < CacheLenghtInBlocks; z++)
                 {
                     int offset = x * FlattenOffset + z * Chunk.HeightInBlocks;
                     for (byte y = 0; y < Chunk.HeightInBlocks; y++)
@@ -68,6 +70,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public static void Set(int x, int y, int z, Block value)
         {
             _instance[x, y, z] = value;
+        }
+
+        public static int GetBlockIndex(Chunk chunk, byte x, byte y, byte z)
+        {
+            var xIndex = chunk.WorldPosition.X + x;
+            var zIndex = chunk.WorldPosition.Z + z;
+
+            var wrapX = xIndex % CacheWidthInBlocks;
+            var wrapZ = zIndex % CacheLenghtInBlocks;
+
+            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            return flattenIndex;
         }
 
         public Block this[int x, int y, int z]

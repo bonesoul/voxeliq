@@ -52,6 +52,11 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             get { return Type != BlockType.None; }
         }
 
+        public void SetType(BlockType type)
+        {
+            this.Type = type;
+        }
+
         /// <summary>
         /// Return the appropriate texture to render a given face of a block.
         /// </summary>

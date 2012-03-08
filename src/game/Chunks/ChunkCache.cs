@@ -92,14 +92,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 1;
+        public const byte ViewRange = 5;
 
         public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 1;
+        public const byte CacheRange = 5;
 
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
@@ -177,7 +177,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
-            this.Generator = new FlatDebugTerrain();
+            this.Generator = new ValleyTerrain(new RainForest());
 
             base.Initialize();
         }
