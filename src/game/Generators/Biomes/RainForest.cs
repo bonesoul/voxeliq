@@ -19,11 +19,17 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
             {
                 for (int z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     for(int y=chunk.HighestSolidBlockOffset; y>= 0 ;y--)
                     {
-                        if (!chunk.Blocks[offset + y - 1].Exists) continue;
-                        chunk.Blocks[offset+y].Type = BlockType.Grass;
+                        var block = chunk.BlockAt(x, y, z);
+
+                        //if (!chunk.Blocks[offset + y - 1].Exists) continue;                       
+                        if(!block.Exists)
+                            continue;
+                        
+                        //chunk.Blocks[offset+y].Type = BlockType.Grass;                        
+                        block.Type = BlockType.Grass;
                         break;        
                     }
                 }

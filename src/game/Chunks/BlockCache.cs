@@ -23,8 +23,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Block[] Blocks;
 
-        public static int CacheWidthInBlocks = Chunk.WidthInBlocks * ChunkCache.ViewRange;
-        public static int CacheLenghtInBlocks = Chunk.LenghtInBlocks * ChunkCache.ViewRange;
+        public static int CacheWidthInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.WidthInBlocks;
+        public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.LenghtInBlocks;
 
         public static readonly int FlattenOffset = CacheLenghtInBlocks * Chunk.HeightInBlocks;
 

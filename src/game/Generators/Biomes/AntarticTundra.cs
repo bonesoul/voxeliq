@@ -23,8 +23,15 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
                     byte snowDepth = 5;
                     for(int y=chunk.HighestSolidBlockOffset; y> 0 ;y--)
                     {
-                        if (!chunk.Blocks[offset + y - 1].Exists) continue;
-                        chunk.Blocks[offset+y].Type= BlockType.Snow;
+                        var block = chunk.BlockAt(x, y, z);
+
+                        // if (!chunk.Blocks[offset + y - 1].Exists) continue;
+                        if (!block.Exists)
+                            continue;
+
+                        block.Type = BlockType.Snow;
+                        //chunk.Blocks[offset+y].Type= BlockType.Snow;
+
                         snowDepth--;
                         if(snowDepth==0) break;
                     }

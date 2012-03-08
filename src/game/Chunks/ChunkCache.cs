@@ -92,14 +92,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 5;
+        public const byte ViewRange = 1;
 
         public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 5;
+        public const byte CacheRange = 1;
 
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
@@ -177,7 +177,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
-            this.Generator = new MountainousTerrain(new RainForest());
+            this.Generator = new FlatDebugTerrain();
 
             base.Initialize();
         }
@@ -415,6 +415,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                     if(!chunk.BoundingBox.Intersects(viewFrustrum)) // if chunk is not in view frustrum,
                         continue; // pas it.
+
+                    if(chunk.IndexBuffer == null || chunk.VertexBuffer == null)
+                        continue;
 
                     //if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
 

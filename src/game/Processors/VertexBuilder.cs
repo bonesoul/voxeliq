@@ -81,7 +81,9 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                     int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
                     {
-                        Block block = chunk.Blocks[offset + y];
+                        //Block block = chunk.Blocks[offset + y];
+                        var block = chunk.BlockAt(x, y, z);
+
                         if (block.Type == BlockType.None) continue;
 
                         var position = new Vector3Int(chunk.WorldPosition.X + x, y, chunk.WorldPosition.Z + z);

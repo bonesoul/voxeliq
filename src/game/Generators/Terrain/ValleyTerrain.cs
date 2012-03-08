@@ -37,7 +37,8 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                     default: if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y; break;
                 }
 
-                chunk.Blocks[offset + y] = new Block(blockType);
+                chunk.SetBlock((byte)x, (byte)y, (byte)z, new Block(blockType));
+                //chunk.Blocks[offset + y] = new Block(blockType);
             }
         }
 

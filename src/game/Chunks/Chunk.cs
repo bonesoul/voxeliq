@@ -57,7 +57,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Contained blocks as a flattened array.
         /// </summary>
-        public Block[] Blocks { get; private set; }
+        //public Block[] Blocks { get; private set; }
 
         /// <summary>
         /// Used when accessing flatten blocks array.
@@ -146,7 +146,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             this.RelativePosition = relativePosition;
             this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks);
-            this.Blocks = new Block[WidthInBlocks*LenghtInBlocks*HeightInBlocks];
+            //this.Blocks = new Block[WidthInBlocks*LenghtInBlocks*HeightInBlocks];
             this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks));
 
             this.VertexList = new List<BlockVertex>();
@@ -157,18 +157,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         private void InitBlocks()
         {
-            if (this.Disposed) return;
-            for (byte x = 0; x < WidthInBlocks; x++)
-            {
-                for (byte z = 0; z < LenghtInBlocks; z++)
-                {
-                    int offset = x*FlattenOffset + z*HeightInBlocks;
-                    for (byte y = 0; y < HeightInBlocks; y++)
-                    {
-                        Blocks[offset + y] = Block.Empty;
-                    }
-                }
-            }
+            //if (this.Disposed) return;
+            //for (byte x = 0; x < WidthInBlocks; x++)
+            //{
+            //    for (byte z = 0; z < LenghtInBlocks; z++)
+            //    {
+            //        int offset = x * FlattenOffset + z * HeightInBlocks;
+            //        for (byte y = 0; y < HeightInBlocks; y++)
+            //        {
+            //            Blocks[offset + y] = Block.Empty;
+            //        }
+            //    }
+            //}
         }
 
         public bool IsInBounds(float x, float z)
@@ -179,14 +179,17 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Block BlockAt(int x, int y, int z)
         {
-            return BlockCache.Get(x, y, z);
+            return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+
+            //return BlockCache.Get(x, y, z);
 
             //return this.Blocks[x*FlattenOffset + z*HeightInBlocks + y];
         }
 
         public void SetBlock(byte x, byte y, byte z, Block block)
         {
-            BlockCache.Set(x, y, z, block);
+            //BlockCache.Set(x, y, z, block);
+            BlockCache.Set(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
 
             /*switch (block.Exists)
             {
@@ -241,7 +244,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
-                this.Blocks = null;
+                //this.Blocks = null;
                 this.VertexList.Clear();
                 this.VertexList = null;
                 if(this.VertexBuffer!=null) this.VertexBuffer.Dispose();

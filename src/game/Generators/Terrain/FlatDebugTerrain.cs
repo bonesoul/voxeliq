@@ -23,7 +23,8 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                     int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     for (int y = 0; y < height; y++)
                     {
-                        chunk.Blocks[offset + y] = y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt);
+                        // chunk.Blocks[offset + y] = y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt);
+                        chunk.SetBlock((byte)x, (byte)y, (byte)z, y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt));
                     }
                 }
             }
