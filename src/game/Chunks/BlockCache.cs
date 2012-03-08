@@ -80,6 +80,24 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             Blocks[flattenIndex] = value;
         }
 
+        public static int BlockIndexByWorldPosition(byte x, byte z)
+        {
+            var wrapX = x % CacheWidthInBlocks;
+            var wrapZ = x % CacheLenghtInBlocks;
+
+            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks;
+            return flattenIndex;
+        }
+
+        public static int BlockIndexByWorldPosition(byte x, byte y, byte z)
+        {
+            var wrapX = x % CacheWidthInBlocks;
+            var wrapZ = x % CacheLenghtInBlocks;
+
+            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            return flattenIndex;
+        }
+
         /// <summary>
         /// Returns block index by relative position of block in chunk.
         /// </summary>
@@ -96,7 +114,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var wrapZ = zIndex % CacheLenghtInBlocks;
 
             var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks;
-
             return flattenIndex;
         }
 
