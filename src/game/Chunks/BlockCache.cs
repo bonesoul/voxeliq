@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿/*
+ * Copyright (C) 2011-2012 voxeliq project 
+ *
+ */
+
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
