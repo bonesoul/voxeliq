@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Chunks.Builders;
+//using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
@@ -23,8 +23,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     /// </summary>
     public interface IWorldStatisticsService
     {
-        int GenerationQueueCount { get; }
-        int BuildingQueueCount { get; }
+        //int GenerationQueueCount { get; }
+        //int BuildingQueueCount { get; }
     }
 
     /// <summary>
@@ -35,10 +35,10 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         public ChunkStorage Chunks { get; set; } // chunk storage.
         private readonly ChunkCache _chunkCache;// chunk cache.
 
-        public ChunkBuilder ChunkBuilder { get; protected set; } // Chunk builder.       
+        //public ChunkBuilder ChunkBuilder { get; protected set; } // Chunk builder.       
 
-        public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } } // Generation queue count.
-        public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } } // Building queue count.
+        //public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } } // Generation queue count.
+        //public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } } // Building queue count.
 
         // required services.
         private ICameraControlService _cameraController;
@@ -84,8 +84,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
             this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));           
 
-            this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
-            this.Game.Components.Add(this.ChunkBuilder);
+            //this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
+            //this.Game.Components.Add(this.ChunkBuilder);
 
             this._cameraController.LookAt(Vector3.Down);
             this._player.SpawnPlayer(new Vector2Int(1000, 1000));
