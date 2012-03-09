@@ -19,12 +19,22 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
             {
                 for (int z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     byte snowDepth = 5;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, (byte)x, (byte)z);
+
                     for(int y=chunk.HighestSolidBlockOffset; y> 0 ;y--)
                     {
-                        if (!chunk.Blocks[offset + y - 1].Exists) continue;
-                        chunk.Blocks[offset+y].Type= BlockType.Snow;
+                        // if (!chunk.Blocks[offset + y - 1].Exists)
+                        //if (!chunk.BlockAt(x, y - 1, z).Exists)
+                        if(!BlockCache.Blocks[chunkIndex + y -1].Exists)
+                            continue;
+
+                        //chunk.Blocks[offset+y].Type= BlockType.Snow;
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+
+                        BlockCache.Blocks[chunkIndex + y].Type = BlockType.Grass; 
+
                         snowDepth--;
                         if(snowDepth==0) break;
                     }

@@ -78,11 +78,18 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             {
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    int chunkIndex = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
                     {
-                        Block block = chunk.Blocks[offset + y];
-                        if (block.Type == BlockType.None) continue;
+                        //Block block = chunk.Blocks[offset + y];
+
+                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
+                        var block = BlockCache.Blocks[chunkIndex + y];                        
+
+                        if (block.Type == BlockType.None) 
+                            continue;
 
                         var position = new Vector3Int(chunk.WorldPosition.X + x, y, chunk.WorldPosition.Z + z);
                         this.BuildBlockVertices(chunk, block, position);
@@ -108,41 +115,41 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             chunk.Dirty = false;
         }
 
-        private void BuildBlockVertices(Chunk chunk, Block block, Vector3Int position)
+        private void BuildBlockVertices(Chunk chunk, Block block, Vector3Int worldPosition)
         {
             Block blockTopNW, blockTopN, blockTopNE, blockTopW, blockTopM, blockTopE, blockTopSW, blockTopS, blockTopSE;
             Block blockMidNW, blockMidN, blockMidNE, blockMidW, blockMidM, blockMidE, blockMidSW, blockMidS, blockMidSE;
             Block blockBotNW, blockBotN, blockBotNE, blockBotW, blockBotM, blockBotE, blockBotSW, blockBotS, blockBotSE;
 
-            blockTopNW = this._chunkCache.BlockAt(position.X - 1, position.Y + 1, position.Z + 1);
-            blockTopN = this._chunkCache.BlockAt(position.X, position.Y + 1, position.Z + 1);
-            blockTopNE = this._chunkCache.BlockAt(position.X + 1, position.Y + 1, position.Z + 1);
-            blockTopW = this._chunkCache.BlockAt(position.X - 1, position.Y + 1, position.Z);
-            blockTopM = this._chunkCache.BlockAt(position.X, position.Y + 1, position.Z);
-            blockTopE = this._chunkCache.BlockAt(position.X + 1, position.Y + 1, position.Z);
-            blockTopSW = this._chunkCache.BlockAt(position.X - 1, position.Y + 1, position.Z - 1);
-            blockTopS = this._chunkCache.BlockAt(position.X, position.Y + 1, position.Z - 1);
-            blockTopSE = this._chunkCache.BlockAt(position.X + 1, position.Y + 1, position.Z - 1);
+            blockTopNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
+            blockTopE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
 
-            blockMidNW = this._chunkCache.BlockAt(position.X - 1, position.Y, position.Z + 1);
-            blockMidN = this._chunkCache.BlockAt(position.X, position.Y, position.Z + 1);
-            blockMidNE = this._chunkCache.BlockAt(position.X + 1, position.Y, position.Z + 1);
-            blockMidW = this._chunkCache.BlockAt(position.X - 1, position.Y, position.Z);
-            blockMidM = this._chunkCache.BlockAt(position.X, position.Y, position.Z);
-            blockMidE = this._chunkCache.BlockAt(position.X + 1, position.Y, position.Z);
-            blockMidSW = this._chunkCache.BlockAt(position.X - 1, position.Y, position.Z - 1);
-            blockMidS = this._chunkCache.BlockAt(position.X, position.Y, position.Z - 1);
-            blockMidSE = this._chunkCache.BlockAt(position.X + 1, position.Y, position.Z - 1);
+            blockMidNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
+            blockMidNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
+            blockMidM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z);
+            blockMidE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
+            blockMidSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
+            blockMidSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
 
-            blockBotNW = this._chunkCache.BlockAt(position.X - 1, position.Y - 1, position.Z + 1);
-            blockBotN = this._chunkCache.BlockAt(position.X, position.Y - 1, position.Z + 1);
-            blockBotNE = this._chunkCache.BlockAt(position.X + 1, position.Y - 1, position.Z + 1);
-            blockBotW = this._chunkCache.BlockAt(position.X - 1, position.Y - 1, position.Z);
-            blockBotM = this._chunkCache.BlockAt(position.X, position.Y - 1, position.Z);
-            blockBotE = this._chunkCache.BlockAt(position.X + 1, position.Y - 1, position.Z);
-            blockBotSW = this._chunkCache.BlockAt(position.X - 1, position.Y - 1, position.Z - 1);
-            blockBotS = this._chunkCache.BlockAt(position.X, position.Y - 1, position.Z - 1);
-            blockBotSE = this._chunkCache.BlockAt(position.X + 1, position.Y - 1, position.Z - 1);
+            blockBotNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
+            blockBotE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
 
             float sunTR, sunTL, sunBR, sunBL;
             float redTR, redTL, redBR, redBL;
@@ -179,7 +186,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             if (!blockMidE.Exists && !(block.Type == BlockType.Water && blockMidE.Type == BlockType.Water))
             {
@@ -208,7 +215,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             if (!blockBotM.Exists && !(block.Type == BlockType.Water && blockBotM.Type == BlockType.Water))
             {
@@ -237,7 +244,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             if (!blockTopM.Exists && !(block.Type == BlockType.Water && blockTopM.Type == BlockType.Water))
             {
@@ -266,7 +273,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             if (!blockMidS.Exists && !(block.Type == BlockType.Water && blockMidS.Type == BlockType.Water))
             {
@@ -295,7 +302,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             if (!blockMidN.Exists && !(block.Type == BlockType.Water && blockMidN.Type == BlockType.Water))
             {
@@ -324,7 +331,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, position, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
         }
 

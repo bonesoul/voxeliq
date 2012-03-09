@@ -3,6 +3,7 @@
  *
  */
 
+using System;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks;
 
@@ -15,15 +16,23 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
     {
         public override void ApplyBiome(Chunk chunk)
         {
-            for (int x = 0; x < Chunk.WidthInBlocks; x++)
+            for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (int z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
-                    for(int y=chunk.HighestSolidBlockOffset; y>= 0 ;y--)
+                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    int offset = BlockCache.BlockIndexByRelativePosition(chunk, x, z);
+
+                    for (byte y = chunk.HighestSolidBlockOffset; y >= 0; y--)
                     {
-                        if (!chunk.Blocks[offset + y - 1].Exists) continue;
-                        chunk.Blocks[offset+y].Type = BlockType.Grass;
+                        //if (!chunk.Blocks[offset + y - 1].Exists);                       
+                        if (!BlockCache.Blocks[offset + y - 1].Exists)
+                            continue;
+                            
+                        BlockCache.Blocks[offset + y].Type = BlockType.Grass;                            
+
+                        //chunk.Blocks[offset+y].Type = BlockType.Grass;                        
+                       
                         break;        
                     }
                 }

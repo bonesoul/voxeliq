@@ -423,6 +423,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     if(!chunk.BoundingBox.Intersects(viewFrustrum)) // if chunk is not in view frustrum,
                         continue; // pas it.
 
+                    if(chunk.IndexBuffer == null || chunk.VertexBuffer == null)
+                        continue;
+
                     //if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
 
                     //lock (chunk)
@@ -468,10 +471,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             if (!IsInBounds(x, y, z)) return Block.Empty;
 
-            if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
-                return Block.Empty;
+            return BlockCache.GetByWorldPosition(x, y, z);
 
-            return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
+            //if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
+            //    return Block.Empty;
+
+            //return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
         }
 
         // returns true if given coordinate is in bounds.
