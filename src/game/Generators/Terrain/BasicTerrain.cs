@@ -47,7 +47,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
 
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
-            var offset = BlockCache.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
+            var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
             for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--) 
             {
@@ -71,7 +71,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                 }
 
                 //chunk.Blocks[offset + y] = new Block(blockType);
-                BlockCache.Blocks[offset + y] = new Block(blockType);
+                BlockStorage.Blocks[offset + y] = new Block(blockType);
             }
         }
 

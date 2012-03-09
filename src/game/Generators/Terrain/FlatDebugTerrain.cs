@@ -16,20 +16,22 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         protected override void GenerateChunk(Chunk chunk)
         {
             byte height = 5;
-            for (int x = 0; x < Chunk.WidthInBlocks; x++) // iterate through all point in x-z plane.
+            for (byte x = 0; x < Chunk.WidthInBlocks; x++) // iterate through all point in x-z plane.
             {
-                for (int z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+                    var offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
+
                     for (int y = 0; y < height; y++)
                     {
-                        // chunk.Blocks[offset + y] = y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt);
-                        chunk.SetBlock((byte)x, (byte)y, (byte)z, y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt));
+                        BlockStorage.Blocks[offset + y] = y == height - 1
+                                                            ? new Block(BlockType.Grass)
+                                                            : new Block(BlockType.Dirt);
                     }
                 }
             }
 
-            chunk.HighestSolidBlockOffset = height;
+            chunk.HighestSolidBlockOffset = (byte) (height - 1);
             chunk.LowestEmptyBlockOffset = 1;
         }
     }

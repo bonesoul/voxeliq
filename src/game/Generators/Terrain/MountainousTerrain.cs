@@ -1,4 +1,8 @@
-﻿using VolumetricStudios.VoxeliqGame.Blocks;
+﻿/*
+ * Copyright (C) 2011-2012 voxeliq project 
+ *
+ */
+
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Utils.Algorithms;

@@ -179,7 +179,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder)this.Game.Services.GetService(typeof(IVertexBuilder));
-            this.Generator = new ValleyTerrain(new RainForest());
+            this.Generator = new MountainousTerrain(new RainForest());
 
             base.Initialize();
         }
@@ -308,10 +308,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             switch (chunk.ChunkState) // switch on the chunk state.
             {
                 case ChunkState.AwaitingGenerate:
-                    this.Generate(chunk);
+                    Generator.Generate(chunk);
                     break;
                 case ChunkState.AwaitingLighting:
-                    this.Lighten(chunk);
+                    Lightning.Process(chunk);
                     break;
                 default:
                     break;
@@ -326,59 +326,20 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             switch (chunk.ChunkState) // switch on the chunk state.
             {
                 case ChunkState.AwaitingGenerate:
-                    this.Generate(chunk);
+                    Generator.Generate(chunk);
                     break;
                 case ChunkState.AwaitingLighting:
-                    this.Lighten(chunk);
+                case ChunkState.AwaitingRelighting:
+                    Lightning.Process(chunk);
                     break;
                 case ChunkState.AwaitingBuild:
-                    this.Build(chunk);
-                    break;
-                case ChunkState.AwaitingRelighting:
-                    this.Lighten(chunk);
-                    break;
                 case ChunkState.AwaitingRebuild:
-                    this.Build(chunk);
+                    this.VertexBuilder.Build(chunk);
                     break;
                 default:
                     break;
             }
         }
-
-
-        /// <summary>
-        /// Generates the chunk.
-        /// </summary>
-        /// <param name="chunk">Chunk to be generated.</param>
-        protected void Generate(Chunk chunk)
-        {
-            chunk.ChunkState = ChunkState.Generating; // set chunk state to generating.
-            Generator.Generate(chunk);
-            chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.
-        }
-
-        /// <summary>
-        /// Ligtens the chunk (calculates the lighting amount on chunks blocks).
-        /// </summary>
-        /// <param name="chunk">Chunk to lighten.</param>
-        protected void Lighten(Chunk chunk)
-        {
-            chunk.ChunkState = ChunkState.Lighting; // set chunk state to generating.
-            Lightning.Process(chunk);
-            chunk.ChunkState = ChunkState.AwaitingBuild; // chunk should be built now.
-        }
-
-        /// <summary>
-        /// Builds the chunk (calculates vertexes and indices).
-        /// </summary>
-        /// <param name="chunk">Chunk to build</param>
-        protected void Build(Chunk chunk)
-        {
-            chunk.ChunkState = ChunkState.Building; // set chunk state to building.
-            this.VertexBuilder.Build(chunk);
-            chunk.ChunkState = ChunkState.Ready; // chunk is al ready now.
-        }
-
 
         public override void Draw(GameTime gameTime)
         {
@@ -398,8 +359,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);
             _blockEffect.Parameters["NightColor"].SetValue(World.NightColor);
             _blockEffect.Parameters["HorizonColor"].SetValue(World.HorizonColor);
-            _blockEffect.Parameters["MorningTint"].SetValue(World.HorizonColor);
-            _blockEffect.Parameters["EveningTint"].SetValue(World.HorizonColor);
+            _blockEffect.Parameters["MorningTint"].SetValue(World.MorningTint);
+            _blockEffect.Parameters["EveningTint"].SetValue(World.EveningTint);
             // time of day parameters
             _blockEffect.Parameters["TimeOfDay"].SetValue(Time.GetGameTimeOfDay());
             // fog parameters
@@ -471,7 +432,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             if (!IsInBounds(x, y, z)) return Block.Empty;
 
-            return BlockCache.GetByWorldPosition(x, y, z);
+            return BlockStorage.GetByWorldPosition(x, y, z);
 
             //if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
             //    return Block.Empty;

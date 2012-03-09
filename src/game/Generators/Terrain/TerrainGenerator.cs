@@ -21,12 +21,14 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
 
         public void Generate(Chunk chunk)
         {
-            /* The chunk should be in queued state, if not just ignore the generate request */
+            if (chunk.ChunkState != ChunkState.AwaitingGenerate) // if chunk is not awating generation
+                return; // then just pass it.
 
-            if (chunk.Generated) return;
+            chunk.ChunkState = ChunkState.Generating; // set chunk state to generating.
 
-            this.GenerateChunk(chunk);
-            chunk.Generated = true;
+            this.GenerateChunk(chunk); // generate the chunk.
+
+            chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.            
         }
 
         protected virtual void GenerateChunk(Chunk chunk) { }

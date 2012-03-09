@@ -49,10 +49,10 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
             public static Vector4 NightColor = Color.Black.ToVector4();
             public static Vector4 SunColor = Color.White.ToVector4();
-            public static Vector4 HorizonColor = Color.White.ToVector4();
+            public static Vector4 HorizonColor = Color.DarkGray.ToVector4();
 
-            public Vector4 EveningTint = Color.Red.ToVector4();
-            public Vector4 MorningTint = Color.Gold.ToVector4();
+            public static Vector4 EveningTint = Color.Red.ToVector4();
+            public static Vector4 MorningTint = Color.Gold.ToVector4();
 
         #endregion
 

@@ -29,6 +29,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public Chunk SouthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
         public Chunk SouthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
 
+        /// <summary>
+        /// Maximum sun value.
+        /// </summary>
         public static byte MaxSunValue = 16;
 
         /// <summary>
@@ -55,16 +58,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public static readonly int Volume = WidthInBlocks * HeightInBlocks * LenghtInBlocks;
 
         /// <summary>
-        /// Contained blocks as a flattened array.
-        /// </summary>
-        //public Block[] Blocks { get; private set; }
-
-        /// <summary>
-        /// Used when accessing flatten blocks array.
-        /// </summary>
-        public static readonly int FlattenOffset = LenghtInBlocks * HeightInBlocks;
-
-        /// <summary>
         /// The chunks world position.
         /// </summary>
         public Vector2Int WorldPosition { get; private set; }
@@ -83,26 +76,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// The chunk state.
         /// </summary>
         public ChunkState ChunkState { get; set; }
-
-        /// <summary>
-        /// Does chunk need a re-build of vertices?
-        /// </summary>
-        public bool Dirty { get; set; }
-
-        /// <summary>
-        /// Is chunk terrain generated?
-        /// </summary>
-        public bool Generated { get; set; }
-
-        /// <summary>
-        /// Is chunk currently queued for built?
-        /// </summary>
-        public bool QueuedForBuilding { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool QueuedForGeneration { get; set; }
 
         public short Index;
 
@@ -126,6 +99,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public VertexBuffer VertexBuffer { get; set; }
 
+        /// <summary>
+        /// Index buffer for chunk's blocks.
+        /// </summary>
         public IndexBuffer IndexBuffer { get; set; }
 
         /// <summary>
@@ -133,42 +109,21 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public List<BlockVertex> VertexList;
 
+        /// <summary>
+        /// The index list.
+        /// </summary>
         public List<short> IndexList;
 
         public Chunk(Vector2Int relativePosition)
         {
-            this.ChunkState = ChunkState.AwaitingGenerate;
-
-            this.Generated = false;
-            this.Dirty = true;
-            this.QueuedForBuilding = false;
-            this.QueuedForGeneration = false;
+            this.ChunkState = ChunkState.AwaitingGenerate; // set initial state to awaiting generation.
 
             this.RelativePosition = relativePosition;
             this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks);
-            //this.Blocks = new Block[WidthInBlocks*LenghtInBlocks*HeightInBlocks];
             this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks));
 
             this.VertexList = new List<BlockVertex>();
             this.IndexList = new List<short>();
-
-            InitBlocks();
-        }
-
-        private void InitBlocks()
-        {
-            //if (this.Disposed) return;
-            //for (byte x = 0; x < WidthInBlocks; x++)
-            //{
-            //    for (byte z = 0; z < LenghtInBlocks; z++)
-            //    {
-            //        int offset = x * FlattenOffset + z * HeightInBlocks;
-            //        for (byte y = 0; y < HeightInBlocks; y++)
-            //        {
-            //            Blocks[offset + y] = Block.Empty;
-            //        }
-            //    }
-            //}
         }
 
         public bool IsInBounds(float x, float z)
@@ -179,19 +134,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public Block BlockAt(int x, int y, int z)
         {
-            //var block = Block.Empty;
-            //BlockCache.GetBlockByRef(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, ref block);
-
-            //return block;
-
-            // byvalue!!!
-            return BlockCache.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
-
-            //return BlockCache.Get(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
-
-            //return BlockCache.Get(x, y, z);
-
-            //return this.Blocks[x*FlattenOffset + z*HeightInBlocks + y];
+            return BlockStorage.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
         public void SetBlock(byte x, byte y, byte z, Block block)
@@ -208,24 +151,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     break;
             }
 
-            //this.Blocks[x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y] = block;
-            //BlockCache.Set(x, y, z, block);
-
-            BlockCache.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
-
-            /*this.Dirty = true;
-            if (x == 0) this.West.Dirty = true;
-            else if (x == MaxWidthInBlocks) this.East.Dirty = true;
-
-            if (z == 0) this.South.Dirty = true;
-            else if (z == MaxLenghtInBlocks) this.North.Dirty = true;*/
+            BlockStorage.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
+            this.ChunkState = ChunkState.AwaitingRelighting;
         }
 
         public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
-            Vector3 projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View, Matrix.CreateTranslation(new Vector3(WorldPosition.X+WidthInBlocks/2, HighestSolidBlockOffset-1, WorldPosition.Z + LenghtInBlocks / 2)));
+
+            var projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
+                                                            Matrix.CreateTranslation( new Vector3(WorldPosition.X + WidthInBlocks/2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks/2)));
+
             spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.Yellow);
 
             BoundingBoxRenderer.Render(this.BoundingBox , graphicsDevice, camera.View,camera.Projection, Color.DarkRed);
@@ -252,10 +189,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
-                //this.Blocks = null;
+                this.IndexList.Clear();
+                this.IndexList = null;
                 this.VertexList.Clear();
                 this.VertexList = null;
-                if(this.VertexBuffer!=null) this.VertexBuffer.Dispose();
+
+                if (this.VertexBuffer != null) 
+                    this.VertexBuffer.Dispose();
+
+                if (this.IndexBuffer != null) 
+                    this.IndexBuffer.Dispose();
             }
 
             Disposed = true;

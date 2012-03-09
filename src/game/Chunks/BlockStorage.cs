@@ -3,26 +3,45 @@
  *
  */
 
-using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks
-{
-    // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
+// http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
+// http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
 
-    public static class BlockCache
+namespace VolumetricStudios.VoxeliqGame.Chunks
+{    
+    /// <summary>
+    /// Stores all blocks in viewable chunks in a single huge array.
+    /// </summary>
+    public static class BlockStorage
     {
+        /// <summary>
+        /// The single huge block array.
+        /// </summary>
         public static Block[] Blocks;
 
-        public static int CacheWidthInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.WidthInBlocks;
-        public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange * 2) + 1) * Chunk.LenghtInBlocks;
+        /// <summary>
+        /// View cache width in blocks.
+        /// </summary>
+        public static int CacheWidthInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.WidthInBlocks;
 
+        /// <summary>
+        /// View cache lenght in blocks.
+        /// </summary>
+        public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.LenghtInBlocks;
+
+        /// <summary>
+        /// Flatten offset to access flatten array.
+        /// </summary>
         public static readonly int FlattenOffset = CacheLenghtInBlocks * Chunk.HeightInBlocks;
 
+        /// <summary>
+        /// Logger.
+        /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        static BlockCache() 
+        static BlockStorage() 
         {
             Logger.Trace("init()");
             InitStorage();
@@ -30,10 +49,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         private static void InitStorage()
         {
-            //Console.WriteLine("init array");
             Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
 
-            //Console.WriteLine("empty blocks");
             for (int x = 0; x < CacheWidthInBlocks; x++)
             {
                 for (int z = 0; z < CacheLenghtInBlocks; z++)
@@ -80,6 +97,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             Blocks[flattenIndex] = value;
         }
 
+        /// <summary>
+        /// Returns block index by world position of block.
+        /// </summary>
+        /// <param name="x">Block's world position's X-coordinate</param>
+        /// <param name="z">Block's world position's Z-coordinate</param>
+        /// <returns></returns>
         public static int BlockIndexByWorldPosition(int x, int z)
         {
             var wrapX = x % CacheWidthInBlocks;
@@ -89,6 +112,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             return flattenIndex;
         }
 
+        /// <summary>
+        /// Returns block index by world position of block.
+        /// </summary>
+        /// <param name="x">Block's world position's X-coordinate</param>
+        /// <param name="y">Block's world position's Y-coordinate</param>
+        /// <param name="z">Block's world position's Z-coordinate</param>
+        /// <returns></returns>
         public static int BlockIndexByWorldPosition(int x, byte y, int z)
         {
             var wrapX = x % CacheWidthInBlocks;
@@ -102,8 +132,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// Returns block index by relative position of block in chunk.
         /// </summary>
         /// <param name="chunk">The chunk block belongs to.</param>
-        /// <param name="x">Blocks relative x position in chunk.</param>
-        /// <param name="z">Blocks relative x position in chunk.</param>
+        /// <param name="x">Block's relative x position in chunk.</param>
+        /// <param name="z">Block's relative x position in chunk.</param>
         /// <returns></returns>
         public static int BlockIndexByRelativePosition(Chunk chunk, byte x, byte z)
         {
@@ -121,9 +151,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// Returns block index by relative position of block in chunk.
         /// </summary>
         /// <param name="chunk">The chunk block belongs to.</param>
-        /// <param name="x">Blocks relative x position in chunk.</param>
-        /// <param name="y">Blocks y position in chunk. </param>
-        /// <param name="z">Blocks relative x position in chunk.</param>
+        /// <param name="x">Block's relative x position in chunk.</param>
+        /// <param name="y">Block's y position in chunk.</param>
+        /// <param name="z">Block's relative x position in chunk.</param>
         /// <returns></returns>
         public static int BlockIndexByRelativePosition(Chunk chunk, byte x, byte y, byte z)
         {
