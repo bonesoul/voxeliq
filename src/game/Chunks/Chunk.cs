@@ -210,14 +210,15 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             //this.Blocks[x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks + y] = block;
             //BlockCache.Set(x, y, z, block);
-            BlockCache.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z+z, block);
+
+            BlockCache.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
 
             /*this.Dirty = true;
             if (x == 0) this.West.Dirty = true;
             else if (x == MaxWidthInBlocks) this.East.Dirty = true;
 
             if (z == 0) this.South.Dirty = true;
-            else if (z == MaxLenghtInBlocks) this.North.Dirty = true;
+            else if (z == MaxLenghtInBlocks) this.North.Dirty = true;*/
         }
 
         public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)

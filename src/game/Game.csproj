@@ -128,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Chunks\BlockCache.cs" />
     <Compile Include="Chunks\Builders\ChunkBuilder.cs" />
     <Compile Include="Chunks\ChunkState.cs" />
     <Compile Include="Chunks\Builders\QueuedBuilder.cs" />
