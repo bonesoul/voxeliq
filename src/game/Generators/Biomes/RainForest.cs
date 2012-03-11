@@ -28,12 +28,12 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
                         //if (!chunk.Blocks[offset + y - 1].Exists);                       
                         if (!BlockStorage.Blocks[offset + y - 1].Exists)
                             continue;
-                            
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;                            
+
+                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;
 
                         //chunk.Blocks[offset+y].Type = BlockType.Grass;                        
-                       
-                        break;        
+
+                        break;
                     }
                 }
             }

@@ -21,13 +21,15 @@ namespace VolumetricStudios.VoxeliqGame.Interface
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        public UserInterface(Game game) : base(game) { }
+        public UserInterface(Game game) : base(game)
+        {
+        }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
 
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             this.LoadContent();
         }
@@ -41,10 +43,14 @@ namespace VolumetricStudios.VoxeliqGame.Interface
         public override void Draw(GameTime gameTime)
         {
             // draw cross-hair.            
-            var crosshairTexture = this._player.AimedSolidBlock.HasValue ? _crosshairShovelTexture : _crosshairNormalTexture;
+            var crosshairTexture = this._player.AimedSolidBlock.HasValue
+                                       ? _crosshairShovelTexture
+                                       : _crosshairNormalTexture;
 
             _spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            _spriteBatch.Draw(crosshairTexture, new Vector2((Game.GraphicsDevice.Viewport.Width / 2) - 10, (Game.GraphicsDevice.Viewport.Height / 2) - 10), Color.White);
+            _spriteBatch.Draw(crosshairTexture,
+                              new Vector2((Game.GraphicsDevice.Viewport.Width/2) - 10,
+                                          (Game.GraphicsDevice.Viewport.Height/2) - 10), Color.White);
             _spriteBatch.End();
         }
     }

@@ -74,9 +74,16 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         public float CurrentRotation { get; private set; }
 
         private IPlayer _player;
-        private const float ViewAngle = MathHelper.PiOver4; // the field of view of the lens -- states how wide or narrow it is.
-        private const float NearPlaneDistance = 0.01f; // the near plane distance. objects between near and far plane distance will be get rendered.
-        private const float FarPlaneDistance = 1000f; // the far plance distance, objects behinds this will not get rendered.
+
+        private const float ViewAngle = MathHelper.PiOver4;
+                            // the field of view of the lens -- states how wide or narrow it is.
+
+        private const float NearPlaneDistance = 0.01f;
+                            // the near plane distance. objects between near and far plane distance will be get rendered.
+
+        private const float FarPlaneDistance = 1000f;
+                            // the far plance distance, objects behinds this will not get rendered.
+
         private const float RotationSpeed = 0.025f; // the rotation speed.
         private float _aspectRatio; //aspect ratio of the field of view (width/height). 
 
@@ -88,25 +95,27 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         public Camera(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(ICamera), this);
-            game.Services.AddService(typeof(ICameraControlService), this);
+            game.Services.AddService(typeof (ICamera), this);
+            game.Services.AddService(typeof (ICameraControlService), this);
         }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
 
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._aspectRatio = Game.GraphicsDevice.Viewport.AspectRatio;
             this.World = Matrix.Identity;
-            this.Projection = Matrix.CreatePerspectiveFieldOfView(ViewAngle, _aspectRatio, NearPlaneDistance, FarPlaneDistance); // set field of view of the camera.
+            this.Projection = Matrix.CreatePerspectiveFieldOfView(ViewAngle, _aspectRatio, NearPlaneDistance,
+                                                                  FarPlaneDistance); // set field of view of the camera.
             this.Position = this._player.Position;
         }
 
         public override void Update(GameTime gameTime)
         {
             this.Position = this._player.Position;
-            var rotation = Matrix.CreateRotationX(CurrentElevation) * Matrix.CreateRotationY(CurrentRotation); // transform camera position based on rotation and elevation.
+            var rotation = Matrix.CreateRotationX(CurrentElevation)*Matrix.CreateRotationY(CurrentRotation);
+                // transform camera position based on rotation and elevation.
             var target = Vector3.Transform(Vector3.Forward, rotation) + Position;
             var upVector = Vector3.Transform(Vector3.Up, rotation);
             this.View = Matrix.CreateLookAt(Position, target, upVector);

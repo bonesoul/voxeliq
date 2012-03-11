@@ -10,13 +10,18 @@ using Microsoft.Xna.Framework.Graphics;
 namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
 {
     /* From FarSeer.DebugView - http://farseerphysics.codeplex.com/ */
+
     public class PrimitiveBatch : IDisposable
     {
         private const int DefaultBufferSize = 500;
 
-        private BasicEffect _basicEffect; // a basic effect, which contains the shaders that we will use to draw our primitives.        
+        private BasicEffect _basicEffect;
+                            // a basic effect, which contains the shaders that we will use to draw our primitives.        
+
         private GraphicsDevice _device; // the device that we will issue draw calls to.        
-        private bool _hasBegun; // hasBegun is flipped to true once Begin is called, and is used to make sure users don't call End before Begin is called.
+
+        private bool _hasBegun;
+                     // hasBegun is flipped to true once Begin is called, and is used to make sure users don't call End before Begin is called.
 
         private VertexPositionColor[] _lineVertices;
         private VertexPositionColor[] _triangleVertices;
@@ -36,11 +41,11 @@ namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
 
             _device = graphicsDevice;
 
-            _triangleVertices = new VertexPositionColor[bufferSize - bufferSize % 3];
-            _lineVertices = new VertexPositionColor[bufferSize - bufferSize % 2];
+            _triangleVertices = new VertexPositionColor[bufferSize - bufferSize%3];
+            _lineVertices = new VertexPositionColor[bufferSize - bufferSize%2];
 
             // set up a new basic effect, and enable vertex colors.
-            _basicEffect = new BasicEffect(graphicsDevice) { VertexColorEnabled = true };
+            _basicEffect = new BasicEffect(graphicsDevice) {VertexColorEnabled = true};
         }
 
         public void SetProjection(ref Matrix projection)
@@ -127,12 +132,12 @@ namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
 
             if (_triangleVertsCount >= 3)
             {
-                int primitiveCount = _triangleVertsCount / 3;
+                int primitiveCount = _triangleVertsCount/3;
 
                 // submit the draw call to the graphics card
                 _device.SamplerStates[0] = SamplerState.AnisotropicClamp;
                 _device.DrawUserPrimitives(PrimitiveType.TriangleList, _triangleVertices, 0, primitiveCount);
-                _triangleVertsCount -= primitiveCount * 3;
+                _triangleVertsCount -= primitiveCount*3;
             }
         }
 
@@ -143,12 +148,12 @@ namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
 
             if (_lineVertsCount >= 2)
             {
-                int primitiveCount = _lineVertsCount / 2;
+                int primitiveCount = _lineVertsCount/2;
 
                 // submit the draw call to the graphics card
                 _device.SamplerStates[0] = SamplerState.AnisotropicClamp;
                 _device.DrawUserPrimitives(PrimitiveType.LineList, _lineVertices, 0, primitiveCount);
-                _lineVertsCount -= primitiveCount * 2;
+                _lineVertsCount -= primitiveCount*2;
             }
         }
 

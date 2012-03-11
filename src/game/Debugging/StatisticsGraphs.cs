@@ -61,7 +61,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         public StatisticsGraphs(Game game)
             : base(game)
         {
-            this.Game.Services.AddService(typeof(IStatisticsGraphs), this); // export service.
+            this.Game.Services.AddService(typeof (IStatisticsGraphs), this); // export service.
             this.EnableRendering = false;
         }
 
@@ -70,7 +70,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             Logger.Trace("init()");
 
             // import required services.
-            this._statistics = (IStatistics)this.Game.Services.GetService(typeof(IStatistics));
+            this._statistics = (IStatistics) this.Game.Services.GetService(typeof (IStatistics));
 
             base.Initialize();
         }
@@ -85,7 +85,8 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
-            _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
+            _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width,
+                                                                  this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;
 
             this.InitGraphs();
@@ -122,10 +123,17 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _primitiveBatch.End();
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            _spriteBatch.DrawString(_spriteFont, "fps", new Vector2(PerformancePanelBounds.Left, PerformancePanelBounds.Bottom), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "max:" + _max, new Vector2(PerformancePanelBounds.Left + 25, PerformancePanelBounds.Bottom), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "avg:" + _avg, new Vector2(PerformancePanelBounds.Left + 90, PerformancePanelBounds.Bottom), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "min:" + _min, new Vector2(PerformancePanelBounds.Left + 150, PerformancePanelBounds.Bottom), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "fps",
+                                    new Vector2(PerformancePanelBounds.Left, PerformancePanelBounds.Bottom), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "max:" + _max,
+                                    new Vector2(PerformancePanelBounds.Left + 25, PerformancePanelBounds.Bottom),
+                                    Color.White);
+            _spriteBatch.DrawString(_spriteFont, "avg:" + _avg,
+                                    new Vector2(PerformancePanelBounds.Left + 90, PerformancePanelBounds.Bottom),
+                                    Color.White);
+            _spriteBatch.DrawString(_spriteFont, "min:" + _min,
+                                    new Vector2(PerformancePanelBounds.Left + 150, PerformancePanelBounds.Bottom),
+                                    Color.White);
             _spriteBatch.End();
 
             // restore old state.
@@ -143,15 +151,15 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
                 _graphValues.RemoveAt(0);
 
             float x = PerformancePanelBounds.X;
-            float deltaX = PerformancePanelBounds.Width / (float)ValuesToGraph;
-            float yScale = PerformancePanelBounds.Bottom - (float)PerformancePanelBounds.Top;
+            float deltaX = PerformancePanelBounds.Width/(float) ValuesToGraph;
+            float yScale = PerformancePanelBounds.Bottom - (float) PerformancePanelBounds.Top;
 
             // we must have at least 2 values to start rendering
             if (_graphValues.Count > 2)
             {
-                _max = (int)_graphValues.Max();
-                _avg = (int)_graphValues.Average();
-                _min = (int)_graphValues.Min();
+                _max = (int) _graphValues.Max();
+                _avg = (int) _graphValues.Average();
+                _min = (int) _graphValues.Min();
 
                 if (AdaptiveLimits)
                 {
@@ -164,9 +172,9 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
                 for (int i = _graphValues.Count - 1; i > 0; i--)
                 {
                     float y1 = PerformancePanelBounds.Bottom -
-                               ((_graphValues[i] / (MaximumValue - MinimumValue)) * yScale);
+                               ((_graphValues[i]/(MaximumValue - MinimumValue))*yScale);
                     float y2 = PerformancePanelBounds.Bottom -
-                               ((_graphValues[i - 1] / (MaximumValue - MinimumValue)) * yScale);
+                               ((_graphValues[i - 1]/(MaximumValue - MinimumValue))*yScale);
 
                     Vector2 x1 =
                         new Vector2(MathHelper.Clamp(x, PerformancePanelBounds.Left, PerformancePanelBounds.Right),
@@ -205,7 +213,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
                 return;
             }
 
-            Color colorFill = color * (outline ? 0.5f : 1.0f);
+            Color colorFill = color*(outline ? 0.5f : 1.0f);
 
             for (int i = 1; i < count - 1; i++)
             {

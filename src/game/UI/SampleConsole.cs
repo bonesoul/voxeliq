@@ -12,12 +12,12 @@ namespace VolumetricStudios.VoxeliqGame.UI
             Title = "Console";
             Width = 480;
             Height = 240;
-            
+
             var console = new Console
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-            };
+                              {
+                                  HorizontalAlignment = HorizontalAlignment.Stretch,
+                                  VerticalAlignment = VerticalAlignment.Stretch,
+                              };
 
             Content = console;
 

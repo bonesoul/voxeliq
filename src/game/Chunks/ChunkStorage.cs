@@ -63,7 +63,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// The memory instance of ChunkStorage.
         /// </summary>
-        public static ChunkStorage Instance { get { return _instance; } }
+        public static ChunkStorage Instance
+        {
+            get { return _instance; }
+        }
 
 
         private readonly DoubleIndexedDictionary<Chunk> _dictionary = new DoubleIndexedDictionary<Chunk>();
@@ -71,11 +74,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public Vector2Int SouthWestEdge;
         public Vector2Int NorthEastEdge;
 
-        public ChunkStorage(Game game) 
+        public ChunkStorage(Game game)
             : base(game)
         {
             _instance = this;
-            this.Game.Services.AddService(typeof(IChunkStorage), this); // export service.
+            this.Game.Services.AddService(typeof (IChunkStorage), this); // export service.
         }
 
         public override void Initialize()

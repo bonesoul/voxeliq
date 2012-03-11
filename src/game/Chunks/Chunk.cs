@@ -58,13 +58,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk volume in blocks.
         /// </summary>
-        public static readonly int Volume = WidthInBlocks * HeightInBlocks * LenghtInBlocks;
+        public static readonly int Volume = WidthInBlocks*HeightInBlocks*LenghtInBlocks;
 
         /// <summary>
         /// The chunks world position.
         /// </summary>
         public Vector2Int WorldPosition { get; private set; }
-        
+
         /// <summary>
         /// The chunks relative position.
         /// </summary>
@@ -88,7 +88,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Lowest empty block offset.
         /// </summary>
-        public byte LowestEmptyBlockOffset =  HeightInBlocks;
+        public byte LowestEmptyBlockOffset = HeightInBlocks;
 
         /// <summary>
         /// Vertex buffer for chunk's blocks.
@@ -121,14 +121,45 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public bool Disposed = false;
 
         // TODO: remove these!
-        public Chunk North { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; } }
-        public Chunk South { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; } }
-        public Chunk West { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; } }
-        public Chunk East { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; } }
-        public Chunk NorthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; } }
-        public Chunk NorthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; } }
-        public Chunk SouthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
-        public Chunk SouthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
+        public Chunk North
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; }
+        }
+
+        public Chunk South
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; }
+        }
+
+        public Chunk West
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; }
+        }
+
+        public Chunk East
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; }
+        }
+
+        public Chunk NorthWest
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; }
+        }
+
+        public Chunk NorthEast
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; }
+        }
+
+        public Chunk SouthWest
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; }
+        }
+
+        public Chunk SouthEast
+        {
+            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; }
+        }
 
         /// <summary>
         /// Creates a new chunk instance.
@@ -138,8 +169,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             this.ChunkState = ChunkState.AwaitingGenerate; // set initial state to awaiting generation.
             this.RelativePosition = relativePosition; // set the relative position.
-            this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks); // calculate the real world position.
-            this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks)); // calculate bounding-box.
+            this.WorldPosition = new Vector2Int(this.RelativePosition.X*WidthInBlocks,
+                                                this.RelativePosition.Z*LenghtInBlocks);
+                // calculate the real world position.
+            this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z),
+                                               new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks,
+                                                           this.WorldPosition.Z + LenghtInBlocks));
+                // calculate bounding-box.
 
             // create vertex & index lists.
             this.VertexList = new List<BlockVertex>();
@@ -148,7 +184,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public bool IsInBounds(float x, float z)
         {
-            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z) return false;
+            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
+                z >= this.BoundingBox.Max.Z) return false;
             return true;
         }
 
@@ -182,15 +219,21 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         #region ingame debugger
 
-        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
+        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch,
+                                          SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
 
             var projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
-                                                            Matrix.CreateTranslation(new Vector3(WorldPosition.X + WidthInBlocks / 2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks / 2)));
+                                                            Matrix.CreateTranslation(
+                                                                new Vector3(WorldPosition.X + WidthInBlocks/2,
+                                                                            HighestSolidBlockOffset - 1,
+                                                                            WorldPosition.Z + LenghtInBlocks/2)));
 
-            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X / 2, projected.Y - positionSize.Y / 2), Color.Yellow);
+            spriteBatch.DrawString(spriteFont, position,
+                                   new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2),
+                                   Color.Yellow);
 
             BoundingBoxRenderer.Render(this.BoundingBox, graphicsDevice, camera.View, camera.Projection, Color.DarkRed);
         }
@@ -204,31 +247,38 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this); // Take object out the finalization queue to prevent finalization code for it from executing a second time.
+            GC.SuppressFinalize(this);
+                // Take object out the finalization queue to prevent finalization code for it from executing a second time.
         }
 
         private void Dispose(bool disposing)
         {
             if (this.Disposed) return; // if already disposed, just return
 
-            if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
+            if (disposing)
+                // only dispose managed resources if we're called from directly or in-directly from user code.
             {
                 this.IndexList.Clear();
                 this.IndexList = null;
                 this.VertexList.Clear();
                 this.VertexList = null;
 
-                if (this.VertexBuffer != null) 
+                if (this.VertexBuffer != null)
                     this.VertexBuffer.Dispose();
 
-                if (this.IndexBuffer != null) 
+                if (this.IndexBuffer != null)
                     this.IndexBuffer.Dispose();
             }
 
             Disposed = true;
         }
 
-        ~Chunk() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones.    
+        ~Chunk()
+        {
+            Dispose(false);
+        }
+
+        // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones.    
 
         #endregion
     }

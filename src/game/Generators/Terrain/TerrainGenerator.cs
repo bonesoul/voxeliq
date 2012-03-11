@@ -12,7 +12,9 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         protected int Seed { get; private set; }
 
         public TerrainGenerator()
-            : this(56) { }
+            : this(56)
+        {
+        }
 
         public TerrainGenerator(int seed)
         {
@@ -31,6 +33,8 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             chunk.ChunkState = ChunkState.AwaitingLighting; // chunk should be lighten now.            
         }
 
-        protected virtual void GenerateChunk(Chunk chunk) { }
+        protected virtual void GenerateChunk(Chunk chunk)
+        {
+        }
     }
 }

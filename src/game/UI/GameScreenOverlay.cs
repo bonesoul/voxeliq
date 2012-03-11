@@ -12,13 +12,13 @@ using Microsoft.Xna.Framework.Content;
 
 namespace VolumetricStudios.VoxeliqGame.UI
 {
-    public class GameScreenOverlay:DrawableGameComponent
+    public class GameScreenOverlay : DrawableGameComponent
     {
         private IInputService _inputService;
         private IUIService _uiService;
         private UIScreen _screen;
 
-        public GameScreenOverlay(Game game) 
+        public GameScreenOverlay(Game game)
             : base(game)
         {
         }
@@ -26,8 +26,8 @@ namespace VolumetricStudios.VoxeliqGame.UI
         public override void Initialize()
         {
             // Get the services that this component needs regularly.
-            this._inputService = (IInputService)this.Game.Services.GetService(typeof(IInputService));
-            _uiService = (IUIService)this.Game.Services.GetService(typeof(IUIService));
+            this._inputService = (IInputService) this.Game.Services.GetService(typeof (IInputService));
+            _uiService = (IUIService) this.Game.Services.GetService(typeof (IUIService));
 
             // Load a UI theme, which defines the appearance and default values of UI controls.
             var content = new ContentManager(Game.Services, "BlendBlueTheme");
@@ -40,7 +40,8 @@ namespace VolumetricStudios.VoxeliqGame.UI
             // tree of UI controls. Each screen can have its own renderer.
             _screen = new UIScreen("Overlay", renderer)
                           {
-                              Background = new Color(0, 0, 0, 0), // Make the screen transparent.
+                              Background = new Color(0, 0, 0, 0),
+                              // Make the screen transparent.
                           };
 
             _uiService.Screens.Add(_screen);
@@ -55,17 +56,17 @@ namespace VolumetricStudios.VoxeliqGame.UI
 
 
             var button4 = new Button
-            {
-                Content = new TextBlock { Text = "Sample #5: Console" },
-                Margin = new Vector4F(4),
-                Padding = new Vector4F(6),
-                HorizontalAlignment = HorizontalAlignment.Center
-            };
+                              {
+                                  Content = new TextBlock {Text = "Sample #5: Console"},
+                                  Margin = new Vector4F(4),
+                                  Padding = new Vector4F(6),
+                                  HorizontalAlignment = HorizontalAlignment.Center
+                              };
             button4.Click += (s, e) =>
-            {
-                var consoleWindow = new SampleConsole();
-                consoleWindow.Show(_screen);
-            };
+                                 {
+                                     var consoleWindow = new SampleConsole();
+                                     consoleWindow.Show(_screen);
+                                 };
 
             //var stackPanel = new StackPanel { Margin = new Vector4F(40) };
             //stackPanel.Children.Add(button4);

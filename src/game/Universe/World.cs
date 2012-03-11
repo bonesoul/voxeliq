@@ -16,7 +16,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     /// World service interface.
     /// </summary>
     public interface IWorld
-    { }
+    {
+    }
 
     /// <summary>
     /// Statistics interface.
@@ -33,7 +34,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     public class World : DrawableGameComponent, IWorld, IWorldStatisticsService
     {
         public ChunkStorage Chunks { get; set; } // chunk storage.
-        private readonly ChunkCache _chunkCache;// chunk cache.
+        private readonly ChunkCache _chunkCache; // chunk cache.
 
         //public ChunkBuilder ChunkBuilder { get; protected set; } // Chunk builder.       
 
@@ -44,15 +45,14 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         private ICameraControlService _cameraController;
         private IPlayer _player;
 
-
         #region Atmospheric Settings
 
-            public static Vector4 NightColor = Color.Black.ToVector4();
-            public static Vector4 SunColor = Color.White.ToVector4();
-            public static Vector4 HorizonColor = Color.DarkGray.ToVector4();
+        public static Vector4 NightColor = Color.Black.ToVector4();
+        public static Vector4 SunColor = Color.White.ToVector4();
+        public static Vector4 HorizonColor = Color.DarkGray.ToVector4();
 
-            public static Vector4 EveningTint = Color.Red.ToVector4();
-            public static Vector4 MorningTint = Color.Gold.ToVector4();
+        public static Vector4 EveningTint = Color.Red.ToVector4();
+        public static Vector4 MorningTint = Color.Gold.ToVector4();
 
         #endregion
 
@@ -65,15 +65,15 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         /// <param name="game"> </param>
         /// <param name="chunkStorage"> </param>
         /// <param name="chunkCache"> </param>
-        public World(Game game,ChunkStorage chunkStorage, ChunkCache chunkCache)
-            :base(game)
+        public World(Game game, ChunkStorage chunkStorage, ChunkCache chunkCache)
+            : base(game)
         {
             this.Chunks = chunkStorage;
             this._chunkCache = chunkCache;
-             
+
             // export services.
-            this.Game.Services.AddService(typeof(IWorldStatisticsService), this);
-            this.Game.Services.AddService(typeof(IWorld), this);
+            this.Game.Services.AddService(typeof (IWorldStatisticsService), this);
+            this.Game.Services.AddService(typeof (IWorld), this);
         }
 
         public override void Initialize()
@@ -81,8 +81,9 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             Logger.Trace("init()");
 
             // import required services.
-            this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));           
+            this._cameraController =
+                (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
 
             //this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
             //this.Game.Components.Add(this.ChunkBuilder);
@@ -107,10 +108,17 @@ namespace VolumetricStudios.VoxeliqGame.Universe
                 }
             }
 
-            this.Chunks.SouthWestEdge = new Vector2Int(relativePosition.X - ChunkCache.ViewRange, relativePosition.Z - ChunkCache.ViewRange);
-            this.Chunks.NorthEastEdge = new Vector2Int(relativePosition.X + ChunkCache.ViewRange, relativePosition.Z + ChunkCache.ViewRange);
+            this.Chunks.SouthWestEdge = new Vector2Int(relativePosition.X - ChunkCache.ViewRange,
+                                                       relativePosition.Z - ChunkCache.ViewRange);
+            this.Chunks.NorthEastEdge = new Vector2Int(relativePosition.X + ChunkCache.ViewRange,
+                                                       relativePosition.Z + ChunkCache.ViewRange);
 
-            this._chunkCache.BoundingBox = new BoundingBox(new Vector3(this.Chunks.SouthWestEdge.X * Chunk.WidthInBlocks, 0, this.Chunks.SouthWestEdge.Z * Chunk.LenghtInBlocks), new Vector3((this.Chunks.NorthEastEdge.X + 1) * Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.Chunks.NorthEastEdge.Z + 1) * Chunk.LenghtInBlocks));
+            this._chunkCache.BoundingBox =
+                new BoundingBox(
+                    new Vector3(this.Chunks.SouthWestEdge.X*Chunk.WidthInBlocks, 0,
+                                this.Chunks.SouthWestEdge.Z*Chunk.LenghtInBlocks),
+                    new Vector3((this.Chunks.NorthEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
+                                (this.Chunks.NorthEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
     }
 }

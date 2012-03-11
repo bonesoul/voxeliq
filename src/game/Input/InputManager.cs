@@ -40,14 +40,14 @@ namespace VolumetricStudios.VoxeliqGame.Input
         public bool CursorCentered { get; private set; } // Should the mouse cursor centered on screen?
 
         // previous input states.
-        private MouseState _previousMouseState; 
+        private MouseState _previousMouseState;
         private KeyboardState _previousKeyboardState;
 
         // required services.
         private IWorld _world;
         private IPlayer _player;
-        private IGraphicsManager _graphicsManager;       
-        private ICameraControlService _cameraController;        
+        private IGraphicsManager _graphicsManager;
+        private ICameraControlService _cameraController;
         private IInGameDebuggerService _ingameDebuggerService;
         private IFogger _fogger;
         private ISkyService _skyService;
@@ -63,7 +63,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
         public InputManager(Game game)
             : base(game)
         {
-            this.Game.Services.AddService(typeof(IInputManager), this); // export service.
+            this.Game.Services.AddService(typeof (IInputManager), this); // export service.
 
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = true; // center the mouse by default.        
@@ -79,11 +79,13 @@ namespace VolumetricStudios.VoxeliqGame.Input
             // import required services.
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
-            this._graphicsManager = (IGraphicsManager)this.Game.Services.GetService(typeof(IGraphicsManager));
-            this._cameraController = (ICameraControlService)this.Game.Services.GetService(typeof(ICameraControlService));
-            this._ingameDebuggerService = (IInGameDebuggerService)this.Game.Services.GetService(typeof(IInGameDebuggerService));
+            this._graphicsManager = (IGraphicsManager) this.Game.Services.GetService(typeof (IGraphicsManager));
+            this._cameraController =
+                (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
+            this._ingameDebuggerService =
+                (IInGameDebuggerService) this.Game.Services.GetService(typeof (IInGameDebuggerService));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
-            this._skyService = (ISkyService)this.Game.Services.GetService(typeof(ISkyService));
+            this._skyService = (ISkyService) this.Game.Services.GetService(typeof (ISkyService));
             this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
@@ -111,17 +113,20 @@ namespace VolumetricStudios.VoxeliqGame.Input
         {
             var currentState = Mouse.GetState();
 
-            if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
+            if (currentState == this._previousMouseState || !this.CaptureMouse)
+                // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
-            float rotation = currentState.X - GraphicsConfig.Instance.Width / 2;
+            float rotation = currentState.X - GraphicsConfig.Instance.Width/2;
             if (rotation != 0) _cameraController.RotateCamera(rotation);
 
-            float elevation = currentState.Y - GraphicsConfig.Instance.Height / 2;
+            float elevation = currentState.Y - GraphicsConfig.Instance.Height/2;
             if (elevation != 0) _cameraController.ElevateCamera(elevation);
 
-            if (currentState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released) this._player.Weapon.Use();
-            if (currentState.RightButton == ButtonState.Pressed && _previousMouseState.RightButton == ButtonState.Released) this._player.Weapon.SecondaryUse();
+            if (currentState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
+                this._player.Weapon.Use();
+            if (currentState.RightButton == ButtonState.Pressed &&
+                _previousMouseState.RightButton == ButtonState.Released) this._player.Weapon.SecondaryUse();
 
             this._previousMouseState = currentState;
             this.CenterCursor();
@@ -135,25 +140,36 @@ namespace VolumetricStudios.VoxeliqGame.Input
         {
             var currentState = Keyboard.GetState();
 
-            if (currentState.IsKeyDown(Keys.Escape) && this._previousKeyboardState.IsKeyUp(Keys.Escape)) // allows quick exiting the game.
+            if (currentState.IsKeyDown(Keys.Escape) && this._previousKeyboardState.IsKeyUp(Keys.Escape))
+                // allows quick exiting the game.
                 this.Game.Exit();
 
             // movement keys.
-            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W)) _player.Move(gameTime,MoveDirection.Forward);
-            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S)) _player.Move(gameTime, MoveDirection.Backward);
-            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A)) _player.Move(gameTime, MoveDirection.Left);
-            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D)) _player.Move(gameTime, MoveDirection.Right);
-            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();  
+            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
+                _player.Move(gameTime, MoveDirection.Forward);
+            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S))
+                _player.Move(gameTime, MoveDirection.Backward);
+            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A))
+                _player.Move(gameTime, MoveDirection.Left);
+            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D))
+                _player.Move(gameTime, MoveDirection.Right);
+            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
 
             // debug keys.
-            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) this._chunkCache.ToggleInfinitiveWorld();
-            if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2)) this._player.ToggleFlyForm();
+            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
+                this._chunkCache.ToggleInfinitiveWorld();
+            if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
+                this._player.ToggleFlyForm();
             if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) this._fogger.ToggleFog();
-            if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4)) this._skyService.ToggleDynamicClouds();
-            if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5)) this.CaptureMouse = !this.CaptureMouse;
-            if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9)) this._statisticsGraphs.Toggle();
-            if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10)) this._ingameDebuggerService.ToggleInGameDebugger();
-            
+            if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
+                this._skyService.ToggleDynamicClouds();
+            if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
+                this.CaptureMouse = !this.CaptureMouse;
+            if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
+                this._statisticsGraphs.Toggle();
+            if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
+                this._ingameDebuggerService.ToggleInGameDebugger();
+
             if (_previousKeyboardState.IsKeyUp(Keys.F11) && currentState.IsKeyDown(Keys.F11)) // toggles frame-limiter.
             {
                 this._graphicsManager.ToggleFixedTimeSteps();
@@ -171,7 +187,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
         /// </summary>
         private void CenterCursor()
         {
-            Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
+            Mouse.SetPosition(Game.Window.ClientBounds.Width/2, Game.Window.ClientBounds.Height/2);
         }
     }
 }

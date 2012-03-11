@@ -32,9 +32,9 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 
         public Vector4Byte(int x, int y, int z)
         {
-            this.X = (byte)x;
-            this.Y = (byte)y;
-            this.Z = (byte)z;
+            this.X = (byte) x;
+            this.Y = (byte) y;
+            this.Z = (byte) z;
             this.W = 1;
         }
 
@@ -45,6 +45,7 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
         }
 
         #region Operators
+
         public static bool operator ==(Vector4Byte left, Vector4Byte right)
         {
             return left.Equals(right);
@@ -59,9 +60,9 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
         {
             Vector4Byte result;
 
-            result.X = (byte)(a.X + b.X);
-            result.Y = (byte)(a.Y + b.Y);
-            result.Z = (byte)(a.Z + b.Z);
+            result.X = (byte) (a.X + b.X);
+            result.Y = (byte) (a.Y + b.Y);
+            result.Z = (byte) (a.Z + b.Z);
             result.W = 1;
 
             return result;
@@ -71,9 +72,9 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
         {
             Vector4Byte result;
 
-            result.X = (byte)(a.X - b.X);
-            result.Y = (byte)(a.Y - b.Y);
-            result.Z = (byte)(a.Z - b.Z);
+            result.X = (byte) (a.X - b.X);
+            result.Y = (byte) (a.Y - b.Y);
+            result.Z = (byte) (a.Z - b.Z);
             result.W = 1;
 
             return result;
@@ -83,9 +84,9 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
         {
             Vector4Byte result;
 
-            result.X = (byte)(a.X * b.X);
-            result.Y = (byte)(a.Y * b.Y);
-            result.Z = (byte)(a.Z * b.Z);
+            result.X = (byte) (a.X*b.X);
+            result.Y = (byte) (a.Y*b.Y);
+            result.Z = (byte) (a.Z*b.Z);
             result.W = 1;
 
             return result;
@@ -95,19 +96,20 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
         {
             Vector4Byte result;
 
-            result.X = (byte)(a.X / b.X);
-            result.Y = (byte)(a.Y / b.Y);
-            result.Z = (byte)(a.Z / b.Z);
+            result.X = (byte) (a.X/b.X);
+            result.Y = (byte) (a.Y/b.Y);
+            result.Z = (byte) (a.Z/b.Z);
             result.W = 1;
 
             return result;
         }
+
         #endregion
 
         public bool Equals(Vector4Byte other)
         {
             return (((this.X == other.X) && (this.Y == other.Y)) &&
-                (this.Z == other.Z) && (this.W == other.W));
+                    (this.Z == other.Z) && (this.W == other.W));
         }
 
         public override bool Equals(object obj)
@@ -116,7 +118,7 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 
             if (obj is Vector4Byte)
             {
-                flag = this.Equals((Vector4Byte)obj);
+                flag = this.Equals((Vector4Byte) obj);
             }
 
             return flag;
@@ -127,7 +129,7 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
             unchecked
             {
                 return this.X.GetHashCode() + this.Y.GetHashCode() +
-                    this.Z.GetHashCode() + this.W.GetHashCode();
+                       this.Z.GetHashCode() + this.W.GetHashCode();
             }
         }
 

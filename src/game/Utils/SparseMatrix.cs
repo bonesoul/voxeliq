@@ -27,14 +27,8 @@ namespace VolumetricStudios.VoxeliqGame.Utils
         /// <param name="col">Matrix column</param>
         public T this[uint row, uint col]
         {
-            get
-            {
-                return GetAt(row, col);
-            }
-            set
-            {
-                SetAt(row, col, value);
-            }
+            get { return GetAt(row, col); }
+            set { SetAt(row, col, value); }
         }
 
         /// <summary>

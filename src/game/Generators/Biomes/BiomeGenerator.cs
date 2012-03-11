@@ -9,6 +9,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
     public class BiomeGenerator
     {
         public virtual void ApplyBiome(Chunk chunk)
-        { }
+        {
+        }
     }
 }

@@ -29,10 +29,11 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         /// <param name="camera">The camera.</param>
         /// <param name="spriteBatch">Sprite batch for fonts.</param>
         /// <param name="spriteFont">Font used for drawing strings.</param>
-        void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont);
+        void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch,
+                                   SpriteFont spriteFont);
     }
 
-    public sealed class InGameDebugger:DrawableGameComponent, IInGameDebuggerService
+    public sealed class InGameDebugger : DrawableGameComponent, IInGameDebuggerService
     {
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
@@ -52,7 +53,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         public InGameDebugger(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(IInGameDebuggerService), this); // export service.
+            game.Services.AddService(typeof (IInGameDebuggerService), this); // export service.
         }
 
         public override void Initialize()
@@ -63,16 +64,16 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//CalibriDebug");
 
             // import service.
-            this._camera = (ICamera)this.Game.Services.GetService(typeof(ICamera));
-            this._world = (IWorld)this.Game.Services.GetService(typeof(IWorld));
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
-            this._chunkStorage = (IChunkStorage)this.Game.Services.GetService(typeof(IChunkStorage));
+            this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
+            this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
+            this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
         }
 
         public override void Draw(GameTime gameTime)
         {
             if (!_active) return;
-            var viewFrustrum = new BoundingFrustum(this._camera.View * this._camera.Projection);
+            var viewFrustrum = new BoundingFrustum(this._camera.View*this._camera.Projection);
 
             _spriteBatch.Begin();
 
@@ -85,7 +86,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             _player.Weapon.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
 
             _spriteBatch.End();
-
         }
 
         public void ToggleInGameDebugger()

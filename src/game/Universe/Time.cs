@@ -12,12 +12,12 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     public static class Time
     {
         private const float RealTimeDivisor = 24*60*60;
-        private const float GameHourInRealMinutes = (float)5;
+        private const float GameHourInRealMinutes = (float) 5;
         private const float GameHourInRealSeconds = GameHourInRealMinutes*60;
 
         public static float GetRealTimeOfDay()
         {
-            return (float)(DateTime.Now.TimeOfDay.TotalSeconds * 24) / RealTimeDivisor;
+            return (float) (DateTime.Now.TimeOfDay.TotalSeconds*24)/RealTimeDivisor;
         }
 
         public static float GetGameTimeOfDay()

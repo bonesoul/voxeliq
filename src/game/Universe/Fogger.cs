@@ -26,15 +26,23 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     {
         // properties
         public FogState State { get; private set; }
-        public Vector2 FogVector { get { return this._fogVectors[(byte)this.State]; } }
+
+        public Vector2 FogVector
+        {
+            get { return this._fogVectors[(byte) this.State]; }
+        }
 
         // fog vectors.
         private readonly Vector2[] _fogVectors = new[]
-        {
-            new Vector2(0, 0),  // none
-            new Vector2(Chunk.WidthInBlocks * (ChunkCache.ViewRange / 2 - 1) , Chunk.WidthInBlocks * (ChunkCache.ViewRange)), // near
-            new Vector2(Chunk.WidthInBlocks * (ChunkCache.ViewRange * 1 - 2) , Chunk.WidthInBlocks * (ChunkCache.ViewRange * 1)) // far
-        };
+                                                     {
+                                                         new Vector2(0, 0), // none
+                                                         new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange/2 - 1),
+                                                                     Chunk.WidthInBlocks*(ChunkCache.ViewRange)),
+                                                         // near
+                                                         new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange*1 - 2),
+                                                                     Chunk.WidthInBlocks*(ChunkCache.ViewRange*1))
+                                                         // far
+                                                     };
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
 
@@ -43,7 +51,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         {
             Logger.Trace("init()");
             this.State = FogState.None;
-            this.Game.Services.AddService(typeof(IFogger), this);
+            this.Game.Services.AddService(typeof (IFogger), this);
         }
 
         /// <summary>
@@ -54,7 +62,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             switch (this.State)
             {
                 case FogState.None:
-                    this.State =FogState.Near;
+                    this.State = FogState.Near;
                     break;
                 case FogState.Near:
                     this.State = FogState.Far;

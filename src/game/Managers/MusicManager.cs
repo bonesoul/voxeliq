@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace VolumetricStudios.VoxeliqGame.Managers
 {
-    public class MusicManager:GameComponent
+    public class MusicManager : GameComponent
     {
-        public MusicManager(Game game) 
+        public MusicManager(Game game)
             : base(game)
         {
         }

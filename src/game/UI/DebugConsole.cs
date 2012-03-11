@@ -36,14 +36,14 @@ namespace VolumetricStudios.VoxeliqGame.UI
             : base(game)
         {
             // Get the services that this component needs regularly.
-            this._inputService = (IInputService)game.Services.GetService(typeof(IInputService));
-            this._uiService = (IUIService)game.Services.GetService(typeof(IUIService));
+            this._inputService = (IInputService) game.Services.GetService(typeof (IInputService));
+            this._uiService = (IUIService) game.Services.GetService(typeof (IUIService));
             this._statistics = (IStatistics) game.Services.GetService(typeof (IStatistics));
 
             // The debug screen is displayed on top of all other screens and components. It should
             // be updated first and drawn on top of the other content.
-            UpdateOrder = -100;   // (Update order is front-to-back.)
-            DrawOrder = 100;      // (Draw order is back-to-front.)
+            UpdateOrder = -100; // (Update order is front-to-back.)
+            DrawOrder = 100; // (Draw order is back-to-front.)
         }
 
 
@@ -70,18 +70,16 @@ namespace VolumetricStudios.VoxeliqGame.UI
 
                 // Create a UIScreen and add it to the UI service. 
                 _screen = new UIScreen("Debug", renderer)
-                {
-                    // A transparent background.
-                    Background = new Color(0, 0, 0, 0),
-
-                    // The z-index is equal to the draw order. The z-index defines in which order the 
-                    // screens are updated. The "Debug" screen has a higher z-index and is updated 
-                    // before the "Default" screen.
-                    ZIndex = DrawOrder,
-
-                    // Hide the screen. The user has to press a button to make the debug screen visible.
-                    IsVisible = false,
-                };
+                              {
+                                  // A transparent background.
+                                  Background = new Color(0, 0, 0, 0),
+                                  // The z-index is equal to the draw order. The z-index defines in which order the 
+                                  // screens are updated. The "Debug" screen has a higher z-index and is updated 
+                                  // before the "Default" screen.
+                                  ZIndex = DrawOrder,
+                                  // Hide the screen. The user has to press a button to make the debug screen visible.
+                                  IsVisible = false,
+                              };
 
                 // Optional: 
                 // The debug screen handles gamepad input first, then the other screens and game components
@@ -91,44 +89,63 @@ namespace VolumetricStudios.VoxeliqGame.UI
 
                 // Add a console control on the left.
                 _inGameConsole = new Console
-                {
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    Height = 250,
-                };
+                                     {
+                                         HorizontalAlignment = HorizontalAlignment.Stretch,
+                                         VerticalAlignment = VerticalAlignment.Top,
+                                         Height = 250,
+                                     };
                 _screen.Children.Add(_inGameConsole);
 
                 // Print a few info messages in the console.
-                _inGameConsole.WriteLine("voxeliq " + Assembly.GetExecutingAssembly().GetName().Version + " debug console..");
+                _inGameConsole.WriteLine("voxeliq " + Assembly.GetExecutingAssembly().GetName().Version +
+                                         " debug console..");
                 _inGameConsole.WriteLine("Enter 'help' to view console commands.");
 
                 // Bind commands.
-                this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("version", "Displays engine version", 
-                    callback => this._inGameConsole.WriteLine(Assembly.GetExecutingAssembly().GetName().Version.ToString())));
+                this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("version", "Displays engine version",
+                                                                                callback =>
+                                                                                this._inGameConsole.WriteLine(
+                                                                                    Assembly.GetExecutingAssembly().
+                                                                                        GetName().Version.ToString())));
 
-                this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("memstats", "Displays memory usage statistics", 
-                    callback => this._inGameConsole.WriteLine("Memory used: " + this._statistics.GetMemoryUsed())));
+                this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("memstats",
+                                                                                "Displays memory usage statistics",
+                                                                                callback =>
+                                                                                this._inGameConsole.WriteLine(
+                                                                                    "Memory used: " +
+                                                                                    this._statistics.GetMemoryUsed())));
 
                 this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("debugkeys", "Prints list of debug keys",
-                    callback =>
-                        {
-                            this._inGameConsole.WriteLine("Debug keys:");
-                            this._inGameConsole.WriteLine("-----------------------------");
-                            this._inGameConsole.WriteLine("F1: Infinitive-world: On/Off.");
-                            this._inGameConsole.WriteLine("F2: Fly-mode: On/Off.");
-                            this._inGameConsole.WriteLine("F3: Fog-mode: None/Near/Far.");
-                            this._inGameConsole.WriteLine("F4: Dynamic Clouds: On/Off.");
-                            this._inGameConsole.WriteLine("F5: Capture Mouse: On/Off.");
-                            this._inGameConsole.WriteLine("F9: Debug Graphs: On/Off.");
-                            this._inGameConsole.WriteLine("F10: In-game Debugger: On/Off.");
-                            this._inGameConsole.WriteLine("F11: Frame-limiter: On/Off.");
-                            this._inGameConsole.WriteLine("F12: Wireframe mode: On/Off.");
-                        }));
+                                                                                callback =>
+                                                                                    {
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "Debug keys:");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "-----------------------------");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F1: Infinitive-world: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F2: Fly-mode: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F3: Fog-mode: None/Near/Far.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F4: Dynamic Clouds: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F5: Capture Mouse: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F9: Debug Graphs: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F10: In-game Debugger: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F11: Frame-limiter: On/Off.");
+                                                                                        this._inGameConsole.WriteLine(
+                                                                                            "F12: Wireframe mode: On/Off.");
+                                                                                    }));
 
 
                 // Add the screen to the UI service. We must lock the collection because the UI service
                 // runs in a parallel thread.
-                lock (((ICollection)_uiService.Screens).SyncRoot)
+                lock (((ICollection) _uiService.Screens).SyncRoot)
                 {
                     _uiService.Screens.Add(_screen);
                 }
@@ -161,8 +178,8 @@ namespace VolumetricStudios.VoxeliqGame.UI
         {
             if (_loadUITask.IsComplete)
             {
-                if (!_inputService.IsKeyboardHandled &&  (_inputService.IsPressed(Keys.Tab, false)
-                        || _inputService.IsPressed(Keys.F8, false)))
+                if (!_inputService.IsKeyboardHandled && (_inputService.IsPressed(Keys.Tab, false)
+                                                         || _inputService.IsPressed(Keys.F8, false)))
                 {
                     _inputService.IsKeyboardHandled = true;
 

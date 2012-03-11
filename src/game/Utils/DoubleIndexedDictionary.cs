@@ -10,20 +10,20 @@ namespace VolumetricStudios.VoxeliqGame.Utils
 {
     public class DoubleIndexedDictionary<T> : ConcurrentDictionary<long, T>
     {
-        const long RowSize = Int32.MaxValue;
+        private const long RowSize = Int32.MaxValue;
 
         public T this[int x, int z]
         {
             get
             {
-                T @out= default(T);
+                T @out = default(T);
                 TryGetValue(x + (z*RowSize), out @out);
                 return @out;
             }
             set { this[x + (z*RowSize)] = value; }
         }
 
-        public bool ContainsKey(int x,int z)
+        public bool ContainsKey(int x, int z)
         {
             return ContainsKey(x + (z*RowSize));
         }

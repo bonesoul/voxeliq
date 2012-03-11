@@ -41,7 +41,8 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                 this.BiomeGenerator.ApplyBiome(chunk);
         }
 
-        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
+        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ,
+                                               int seededWorldPositionX)
         {
             this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
             this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
@@ -49,7 +50,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
-            for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--) 
+            for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
                 BlockType blockType;
 
@@ -62,11 +63,11 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
 
                 switch (blockType)
                 {
-                    case BlockType.None: 
-                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y; 
+                    case BlockType.None:
+                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte) y;
                         break;
-                    default: 
-                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y; 
+                    default:
+                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte) y;
                         break;
                 }
 
@@ -93,25 +94,25 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
 
         protected virtual int GetDirtHeight(int blockX, int blockZ, float rockHeight)
         {
-            float octave1 = PerlinSimplexNoise.noise((blockX + 100) * 0.001f, blockZ * 0.001f) * 0.5f;
-            float octave2 = PerlinSimplexNoise.noise((blockX + 100) * 0.002f, blockZ * 0.002f) * 0.25f;
-            float octave3 = PerlinSimplexNoise.noise((blockX + 100) * 0.01f, blockZ * 0.01f) * 0.25f;
+            float octave1 = PerlinSimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
+            float octave2 = PerlinSimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
+            float octave3 = PerlinSimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
-            return (int)(octaveSum * (Chunk.HeightInBlocks / 8)) + (int)(rockHeight);
+            return (int) (octaveSum*(Chunk.HeightInBlocks/8)) + (int) (rockHeight);
         }
 
         protected virtual float GetRockHeight(int blockX, int blockZ)
         {
-            int minimumGroundheight = Chunk.HeightInBlocks / 2;
-            int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
+            int minimumGroundheight = Chunk.HeightInBlocks/2;
+            int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.4f);
 
-            float octave1 = PerlinSimplexNoise.noise(blockX * 0.0001f, blockZ * 0.0001f) * 0.5f;
-            float octave2 = PerlinSimplexNoise.noise(blockX * 0.0005f, blockZ * 0.0005f) * 0.35f;
-            float octave3 = PerlinSimplexNoise.noise(blockX * 0.02f, blockZ * 0.02f) * 0.15f;
+            float octave1 = PerlinSimplexNoise.noise(blockX*0.0001f, blockZ*0.0001f)*0.5f;
+            float octave2 = PerlinSimplexNoise.noise(blockX*0.0005f, blockZ*0.0005f)*0.35f;
+            float octave3 = PerlinSimplexNoise.noise(blockX*0.02f, blockZ*0.02f)*0.15f;
             float lowerGroundHeight = octave1 + octave2 + octave3;
 
-            lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
+            lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;
 
             return lowerGroundHeight;
         }

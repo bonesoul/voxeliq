@@ -62,9 +62,10 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
 
             this._game = game;
             this._graphicsDeviceManager = graphicsDeviceManager;
-            this._game.Services.AddService(typeof(IGraphicsManager), this); // export service.
+            this._game.Services.AddService(typeof (IGraphicsManager), this); // export service.
 
-            this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = GraphicsConfig.Instance.FullScreenEnabled;
+            this.FullScreenEnabled =
+                this._graphicsDeviceManager.IsFullScreen = GraphicsConfig.Instance.FullScreenEnabled;
             this._graphicsDeviceManager.PreferredBackBufferWidth = GraphicsConfig.Instance.Width;
             this._graphicsDeviceManager.PreferredBackBufferHeight = GraphicsConfig.Instance.Height;
             this.IsFixedTimeStep = this._game.IsFixedTimeStep = false;

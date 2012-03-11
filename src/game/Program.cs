@@ -15,7 +15,7 @@ namespace VolumetricStudios.VoxeliqGame
     {
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // Watch for unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
@@ -42,19 +42,20 @@ namespace VolumetricStudios.VoxeliqGame
         private static void InitLoggers()
         {
             LogManager.Enabled = true; // enable logging facility.
-            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
+            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false));
+                // attach a console target.
         }
 
         private static void PrintBanner()
         {
-            Console.WriteLine(@"                          .__  .__        ");  
-            Console.WriteLine(@" ___  _________  ___ ____ |  | |__| ______");  
-            Console.WriteLine(@" \  \/ /  _ \  \/  // __ \|  | |  |/ ____/");  
-            Console.WriteLine(@"  \   (  <_> >    <\  ___/|  |_|  < <_|  |");  
+            Console.WriteLine(@"                          .__  .__        ");
+            Console.WriteLine(@" ___  _________  ___ ____ |  | |__| ______");
+            Console.WriteLine(@" \  \/ /  _ \  \/  // __ \|  | |  |/ ____/");
+            Console.WriteLine(@"  \   (  <_> >    <\  ___/|  |_|  < <_|  |");
             Console.WriteLine(@"   \_/ \____/__/\_ \\___  >____/__|\__   |");
-            Console.WriteLine(@"                  \/    \/            |__|");  
+            Console.WriteLine(@"                  \/    \/            |__|");
 
-            Console.WriteLine();                                       
+            Console.WriteLine();
         }
 
         private static void PrintLicense()
@@ -71,11 +72,11 @@ namespace VolumetricStudios.VoxeliqGame
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.IsTerminating)
-                Logger.FatalException((e.ExceptionObject as Exception), "voxeliq terminating because of unhandled exception.");
+                Logger.FatalException((e.ExceptionObject as Exception),
+                                      "voxeliq terminating because of unhandled exception.");
             else
                 Logger.ErrorException((e.ExceptionObject as Exception), "Caught unhandled exception.");
             Console.ReadLine();
         }
     }
 }
-

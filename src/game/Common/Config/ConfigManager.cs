@@ -21,7 +21,8 @@ namespace VolumetricStudios.VoxeliqGame.Common.Config
         {
             try
             {
-                ConfigFile = string.Format("{0}/{1}", FileHelpers.AssemblyRoot, "config.ini"); // the config file's location.
+                ConfigFile = string.Format("{0}/{1}", FileHelpers.AssemblyRoot, "config.ini");
+                    // the config file's location.
                 Parser = new IniConfigSource(ConfigFile); // see if the file exists by trying to parse it.
                 _fileExists = true;
             }
@@ -45,17 +46,17 @@ namespace VolumetricStudios.VoxeliqGame.Common.Config
             Parser.ExpandKeyValues();
         }
 
-        static internal IConfig Section(string section) // Returns the asked config section.
+        internal static IConfig Section(string section) // Returns the asked config section.
         {
             return Parser.Configs[section];
         }
 
-        static internal IConfig AddSection(string section) // Adds a config section.
+        internal static IConfig AddSection(string section) // Adds a config section.
         {
             return Parser.AddConfig(section);
         }
 
-        static internal void Save() //  Saves the settings.
+        internal static void Save() //  Saves the settings.
         {
             if (_fileExists) Parser.Save();
             else

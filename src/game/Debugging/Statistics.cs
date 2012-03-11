@@ -44,7 +44,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         // resources.
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
-                
+
         // required services.       
         private IWorld _world;
         private IWorldStatisticsService _worldStatistics;
@@ -60,7 +60,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         /// Creates a new statistics service instance.
         /// </summary>
         /// <param name="game"></param>
-        public Statistics(Game game) 
+        public Statistics(Game game)
             : base(game)
         {
             this.Game.Services.AddService(typeof (IStatistics), this); // export the service.
@@ -74,10 +74,11 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             Logger.Trace("init()");
 
             // import required services.            
-            this._player = (IPlayer)this.Game.Services.GetService(typeof(IPlayer));
-            this._fogger = (IFogger)this.Game.Services.GetService(typeof(IFogger));
+            this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
+            this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
-            this._worldStatistics = (IWorldStatisticsService)this.Game.Services.GetService(typeof(IWorldStatisticsService));
+            this._worldStatistics =
+                (IWorldStatisticsService) this.Game.Services.GetService(typeof (IWorldStatisticsService));
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
@@ -100,7 +101,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         public override void Update(GameTime gameTime)
         {
             this._elapsedTime += gameTime.ElapsedGameTime;
-            if (this._elapsedTime < TimeSpan.FromSeconds(1)) 
+            if (this._elapsedTime < TimeSpan.FromSeconds(1))
                 return;
 
             this._elapsedTime -= TimeSpan.FromSeconds(1);
@@ -112,38 +113,51 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         /// Draws the statistics.
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Draw(GameTime gameTime) // Attention: DO NOT use string.format as it's slower than string concat: https://www.assembla.com/wiki/show/voxlr/StringFormat_vs_StringConcat
-        {            
+        public override void Draw(GameTime gameTime)
+            // Attention: DO NOT use string.format as it's slower than string concat: https://www.assembla.com/wiki/show/voxlr/StringFormat_vs_StringConcat
+        {
             _frameCounter++;
 
-            if (this._chunkCache.ChunksDrawn >= 31) _drawnBlocks = (this._chunkCache.ChunksDrawn / 31f).ToString("F2") + "M";
-            else if (this._chunkCache.ChunksDrawn > 1) _drawnBlocks = (this._chunkCache.ChunksDrawn / 0.03f).ToString("F2") + "K";
+            if (this._chunkCache.ChunksDrawn >= 31)
+                _drawnBlocks = (this._chunkCache.ChunksDrawn/31f).ToString("F2") + "M";
+            else if (this._chunkCache.ChunksDrawn > 1)
+                _drawnBlocks = (this._chunkCache.ChunksDrawn/0.03f).ToString("F2") + "K";
             else _drawnBlocks = "0";
 
-            if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
-            else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
+            if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count/31f).ToString("F2") + "M";
+            else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count/0.03f).ToString("F2") + "K";
             else _totalBlocks = Chunk.Volume.ToString(CultureInfo.InvariantCulture);
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);            
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             _spriteBatch.DrawString(_spriteFont, "fps: " + this.FPS, new Vector2(5, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "mem: " +  this.GetMemoryUsed(), new Vector2(75, 5), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "mem: " + this.GetMemoryUsed(), new Vector2(75, 5), Color.White);
             _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "chunks: " + this._chunkCache.ChunksDrawn + "/" + this._chunkStorage.Count, new Vector2(5, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "inf: " + (this._chunkCache.IsInfinitive ? "On" : "Off"), new Vector2(5, 35), Color.White);            
-            _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled?"On":"Off"), new Vector2(60, 35), Color.White);
+            _spriteBatch.DrawString(_spriteFont,
+                                    "chunks: " + this._chunkCache.ChunksDrawn + "/" + this._chunkStorage.Count,
+                                    new Vector2(5, 20), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20),
+                                    Color.White);
+            _spriteBatch.DrawString(_spriteFont, "inf: " + (this._chunkCache.IsInfinitive ? "On" : "Off"),
+                                    new Vector2(5, 35), Color.White);
+            _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled ? "On" : "Off"),
+                                    new Vector2(60, 35), Color.White);
             _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);
 
 
-            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
-            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
-            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
+            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] +
+                                this._chunkCache.StateStatistics[ChunkState.Generating];
+            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] +
+                               this._chunkCache.StateStatistics[ChunkState.Lighting] +
+                               this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
+            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] +
+                             this._chunkCache.StateStatistics[ChunkState.Building] +
+                             this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
             var readyState = this._chunkCache.StateStatistics[ChunkState.Ready];
 
             _spriteBatch.DrawString(_spriteFont, "GenerateQ: " + generateQueue, new Vector2(5, 65), Color.White);
             _spriteBatch.DrawString(_spriteFont, "LightenQ: " + lightenQueue, new Vector2(5, 80), Color.White);
             _spriteBatch.DrawString(_spriteFont, "BuildQ: " + buildQueue, new Vector2(5, 95), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "Ready: " + readyState, new Vector2(5, 110), Color.White); 
+            _spriteBatch.DrawString(_spriteFont, "Ready: " + readyState, new Vector2(5, 110), Color.White);
 
             _spriteBatch.End();
         }
@@ -165,9 +179,9 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         private string GetMemSize(long size)
         {
             int i;
-            string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+            string[] suffixes = {"B", "KB", "MB", "GB", "TB"};
             double dblSByte = 0;
-            for (i = 0; (int)(size / 1024) > 0; i++, size /= 1024) dblSByte = size / 1024.0;
+            for (i = 0; (int) (size/1024) > 0; i++, size /= 1024) dblSByte = size/1024.0;
             return dblSByte.ToString("0.00") + suffixes[i];
         }
     }

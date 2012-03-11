@@ -72,7 +72,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             : base(game)
         {
             this._dynamicCloudsEnabled = enableDynamicClouds;
-            this.Game.Services.AddService(typeof(ISkyService), this); // export the service.
+            this.Game.Services.AddService(typeof (ISkyService), this); // export the service.
         }
 
         public override void Initialize()
@@ -80,19 +80,19 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             Logger.Trace("init()");
 
             // import require services.
-            this._camera = (ICamera)this.Game.Services.GetService(typeof(ICamera));
+            this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
 
             base.Initialize();
         }
 
         protected override void LoadContent()
-        {    
+        {
             // load required assets.
-            
+
             // load the dome.
             this._skyDome = Game.Content.Load<Model>("Models\\SkyDome");
             this._skyDome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
-            
+
             // load maps.
             this._cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");
             this._starMap = Game.Content.Load<Texture2D>("Textures\\starmap");
@@ -100,14 +100,17 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             // for gpu generated clouds.
             this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
             var presentationParameters = GraphicsDevice.PresentationParameters;
-            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth, presentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            
+            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth,
+                                                          presentationParameters.BackBufferHeight, false,
+                                                          SurfaceFormat.Color, DepthFormat.None);
+                // the mipmap does not work on all configurations            
             this._staticCloudMap = this.CreateStaticCloudMap(32);
             this._fullScreenVertices = SetUpFullscreenVertices();
         }
 
-        public override void Update(GameTime gameTime) 
+        public override void Update(GameTime gameTime)
         {
-            if (!this._dynamicCloudsEnabled) 
+            if (!this._dynamicCloudsEnabled)
                 return;
 
             this.GeneratePerlinNoise(gameTime); // if dynamic-cloud generation is on, generate them.
@@ -121,21 +124,26 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         {
             //this.GraphicsDevice.Clear(Color.WhiteSmoke);
             this.GraphicsDevice.Clear(Color.Black);
-            Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
-                        
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.None;
+                // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
+
             var modelTransforms = new Matrix[this._skyDome.Bones.Count]; // transform dome's bones.
             this._skyDome.CopyAbsoluteBoneTransformsTo(modelTransforms);
 
             rotationStars += 0.0001f;
-            rotationClouds = 0;            
-            
+            rotationClouds = 0;
+
             // draw stars
-            Matrix wStarMatrix = Matrix.CreateTranslation(Vector3.Zero) * Matrix.CreateScale(100) * Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            Matrix wStarMatrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)*
+                                 Matrix.CreateTranslation(new Vector3(this._camera.Position.X,
+                                                                      this._camera.Position.Y - 40,
+                                                                      this._camera.Position.Z));
+                // move sky to camera position and should be scaled -- bigger than the world.
             foreach (ModelMesh mesh in _skyDome.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)
                 {
-                    Matrix worldMatrix = modelTransforms[mesh.ParentBone.Index] * wStarMatrix;
+                    Matrix worldMatrix = modelTransforms[mesh.ParentBone.Index]*wStarMatrix;
 
                     currentEffect.CurrentTechnique = currentEffect.Techniques["SkyStarDome"];
 
@@ -155,12 +163,15 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             }
 
             // draw clouds
-            var matrix = Matrix.CreateTranslation(Vector3.Zero) * Matrix.CreateScale(100) * Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
+            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)*
+                         Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40,
+                                                              this._camera.Position.Z));
+                // move sky to camera position and should be scaled -- bigger than the world.
             foreach (var mesh in _skyDome.Meshes)
             {
                 foreach (var currentEffect in mesh.Effects)
                 {
-                    var worldMatrix = modelTransforms[mesh.ParentBone.Index] * matrix;
+                    var worldMatrix = modelTransforms[mesh.ParentBone.Index]*matrix;
                     currentEffect.CurrentTechnique = currentEffect.Techniques["SkyStarDome"];
                     currentEffect.Parameters["xWorld"].SetValue(worldMatrix);
                     currentEffect.Parameters["xView"].SetValue(_camera.View);
@@ -198,10 +209,10 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         private Texture2D CreateStaticCloudMap(int resolution)
         {
             var rand = new Random();
-            var noisyColors = new Color[resolution * resolution];
+            var noisyColors = new Color[resolution*resolution];
             for (int x = 0; x < resolution; x++)
                 for (int y = 0; y < resolution; y++)
-                    noisyColors[x + y * resolution] = new Color(new Vector3(rand.Next(1000) / 1000.0f, 0, 0));
+                    noisyColors[x + y*resolution] = new Color(new Vector3(rand.Next(1000)/1000.0f, 0, 0));
 
             var noiseImage = new Texture2D(GraphicsDevice, resolution, resolution, true, SurfaceFormat.Color);
             noiseImage.SetData(noisyColors);
@@ -219,9 +230,9 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             _perlinNoiseEffect.CurrentTechnique = _perlinNoiseEffect.Techniques["PerlinNoise"];
             _perlinNoiseEffect.Parameters["xTexture"].SetValue(this._staticCloudMap);
             _perlinNoiseEffect.Parameters["xOvercast"].SetValue(CLOUDOVERCAST);
-            _perlinNoiseEffect.Parameters["xTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds / 100000.0f);
+            _perlinNoiseEffect.Parameters["xTime"].SetValue((float) gameTime.TotalGameTime.TotalMilliseconds/100000.0f);
 
-            foreach(EffectPass pass in _perlinNoiseEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in _perlinNoiseEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
                 GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleStrip, _fullScreenVertices, 0, 2);

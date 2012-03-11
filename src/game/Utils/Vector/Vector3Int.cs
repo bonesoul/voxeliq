@@ -27,14 +27,14 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 
         public Vector3Int(Vector3 vector)
         {
-            this.X = (int)vector.X;
-            this.Y = (int)vector.Y;
-            this.Z = (int)vector.Z;
+            this.X = (int) vector.X;
+            this.Y = (int) vector.Y;
+            this.Z = (int) vector.Z;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Vector3Int) return this.Equals((Vector3Int)obj);
+            if (obj is Vector3Int) return this.Equals((Vector3Int) obj);
             else return false;
         }
 

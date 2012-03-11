@@ -25,8 +25,8 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                     for (int y = 0; y < height; y++)
                     {
                         BlockStorage.Blocks[offset + y] = y == height - 1
-                                                            ? new Block(BlockType.Grass)
-                                                            : new Block(BlockType.Dirt);
+                                                              ? new Block(BlockType.Grass)
+                                                              : new Block(BlockType.Dirt);
                     }
                 }
             }

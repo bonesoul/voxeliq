@@ -14,7 +14,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// Block type.
         /// </summary>
         public BlockType Type;
-        
+
         /// <summary>
         /// Propogated sun-light value.
         /// </summary>
@@ -34,7 +34,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// Propated light's blue component.
         /// </summary>
         public byte B;
-        
+
         /// <summary>
         /// Creates a new block from given type.
         /// </summary>
@@ -43,7 +43,9 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         {
             Type = type;
             Sun = 16;
-            R = 16; G = 16; B = 16;
+            R = 16;
+            G = 16;
+            B = 16;
         }
 
         /// <summary>

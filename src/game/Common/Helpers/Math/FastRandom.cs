@@ -65,7 +65,7 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         /// tick count and thus obtain the same seed, that approach can result in extreme biases occuring 
         /// in some cases depending on how the RNG is used.
         /// </summary>
-        private static readonly FastRandom __seedRng = new FastRandom((int)System.Environment.TickCount);
+        private static readonly FastRandom __seedRng = new FastRandom((int) System.Environment.TickCount);
 
         /// <summary>
         /// Creates a static FastRandom instance.
@@ -77,11 +77,11 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         #region Instance Fields
 
         // The +1 ensures NextDouble doesn't generate 1.0
-        const double REAL_UNIT_INT = 1.0 / ((double)int.MaxValue + 1.0);
-        const double REAL_UNIT_UINT = 1.0 / ((double)uint.MaxValue + 1.0);
-        const uint Y = 842502087, Z = 3579807591, W = 273326509;
+        private const double REAL_UNIT_INT = 1.0/((double) int.MaxValue + 1.0);
+        private const double REAL_UNIT_UINT = 1.0/((double) uint.MaxValue + 1.0);
+        private const uint Y = 842502087, Z = 3579807591, W = 273326509;
 
-        uint _x, _y, _z, _w;
+        private uint _x, _y, _z, _w;
 
         #endregion
 
@@ -117,7 +117,7 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             // The only stipulation stated for the xorshift RNG is that at least one of
             // the seeds x,y,z,w is non-zero. We fulfill that requirement by only allowing
             // resetting of the x seed
-            _x = (uint)seed;
+            _x = (uint) seed;
             _y = Y;
             _z = Z;
             _w = W;
@@ -144,7 +144,9 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         public int Next()
         {
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
+            _x = _y;
+            _y = _z;
+            _z = _w;
             _w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8));
 
             // Handle the special case where the value int.MaxValue is generated. This is outside of 
@@ -154,7 +156,7 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             {
                 return Next();
             }
-            return (int)rtn;
+            return (int) rtn;
         }
 
         /// <summary>
@@ -168,12 +170,14 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             }
 
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
+            _x = _y;
+            _y = _z;
+            _z = _w;
 
             // ENHANCEMENT: Can we do this without converting to a double and back again?
             // The explicit int cast before the first multiplication gives better performance.
             // See comments in NextDouble.
-            return (int)((REAL_UNIT_INT * (int)(0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))))) * upperBound);
+            return (int) ((REAL_UNIT_INT*(int) (0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8)))))*upperBound);
         }
 
         /// <summary>
@@ -188,20 +192,29 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             }
 
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
+            _x = _y;
+            _y = _z;
+            _z = _w;
 
             // The explicit int cast before the first multiplication gives better performance.
             // See comments in NextDouble.
             int range = upperBound - lowerBound;
             if (range < 0)
-            {   // If range is <0 then an overflow has occured and must resort to using long integer arithmetic instead (slower).
+            {
+                // If range is <0 then an overflow has occured and must resort to using long integer arithmetic instead (slower).
                 // We also must use all 32 bits of precision, instead of the normal 31, which again is slower.  
-                return lowerBound + (int)((REAL_UNIT_UINT * (double)(_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8)))) * (double)((long)upperBound - (long)lowerBound));
+                return lowerBound +
+                       (int)
+                       ((REAL_UNIT_UINT*(double) (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))))*
+                        (double) ((long) upperBound - (long) lowerBound));
             }
 
             // 31 bits of precision will suffice if range<=int.MaxValue. This allows us to cast to an int and gain
             // a little more performance.
-            return lowerBound + (int)((REAL_UNIT_INT * (double)(int)(0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))))) * (double)range);
+            return lowerBound +
+                   (int)
+                   ((REAL_UNIT_INT*(double) (int) (0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8)))))*
+                    (double) range);
         }
 
         /// <summary>
@@ -210,7 +223,9 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         public double NextDouble()
         {
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
+            _x = _y;
+            _y = _z;
+            _z = _w;
 
             // Here we can gain a 2x speed improvement by generating a value that can be cast to 
             // an int instead of the more easily available uint. If we then explicitly cast to an 
@@ -221,7 +236,7 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             //
             // Also note that the loss of one bit of precision is equivalent to what occurs within 
             // System.Random.
-            return REAL_UNIT_INT * (int)(0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))));
+            return REAL_UNIT_INT*(int) (0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))));
         }
 
         /// <summary>
@@ -234,20 +249,22 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             uint x = this._x, y = this._y, z = this._z, w = this._w;
             int i = 0;
             uint t;
-            for (int bound = buffer.Length - 3; i < bound; )
+            for (int bound = buffer.Length - 3; i < bound;)
             {
                 // Generate 4 bytes. 
                 // Increased performance is achieved by generating 4 random bytes per loop.
                 // Also note that no mask needs to be applied to zero out the higher order bytes before
                 // casting because the cast ignores thos bytes. Thanks to Stefan Trosch�tz for pointing this out.
                 t = x ^ (x << 11);
-                x = y; y = z; z = w;
+                x = y;
+                y = z;
+                z = w;
                 w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
 
-                buffer[i++] = (byte)w;
-                buffer[i++] = (byte)(w >> 8);
-                buffer[i++] = (byte)(w >> 16);
-                buffer[i++] = (byte)(w >> 24);
+                buffer[i++] = (byte) w;
+                buffer[i++] = (byte) (w >> 8);
+                buffer[i++] = (byte) (w >> 16);
+                buffer[i++] = (byte) (w >> 24);
             }
 
             // Fill up any remaining bytes in the buffer.
@@ -255,24 +272,29 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             {
                 // Generate 4 bytes.
                 t = x ^ (x << 11);
-                x = y; y = z; z = w;
+                x = y;
+                y = z;
+                z = w;
                 w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
 
-                buffer[i++] = (byte)w;
+                buffer[i++] = (byte) w;
                 if (i < buffer.Length)
                 {
-                    buffer[i++] = (byte)(w >> 8);
+                    buffer[i++] = (byte) (w >> 8);
                     if (i < buffer.Length)
                     {
-                        buffer[i++] = (byte)(w >> 16);
+                        buffer[i++] = (byte) (w >> 16);
                         if (i < buffer.Length)
                         {
-                            buffer[i] = (byte)(w >> 24);
+                            buffer[i] = (byte) (w >> 24);
                         }
                     }
                 }
             }
-            this._x = x; this._y = y; this._z = z; this._w = w;
+            this._x = x;
+            this._y = y;
+            this._z = z;
+            this._w = w;
         }
 
         ///// <summary>
@@ -311,6 +333,7 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         //
         //          this._x=_x; this._y=_y; this._z=_z; this._w=_w;
         //      }
+
         #endregion
 
         #region Public Methods [Methods not present on System.Random]
@@ -326,7 +349,9 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         public uint NextUInt()
         {
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
+            _x = _y;
+            _y = _z;
+            _z = _w;
             return _w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8));
         }
 
@@ -341,14 +366,16 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         public int NextInt()
         {
             uint t = _x ^ (_x << 11);
-            _x = _y; _y = _z; _z = _w;
-            return (int)(0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))));
+            _x = _y;
+            _y = _z;
+            _z = _w;
+            return (int) (0x7FFFFFFF & (_w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8))));
         }
 
         // Buffer 32 bits in bitBuffer, return 1 at a time, keep track of how many have been returned
         // with bitMask.
-        uint _bitBuffer;
-        uint _bitMask;
+        private uint _bitBuffer;
+        private uint _bitMask;
 
         /// <summary>
         /// Generates a single random bit.
@@ -361,7 +388,9 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             {
                 // Generate 32 more bits.
                 uint t = _x ^ (_x << 11);
-                _x = _y; _y = _z; _z = _w;
+                _x = _y;
+                _y = _z;
+                _z = _w;
                 _bitBuffer = _w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8));
 
                 // Reset the bitMask that tells us which bit to read next.
@@ -375,8 +404,8 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
         // Buffer of random bytes. A single UInt32 is used to buffer 4 bytes.
         // _byteBufferState tracks how bytes remain in the buffer, a value of 
         // zero  indicates that the buffer is empty.
-        uint _byteBuffer;
-        byte _byteBufferState;
+        private uint _byteBuffer;
+        private byte _byteBufferState;
 
         /// <summary>
         /// Generates a signle random byte with range [0,255].
@@ -389,13 +418,15 @@ namespace VolumetricStudios.VoxeliqGame.Common.Helpers.Math
             {
                 // Generate 4 more bytes.
                 uint t = _x ^ (_x << 11);
-                _x = _y; _y = _z; _z = _w;
+                _x = _y;
+                _y = _z;
+                _z = _w;
                 _byteBuffer = _w = (_w ^ (_w >> 19)) ^ (t ^ (t >> 8));
                 _byteBufferState = 0x4;
-                return (byte)_byteBuffer;  // Note. Masking with 0xFF is unnecessary.
+                return (byte) _byteBuffer; // Note. Masking with 0xFF is unnecessary.
             }
             _byteBufferState >>= 1;
-            return (byte)(_byteBuffer >>= 1);
+            return (byte) (_byteBuffer >>= 1);
         }
 
         #endregion

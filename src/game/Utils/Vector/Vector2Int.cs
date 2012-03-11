@@ -18,7 +18,7 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 
         public override bool Equals(object obj)
         {
-            if (obj is Vector2Int) return this.Equals((Vector2Int)obj);
+            if (obj is Vector2Int) return this.Equals((Vector2Int) obj);
             else return false;
         }
 

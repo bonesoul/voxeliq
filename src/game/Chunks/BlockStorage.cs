@@ -10,7 +10,7 @@ using VolumetricStudios.VoxeliqGame.Common.Logging;
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
 
 namespace VolumetricStudios.VoxeliqGame.Chunks
-{    
+{
     /// <summary>
     /// Stores all blocks in viewable chunks in a single huge array.
     /// </summary>
@@ -34,19 +34,19 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Flatten offset to access flatten array.
         /// </summary>
-        public static readonly int FlattenOffset = CacheLenghtInBlocks * Chunk.HeightInBlocks;
+        public static readonly int FlattenOffset = CacheLenghtInBlocks*Chunk.HeightInBlocks;
 
         /// <summary>
         /// Logger.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        static BlockStorage() 
+        static BlockStorage()
         {
             Logger.Trace("init()");
 
             // init the block array.
-            Blocks = new Block[CacheWidthInBlocks * CacheLenghtInBlocks * Chunk.HeightInBlocks];
+            Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
         }
 
 
@@ -61,7 +61,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             var wrapX = x%CacheWidthInBlocks;
             var wrapZ = z%CacheLenghtInBlocks;
-            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks + y;
 
             return Blocks[flattenIndex];
         }
@@ -76,9 +76,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public static void SetByWorldPosition(int x, int y, int z, Block value)
         {
-            var wrapX = x % CacheWidthInBlocks;
-            var wrapZ = z % CacheLenghtInBlocks;
-            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            var wrapX = x%CacheWidthInBlocks;
+            var wrapZ = z%CacheLenghtInBlocks;
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks + y;
 
             Blocks[flattenIndex] = value;
         }
@@ -91,10 +91,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public static int BlockIndexByWorldPosition(int x, int z)
         {
-            var wrapX = x % CacheWidthInBlocks;
-            var wrapZ = z % CacheLenghtInBlocks;
+            var wrapX = x%CacheWidthInBlocks;
+            var wrapZ = z%CacheLenghtInBlocks;
 
-            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks;
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks;
             return flattenIndex;
         }
 
@@ -107,10 +107,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public static int BlockIndexByWorldPosition(int x, byte y, int z)
         {
-            var wrapX = x % CacheWidthInBlocks;
-            var wrapZ = z % CacheLenghtInBlocks;
+            var wrapX = x%CacheWidthInBlocks;
+            var wrapZ = z%CacheLenghtInBlocks;
 
-            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks + y;
             return flattenIndex;
         }
 
@@ -126,8 +126,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var xIndex = chunk.WorldPosition.X + x;
             var zIndex = chunk.WorldPosition.Z + z;
 
-            var wrapX = xIndex % CacheWidthInBlocks;
-            var wrapZ = zIndex % CacheLenghtInBlocks;
+            var wrapX = xIndex%CacheWidthInBlocks;
+            var wrapZ = zIndex%CacheLenghtInBlocks;
 
             var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks;
             return flattenIndex;
@@ -146,10 +146,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var xIndex = chunk.WorldPosition.X + x;
             var zIndex = chunk.WorldPosition.Z + z;
 
-            var wrapX = xIndex % CacheWidthInBlocks;
-            var wrapZ = zIndex % CacheLenghtInBlocks;
+            var wrapX = xIndex%CacheWidthInBlocks;
+            var wrapZ = zIndex%CacheLenghtInBlocks;
 
-            var flattenIndex = wrapX * FlattenOffset + wrapZ * Chunk.HeightInBlocks + y;
+            var flattenIndex = wrapX*FlattenOffset + wrapZ*Chunk.HeightInBlocks + y;
             return flattenIndex;
         }
     }

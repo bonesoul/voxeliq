@@ -22,10 +22,7 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         /// </summary>
         public RasterizerState State
         {
-            get
-            {
-                return !this.Wireframed ? NormalRaster : WireframedRaster;
-            }
+            get { return !this.Wireframed ? NormalRaster : WireframedRaster; }
         }
 
         /// <summary>
@@ -48,18 +45,18 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         /// Wire-framed rasterizer.
         /// </summary>
         private static readonly RasterizerState WireframedRaster = new RasterizerState()
-        {
-            CullMode = CullMode.CullCounterClockwiseFace,
-            FillMode = FillMode.WireFrame
-        };
+                                                                       {
+                                                                           CullMode = CullMode.CullCounterClockwiseFace,
+                                                                           FillMode = FillMode.WireFrame
+                                                                       };
 
         /// <summary>
         /// Normal rasterizer.
         /// </summary>
         private static readonly RasterizerState NormalRaster = new RasterizerState()
-        {
-            CullMode = CullMode.CullCounterClockwiseFace,
-            FillMode = FillMode.Solid
-        };
+                                                                   {
+                                                                       CullMode = CullMode.CullCounterClockwiseFace,
+                                                                       FillMode = FillMode.Solid
+                                                                   };
     }
 }

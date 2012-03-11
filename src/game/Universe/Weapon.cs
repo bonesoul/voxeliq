@@ -10,13 +10,23 @@ using VolumetricStudios.VoxeliqGame.Graphics;
 
 namespace VolumetricStudios.VoxeliqGame.Universe
 {
-    public class Weapon:DrawableGameComponent,IInGameDebuggable
+    public class Weapon : DrawableGameComponent, IInGameDebuggable
     {
-        public Weapon(Game game) : base(game) { }
+        public Weapon(Game game) : base(game)
+        {
+        }
 
-        public virtual void Use() { }
-        public virtual void SecondaryUse() { }
+        public virtual void Use()
+        {
+        }
 
-        public virtual void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont) { }
+        public virtual void SecondaryUse()
+        {
+        }
+
+        public virtual void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch,
+                                                  SpriteFont spriteFont)
+        {
+        }
     }
 }

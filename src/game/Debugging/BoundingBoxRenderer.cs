@@ -12,24 +12,25 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
     {
         #region Fields
 
-        static VertexPositionColor[] verts = new VertexPositionColor[8];
-        static int[] indices = new int[]
-        {
-            0, 1,
-            1, 2,
-            2, 3,
-            3, 0,
-            0, 4,
-            1, 5,
-            2, 6,
-            3, 7,
-            4, 5,
-            5, 6,
-            6, 7,
-            7, 4,
-        };
+        private static VertexPositionColor[] verts = new VertexPositionColor[8];
 
-        static BasicEffect effect;
+        private static int[] indices = new int[]
+                                           {
+                                               0, 1,
+                                               1, 2,
+                                               2, 3,
+                                               3, 0,
+                                               0, 4,
+                                               1, 5,
+                                               2, 6,
+                                               3, 7,
+                                               4, 5,
+                                               5, 6,
+                                               6, 7,
+                                               7, 4,
+                                           };
+
+        private static BasicEffect effect;
 
         #endregion
 
@@ -50,7 +51,8 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         {
             if (effect == null)
             {
-                effect = new BasicEffect(graphicsDevice) {TextureEnabled = false, VertexColorEnabled = true, LightingEnabled = false};
+                effect = new BasicEffect(graphicsDevice)
+                             {TextureEnabled = false, VertexColorEnabled = true, LightingEnabled = false};
             }
 
             Vector3[] corners = box.GetCorners();
@@ -67,7 +69,8 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             foreach (EffectPass pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, verts, 0, 8, indices, 0, indices.Length / 2);
+                graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, verts, 0, 8, indices, 0,
+                                                         indices.Length/2);
             }
         }
     }
