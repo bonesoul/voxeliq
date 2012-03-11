@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * Copyright (C) 2011-2012 voxeliq project 
+ *
+ */
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqGame.Graphics;
 
 namespace VolumetricStudios.VoxeliqGame.Debugging
 {
@@ -50,8 +50,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         {
             if (effect == null)
             {
-                effect = new BasicEffect(graphicsDevice)
-                             {TextureEnabled = false, VertexColorEnabled = true, LightingEnabled = false};
+                effect = new BasicEffect(graphicsDevice) {TextureEnabled = false, VertexColorEnabled = true, LightingEnabled = false};
             }
 
             Vector3[] corners = box.GetCorners();
@@ -68,18 +67,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             foreach (EffectPass pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
-
-                graphicsDevice.DrawUserIndexedPrimitives(
-                    PrimitiveType.LineList,
-                    verts,
-                    0,
-                    8,
-                    indices,
-                    0,
-                    indices.Length / 2);
-
-                
-
+                graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.LineList, verts, 0, 8, indices, 0, indices.Length / 2);
             }
         }
     }

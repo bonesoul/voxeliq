@@ -17,6 +17,6 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         public virtual void Use() { }
         public virtual void SecondaryUse() { }
 
-        public virtual void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont) { }
+        public virtual void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont) { }
     }
 }

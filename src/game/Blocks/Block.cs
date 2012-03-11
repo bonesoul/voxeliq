@@ -21,14 +21,24 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         public byte Sun;
 
         /// <summary>
-        /// Propated light's RGB.
+        /// Propated light's red component.
         /// </summary>
-        public byte R, G, B;
+        public byte R;
+
+        /// <summary>
+        /// Propated light's green component.
+        /// </summary>
+        public byte G;
+
+        /// <summary>
+        /// Propated light's blue component.
+        /// </summary>
+        public byte B;
         
         /// <summary>
         /// Creates a new block from given type.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">The block type.</param>
         public Block(BlockType type)
         {
             Type = type;
@@ -50,11 +60,6 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         public bool Exists
         {
             get { return Type != BlockType.None; }
-        }
-
-        public void SetType(BlockType type)
-        {
-            this.Type = type;
         }
 
         /// <summary>

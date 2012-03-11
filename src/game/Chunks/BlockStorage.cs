@@ -44,25 +44,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         static BlockStorage() 
         {
             Logger.Trace("init()");
-            InitStorage();
+
+            // init the block array.
+            Blocks = new Block[CacheWidthInBlocks * CacheLenghtInBlocks * Chunk.HeightInBlocks];
         }
 
-        private static void InitStorage()
-        {
-            Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
-
-            for (int x = 0; x < CacheWidthInBlocks; x++)
-            {
-                for (int z = 0; z < CacheLenghtInBlocks; z++)
-                {
-                    int offset = x * FlattenOffset + z * Chunk.HeightInBlocks;
-                    for (byte y = 0; y < Chunk.HeightInBlocks; y++)
-                    {
-                        Blocks[offset + y] = Block.Empty;
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Gets a block by given world position.

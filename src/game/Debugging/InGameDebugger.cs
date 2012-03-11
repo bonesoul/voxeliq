@@ -17,9 +17,19 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         void ToggleInGameDebugger();
     }
 
+    /// <summary>
+    /// Allows drawing ingame debugger visuals.
+    /// </summary>
     public interface IInGameDebuggable
     {
-        void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont);
+        /// <summary>
+        /// Draws an ingame debug visual for game component.
+        /// </summary>
+        /// <param name="graphicsDevice">The graphics device to draw.</param>
+        /// <param name="camera">The camera.</param>
+        /// <param name="spriteBatch">Sprite batch for fonts.</param>
+        /// <param name="spriteFont">Font used for drawing strings.</param>
+        void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont);
     }
 
     public sealed class InGameDebugger:DrawableGameComponent, IInGameDebuggerService
@@ -69,10 +79,10 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             foreach (Chunk chunk in this._chunkStorage.Values)
             {
                 if (!chunk.BoundingBox.Intersects(viewFrustrum)) continue;
-                chunk.PrintDebugInfo(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
+                chunk.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
             }
 
-            _player.Weapon.PrintDebugInfo(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
+            _player.Weapon.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
 
             _spriteBatch.End();
 

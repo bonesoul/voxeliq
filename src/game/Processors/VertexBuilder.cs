@@ -48,7 +48,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
             chunk.ChunkState = ChunkState.Building; // set chunk state to building.
 
-            if(chunk.HighestSolidBlockOffset < Chunk.MaxHeightInBlocks)
+            if(chunk.HighestSolidBlockOffset < Chunk.MaxHeightIndexInBlocks)
                 chunk.HighestSolidBlockOffset++;
 
             if(chunk.LowestEmptyBlockOffset > 0)

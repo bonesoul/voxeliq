@@ -38,7 +38,7 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                     int chunkIndex = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
                     bool inShade = false;
 
-                    for (byte y = Chunk.MaxHeightInBlocks; y > 0; y--)
+                    for (byte y = Chunk.MaxHeightIndexInBlocks; y > 0; y--)
                     {
                         //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
 
@@ -100,11 +100,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                                 byte light = Attenuate(BlockStorage.Blocks[chunkIndex + y].Sun);
 
                                 if (x > 0) PropagateSunLight(chunk, (byte)(x - 1), y, z, light);
-                                if (x < Chunk.MaxWidthInBlocks) PropagateSunLight(chunk, (byte)(x + 1), y, z, light);
+                                if (x < Chunk.MaxWidthIndexInBlocks) PropagateSunLight(chunk, (byte)(x + 1), y, z, light);
                                 if (y > 0) PropagateSunLight(chunk, x, (byte)(y - 1), z, light);
-                                if (y < Chunk.MaxHeightInBlocks) PropagateSunLight(chunk, x, (byte)(y + 1), z, light);
+                                if (y < Chunk.MaxHeightIndexInBlocks) PropagateSunLight(chunk, x, (byte)(y + 1), z, light);
                                 if (z > 0) PropagateSunLight(chunk, x, y, (byte)(z - 1), light);
-                                if (z < Chunk.MaxLenghtInBlocks) PropagateSunLight(chunk, x, y, (byte)(z + 1), light);
+                                if (z < Chunk.MaxLenghtIndexInBlocks) PropagateSunLight(chunk, x, y, (byte)(z + 1), light);
                             }
                         }
                     }
@@ -139,11 +139,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                         var light = (byte)((BlockStorage.Blocks[chunkIndex + y].R / 10) * 9);
 
                         if (x > 0) PropagateLightR(chunk, (byte) (x - 1), y, z, light);
-                        if (x < Chunk.MaxWidthInBlocks) PropagateLightR(chunk, (byte) (x + 1), y, z, light);
+                        if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightR(chunk, (byte) (x + 1), y, z, light);
                         if (y > 0) PropagateLightR(chunk, x, (byte) (y - 1), z, light);
-                        if (y < Chunk.MaxHeightInBlocks) PropagateLightR(chunk, x, (byte) (y + 1), z, light);
+                        if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightR(chunk, x, (byte) (y + 1), z, light);
                         if (z > 0) PropagateLightR(chunk, x, y, (byte) (z - 1), light);
-                        if (z < Chunk.MaxLenghtInBlocks) PropagateLightR(chunk, x, y, (byte) (z + 1), light);
+                        if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightR(chunk, x, y, (byte) (z + 1), light);
                     }
                 }
             }
@@ -172,11 +172,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                         var light = (byte)((BlockStorage.Blocks[chunkIndex + y].G / 10) * 9);
 
                         if (x > 0) PropagateLightG(chunk, (byte) (x - 1), y, z, light);
-                        if (x < Chunk.MaxWidthInBlocks) PropagateLightG(chunk, (byte) (x + 1), y, z, light);
+                        if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightG(chunk, (byte) (x + 1), y, z, light);
                         if (y > 0) PropagateLightG(chunk, x, (byte) (y - 1), z, light);
-                        if (y < Chunk.MaxHeightInBlocks) PropagateLightG(chunk, x, (byte) (y + 1), z, light);
+                        if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightG(chunk, x, (byte) (y + 1), z, light);
                         if (z > 0) PropagateLightG(chunk, x, y, (byte) (z - 1), light);
-                        if (z < Chunk.MaxLenghtInBlocks) PropagateLightG(chunk, x, y, (byte) (z + 1), light);
+                        if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightG(chunk, x, y, (byte) (z + 1), light);
                     }
                 }
             }
@@ -204,11 +204,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
                         var light = (byte)((BlockStorage.Blocks[chunkIndex + y].B / 10) * 9);
 
                         if (x > 0) PropagateLightB(chunk, (byte) (x - 1), y, z, light);
-                        if (x < Chunk.MaxWidthInBlocks) PropagateLightB(chunk, (byte) (x + 1), y, z, light);
+                        if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightB(chunk, (byte) (x + 1), y, z, light);
                         if (y > 0) PropagateLightB(chunk, x, (byte) (y - 1), z, light);
-                        if (y < Chunk.MaxHeightInBlocks) PropagateLightB(chunk, x, (byte) (y + 1), z, light);
+                        if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightB(chunk, x, (byte) (y + 1), z, light);
                         if (z > 0) PropagateLightB(chunk, x, y, (byte) (z - 1), light);
-                        if (z < Chunk.MaxLenghtInBlocks) PropagateLightB(chunk, x, y, (byte) (z + 1), light);
+                        if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightB(chunk, x, y, (byte) (z + 1), light);
                     }
                 }
             }
@@ -237,16 +237,16 @@ namespace VolumetricStudios.VoxeliqGame.Processors
 
                 // Propogate light within this chunk
                 if (x > 0) PropagateSunLight(chunk, (byte)(x - 1), y, z, light);
-                if (x < Chunk.MaxWidthInBlocks) PropagateSunLight(chunk, (byte)(x + 1), y, z, light);
+                if (x < Chunk.MaxWidthIndexInBlocks) PropagateSunLight(chunk, (byte)(x + 1), y, z, light);
                 if (y > 0) PropagateSunLight(chunk, x, (byte)(y - 1), z, light);
-                if (y < Chunk.MaxHeightInBlocks) PropagateSunLight(chunk, x, (byte)(y + 1), z, light);
+                if (y < Chunk.MaxHeightIndexInBlocks) PropagateSunLight(chunk, x, (byte)(y + 1), z, light);
                 if (z > 0) PropagateSunLight(chunk, x, y, (byte)(z - 1), light);
-                if (z < Chunk.MaxLenghtInBlocks) PropagateSunLight(chunk, x, y, (byte)(z + 1), light);
+                if (z < Chunk.MaxLenghtIndexInBlocks) PropagateSunLight(chunk, x, y, (byte)(z + 1), light);
 
-                if (chunk.East != null && x == 0) PropagateSunLight(chunk.East, (byte)(Chunk.MaxWidthInBlocks), y, z, light);
-                if (chunk.West != null && (x == Chunk.MaxWidthInBlocks)) PropagateSunLight(chunk.West, 0, y, z, light);
-                if (chunk.South != null && z == 0) PropagateSunLight(chunk.South, x, y, (byte)(Chunk.MaxLenghtInBlocks), light);
-                if (chunk.North != null && (z == Chunk.MaxLenghtInBlocks)) PropagateSunLight(chunk.North, x, y, 0, light);
+                if (chunk.East != null && x == 0) PropagateSunLight(chunk.East, (byte)(Chunk.MaxWidthIndexInBlocks), y, z, light);
+                if (chunk.West != null && (x == Chunk.MaxWidthIndexInBlocks)) PropagateSunLight(chunk.West, 0, y, z, light);
+                if (chunk.South != null && z == 0) PropagateSunLight(chunk.South, x, y, (byte)(Chunk.MaxLenghtIndexInBlocks), light);
+                if (chunk.North != null && (z == Chunk.MaxLenghtIndexInBlocks)) PropagateSunLight(chunk.North, x, y, 0, light);
 
             }
         }
@@ -268,11 +268,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             lightR = (byte) (lightR - 1);
 
             if (x > 0) PropagateLightR(chunk, (byte) (x - 1), y, z, lightR);
-            if (x < Chunk.MaxWidthInBlocks) PropagateLightR(chunk, (byte) (x + 1), y, z, lightR);
+            if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightR(chunk, (byte) (x + 1), y, z, lightR);
             if (y > 0) PropagateLightR(chunk, x, (byte) (y - 1), z, lightR);
-            if (y < Chunk.MaxHeightInBlocks) PropagateLightR(chunk, x, (byte) (y + 1), z, lightR);
+            if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightR(chunk, x, (byte) (y + 1), z, lightR);
             if (z > 0) PropagateLightR(chunk, x, y, (byte) (z - 1), lightR);
-            if (z < Chunk.MaxLenghtInBlocks) PropagateLightR(chunk, x, y, (byte) (z + 1), lightR);
+            if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightR(chunk, x, y, (byte) (z + 1), lightR);
         }
 
         private static void PropagateLightG(Chunk chunk, byte x, byte y, byte z, byte lightG)
@@ -292,11 +292,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             lightG = (byte) (lightG - 1);
 
             if (x > 0) PropagateLightG(chunk, (byte) (x - 1), y, z, lightG);
-            if (x < Chunk.MaxWidthInBlocks) PropagateLightG(chunk, (byte) (x + 1), y, z, lightG);
+            if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightG(chunk, (byte) (x + 1), y, z, lightG);
             if (y > 0) PropagateLightG(chunk, x, (byte) (y - 1), z, lightG);
-            if (y < Chunk.MaxHeightInBlocks) PropagateLightG(chunk, x, (byte) (y + 1), z, lightG);
+            if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightG(chunk, x, (byte) (y + 1), z, lightG);
             if (z > 0) PropagateLightG(chunk, x, y, (byte) (z - 1), lightG);
-            if (z < Chunk.MaxLenghtInBlocks) PropagateLightG(chunk, x, y, (byte) (z + 1), lightG);
+            if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightG(chunk, x, y, (byte) (z + 1), lightG);
         }
 
         private static void PropagateLightB(Chunk chunk, byte x, byte y, byte z, byte lightB)
@@ -317,11 +317,11 @@ namespace VolumetricStudios.VoxeliqGame.Processors
             lightB = (byte) (lightB - 1);
 
             if (x > 0) PropagateLightB(chunk, (byte) (x - 1), y, z, lightB);
-            if (x < Chunk.MaxWidthInBlocks) PropagateLightB(chunk, (byte) (x + 1), y, z, lightB);
+            if (x < Chunk.MaxWidthIndexInBlocks) PropagateLightB(chunk, (byte) (x + 1), y, z, lightB);
             if (y > 0) PropagateLightB(chunk, x, (byte) (y - 1), z, lightB);
-            if (y < Chunk.MaxHeightInBlocks) PropagateLightB(chunk, x, (byte) (y + 1), z, lightB);
+            if (y < Chunk.MaxHeightIndexInBlocks) PropagateLightB(chunk, x, (byte) (y + 1), z, lightB);
             if (z > 0) PropagateLightB(chunk, x, y, (byte) (z - 1), lightB);
-            if (z < Chunk.MaxLenghtInBlocks) PropagateLightB(chunk, x, y, (byte) (z + 1), lightB);
+            if (z < Chunk.MaxLenghtIndexInBlocks) PropagateLightB(chunk, x, y, (byte) (z + 1), lightB);
         }
     }
 }

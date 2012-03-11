@@ -20,15 +20,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     /// </summary>
     public sealed class Chunk : IInGameDebuggable
     {
-        public Chunk North { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; } }
-        public Chunk South { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; } }
-        public Chunk West { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; } }
-        public Chunk East { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; } }
-        public Chunk NorthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; } }
-        public Chunk NorthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; } }
-        public Chunk SouthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
-        public Chunk SouthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
-
         /// <summary>
         /// Maximum sun value.
         /// </summary>
@@ -38,19 +29,31 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// Chunk width in blocks.
         /// </summary>
         public static byte WidthInBlocks = 16;
-        public static byte MaxWidthInBlocks = 15;
+
+        /// <summary>
+        /// Maximum width index in blocks for chunk.
+        /// </summary>
+        public static byte MaxWidthIndexInBlocks = 15;
 
         /// <summary>
         /// Chunk lenght in blocks
         /// </summary>
         public static byte LenghtInBlocks = 16;
-        public static byte MaxLenghtInBlocks = 15;
+
+        /// <summary>
+        /// Maximum lenght index in blocks for chunk.
+        /// </summary>
+        public static byte MaxLenghtIndexInBlocks = 15;
 
         /// <summary>
         /// Chunk height in blocks.
         /// </summary>
         public static byte HeightInBlocks = 128;
-        public static byte MaxHeightInBlocks = 127;
+
+        /// <summary>
+        /// Maximum height index in blocks for chunk.
+        /// </summary>
+        public static byte MaxHeightIndexInBlocks = 127;
 
         /// <summary>
         /// Chunk volume in blocks.
@@ -77,8 +80,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public ChunkState ChunkState { get; set; }
 
-        public short Index;
-
         /// <summary>
         /// Highest solid blocks offset.
         /// </summary>
@@ -87,12 +88,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Lowest empty block offset.
         /// </summary>
-        public byte LowestEmptyBlockOffset =  (byte)HeightInBlocks;
-
-        /// <summary>
-        /// Is the region disposed already?
-        /// </summary>
-        public bool Disposed = false;
+        public byte LowestEmptyBlockOffset =  HeightInBlocks;
 
         /// <summary>
         /// Vertex buffer for chunk's blocks.
@@ -114,14 +110,38 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public List<short> IndexList;
 
+        /// <summary>
+        /// TODO: fix comment.
+        /// </summary>
+        public short Index;
+
+        /// <summary>
+        /// Is the region disposed already?
+        /// </summary>
+        public bool Disposed = false;
+
+        // TODO: remove these!
+        public Chunk North { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; } }
+        public Chunk South { get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; } }
+        public Chunk West { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; } }
+        public Chunk East { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; } }
+        public Chunk NorthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; } }
+        public Chunk NorthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; } }
+        public Chunk SouthWest { get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; } }
+        public Chunk SouthEast { get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; } }
+
+        /// <summary>
+        /// Creates a new chunk instance.
+        /// </summary>
+        /// <param name="relativePosition">The relative position of the chunk.</param>
         public Chunk(Vector2Int relativePosition)
         {
             this.ChunkState = ChunkState.AwaitingGenerate; // set initial state to awaiting generation.
+            this.RelativePosition = relativePosition; // set the relative position.
+            this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks); // calculate the real world position.
+            this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks)); // calculate bounding-box.
 
-            this.RelativePosition = relativePosition;
-            this.WorldPosition = new Vector2Int(this.RelativePosition.X * WidthInBlocks, this.RelativePosition.Z * LenghtInBlocks);
-            this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z), new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks, this.WorldPosition.Z + LenghtInBlocks));
-
+            // create vertex & index lists.
             this.VertexList = new List<BlockVertex>();
             this.IndexList = new List<short>();
         }
@@ -146,7 +166,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                         this.LowestEmptyBlockOffset = (byte) (y - 1);
                     break;
                 case true:
-                    if (y > this.HighestSolidBlockOffset && y < MaxHeightInBlocks)
+                    if (y > this.HighestSolidBlockOffset && y < MaxHeightIndexInBlocks)
                         this.HighestSolidBlockOffset = (byte) (y + 1);
                     break;
             }
@@ -155,23 +175,27 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 
-        public void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
+        public override string ToString()
+        {
+            return RelativePosition.ToString();
+        }
+
+        #region ingame debugger
+
+        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
 
             var projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
-                                                            Matrix.CreateTranslation( new Vector3(WorldPosition.X + WidthInBlocks/2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks/2)));
+                                                            Matrix.CreateTranslation(new Vector3(WorldPosition.X + WidthInBlocks / 2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks / 2)));
 
-            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.Yellow);
+            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X / 2, projected.Y - positionSize.Y / 2), Color.Yellow);
 
-            BoundingBoxRenderer.Render(this.BoundingBox , graphicsDevice, camera.View,camera.Projection, Color.DarkRed);
+            BoundingBoxRenderer.Render(this.BoundingBox, graphicsDevice, camera.View, camera.Projection, Color.DarkRed);
         }
 
-        public override string ToString()
-        {
-            return RelativePosition.ToString();
-        }
+        #endregion
 
         #region de-ctor
 

@@ -24,7 +24,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
-            for (int y = Chunk.MaxHeightInBlocks; y >= 0; y--)
+            for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
                 BlockType blockType;
 

@@ -44,7 +44,7 @@ namespace VolumetricStudios.VoxeliqGame
             this._chunkCache.SetBlock(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
         }
 
-        public override void PrintDebugInfo(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
+        public override void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             if (!_player.AimedSolidBlock.HasValue) return;
             var text = _player.AimedSolidBlock.Value.Position + " Sun: " + _player.AimedSolidBlock.Value.Block.Sun;
