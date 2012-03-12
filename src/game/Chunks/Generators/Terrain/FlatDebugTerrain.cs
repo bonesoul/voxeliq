@@ -1,12 +1,11 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
 using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.
@@ -24,9 +23,7 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
 
                     for (int y = 0; y < height; y++)
                     {
-                        BlockStorage.Blocks[offset + y] = y == height - 1
-                                                              ? new Block(BlockType.Grass)
-                                                              : new Block(BlockType.Dirt);
+                        BlockStorage.Blocks[offset + y] = y == height - 1 ? new Block(BlockType.Grass) : new Block(BlockType.Dirt);
                     }
                 }
             }

@@ -1,9 +1,13 @@
-﻿using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Generators.Biomes;
+﻿/*
+ * Copyright (C) 2011-2012 Volumetric Studios
+ *
+ */
+
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
-namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     /// <summary>
     /// Biomed terrain generators.
@@ -47,7 +51,6 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
             this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
             this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
 
-            //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
             for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
@@ -71,7 +74,6 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
                         break;
                 }
 
-                //chunk.Blocks[offset + y] = new Block(blockType);
                 BlockStorage.Blocks[offset + y] = new Block(blockType);
             }
         }

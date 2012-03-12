@@ -1,13 +1,11 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
-using System;
 using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
 {
     /// <summary>
     /// Rain forest generator.
@@ -20,18 +18,14 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Biomes
             {
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
                     for (byte y = chunk.HighestSolidBlockOffset; y >= 0; y--)
-                    {
-                        //if (!chunk.Blocks[offset + y - 1].Exists);                       
+                    {                    
                         if (!BlockStorage.Blocks[offset + y - 1].Exists)
                             continue;
 
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;
-
-                        //chunk.Blocks[offset+y].Type = BlockType.Grass;                        
+                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;                      
 
                         break;
                     }

@@ -1,20 +1,18 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
-namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     public class MountainousTerrain : BasicTerrain
     {
         public MountainousTerrain(BiomeGenerator biomeGenerator)
             : base(biomeGenerator)
-        {
-        }
+        { }
 
         protected override float GetRockHeight(int blockX, int blockZ)
         {

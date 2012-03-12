@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
@@ -50,17 +50,17 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         private RenderTarget2D _cloudsRenderTarget; // render target for clouds.
         private VertexPositionTexture[] _fullScreenVertices; // vertices.
 
-        protected Vector3 SUNCOLOR = Color.White.ToVector3();
+        protected Vector3 SunColor = Color.White.ToVector3();
 
-        protected Vector4 OVERHEADSUNCOLOR = Color.DarkBlue.ToVector4();
-        protected Vector4 NIGHTCOLOR = Color.Black.ToVector4();
-        protected Vector4 HORIZONCOLOR = Color.White.ToVector4();
-        protected Vector4 EVENINGTINT = Color.Red.ToVector4();
-        protected Vector4 MORNINGTINT = Color.Gold.ToVector4();
-        protected float CLOUDOVERCAST = 1.0f;
+        protected Vector4 OverheadSunColor = Color.DarkBlue.ToVector4();
+        protected Vector4 NightColor = Color.Black.ToVector4();
+        protected Vector4 HorizonColor = Color.White.ToVector4();
+        protected Vector4 EveningTint = Color.Red.ToVector4();
+        protected Vector4 MorningTint = Color.Gold.ToVector4();
+        protected float CloudOvercast = 1.0f;
 
-        protected float rotationClouds;
-        protected float rotationStars;
+        protected float RotationClouds;
+        protected float RotationStars;
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
@@ -100,10 +100,9 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             // for gpu generated clouds.
             this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
             var presentationParameters = GraphicsDevice.PresentationParameters;
-            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth,
-                                                          presentationParameters.BackBufferHeight, false,
-                                                          SurfaceFormat.Color, DepthFormat.None);
-                // the mipmap does not work on all configurations            
+
+            this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth,presentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            
+
             this._staticCloudMap = this.CreateStaticCloudMap(32);
             this._fullScreenVertices = SetUpFullscreenVertices();
         }
@@ -124,21 +123,17 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         {
             //this.GraphicsDevice.Clear(Color.WhiteSmoke);
             this.GraphicsDevice.Clear(Color.Black);
-            Game.GraphicsDevice.DepthStencilState = DepthStencilState.None;
-                // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
+
+            Game.GraphicsDevice.DepthStencilState = DepthStencilState.None; // disable the depth-buffer for drawing the sky because it's the farthest object we'll be drawing.
 
             var modelTransforms = new Matrix[this._skyDome.Bones.Count]; // transform dome's bones.
             this._skyDome.CopyAbsoluteBoneTransformsTo(modelTransforms);
 
-            rotationStars += 0.0001f;
-            rotationClouds = 0;
+            RotationStars += 0.0001f;
+            RotationClouds = 0;
 
             // draw stars
-            Matrix wStarMatrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)*
-                                 Matrix.CreateTranslation(new Vector3(this._camera.Position.X,
-                                                                      this._camera.Position.Y - 40,
-                                                                      this._camera.Position.Z));
-                // move sky to camera position and should be scaled -- bigger than the world.
+            Matrix wStarMatrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)* Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
             foreach (ModelMesh mesh in _skyDome.Meshes)
             {
                 foreach (Effect currentEffect in mesh.Effects)
@@ -151,22 +146,19 @@ namespace VolumetricStudios.VoxeliqGame.Universe
                     currentEffect.Parameters["xView"].SetValue(_camera.View);
                     currentEffect.Parameters["xProjection"].SetValue(_camera.Projection);
                     currentEffect.Parameters["xTexture"].SetValue(this._starMap);
-                    currentEffect.Parameters["NightColor"].SetValue(NIGHTCOLOR);
-                    currentEffect.Parameters["SunColor"].SetValue(OVERHEADSUNCOLOR);
-                    currentEffect.Parameters["HorizonColor"].SetValue(HORIZONCOLOR);
+                    currentEffect.Parameters["NightColor"].SetValue(NightColor);
+                    currentEffect.Parameters["SunColor"].SetValue(OverheadSunColor);
+                    currentEffect.Parameters["HorizonColor"].SetValue(HorizonColor);
 
-                    currentEffect.Parameters["MorningTint"].SetValue(MORNINGTINT);
-                    currentEffect.Parameters["EveningTint"].SetValue(EVENINGTINT);
+                    currentEffect.Parameters["MorningTint"].SetValue(MorningTint);
+                    currentEffect.Parameters["EveningTint"].SetValue(EveningTint);
                     currentEffect.Parameters["timeOfDay"].SetValue(Time.GetGameTimeOfDay());
                 }
                 mesh.Draw();
             }
 
             // draw clouds
-            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)*
-                         Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40,
-                                                              this._camera.Position.Z));
-                // move sky to camera position and should be scaled -- bigger than the world.
+            var matrix = Matrix.CreateTranslation(Vector3.Zero)*Matrix.CreateScale(100)* Matrix.CreateTranslation(new Vector3(this._camera.Position.X, this._camera.Position.Y - 40, this._camera.Position.Z)); // move sky to camera position and should be scaled -- bigger than the world.
             foreach (var mesh in _skyDome.Meshes)
             {
                 foreach (var currentEffect in mesh.Effects)
@@ -177,11 +169,11 @@ namespace VolumetricStudios.VoxeliqGame.Universe
                     currentEffect.Parameters["xView"].SetValue(_camera.View);
                     currentEffect.Parameters["xProjection"].SetValue(_camera.Projection);
                     currentEffect.Parameters["xTexture"].SetValue(this._cloudMap);
-                    currentEffect.Parameters["NightColor"].SetValue(NIGHTCOLOR);
-                    currentEffect.Parameters["SunColor"].SetValue(OVERHEADSUNCOLOR);
-                    currentEffect.Parameters["HorizonColor"].SetValue(HORIZONCOLOR);
-                    currentEffect.Parameters["MorningTint"].SetValue(MORNINGTINT);
-                    currentEffect.Parameters["EveningTint"].SetValue(EVENINGTINT);
+                    currentEffect.Parameters["NightColor"].SetValue(NightColor);
+                    currentEffect.Parameters["SunColor"].SetValue(OverheadSunColor);
+                    currentEffect.Parameters["HorizonColor"].SetValue(HorizonColor);
+                    currentEffect.Parameters["MorningTint"].SetValue(MorningTint);
+                    currentEffect.Parameters["EveningTint"].SetValue(EveningTint);
                     currentEffect.Parameters["timeOfDay"].SetValue(Time.GetGameTimeOfDay());
                 }
                 mesh.Draw();
@@ -229,7 +221,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
             _perlinNoiseEffect.CurrentTechnique = _perlinNoiseEffect.Techniques["PerlinNoise"];
             _perlinNoiseEffect.Parameters["xTexture"].SetValue(this._staticCloudMap);
-            _perlinNoiseEffect.Parameters["xOvercast"].SetValue(CLOUDOVERCAST);
+            _perlinNoiseEffect.Parameters["xOvercast"].SetValue(CloudOvercast);
             _perlinNoiseEffect.Parameters["xTime"].SetValue((float) gameTime.TotalGameTime.TotalMilliseconds/100000.0f);
 
             foreach (EffectPass pass in _perlinNoiseEffect.CurrentTechnique.Passes)

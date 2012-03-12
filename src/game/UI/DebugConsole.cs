@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2011-2012 Volumetric Studios
+ *
+ */
+
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
@@ -7,7 +12,6 @@ using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Consoles;
 using DigitalRune.Game.UI.Controls;
 using DigitalRune.Game.UI.Rendering;
-using DigitalRune.Mathematics.Algebra;
 using DigitalRune.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;

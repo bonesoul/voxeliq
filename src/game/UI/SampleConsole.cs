@@ -1,4 +1,9 @@
-﻿using DigitalRune.Game.UI;
+﻿/*
+ * Copyright (C) 2011-2012 Volumetric Studios
+ *
+ */
+
+using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Consoles;
 using DigitalRune.Game.UI.Controls;
 

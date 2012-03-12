@@ -1,16 +1,20 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2011-2012 Volumetric Studios
+ *
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain;
+using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
-using VolumetricStudios.VoxeliqGame.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
@@ -40,8 +44,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="z"></param>
         /// <returns></returns>
         Chunk GetChunk(int x, int z);
-
-        Dictionary<ChunkState, int> StateStatistics { get; }
 
         /// <summary>
         /// Sets a block in given x-y-z coordinate.
@@ -80,9 +82,21 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         int ChunksDrawn { get; }
 
+        /// <summary>
+        /// Returns true if given chunk is in view range.
+        /// </summary>
+        /// <param name="chunk"></param>
+        /// <returns></returns>
         bool IsChunkInViewRange(Chunk chunk);
 
+        /// <summary>
+        /// Returns true if given chunk is in cache range.
+        /// </summary>
+        /// <param name="chunk"></param>
+        /// <returns></returns>
         bool IsChunkInCacheRange(Chunk chunk);
+
+        Dictionary<ChunkState, int> StateStatistics { get; }
     }
 
     /// <summary>
@@ -95,6 +109,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public const byte ViewRange = 5;
 
+        /// <summary>
+        /// Bounding box for view range.
+        /// </summary>
         public BoundingBox ViewRangeBoundingBox { get; set; }
 
         /// <summary>
@@ -102,6 +119,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public const byte CacheRange = 5;
 
+        /// <summary>
+        /// Bounding box for cache range.
+        /// </summary>
         public BoundingBox CacheRangeBoundingBox { get; set; }
 
         /// <summary>
@@ -117,15 +137,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         // assets & resources
         private Effect _blockEffect; // block effect.
         private Texture2D _blockTextureAtlas; // block texture atlas
-        private Texture2D _crackTextureAtlas; // crack texture atlas
+        private Texture2D _crackTextureAtlas; // crack texture atlas // TODO: implement crack textures!
 
-        public BoundingBox BoundingBox { get; set; } // Bounding box for the cache.
-
-        // required services.
-        private IChunkStorage _chunkStorage;
-        private ICamera _camera;
-        private IPlayer _player;
-        private IFogger _fogger;
+        /// <summary>
+        /// Bounding box for chunk cache.
+        /// </summary>
+        public BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         /// The terrain generator.
@@ -135,8 +152,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// The chunk vertex builder.
         /// </summary>
-        protected IVertexBuilder VertexBuilder { get; set; }
+        protected IVertexBuilder VertexBuilder { get; set; }        
 
+        // required services.
+        private IChunkStorage _chunkStorage;
+        private ICamera _camera;
+        private IPlayer _player;
+        private IFogger _fogger;
 
         public bool CacheThreadStarted { get; private set; }
 
@@ -291,26 +313,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             {
                 for (int x = -CacheRange; x <= CacheRange; x++)
                 {
-                    if (this._chunkStorage.ContainsKey(this._player.CurrentChunk.RelativePosition.X + x,
-                                                       this._player.CurrentChunk.RelativePosition.Z + z))
+                    if (this._chunkStorage.ContainsKey(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z))
                         continue;
 
-                    var chunk =
-                        new Chunk(new Vector2Int(this._player.CurrentChunk.RelativePosition.X + x,
-                                                 this._player.CurrentChunk.RelativePosition.Z + z));
+                    var chunk = new Chunk(new Vector2Int(this._player.CurrentChunk.RelativePosition.X + x, this._player.CurrentChunk.RelativePosition.Z + z));
                     this._chunkStorage[chunk.RelativePosition.X, chunk.RelativePosition.Z] = chunk;
                 }
             }
 
-            var southWestEdge =
-                new Vector2Int(this._player.CurrentChunk.RelativePosition.X - Chunks.ChunkCache.ViewRange,
-                               this._player.CurrentChunk.RelativePosition.Z - Chunks.ChunkCache.ViewRange);
-            var northEastEdge =
-                new Vector2Int(this._player.CurrentChunk.RelativePosition.X + Chunks.ChunkCache.ViewRange,
-                               this._player.CurrentChunk.RelativePosition.Z + Chunks.ChunkCache.ViewRange);
+            var southWestEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X - ViewRange, this._player.CurrentChunk.RelativePosition.Z - ViewRange);
+            var northEastEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X + ViewRange, this._player.CurrentChunk.RelativePosition.Z + ViewRange);
 
-            this.BoundingBox =
-                new BoundingBox(
+            this.BoundingBox = new BoundingBox(
                     new Vector3(southWestEdge.X*Chunk.WidthInBlocks, 0, southWestEdge.Z*Chunk.LenghtInBlocks),
                     new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
                                 (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
@@ -369,16 +383,20 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             _blockEffect.Parameters["View"].SetValue(this._camera.View);
             _blockEffect.Parameters["Projection"].SetValue(this._camera.Projection);
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
+
             // texture parameters
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+
             // atmospheric settings
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);
             _blockEffect.Parameters["NightColor"].SetValue(World.NightColor);
             _blockEffect.Parameters["HorizonColor"].SetValue(World.HorizonColor);
             _blockEffect.Parameters["MorningTint"].SetValue(World.MorningTint);
             _blockEffect.Parameters["EveningTint"].SetValue(World.EveningTint);
+
             // time of day parameters
             _blockEffect.Parameters["TimeOfDay"].SetValue(Time.GetGameTimeOfDay());
+
             // fog parameters
             _blockEffect.Parameters["FogNear"].SetValue(this._fogger.FogVector.X);
             _blockEffect.Parameters["FogFar"].SetValue(this._fogger.FogVector.Y);
@@ -403,17 +421,15 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     if (chunk.IndexBuffer == null || chunk.VertexBuffer == null)
                         continue;
 
-                    //if (!chunk.Generated || !chunk.BoundingBox.Intersects(viewFrustrum) || chunk.IndexBuffer == null) continue;
+                    if (chunk.VertexBuffer.VertexCount == 0)
+                        continue;
 
-                    //lock (chunk)
-                    //{
-                    if (chunk.IndexBuffer.IndexCount == 0) continue;
+                    if (chunk.IndexBuffer.IndexCount == 0)
+                        continue;
+
                     Game.GraphicsDevice.SetVertexBuffer(chunk.VertexBuffer);
                     Game.GraphicsDevice.Indices = chunk.IndexBuffer;
-                    Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0,
-                                                              chunk.VertexBuffer.VertexCount, 0,
-                                                              chunk.IndexBuffer.IndexCount/3);
-                    //}
+                    Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.VertexBuffer.VertexCount, 0, chunk.IndexBuffer.IndexCount/3);
 
                     this.ChunksDrawn++;
                 }
@@ -423,9 +439,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         // Returns the chunk in given x-z position.
         public Chunk GetChunk(int x, int z)
         {
-            return !this._chunkStorage.ContainsKey(x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks)
-                       ? null
-                       : this._chunkStorage[x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks];
+            return !this._chunkStorage.ContainsKey(x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks) ? null : this._chunkStorage[x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks];
         }
 
         // Sets a block in given x-y-z coordinate.
@@ -453,11 +467,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             if (!IsInBounds(x, y, z)) return Block.Empty;
 
             return BlockStorage.GetByWorldPosition(x, y, z);
-
-            //if (!this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks))
-            //    return Block.Empty;
-
-            //return this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LenghtInBlocks].BlockAt(x % Chunk.WidthInBlocks, y, z % Chunk.LenghtInBlocks);
         }
 
         // returns true if given coordinate is in bounds.

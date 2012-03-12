@@ -1,11 +1,9 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Chunks;
-
-namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     public class TerrainGenerator
     {
@@ -34,7 +32,6 @@ namespace VolumetricStudios.VoxeliqGame.Generators.Terrain
         }
 
         protected virtual void GenerateChunk(Chunk chunk)
-        {
-        }
+        { }
     }
 }

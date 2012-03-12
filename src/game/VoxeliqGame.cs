@@ -1,20 +1,19 @@
 /*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
-using System;
 using System.Reflection;
 using DigitalRune.Game.Input;
 using DigitalRune.Game.UI;
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Managers;
-using VolumetricStudios.VoxeliqGame.Processors;
 using VolumetricStudios.VoxeliqGame.UI;
 using VolumetricStudios.VoxeliqGame.Universe;
 using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;

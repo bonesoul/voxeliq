@@ -24,7 +24,6 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
     public class Fogger : GameComponent, IFogger
     {
-        // properties
         public FogState State { get; private set; }
 
         public Vector2 FogVector
@@ -34,15 +33,11 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
         // fog vectors.
         private readonly Vector2[] _fogVectors = new[]
-                                                     {
-                                                         new Vector2(0, 0), // none
-                                                         new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange/2 - 1),
-                                                                     Chunk.WidthInBlocks*(ChunkCache.ViewRange)),
-                                                         // near
-                                                         new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange*1 - 2),
-                                                                     Chunk.WidthInBlocks*(ChunkCache.ViewRange*1))
-                                                         // far
-                                                     };
+        {
+            new Vector2(0, 0), // none
+            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange/2 - 1), Chunk.WidthInBlocks*(ChunkCache.ViewRange)), // near
+            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange*1 - 2),Chunk.WidthInBlocks*(ChunkCache.ViewRange*1)) // far
+        };
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
 

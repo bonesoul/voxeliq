@@ -1,12 +1,11 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
 using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Processors
+namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 {
     /// <summary>
     /// TODO: client stuff.

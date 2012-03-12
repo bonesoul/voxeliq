@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
@@ -15,13 +15,11 @@ namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
     {
         private const int DefaultBufferSize = 500;
 
-        private BasicEffect _basicEffect;
-                            // a basic effect, which contains the shaders that we will use to draw our primitives.        
+        private BasicEffect _basicEffect; // a basic effect, which contains the shaders that we will use to draw our primitives.        
 
         private GraphicsDevice _device; // the device that we will issue draw calls to.        
 
-        private bool _hasBegun;
-                     // hasBegun is flipped to true once Begin is called, and is used to make sure users don't call End before Begin is called.
+        private bool _hasBegun; // hasBegun is flipped to true once Begin is called, and is used to make sure users don't call End before Begin is called.
 
         private VertexPositionColor[] _lineVertices;
         private VertexPositionColor[] _triangleVertices;
@@ -69,8 +67,7 @@ namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
             _basicEffect.View = view;
             _basicEffect.CurrentTechnique.Passes[0].Apply();
 
-            // flip the error checking boolean. It's now ok to call AddVertex, Flush,
-            // and End.
+            // flip the error checking boolean. It's now ok to call AddVertex, Flush and End.
             _hasBegun = true;
         }
 

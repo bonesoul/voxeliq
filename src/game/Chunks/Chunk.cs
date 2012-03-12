@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (C) 2011-2012 voxeliq project 
+ * Copyright (C) 2011-2012 Volumetric Studios
  *
  */
 
@@ -169,31 +169,54 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             this.ChunkState = ChunkState.AwaitingGenerate; // set initial state to awaiting generation.
             this.RelativePosition = relativePosition; // set the relative position.
+
+            // calculate the real world position.
             this.WorldPosition = new Vector2Int(this.RelativePosition.X*WidthInBlocks,
                                                 this.RelativePosition.Z*LenghtInBlocks);
-                // calculate the real world position.
+
+            // calculate bounding-box.
             this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z),
                                                new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks,
                                                            this.WorldPosition.Z + LenghtInBlocks));
-                // calculate bounding-box.
 
             // create vertex & index lists.
             this.VertexList = new List<BlockVertex>();
             this.IndexList = new List<short>();
         }
 
+        /// <summary>
+        /// Returns if given coordinates are in chunk's bounds.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
         public bool IsInBounds(float x, float z)
         {
             if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
                 z >= this.BoundingBox.Max.Z) return false;
+
             return true;
         }
 
+        /// <summary>
+        /// Returns the block at given wolrd coordinate.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
         public Block BlockAt(int x, int y, int z)
         {
             return BlockStorage.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
+        /// <summary>
+        /// Sets block at given relative position.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="block"></param>
         public void SetBlock(byte x, byte y, byte z, Block block)
         {
             switch (block.Exists)
@@ -226,14 +249,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var positionSize = spriteFont.MeasureString(position);
 
             var projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
-                                                            Matrix.CreateTranslation(
-                                                                new Vector3(WorldPosition.X + WidthInBlocks/2,
-                                                                            HighestSolidBlockOffset - 1,
-                                                                            WorldPosition.Z + LenghtInBlocks/2)));
+                                                            Matrix.CreateTranslation(new Vector3(WorldPosition.X + WidthInBlocks/2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks/2)));
 
-            spriteBatch.DrawString(spriteFont, position,
-                                   new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2),
-                                   Color.Yellow);
+            spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.Yellow);
 
             BoundingBoxRenderer.Render(this.BoundingBox, graphicsDevice, camera.View, camera.Projection, Color.DarkRed);
         }
