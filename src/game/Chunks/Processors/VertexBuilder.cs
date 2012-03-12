@@ -80,15 +80,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             {
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
-                    //int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
-                    int chunkIndex = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
+                    int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
                     for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
                     {
-                        //Block block = chunk.Blocks[offset + y];
-
-                        //var blockIndex = BlockCache.GetBlockIndex(chunk, (byte)x, (byte)y, (byte)z);
-                        var block = BlockStorage.Blocks[chunkIndex + y];
+                        var block = BlockStorage.Blocks[offset + y];
 
                         if (block.Type == BlockType.None)
                             continue;
@@ -106,12 +102,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             {
                 if (vertices.Length == 0 || indices.Length == 0) return;
 
-                chunk.VertexBuffer = new VertexBuffer(this.Game.GraphicsDevice, typeof (BlockVertex), vertices.Length,
-                                                      BufferUsage.WriteOnly);
+                chunk.VertexBuffer = new VertexBuffer(this.Game.GraphicsDevice, typeof (BlockVertex), vertices.Length, BufferUsage.WriteOnly);
                 chunk.VertexBuffer.SetData(vertices);
 
-                chunk.IndexBuffer = new IndexBuffer(this.Game.GraphicsDevice, IndexElementSize.SixteenBits,
-                                                    indices.Length, BufferUsage.WriteOnly);
+                chunk.IndexBuffer = new IndexBuffer(this.Game.GraphicsDevice, IndexElementSize.SixteenBits, indices.Length, BufferUsage.WriteOnly);
                 chunk.IndexBuffer.SetData(indices);
             }
         }
@@ -162,6 +156,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             localTL = Color.Yellow;
             localBR = Color.Green;
             localBL = Color.Blue;
+
             // XDecreasing
             if (!blockMidW.Exists && !(block.Type == BlockType.Water && blockMidW.Type == BlockType.Water))
             {
