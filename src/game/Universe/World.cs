@@ -115,10 +115,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
             this._chunkCache.BoundingBox =
                 new BoundingBox(
-                    new Vector3(this.Chunks.SouthWestEdge.X*Chunk.WidthInBlocks, 0,
-                                this.Chunks.SouthWestEdge.Z*Chunk.LenghtInBlocks),
-                    new Vector3((this.Chunks.NorthEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
-                                (this.Chunks.NorthEastEdge.Z + 1)*Chunk.LenghtInBlocks));
+                    new Vector3(this.Chunks.SouthWestEdge.X*Chunk.WidthInBlocks, 0, this.Chunks.SouthWestEdge.Z*Chunk.LenghtInBlocks),
+                    new Vector3((this.Chunks.NorthEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.Chunks.NorthEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
     }
 }

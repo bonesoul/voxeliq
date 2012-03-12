@@ -144,6 +144,8 @@
     <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
+    <Compile Include="Effects\PostProcess\Bloom\BloomComponent.cs" />
+    <Compile Include="Effects\PostProcess\Bloom\BloomSettings.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
@@ -249,6 +251,7 @@
     </None>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "..\src\game\Game.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqClient", "..\src\game\VoxeliqClient.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E87B98FA-35CF-4A48-904A-0CB1A87A6D5D} = {E87B98FA-35CF-4A48-904A-0CB1A87A6D5D}
 	EndProjectSection
