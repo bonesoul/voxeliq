@@ -200,7 +200,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
-            this.Generator = new FlatDebugTerrain();
+            this.Generator = new MountainousTerrain(new RainForest());
 
             base.Initialize();
         }

@@ -4,6 +4,7 @@
  */
 
 using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Utilities;
 using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
@@ -24,6 +25,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             float octave3 = PerlinSimplexNoise.noise(blockX*0.005f, blockZ*0.005f)*0.12f;
             float octave4 = PerlinSimplexNoise.noise(blockX*0.01f, blockZ*0.01f)*0.12f;
             float octave5 = PerlinSimplexNoise.noise(blockX*0.03f, blockZ*0.03f)*octave4;
+
             float lowerGroundHeight = octave1 + octave2 + octave3 + octave4 + octave5;
 
             lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;

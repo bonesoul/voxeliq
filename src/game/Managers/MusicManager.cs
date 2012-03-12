@@ -19,7 +19,7 @@ namespace VolumetricStudios.VoxeliqGame.Managers
         {
             var music = Game.Content.Load<Song>(@"audio\music\funandrun");
             MediaPlayer.IsRepeating = true;
-            MediaPlayer.Play(music);
+            //MediaPlayer.Play(music);
         }
     }
 }

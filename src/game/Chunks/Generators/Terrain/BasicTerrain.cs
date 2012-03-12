@@ -45,8 +45,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                 this.BiomeGenerator.ApplyBiome(chunk);
         }
 
-        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ,
-                                               int seededWorldPositionX)
+        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
         {
             this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
             this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
