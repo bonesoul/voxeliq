@@ -35,8 +35,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
         private readonly Vector2[] _fogVectors = new[]
         {
             new Vector2(0, 0), // none
-            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange/2 - 1), Chunk.WidthInBlocks*(ChunkCache.ViewRange)), // near
-            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange*1 - 2),Chunk.WidthInBlocks*(ChunkCache.ViewRange*1)) // far
+            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange - 7), Chunk.WidthInBlocks*(ChunkCache.ViewRange)), // near
+            new Vector2(Chunk.WidthInBlocks*(ChunkCache.ViewRange - 2),Chunk.WidthInBlocks*(ChunkCache.ViewRange)) // far
         };
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility

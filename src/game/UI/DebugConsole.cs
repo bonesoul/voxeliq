@@ -120,31 +120,21 @@ namespace VolumetricStudios.VoxeliqGame.UI
                                                                                     this._statistics.GetMemoryUsed())));
 
                 this._inGameConsole.Interpreter.Commands.Add(new ConsoleCommand("debugkeys", "Prints list of debug keys",
-                                                                                callback =>
-                                                                                    {
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "Debug keys:");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "-----------------------------");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F1: Infinitive-world: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F2: Fly-mode: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F3: Fog-mode: None/Near/Far.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F4: Dynamic Clouds: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F5: Capture Mouse: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F9: Debug Graphs: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F10: In-game Debugger: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F11: Frame-limiter: On/Off.");
-                                                                                        this._inGameConsole.WriteLine(
-                                                                                            "F12: Wireframe mode: On/Off.");
-                                                                                    }));
+                callback =>
+                    {
+                        this._inGameConsole.WriteLine("Debug keys:");
+                        this._inGameConsole.WriteLine("-----------------------------");
+                        this._inGameConsole.WriteLine("F1: Infinitive-world: On/Off.");
+                        this._inGameConsole.WriteLine("F2: Fly-mode: On/Off.");
+                        this._inGameConsole.WriteLine("F3: Fog-mode: None/Near/Far.");
+                        this._inGameConsole.WriteLine("F4: Dynamic Clouds: On/Off.");
+                        this._inGameConsole.WriteLine("F5: Capture Mouse: On/Off.");
+                        this._inGameConsole.WriteLine("F8: Bloom: On/Off.");
+                        this._inGameConsole.WriteLine("F9: Debug Graphs: On/Off.");
+                        this._inGameConsole.WriteLine("F10: In-game Debugger: On/Off.");
+                        this._inGameConsole.WriteLine("F11: Frame-limiter: On/Off.");
+                        this._inGameConsole.WriteLine("F12: Wireframe mode: On/Off.");
+                    }));
 
 
                 // Add the screen to the UI service. We must lock the collection because the UI service
@@ -182,8 +172,7 @@ namespace VolumetricStudios.VoxeliqGame.UI
         {
             if (_loadUITask.IsComplete)
             {
-                if (!_inputService.IsKeyboardHandled && (_inputService.IsPressed(Keys.Tab, false)
-                                                         || _inputService.IsPressed(Keys.F8, false)))
+                if (!_inputService.IsKeyboardHandled && (_inputService.IsPressed(Keys.Tab, false)))
                 {
                     _inputService.IsKeyboardHandled = true;
 

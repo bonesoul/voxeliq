@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 
@@ -52,6 +53,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
         private ISkyService _skyService;
         private IStatisticsGraphs _statisticsGraphs;
         private IChunkCache _chunkCache;
+        private IBloomService _bloomService;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -79,14 +81,13 @@ namespace VolumetricStudios.VoxeliqGame.Input
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._graphicsManager = (IGraphicsManager) this.Game.Services.GetService(typeof (IGraphicsManager));
-            this._cameraController =
-                (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
-            this._ingameDebuggerService =
-                (IInGameDebuggerService) this.Game.Services.GetService(typeof (IInGameDebuggerService));
+            this._cameraController = (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
+            this._ingameDebuggerService =(IInGameDebuggerService) this.Game.Services.GetService(typeof (IInGameDebuggerService));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._skyService = (ISkyService) this.Game.Services.GetService(typeof (ISkyService));
             this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this._bloomService = (IBloomService) this.Game.Services.GetService(typeof (IBloomService));
 
             // get current mouse & keyboard states.
             this._previousKeyboardState = Keyboard.GetState();
@@ -157,15 +158,28 @@ namespace VolumetricStudios.VoxeliqGame.Input
             // debug keys.
             if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
                 this._chunkCache.ToggleInfinitiveWorld();
+
             if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
                 this._player.ToggleFlyForm();
-            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) this._fogger.ToggleFog();
+
+            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) 
+                this._fogger.ToggleFog();
+
             if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
                 this._skyService.ToggleDynamicClouds();
+
             if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
                 this.CaptureMouse = !this.CaptureMouse;
+
+            if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
+                this._bloomService.ToggleBloom();
+
+            if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
+                this._bloomService.ToogleSettings();
+
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
                 this._statisticsGraphs.Toggle();
+
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();
 

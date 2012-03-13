@@ -4,7 +4,6 @@
  */
 
 using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Utilities;
 using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain

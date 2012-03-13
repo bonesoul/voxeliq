@@ -11,7 +11,7 @@ using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Effects.PostProcess.Bloom;
+using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Managers;
@@ -81,36 +81,36 @@ namespace VolumetricStudios.VoxeliqGame
         /// </summary>
         private void AddComponents()
         {
+            this.Components.Add(new InputManager(this));
+            
+            this.Components.Add(new Sky(this));
+            this.Components.Add(new Fogger(this));
 
-            //bloom = new BloomComponent(this);
-
-            //Components.Add(bloom);
-
-            this.Components.Add(new InputManager(this) { UpdateOrder = 0 });
-            this.Components.Add(new Sky(this) { UpdateOrder = 1, DrawOrder = 0 });
-            this.Components.Add(new Fogger(this) { UpdateOrder = 2 });
-
-            var chunkStorage = new ChunkStorage(this) { UpdateOrder = 3 };
+            var chunkStorage = new ChunkStorage(this);
             this.Components.Add(chunkStorage);
 
             var vertexBuilder = new VertexBuilder(this);
             this.Components.Add(vertexBuilder);
 
-            var chunkCache = new ChunkCache(this) { UpdateOrder = 4, DrawOrder = 1 };
+            var chunkCache = new ChunkCache(this);
             this.Components.Add(chunkCache);
 
-            var world = new World(this, chunkStorage, chunkCache) { UpdateOrder = 5, DrawOrder = 2 };
+            var world = new World(this, chunkStorage, chunkCache);
             this.Components.Add(world);
 
-            this.Components.Add(new Player(this, world) { UpdateOrder = 6, DrawOrder = 3 });
-            this.Components.Add(new Camera(this) { UpdateOrder = 7 });
-            this.Components.Add(new UserInterface(this) { UpdateOrder = 8, DrawOrder = 4 });
+            this.Components.Add(new Player(this, world));
 
-            this.Components.Add(new InGameDebugger(this) { UpdateOrder = 9, DrawOrder = 5 });
-            this.Components.Add(new Statistics(this) { UpdateOrder = 10, DrawOrder = 6 });
-            this.Components.Add(new StatisticsGraphs(this) { UpdateOrder = 11, DrawOrder = 7 });
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
 
-            this.Components.Add(new MusicManager(this) { UpdateOrder = 12 });
+            this.Components.Add(new Camera(this));
+            this.Components.Add(new UserInterface(this));
+
+            this.Components.Add(new InGameDebugger(this));
+            this.Components.Add(new Statistics(this));
+            this.Components.Add(new StatisticsGraphs(this));
+
+            this.Components.Add(new MusicManager(this));
 
             this._inputManager = new DigitalRune.Game.Input.InputManager(false);
             Services.AddService(typeof(IInputService), this._inputManager);
@@ -118,7 +118,7 @@ namespace VolumetricStudios.VoxeliqGame
             this._uiManager = new UIManager(this, _inputManager);
             Services.AddService(typeof(IUIService), this._uiManager);
 
-            this.Components.Add(new GameScreenOverlay(this) { UpdateOrder = 13, DrawOrder = 8 });
+            this.Components.Add(new GameScreenOverlay(this));
 
             // The component that shows a debugging console.
             this.Components.Add(new DebugConsole(this));
@@ -146,7 +146,9 @@ namespace VolumetricStudios.VoxeliqGame
         /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
-            //this.GraphicsDevice.Clear(Color.Black);
+            bloom.BeginDraw();
+
+            this.GraphicsDevice.Clear(Color.Black);
 
             this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
 
