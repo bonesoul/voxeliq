@@ -5,6 +5,7 @@
 
 using System;
 using System.Globalization;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Chunks;
@@ -44,6 +45,10 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         // resources.
         private SpriteBatch _spriteBatch;
         private SpriteFont _spriteFont;
+
+        // for grabbing internal string, we should init string builder capacity and max capacity ctor so that, grabbed internal string is always valid.
+        // http://www.gavpugh.com/2010/03/23/xnac-stringbuilder-to-string-with-no-garbage/
+        private readonly StringBuilder _stringBuilder = new StringBuilder(512, 512);
 
         // required services.       
         private IWorld _world;
@@ -112,51 +117,106 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
         /// Draws the statistics.
         /// </summary>
         /// <param name="gameTime"></param>
-        public override void Draw(GameTime gameTime)
-            // Attention: DO NOT use string.format as it's slower than string concat: https://www.assembla.com/wiki/show/voxlr/StringFormat_vs_StringConcat
+        public override void Draw(GameTime gameTime)             
         {
+            // Attention: DO NOT use string.format as it's slower than string concat.
+
             _frameCounter++;
 
             if (this._chunkCache.ChunksDrawn >= 31)
-                _drawnBlocks = (this._chunkCache.ChunksDrawn/31f).ToString("F2") + "M";
+                _drawnBlocks = (this._chunkCache.ChunksDrawn / 31f).ToString("F2") + "M";
             else if (this._chunkCache.ChunksDrawn > 1)
-                _drawnBlocks = (this._chunkCache.ChunksDrawn/0.03f).ToString("F2") + "K";
+                _drawnBlocks = (this._chunkCache.ChunksDrawn / 0.03f).ToString("F2") + "K";
             else _drawnBlocks = "0";
 
-            if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count/31f).ToString("F2") + "M";
-            else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count/0.03f).ToString("F2") + "K";
+            if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
+            else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
             else _totalBlocks = Chunk.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            _spriteBatch.DrawString(_spriteFont, "fps: " + this.FPS, new Vector2(5, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "mem: " + this.GetMemoryUsed(), new Vector2(75, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "pos: " + this._player.Position, new Vector2(190, 5), Color.White);
-            _spriteBatch.DrawString(_spriteFont,
-                                    "chunks: " + this._chunkCache.ChunksDrawn + "/" + this._chunkStorage.Count,
-                                    new Vector2(5, 20), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "blocks: " + _drawnBlocks + "/" + _totalBlocks, new Vector2(130, 20),
-                                    Color.White);
-            _spriteBatch.DrawString(_spriteFont, "inf: " + (this._chunkCache.IsInfinitive ? "On" : "Off"),
-                                    new Vector2(5, 35), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "fly: " + (this._player.FlyingEnabled ? "On" : "Off"),
-                                    new Vector2(60, 35), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "fog: " + this._fogger.State, new Vector2(120, 35), Color.White);
 
 
-            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] +
-                                this._chunkCache.StateStatistics[ChunkState.Generating];
-            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] +
-                               this._chunkCache.StateStatistics[ChunkState.Lighting] +
-                               this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
-            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] +
-                             this._chunkCache.StateStatistics[ChunkState.Building] +
-                             this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
+            // FPS
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("fps:");
+            _stringBuilder.Append(this.FPS);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 5), Color.White);
+
+            // mem used
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("mem:");
+            _stringBuilder.Append(this.GetMemoryUsed());
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(75, 5), Color.White);
+
+            // player position
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("pos:");
+            _stringBuilder.Append(this._player.Position);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(190, 5), Color.White);
+
+            // chunks
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("chunks:");
+            _stringBuilder.AppendNumber(this._chunkCache.ChunksDrawn);
+            _stringBuilder.Append('/');
+            _stringBuilder.AppendNumber(this._chunkStorage.Count);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder,new Vector2(5, 20), Color.White);
+
+            // blocks
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("blocks:");
+            _stringBuilder.Append(_drawnBlocks);
+            _stringBuilder.Append('/');
+            _stringBuilder.Append(_totalBlocks);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(130, 20), Color.White);
+
+            // infinitive world
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("inf:");
+            _stringBuilder.Append(this._chunkCache.IsInfinitive ? "On" : "Off");
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 35), Color.White);
+
+            // fly
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("fly:");
+            _stringBuilder.Append(this._player.FlyingEnabled ? "On" : "Off");
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(60, 35), Color.White);
+
+            // fog
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("fog:");
+            _stringBuilder.Append(this._fogger.State);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(120, 35), Color.White);
+
+            // process queues.
+            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
+            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
+            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
             var readyState = this._chunkCache.StateStatistics[ChunkState.Ready];
 
-            _spriteBatch.DrawString(_spriteFont, "GenerateQ: " + generateQueue, new Vector2(5, 65), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "LightenQ: " + lightenQueue, new Vector2(5, 80), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "BuildQ: " + buildQueue, new Vector2(5, 95), Color.White);
-            _spriteBatch.DrawString(_spriteFont, "Ready: " + readyState, new Vector2(5, 110), Color.White);
+            // generation
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("GenerateQ:");
+            _stringBuilder.AppendNumber(generateQueue);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 65), Color.White);
+
+            // lighten
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("LightenQ:");
+            _stringBuilder.AppendNumber(lightenQueue);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 80), Color.White);
+
+            // build
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("BuildQ:");
+            _stringBuilder.AppendNumber(buildQueue);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 95), Color.White);
+
+            // ready
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("Ready:");
+            _stringBuilder.AppendNumber(readyState);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
 
             _spriteBatch.End();
         }
