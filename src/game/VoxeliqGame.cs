@@ -46,6 +46,8 @@ namespace VolumetricStudios.VoxeliqGame
 
         BloomComponent bloom;
 
+        private TimeRuler _timeRuler;
+
         /// <summary>
         /// Logging facility.
         /// </summary>
@@ -82,7 +84,7 @@ namespace VolumetricStudios.VoxeliqGame
         private void AddComponents()
         {
             this.Components.Add(new InputManager(this));
-            
+
             this.Components.Add(new Sky(this));
             this.Components.Add(new Fogger(this));
 
@@ -123,11 +125,22 @@ namespace VolumetricStudios.VoxeliqGame
             // The component that shows a debugging console.
             this.Components.Add(new DebugConsole(this));
 
+            this._timeRuler = new TimeRuler(this);
+            this._timeRuler.Visible = true;
+            this._timeRuler.ShowLog = true;
+            this.Components.Add(this._timeRuler);
+
             base.Initialize();
         }
 
         protected override void Update(GameTime gameTime)
         {
+            // tell the TimeRuler that we're starting a new frame. you always want
+            // to call this at the start of Update
+            this._timeRuler.StartFrame();
+
+            this._timeRuler.BeginMark("Update", Color.Blue);
+
             var deltaTime = gameTime.ElapsedGameTime;
 
             // Update input manager. The input manager gets the device states and performs other work.
@@ -138,6 +151,8 @@ namespace VolumetricStudios.VoxeliqGame
 
             // Update game components.
             base.Update(gameTime);
+
+            this._timeRuler.EndMark("Update");
         }
 
         /// <summary>
@@ -146,6 +161,8 @@ namespace VolumetricStudios.VoxeliqGame
         /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
+            this._timeRuler.BeginMark("Draw", Color.Yellow);
+
             bloom.BeginDraw();
 
             this.GraphicsDevice.Clear(Color.Black);
@@ -153,6 +170,9 @@ namespace VolumetricStudios.VoxeliqGame
             this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
 
             base.Draw(gameTime);
+
+            // Stop measuring time for "Draw".
+            this._timeRuler.EndMark("Draw");
         }
     }
 }

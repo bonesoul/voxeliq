@@ -13,6 +13,7 @@ using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
 using VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain;
 using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
@@ -159,6 +160,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         private ICamera _camera;
         private IPlayer _player;
         private IFogger _fogger;
+        private TimeRuler _timeRuler;
 
         public bool CacheThreadStarted { get; private set; }
 
@@ -200,7 +202,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
-            this.Generator = new MountainousTerrain(new RainForest());
+            this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
+
+            this.Generator = new FlatDebugTerrain();
 
             base.Initialize();
         }
@@ -275,6 +279,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
 
             Profiler.Start("chunk-cache-loop");
+            this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
@@ -295,6 +300,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                 this.StateStatistics[chunk.ChunkState]++;
             }
+            this._timeRuler.EndMark(1, "Chunk Cache");
             Profiler.Stop("chunk-cache-loop");
 
             if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)

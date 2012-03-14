@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -143,7 +143,10 @@
     <Compile Include="Common\Logging\LogConfig.cs" />
     <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
+    <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
+    <Compile Include="Debugging\StringBuilderExtensions.cs" />
+    <Compile Include="Debugging\TimeRuler.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Universe\Fogger.cs" />

@@ -77,8 +77,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
-            this._worldStatistics =
-                (IWorldStatisticsService) this.Game.Services.GetService(typeof (IWorldStatisticsService));
+            this._worldStatistics = (IWorldStatisticsService) this.Game.Services.GetService(typeof (IWorldStatisticsService));
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
