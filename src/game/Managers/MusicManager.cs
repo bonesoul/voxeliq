@@ -53,6 +53,9 @@ namespace VolumetricStudios.VoxeliqGame.Managers
 
         private void AmbientMusicLoop()
         {
+            if (!AudioConfig.Instance.Enabled)
+                return;
+
             while(true)
             {
                 if (this._currentAmbientMusic == null || this._currentAmbientMusic.IsDisposed || this._currentAmbientMusic.State == SoundState.Playing)
@@ -67,6 +70,9 @@ namespace VolumetricStudios.VoxeliqGame.Managers
 
         private void PlayBackroundSong()
         {
+            if (!AudioConfig.Instance.Enabled)
+                return;
+
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(this._backgroundSong);
             MediaPlayer.Volume = 0.3f;
