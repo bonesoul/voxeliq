@@ -8,7 +8,7 @@ using VolumetricStudios.VoxeliqGame.Blocks;
 namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 {
     /// <summary>
-    /// TODO: client stuff.
+    /// Ligten processor.
     /// </summary>
     public static class Lightning
     {
