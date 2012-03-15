@@ -120,7 +120,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// </summary>
         public bool Disposed = false;
 
-        // TODO: remove these!
         public Chunk North
         {
             get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; }

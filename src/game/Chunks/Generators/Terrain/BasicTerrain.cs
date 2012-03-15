@@ -83,7 +83,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
         //    {
         //        for (int z = 0; z < Chunk.LenghtInBlocks; z++)
         //        {
-        //            int offset = x * Chunk.FlattenOffset + z * Chunk.HeightInBlocks;
+        //            int offset = x * Chunk.XStep + z * Chunk.HeightInBlocks;
         //            for (int y=WaterLevel + 3; y>= RockHeight; y--)
         //            {
         //                if (chunk.Blocks[offset + y].Type == BlockType.None)

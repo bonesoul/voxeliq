@@ -108,7 +108,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 15;
+        public const byte ViewRange = 5;
 
         /// <summary>
         /// Bounding box for view range.
@@ -118,7 +118,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 15;
+        public const byte CacheRange = 5;
 
         /// <summary>
         /// Bounding box for cache range.
@@ -204,7 +204,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new MountainousTerrain(new RainForest());
+            this.Generator = new ValleyTerrain(new RainForest());
 
             base.Initialize();
         }
@@ -279,7 +279,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
 
             Profiler.Start("chunk-cache-loop");
-            this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
+            //this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
@@ -300,7 +300,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                 this.StateStatistics[chunk.ChunkState]++;
             }
-            this._timeRuler.EndMark(1, "Chunk Cache");
+            //this._timeRuler.EndMark(1, "Chunk Cache");
             Profiler.Stop("chunk-cache-loop");
 
             if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)

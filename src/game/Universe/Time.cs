@@ -22,8 +22,8 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
         public static float GetGameTimeOfDay()
         {
-            return (float)((DateTime.Now.TimeOfDay.TotalSeconds / GameHourInRealSeconds) % 24);
-            //return 12;
+            //return (float)((DateTime.Now.TimeOfDay.TotalSeconds / GameHourInRealSeconds) % 24);
+            return 12;
         }
     }
 }
