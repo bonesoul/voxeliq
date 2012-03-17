@@ -136,6 +136,7 @@
     <Compile Include="Chunks\Chunk.cs" />
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
+    <Compile Include="Chunks\Generators\Biomes\Desert.cs" />
     <Compile Include="Common\Config\Config.cs" />
     <Compile Include="Common\Config\ConfigManager.cs" />
     <Compile Include="Common\Helpers\IO\FileHelpers.cs" />
@@ -173,7 +174,7 @@
     <Compile Include="Chunks\Generators\Biomes\AntarticTundra.cs" />
     <Compile Include="Chunks\Generators\Biomes\RainForest.cs" />
     <Compile Include="Chunks\Generators\Terrain\FlatDebugTerrain.cs" />
-    <Compile Include="Chunks\Generators\Terrain\BasicTerrain.cs" />
+    <Compile Include="Chunks\Generators\Terrain\BiomedTerrain.cs" />
     <Compile Include="Chunks\Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
