@@ -61,7 +61,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
         /// <returns></returns>
-        public static Block GetByWorldPosition(int x, int y, int z)
+        public static Block GetBlockByWorldPosition(int x, int y, int z)
         {
             var wrapX = x%CacheWidthInBlocks;
             if (wrapX < 0)
@@ -84,7 +84,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// <param name="z">Block's z world position.</param>
         /// <param name="value">Block value to set.</param>
         /// <returns></returns>
-        public static void SetByWorldPosition(int x, int y, int z, Block value)
+        public static void SetBlockByWorldPosition(int x, int y, int z, Block value)
         {
             var wrapX = x%CacheWidthInBlocks;
             if (wrapX < 0)
@@ -190,14 +190,14 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         }
 
         /// <summary>
-        /// Gets a neighboring block.
+        /// Gets a neighboring block's index
         /// </summary>
         /// <param name="blockIndex"></param>
         /// <param name="xFace"></param>
         /// <param name="zFace"></param>
         /// <param name="yFace"></param>
         /// <returns></returns>
-        public static int GetNeighborBlock(int blockIndex, YFace yFace = YFace.None, ZFace zFace = ZFace.None, XFace xFace = XFace.None)
+        public static int GetNeighborBlockIndex(int blockIndex, YFace yFace = YFace.None, ZFace zFace = ZFace.None, XFace xFace = XFace.None)
         {
             if (yFace == YFace.Top)
                 blockIndex++;

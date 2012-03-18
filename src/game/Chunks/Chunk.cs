@@ -191,8 +191,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public bool IsInBounds(float x, float z)
         {
-            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
-                z >= this.BoundingBox.Max.Z) return false;
+            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z) 
+                return false;
 
             return true;
         }
@@ -206,7 +206,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public Block BlockAt(int x, int y, int z)
         {
-            return BlockStorage.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+            return BlockStorage.GetBlockByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     break;
             }
 
-            BlockStorage.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
+            BlockStorage.SetBlockByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 

@@ -332,8 +332,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
             this.BoundingBox = new BoundingBox(
                     new Vector3(southWestEdge.X*Chunk.WidthInBlocks, 0, southWestEdge.Z*Chunk.LenghtInBlocks),
-                    new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
-                                (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
+                    new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks, (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
 
         private void ProcessChunkInCacheRange(Chunk chunk)
@@ -472,7 +471,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         {
             if (!IsInBounds(x, y, z)) return Block.Empty;
 
-            return BlockStorage.GetByWorldPosition(x, y, z);
+            return BlockStorage.GetBlockByWorldPosition(x, y, z);
         }
 
         // returns true if given coordinate is in bounds.

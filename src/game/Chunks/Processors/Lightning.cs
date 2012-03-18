@@ -74,50 +74,49 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                         if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // solid blocks can't propagate light.
                             continue;
 
-                        var blockLight = BlockStorage.Blocks[blockIndex].Sun;
-                        if (blockLight <= 1) // if block's light value is too low (dark),
+                        var light = BlockStorage.Blocks[blockIndex].Sun;
+                        if (light <= 1) // if block's light value is too low (dark),
                             continue; // just skip it.
 
-                        var propagatedLight = (byte)((blockLight*9)/10);
+                        light--; // dim the light a bit.
 
-                        PropagateSunLight(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-                        PropagateSunLight(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-                        PropagateSunLight(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-                        PropagateSunLight(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+                        PropagateSunLight(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+                        PropagateSunLight(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+                        PropagateSunLight(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+                        PropagateSunLight(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
                         // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-                        PropagateSunLight(blockIndex - 1, propagatedLight);   // propagate light to block down.
+                        PropagateSunLight(blockIndex - 1, light);   // propagate light to block down.
                     }
                 }
             }
         }
 
-        private static void PropagateSunLight(int blockIndex, byte incomingLight)
+        private static void PropagateSunLight(int blockIndex, byte light)
         {
             // make sure block index is within view range.
             blockIndex = blockIndex%BlockStorage.Blocks.Length;
             if (blockIndex < 0)
                 blockIndex += BlockStorage.Blocks.Length;
 
-            if (incomingLight <= 1) // if incoming light is too dim, stop propagating.
+            if (light <= 1) // if incoming light is too dim, stop propagating.
                 return;
 
             if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // if we got a solid block we can't propegate light to it.
                 return;
 
-            if (incomingLight <= BlockStorage.Blocks[blockIndex].Sun) // if incoming light is already lower than blocks current light, stop propagating.
+            if (light <= BlockStorage.Blocks[blockIndex].Sun) // if incoming light is already lower than blocks current light, stop propagating.
                 return;
 
-            BlockStorage.Blocks[blockIndex].Sun = incomingLight; // set the incoming light.            
+            BlockStorage.Blocks[blockIndex].Sun = light; // set the incoming light.            
 
-            // continue propagation.
-            var propagatedLight = (byte)((incomingLight * 9) / 10);
+            light--; // dim the light a bit.
 
-            PropagateSunLight(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-            PropagateSunLight(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-            PropagateSunLight(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-            PropagateSunLight(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+            PropagateSunLight(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+            PropagateSunLight(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+            PropagateSunLight(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+            PropagateSunLight(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
             // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-            PropagateSunLight(blockIndex - 1, propagatedLight);   // propagate light to block down.
+            PropagateSunLight(blockIndex - 1, light);   // propagate light to block down.
         }
 
         #endregion
@@ -139,50 +138,49 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                         if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // solid blocks can't propagate light.
                             continue;
 
-                        var blockLight = BlockStorage.Blocks[blockIndex].R;
-                        if (blockLight < 1) // if block's light value is too low (dark),
+                        var light = BlockStorage.Blocks[blockIndex].R;
+                        if (light < 1) // if block's light value is too low (dark),
                             continue; // just skip it.
 
-                        var propagatedLight = (byte)((blockLight * 9) / 10);
+                        light--; // dim the light a bit.
 
-                        PropagateLightR(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-                        PropagateLightR(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-                        PropagateLightR(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-                        PropagateLightR(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+                        PropagateLightR(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+                        PropagateLightR(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+                        PropagateLightR(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+                        PropagateLightR(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
                         // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-                        PropagateLightR(blockIndex - 1, propagatedLight);   // propagate light to block down.
+                        PropagateLightR(blockIndex - 1, light);   // propagate light to block down.
                     }
                 }
             }
         }
 
-        private static void PropagateLightR(int blockIndex, byte incomingLight)
+        private static void PropagateLightR(int blockIndex, byte light)
         {
             // make sure block index is within view range.
             blockIndex = blockIndex % BlockStorage.Blocks.Length;
             if (blockIndex < 0)
                 blockIndex += BlockStorage.Blocks.Length;
 
-            if (incomingLight <= 1) // if incoming light is too dim, stop propagating.
+            if (light <= 1) // if incoming light is too dim, stop propagating.
                 return;
 
             if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // if we got a solid block we can't propegate light to it.
                 return;
 
-            if (incomingLight <= BlockStorage.Blocks[blockIndex].R) // if incoming light is already lower than blocks current light, stop propagating.
+            if (light <= BlockStorage.Blocks[blockIndex].R) // if incoming light is already lower than blocks current light, stop propagating.
                 return;
 
-            BlockStorage.Blocks[blockIndex].R = incomingLight; // set the incoming light.            
+            BlockStorage.Blocks[blockIndex].R = light; // set the incoming light.            
 
-            // continue propagation.
-            var propagatedLight = (byte)((incomingLight * 9) / 10);
+            light--; // dim the light a bit.
 
-            PropagateLightR(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-            PropagateLightR(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-            PropagateLightR(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-            PropagateLightR(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+            PropagateLightR(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+            PropagateLightR(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+            PropagateLightR(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+            PropagateLightR(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
             // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-            PropagateLightR(blockIndex - 1, propagatedLight);   // propagate light to block down.
+            PropagateLightR(blockIndex - 1, light);   // propagate light to block down.
         }
 
         #endregion
@@ -204,50 +202,49 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                         if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // solid blocks can't propagate light.
                             continue;
 
-                        var blockLight = BlockStorage.Blocks[blockIndex].G;
-                        if (blockLight < 1) // if block's light value is too low (dark),
+                        var light = BlockStorage.Blocks[blockIndex].G;
+                        if (light < 1) // if block's light value is too low (dark),
                             continue; // just skip it.
 
-                        var propagatedLight = (byte)((blockLight * 9) / 10);
+                        light--; // dim the light a bit.
 
-                        PropagateLightG(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-                        PropagateLightG(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-                        PropagateLightG(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-                        PropagateLightG(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+                        PropagateLightG(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+                        PropagateLightG(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+                        PropagateLightG(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+                        PropagateLightG(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
                         // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-                        PropagateLightG(blockIndex - 1, propagatedLight);   // propagate light to block down.
+                        PropagateLightG(blockIndex - 1, light);   // propagate light to block down.
                     }
                 }
             }
         }
 
-        private static void PropagateLightG(int blockIndex, byte incomingLight)
+        private static void PropagateLightG(int blockIndex, byte light)
         {
             // make sure block index is within view range.
             blockIndex = blockIndex % BlockStorage.Blocks.Length;
             if (blockIndex < 0)
                 blockIndex += BlockStorage.Blocks.Length;
 
-            if (incomingLight <= 1) // if incoming light is too dim, stop propagating.
+            if (light <= 1) // if incoming light is too dim, stop propagating.
                 return;
 
             if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // if we got a solid block we can't propegate light to it.
                 return;
 
-            if (incomingLight <= BlockStorage.Blocks[blockIndex].G) // if incoming light is already lower than blocks current light, stop propagating.
+            if (light <= BlockStorage.Blocks[blockIndex].G) // if incoming light is already lower than blocks current light, stop propagating.
                 return;
 
-            BlockStorage.Blocks[blockIndex].G = incomingLight; // set the incoming light.            
+            BlockStorage.Blocks[blockIndex].G = light; // set the incoming light.            
 
-            // continue propagation.
-            var propagatedLight = (byte)((incomingLight * 9) / 10);
+            light--; // dim the light a bit.
 
-            PropagateLightG(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-            PropagateLightG(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-            PropagateLightG(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-            PropagateLightG(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+            PropagateLightG(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+            PropagateLightG(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+            PropagateLightG(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+            PropagateLightG(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
             // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-            PropagateLightG(blockIndex - 1, propagatedLight);   // propagate light to block down.
+            PropagateLightG(blockIndex - 1, light);   // propagate light to block down.
         }
 
         #endregion
@@ -269,59 +266,52 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                         if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // solid blocks can't propagate light.
                             continue;
 
-                        var blockLight = BlockStorage.Blocks[blockIndex].B;
-                        if (blockLight < 1) // if block's light value is too low (dark),
+                        var light = BlockStorage.Blocks[blockIndex].B;
+                        if (light < 1) // if block's light value is too low (dark),
                             continue; // just skip it.
 
-                        var propagatedLight = (byte)((blockLight * 9) / 10);
+                        light--; // dim the light a bit.
 
-                        PropagateLightB(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-                        PropagateLightB(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-                        PropagateLightB(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-                        PropagateLightB(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+                        PropagateLightB(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+                        PropagateLightB(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+                        PropagateLightB(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+                        PropagateLightB(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
                         // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-                        PropagateLightB(blockIndex - 1, propagatedLight);   // propagate light to block down.
+                        PropagateLightB(blockIndex - 1, light);   // propagate light to block down.
                     }
                 }
             }
         }
 
-        private static void PropagateLightB(int blockIndex, byte incomingLight)
+        private static void PropagateLightB(int blockIndex, byte light)
         {
             // make sure block index is within view range.
             blockIndex = blockIndex % BlockStorage.Blocks.Length;
             if (blockIndex < 0)
                 blockIndex += BlockStorage.Blocks.Length;
 
-            if (incomingLight <= 1) // if incoming light is too dim, stop propagating.
+            if (light <= 1) // if incoming light is too dim, stop propagating.
                 return;
 
             if (BlockStorage.Blocks[blockIndex].Type != BlockType.None) // if we got a solid block we can't propegate light to it.
                 return;
 
-            if (incomingLight <= BlockStorage.Blocks[blockIndex].B) // if incoming light is already lower than blocks current light, stop propagating.
+            if (light <= BlockStorage.Blocks[blockIndex].B) // if incoming light is already lower than blocks current light, stop propagating.
                 return;
 
-            BlockStorage.Blocks[blockIndex].B = incomingLight; // set the incoming light.            
+            BlockStorage.Blocks[blockIndex].B = light; // set the incoming light.            
 
             // continue propagation.
-            var propagatedLight = (byte)((incomingLight * 9) / 10);
+            light--; // dim the light a bit.
 
-            PropagateLightB(blockIndex + BlockStorage.XStep, propagatedLight); // propagate light to block in east.
-            PropagateLightB(blockIndex - BlockStorage.XStep, propagatedLight); // propagate light to block in west.
-            PropagateLightB(blockIndex + BlockStorage.ZStep, propagatedLight); // propagate light to block in north.
-            PropagateLightB(blockIndex - BlockStorage.ZStep, propagatedLight); // propagate light to block in south.
+            PropagateLightB(blockIndex + BlockStorage.XStep, light); // propagate light to block in east.
+            PropagateLightB(blockIndex - BlockStorage.XStep, light); // propagate light to block in west.
+            PropagateLightB(blockIndex + BlockStorage.ZStep, light); // propagate light to block in north.
+            PropagateLightB(blockIndex - BlockStorage.ZStep, light); // propagate light to block in south.
             // DO NOT repropagete to upper block which we don't need to do so and may cause loops!
-            PropagateLightB(blockIndex - 1, propagatedLight);   // propagate light to block down.
+            PropagateLightB(blockIndex - 1, light);   // propagate light to block down.
         }
 
-        #endregion
-
-        /* todo: put in a configurable attenuate function. 
-        private static byte Attenuate(byte light)
-        {
-            return (byte) ((light*9)/10);
-        }
-        */       
+        #endregion      
     }
 }
