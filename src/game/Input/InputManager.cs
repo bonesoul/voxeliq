@@ -125,8 +125,8 @@ namespace VolumetricStudios.VoxeliqGame.Input
 
             if (currentState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
                 this._player.Weapon.Use();
-            if (currentState.RightButton == ButtonState.Pressed &&
-                _previousMouseState.RightButton == ButtonState.Released) this._player.Weapon.SecondaryUse();
+            if (currentState.RightButton == ButtonState.Pressed && _previousMouseState.RightButton == ButtonState.Released) 
+                this._player.Weapon.SecondaryUse();
 
             this._previousMouseState = currentState;
             this.CenterCursor();

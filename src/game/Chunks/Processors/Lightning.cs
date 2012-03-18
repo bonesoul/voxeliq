@@ -13,8 +13,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
     public static class Lightning
     {
         public static void Process(Chunk chunk)
-        {
-            if (chunk.ChunkState != ChunkState.AwaitingLighting) // if chunk is not awaiting lighting
+        {            
+            if (chunk.ChunkState != ChunkState.AwaitingLighting && chunk.ChunkState != ChunkState.AwaitingRelighting) // if chunk is not awaiting lighting
                 return; // just pass it.
 
             chunk.ChunkState = ChunkState.Lighting; // set chunk state to generating.

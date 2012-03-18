@@ -8,7 +8,7 @@ using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
-    public class MountainousTerrain : BasicTerrain
+    public class MountainousTerrain : BiomedTerrain
     {
         public MountainousTerrain(BiomeGenerator biomeGenerator)
             : base(biomeGenerator)

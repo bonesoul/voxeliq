@@ -26,7 +26,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
                         if (!BlockStorage.Blocks[offset + y - 1].Exists)
                             continue;
 
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;
+                        BlockStorage.Blocks[offset + y].Type = BlockType.Snow;
 
                         snowDepth--;
                         if (snowDepth == 0) break;

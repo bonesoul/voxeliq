@@ -9,16 +9,16 @@ using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
-    public class ValleyTerrain : BasicTerrain
+    public class ValleyTerrain : BiomedTerrain
     {
         public ValleyTerrain(BiomeGenerator biomeGenerator)
             : base(biomeGenerator)
         { }
 
-        protected override void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
+        protected override void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
-            this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
+            var rockHeight = this.GetRockHeight(worldPositionX + this.Seed, worldPositionZ);
+            var dirtHeight = this.GetDirtHeight(worldPositionX + this.Seed, worldPositionZ, rockHeight);
 
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
@@ -26,9 +26,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             {
                 BlockType blockType;
 
-                if (y > DirtHeight) // air
+                if (y > dirtHeight) // air
                     blockType = BlockType.None;
-                else if (y > RockHeight) // dirt
+                else if (y > rockHeight) // dirt
                 {
                     var valleyNoise = this.GenerateValleyNoise(worldPositionX, worldPositionZ, y);
                     blockType = valleyNoise > 0.2f ? BlockType.None : BlockType.Dirt;
@@ -52,8 +52,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected virtual float GenerateValleyNoise(int worldPositionX, int worldPositionZ, int blockY)
         {
-            float caveNoise = PerlinSimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.01f)*
-                              (0.015f*blockY) + 0.1f;
+            float caveNoise = PerlinSimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.01f)* (0.015f*blockY) + 0.1f;
             caveNoise += PerlinSimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.1f)*0.06f + 0.1f;
             caveNoise += PerlinSimplexNoise.noise(worldPositionX*0.2f, worldPositionZ*0.2f, blockY*0.2f)*0.03f + 0.01f;
 

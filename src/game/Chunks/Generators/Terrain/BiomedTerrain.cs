@@ -10,45 +10,45 @@ using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     /// <summary>
-    /// Biomed terrain generators.
+    /// A basic terrain generator that supports biomes.
     /// </summary>
-    public class BasicTerrain : TerrainGenerator
+    public class BiomedTerrain : TerrainGenerator
     {
-        protected BiomeGenerator BiomeGenerator { get; private set; }
-        public const int WaterLevel = 99;
+        /// <summary>
+        /// Sets or gets assigned biome generator.
+        /// </summary>
+        protected BiomeGenerator BiomeGenerator { get; private set; }       
 
-        protected float RockHeight;
-        protected int DirtHeight;
-
-        public BasicTerrain(BiomeGenerator biomeGenerator)
+        /// <summary>
+        /// Creates a new biomed terrain instance with given biome generator.
+        /// </summary>
+        /// <param name="biomeGenerator"><see cref="BiomeGenerator"/></param>
+        public BiomedTerrain(BiomeGenerator biomeGenerator)
         {
             this.BiomeGenerator = biomeGenerator;
         }
 
-        protected override void GenerateChunk(Chunk chunk)
+        protected override void GenerateChunkTerrain(Chunk chunk)
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                int worldPositionX = chunk.WorldPosition.X + x;
-                int seededWorldPositionX = worldPositionX + this.Seed;
+                var worldPositionX = chunk.WorldPosition.X + x;
 
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     int worldPositionZ = chunk.WorldPosition.Z + z;
-                    this.GenerateTerrain(chunk, x, z, worldPositionX, worldPositionZ, seededWorldPositionX);
+                    this.GenerateBlock(chunk, worldPositionX, worldPositionZ);
                 }
             }
-
-            // this.GenerateWater(chunk);
 
             if (this.BiomeGenerator != null)
                 this.BiomeGenerator.ApplyBiome(chunk);
         }
 
-        protected virtual void GenerateTerrain(Chunk chunk, byte x, byte z, int worldPositionX, int worldPositionZ, int seededWorldPositionX)
+        protected virtual void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            this.RockHeight = this.GetRockHeight(seededWorldPositionX, worldPositionZ);
-            this.DirtHeight = this.GetDirtHeight(seededWorldPositionX, worldPositionZ, RockHeight);
+            var rockHeight = this.GetRockHeight(worldPositionX + this.Seed, worldPositionZ);
+            var dirtHeight = this.GetDirtHeight(worldPositionX + this.Seed, worldPositionZ, rockHeight);
 
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
@@ -56,9 +56,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             {
                 BlockType blockType;
 
-                if (y > DirtHeight) // air
+                if (y > dirtHeight) // air
                     blockType = BlockType.None;
-                else if (y > RockHeight) // dirt
+                else if (y > rockHeight) // dirt
                     blockType = BlockType.Dirt;
                 else // rock level
                     blockType = BlockType.Rock;
@@ -66,32 +66,16 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                 switch (blockType)
                 {
                     case BlockType.None:
-                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte) y;
+                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
                         break;
                     default:
-                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte) y;
+                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                         break;
                 }
 
                 BlockStorage.Blocks[offset + y] = new Block(blockType);
             }
         }
-
-        //protected  virtual void GenerateWater(Chunk chunk) - TODO: not working yet.
-        //{
-        //    for (int x = 0; x < Chunk.WidthInBlocks; x++)
-        //    {
-        //        for (int z = 0; z < Chunk.LenghtInBlocks; z++)
-        //        {
-        //            int offset = x * Chunk.XStep + z * Chunk.HeightInBlocks;
-        //            for (int y=WaterLevel + 3; y>= RockHeight; y--)
-        //            {
-        //                if (chunk.Blocks[offset + y].Type == BlockType.None)
-        //                    chunk.Blocks[offset + y] = new Block(BlockType.Water);
-        //            }
-        //        }
-        //    }
-        //}
 
         protected virtual int GetDirtHeight(int blockX, int blockZ, float rockHeight)
         {
@@ -117,5 +101,23 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
             return lowerGroundHeight;
         }
+
+        //public const int WaterLevel = 99;
+
+        //protected  virtual void GenerateWater(Chunk chunk) - TODO: not working yet.
+        //{
+        //    for (int x = 0; x < Chunk.WidthInBlocks; x++)
+        //    {
+        //        for (int z = 0; z < Chunk.LenghtInBlocks; z++)
+        //        {
+        //            int offset = x * Chunk.XStep + z * Chunk.HeightInBlocks;
+        //            for (int y=WaterLevel + 3; y>= RockHeight; y--)
+        //            {
+        //                if (chunk.Blocks[offset + y].Type == BlockType.None)
+        //                    chunk.Blocks[offset + y] = new Block(BlockType.Water);
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
