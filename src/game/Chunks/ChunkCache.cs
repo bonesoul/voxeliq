@@ -467,6 +467,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         }
 
         // returns the block at given coordinate.
+        // TODO move this function to blockstorage!
         public Block BlockAt(int x, int y, int z)
         {
             if (!IsInBounds(x, y, z)) return Block.Empty;
