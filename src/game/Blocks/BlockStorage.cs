@@ -3,6 +3,7 @@
  *
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
@@ -192,12 +193,11 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         }
 
         /// <summary>
-        /// Gets a neighboring block.
+        /// Gets a neighboring block's index
         /// </summary>
         /// <param name="blockIndex"></param>
         /// <param name="xFace"></param>
         /// <param name="zFace"></param>
-        /// <param name="worldPosition"> </param>
         /// <param name="yFace"></param>
         /// <returns></returns>
         public static Block GetNeighborBlock(int blockIndex, Vector3Int worldPosition, YFace yFace = YFace.None, ZFace zFace = ZFace.None, XFace xFace = XFace.None)
@@ -205,23 +205,23 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             if (yFace == YFace.Top)
             {
                 blockIndex++;
-                worldPosition.Y--;
+                worldPosition.Y++;
             }
             else if (yFace == YFace.Bottom)
             {
                 blockIndex--;
-                worldPosition.Y++;
+                worldPosition.Y--;
             }
 
             if (zFace == ZFace.North)
             {
-                blockIndex += ZStep;
-                worldPosition.Z++;
+                blockIndex -= ZStep;
+                worldPosition.Z--;
             }
             else if (zFace == ZFace.South)
             {
-                blockIndex -= ZStep;
-                worldPosition.Z--;
+                blockIndex += ZStep;
+                worldPosition.Z++;
             }
 
             if (xFace == XFace.East)
@@ -238,13 +238,18 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             if(ChunkCache.BoundingBox.Contains(worldPosition.AsVector3())==ContainmentType.Disjoint)
                 return Block.Empty;
 
-            // make sure block index is within view range.
-            blockIndex = blockIndex % Blocks.Length;
-
-            if (blockIndex < 0)
-                blockIndex += Blocks.Length;
+            if(blockIndex< 0 || blockIndex>= Blocks.Length)
+                return Block.Empty;
 
             return Blocks[blockIndex];
+
+            //// make sure block index is within view range.
+            //blockIndex = blockIndex % Blocks.Length;
+
+            //if (blockIndex < 0)
+            //    blockIndex += Blocks.Length;
+
+            //return blockIndex;
         }
 
         public enum XFace

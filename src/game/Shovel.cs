@@ -50,7 +50,9 @@ namespace VolumetricStudios.VoxeliqGame
 
         public override void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
-            if (!_player.AimedSolidBlock.HasValue) return;
+            if (!_player.AimedSolidBlock.HasValue) 
+                return;
+
             var text = _player.AimedSolidBlock.Value.Position + " Sun: " + _player.AimedSolidBlock.Value.Block.Sun;
             var textSize = spriteFont.MeasureString(text);
 

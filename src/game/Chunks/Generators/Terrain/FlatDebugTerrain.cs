@@ -17,17 +17,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             : base(biomeGenerator)
         { }
 
-        protected override void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
+        protected override void GenerateBlocks(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            byte height = 5;
+            byte height = 2;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
+            // fix for full height!;
             for (int y = 0; y < height; y++)
             {
-                BlockStorage.Blocks[offset + y] = new Block(y == height - 1 ? BlockType.Grass : BlockType.Dirt);
+                BlockStorage.Blocks[offset + y]=new Block(BlockType.Dirt);
             }
 
-            chunk.HighestSolidBlockOffset = (byte) (height - 1);
+            chunk.HighestSolidBlockOffset = Chunk.MaxHeightIndexInBlocks;
             chunk.LowestEmptyBlockOffset = 0;
         }     
     }

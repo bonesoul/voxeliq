@@ -56,6 +56,8 @@ namespace VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom
             : base(game)
         {
             this.Game.Services.AddService(typeof(IBloomService), this); // export the service.
+
+            this.Visible = false;
         }
 
         protected override void LoadContent()

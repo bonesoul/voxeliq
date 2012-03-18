@@ -3,6 +3,7 @@
  *
  */
 
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -143,7 +144,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             blockMidN = BlockStorage.GetNeighborBlock(blockIndex, worldPosition, BlockStorage.YFace.None, BlockStorage.ZFace.North);
             blockMidNE = BlockStorage.GetNeighborBlock(blockIndex, worldPosition, BlockStorage.YFace.None, BlockStorage.ZFace.North, BlockStorage.XFace.East);
             blockMidW = BlockStorage.GetNeighborBlock(blockIndex, worldPosition, BlockStorage.YFace.None, BlockStorage.ZFace.None, BlockStorage.XFace.West);
-            
+
             // here comes the self block in order but we don't need to calculate it ;)
 
             blockMidE = BlockStorage.GetNeighborBlock(blockIndex, worldPosition, BlockStorage.YFace.None, BlockStorage.ZFace.None, BlockStorage.XFace.East);
@@ -203,6 +204,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // XIncreasing
             if (!blockMidE.Exists && !(block.Type == BlockType.Water && blockMidE.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopSE.Sun + blockTopE.Sun + blockMidSE.Sun + blockMidE.Sun)/4);
@@ -233,6 +235,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // YDecreasing
             if (!blockBotM.Exists && !(block.Type == BlockType.Water && blockBotM.Type == BlockType.Water))
             {
                 sunBL = (1f/Chunk.MaxSunValue)*((blockBotSW.Sun + blockBotS.Sun + blockBotM.Sun + blockTopW.Sun)/4);
@@ -263,6 +266,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // YIncreasing
             if (!blockTopM.Exists && !(block.Type == BlockType.Water && blockTopM.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopNW.Sun + blockTopN.Sun + blockTopW.Sun + blockTopM.Sun)/4);
@@ -293,6 +297,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // ZIncreasing
             if (!blockMidS.Exists && !(block.Type == BlockType.Water && blockMidS.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopSW.Sun + blockTopS.Sun + blockMidSW.Sun + blockMidS.Sun)/4);
@@ -320,9 +325,10 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL,
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // ZDecreasing
             if (!blockMidN.Exists && !(block.Type == BlockType.Water && blockMidN.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopNE.Sun + blockTopN.Sun + blockMidNE.Sun + blockMidN.Sun)/4);
@@ -350,17 +356,17 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL,
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
         }
 
-        private static void BuildFaceVertices(Chunk chunk, Vector3Int position, BlockType blockType,
-                                              BlockFaceDirection faceDir, float sunLightTL, float sunLightTR,
-                                              float sunLightBL, float sunLightBR, Color localLightTL, Color localLightTR,
-                                              Color localLightBL, Color localLightBR)
+        private static void BuildFaceVertices(Chunk chunk, Vector3Int position, BlockType blockType, BlockFaceDirection faceDir, float sunLightTL, float sunLightTR, float sunLightBL, float sunLightBR, Color localLightTL, Color localLightTR, Color localLightBL, Color localLightBR)
         {
-            if (chunk.Disposed) return;
+            if (chunk.Disposed) 
+                return;
+
+            Console.WriteLine("Building face " + faceDir + " for block in " + position);
 
             BlockTexture texture = Block.GetTexture(blockType, faceDir);
 

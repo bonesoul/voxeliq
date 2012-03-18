@@ -37,7 +37,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                 for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
                 {
                     int worldPositionZ = chunk.WorldPosition.Z + z;
-                    this.GenerateBlock(chunk, worldPositionX, worldPositionZ);
+                    this.GenerateBlocks(chunk, worldPositionX, worldPositionZ);
                 }
             }
 
@@ -45,7 +45,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                 this.BiomeGenerator.ApplyBiome(chunk);
         }
 
-        protected virtual void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
+        protected virtual void GenerateBlocks(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
             var rockHeight = this.GetRockHeight(worldPositionX + this.Seed, worldPositionZ);
             var dirtHeight = this.GetDirtHeight(worldPositionX + this.Seed, worldPositionZ, rockHeight);

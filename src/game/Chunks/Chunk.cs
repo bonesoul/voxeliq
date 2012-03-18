@@ -28,32 +28,32 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk width in blocks.
         /// </summary>
-        public static byte WidthInBlocks = 16;
+        public static byte WidthInBlocks = 2;
 
         /// <summary>
         /// Maximum width index in blocks for chunk.
         /// </summary>
-        public static byte MaxWidthIndexInBlocks = 15;
+        public static byte MaxWidthIndexInBlocks = 1;
 
         /// <summary>
         /// Chunk lenght in blocks
         /// </summary>
-        public static byte LenghtInBlocks = 16;
+        public static byte LenghtInBlocks = 2;
 
         /// <summary>
         /// Maximum lenght index in blocks for chunk.
         /// </summary>
-        public static byte MaxLenghtIndexInBlocks = 15;
+        public static byte MaxLenghtIndexInBlocks = 1;
 
         /// <summary>
         /// Chunk height in blocks.
         /// </summary>
-        public static byte HeightInBlocks = 128;
+        public static byte HeightInBlocks = 2;
 
         /// <summary>
         /// Maximum height index in blocks for chunk.
         /// </summary>
-        public static byte MaxHeightIndexInBlocks = 127;
+        public static byte MaxHeightIndexInBlocks = 1;
 
         /// <summary>
         /// Chunk volume in blocks.
