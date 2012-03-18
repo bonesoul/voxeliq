@@ -13,21 +13,25 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
     /// </summary>
     public sealed class FlatDebugTerrain : BiomedTerrain
     {
+        private const byte RockHeight = 1;
+
         public FlatDebugTerrain(BiomeGenerator biomeGenerator) 
             : base(biomeGenerator)
         { }
 
-        protected override void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
+        protected override void GenerateBlocks(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            byte height = 10;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
             for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
-                BlockStorage.Blocks[offset + y] = new Block(BlockType.Grass);
+                if (y >= RockHeight)
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
+                else
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
             }
 
-            chunk.HighestSolidBlockOffset = height;
+            chunk.HighestSolidBlockOffset = RockHeight;
             chunk.LowestEmptyBlockOffset = 0;
         }     
     }

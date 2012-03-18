@@ -204,8 +204,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new MountainousTerrain(new RainForest());
-
+            this.Generator = new ValleyTerrain(new RainForest());
             base.Initialize();
         }
 

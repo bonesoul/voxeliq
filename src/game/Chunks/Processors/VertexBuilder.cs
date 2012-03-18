@@ -129,37 +129,37 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             Block blockMidNW, blockMidN, blockMidNE, blockMidW, blockMidM, blockMidE, blockMidSW, blockMidS, blockMidSE;
             Block blockBotNW, blockBotN, blockBotNE, blockBotW, blockBotM, blockBotE, blockBotSW, blockBotS, blockBotSE;
 
-            blockTopNW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.North, BlockStorage.XFace.West)];
-            blockTopN = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.North)];
-            blockTopNE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.North, BlockStorage.XFace.East)];
-            blockTopW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.None, BlockStorage.XFace.West)];
-            blockTopM = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top)];
-            blockTopE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.None, BlockStorage.XFace.East)];
-            blockTopSW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.South, BlockStorage.XFace.West)];
-            blockTopS = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.South)];
-            blockTopSE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Top, BlockStorage.ZFace.South, BlockStorage.XFace.East)];
+            blockTopNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
+            blockTopE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
 
-            blockMidNW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.North, BlockStorage.XFace.West)];
-            blockMidN = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.North)];
-            blockMidNE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.North, BlockStorage.XFace.East)];
-            blockMidW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.None, BlockStorage.XFace.West)];
+            blockMidNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
+            blockMidNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
             
             // here comes the self block in order but we don't need to calculate it ;)
 
-            blockMidE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.None, BlockStorage.XFace.East)];
-            blockMidSW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.South, BlockStorage.XFace.West)];
-            blockMidS = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.South)];
-            blockMidSE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.None, BlockStorage.ZFace.South, BlockStorage.XFace.East)];
+            blockMidE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
+            blockMidSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
+            blockMidSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
 
-            blockBotNW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.North, BlockStorage.XFace.West)];
-            blockBotN = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.North)];
-            blockBotNE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.North, BlockStorage.XFace.East)];
-            blockBotW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.None, BlockStorage.XFace.West)];
-            blockBotM = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom)];
-            blockBotE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.None, BlockStorage.XFace.East)];
-            blockBotSW = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.South, BlockStorage.XFace.West)];
-            blockBotS = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.South)];
-            blockBotSE = BlockStorage.Blocks[BlockStorage.GetNeighborBlock(blockIndex, BlockStorage.YFace.Bottom, BlockStorage.ZFace.South, BlockStorage.XFace.East)];
+            blockBotNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
+            blockBotE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
 
             float sunTR, sunTL, sunBR, sunBL;
             float redTR, redTL, redBR, redBL;
