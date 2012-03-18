@@ -189,7 +189,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="x"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public bool IsInBounds(float x, float z)
+        public bool IsInBound(float x, float z)
         {
             if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X || z >= this.BoundingBox.Max.Z) 
                 return false;

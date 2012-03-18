@@ -3,8 +3,10 @@
  *
  */
 
+using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
@@ -190,29 +192,51 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         }
 
         /// <summary>
-        /// Gets a neighboring block's index
+        /// Gets a neighboring block.
         /// </summary>
         /// <param name="blockIndex"></param>
         /// <param name="xFace"></param>
         /// <param name="zFace"></param>
+        /// <param name="worldPosition"> </param>
         /// <param name="yFace"></param>
         /// <returns></returns>
-        public static int GetNeighborBlockIndex(int blockIndex, YFace yFace = YFace.None, ZFace zFace = ZFace.None, XFace xFace = XFace.None)
+        public static Block GetNeighborBlock(int blockIndex, Vector3Int worldPosition, YFace yFace = YFace.None, ZFace zFace = ZFace.None, XFace xFace = XFace.None)
         {
             if (yFace == YFace.Top)
+            {
                 blockIndex++;
+                worldPosition.Y--;
+            }
             else if (yFace == YFace.Bottom)
+            {
                 blockIndex--;
+                worldPosition.Y++;
+            }
 
             if (zFace == ZFace.North)
+            {
                 blockIndex += ZStep;
+                worldPosition.Z++;
+            }
             else if (zFace == ZFace.South)
+            {
                 blockIndex -= ZStep;
+                worldPosition.Z--;
+            }
 
             if (xFace == XFace.East)
+            {
                 blockIndex += XStep;
+                worldPosition.X++;
+            }
             else if (xFace == XFace.West)
+            {
                 blockIndex -= XStep;
+                worldPosition.X--;
+            }
+
+            if(ChunkCache.BoundingBox.Contains(worldPosition.AsVector3())==ContainmentType.Disjoint)
+                return Block.Empty;
 
             // make sure block index is within view range.
             blockIndex = blockIndex % Blocks.Length;
@@ -220,7 +244,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             if (blockIndex < 0)
                 blockIndex += Blocks.Length;
 
-            return blockIndex;
+            return Blocks[blockIndex];
         }
 
         public enum XFace

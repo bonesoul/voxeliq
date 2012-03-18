@@ -34,11 +34,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         void ToggleInfinitiveWorld();
 
         /// <summary>
-        /// Bounding box for the cache.
-        /// </summary>
-        BoundingBox BoundingBox { get; set; }
-
-        /// <summary>
         /// Returns the chunk in given x-z position.
         /// </summary>
         /// <param name="x"></param>
@@ -143,7 +138,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Bounding box for chunk cache.
         /// </summary>
-        public BoundingBox BoundingBox { get; set; }
+        public static BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         /// The terrain generator.
@@ -204,7 +199,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new MountainousTerrain(new RainForest());
+            this.Generator = new FlatDebugTerrain(new RainForest());
 
             base.Initialize();
         }
@@ -248,8 +243,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                 new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (CacheRange*Chunk.LenghtInBlocks)),
                 new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
-                            Chunk.HeightInBlocks,
-                            this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
+                            Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
         }
 
@@ -330,7 +324,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var southWestEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X - ViewRange, this._player.CurrentChunk.RelativePosition.Z - ViewRange);
             var northEastEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X + ViewRange, this._player.CurrentChunk.RelativePosition.Z + ViewRange);
 
-            this.BoundingBox = new BoundingBox(
+            BoundingBox = new BoundingBox(
                     new Vector3(southWestEdge.X*Chunk.WidthInBlocks, 0, southWestEdge.Z*Chunk.LenghtInBlocks),
                     new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks, (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
@@ -469,16 +463,17 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         // returns the block at given coordinate.
         public Block BlockAt(int x, int y, int z)
         {
-            if (!IsInBounds(x, y, z)) return Block.Empty;
+            if (!IsInBound(x, y, z)) return Block.Empty;
 
             return BlockStorage.GetBlockByWorldPosition(x, y, z);
         }
 
         // returns true if given coordinate is in bounds.
-        public bool IsInBounds(int x, int y, int z)
+        public bool IsInBound(int x, int y, int z)
         {
-            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
-                z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
+            if (x < BoundingBox.Min.X || z < BoundingBox.Min.Z || x >= BoundingBox.Max.X || z >= BoundingBox.Max.Z || y < BoundingBox.Min.Y || y >= BoundingBox.Max.Y) 
+                return false;
+
             return true;
         }
 

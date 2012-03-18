@@ -113,7 +113,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             this.Chunks.NorthEastEdge = new Vector2Int(relativePosition.X + ChunkCache.ViewRange,
                                                        relativePosition.Z + ChunkCache.ViewRange);
 
-            this._chunkCache.BoundingBox =
+            ChunkCache.BoundingBox =
                 new BoundingBox(
                     new Vector3(this.Chunks.SouthWestEdge.X*Chunk.WidthInBlocks, 0, this.Chunks.SouthWestEdge.Z*Chunk.LenghtInBlocks),
                     new Vector3((this.Chunks.NorthEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks, (this.Chunks.NorthEastEdge.Z + 1)*Chunk.LenghtInBlocks));

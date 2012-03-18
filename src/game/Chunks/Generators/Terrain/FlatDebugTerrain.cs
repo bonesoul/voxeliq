@@ -19,15 +19,15 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected override void GenerateBlock(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            byte height = 10;
+            byte height = 5;
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
-            for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
+            for (int y = 0; y < height; y++)
             {
-                BlockStorage.Blocks[offset + y] = new Block(BlockType.Grass);
+                BlockStorage.Blocks[offset + y] = new Block(y == height - 1 ? BlockType.Grass : BlockType.Dirt);
             }
 
-            chunk.HighestSolidBlockOffset = height;
+            chunk.HighestSolidBlockOffset = (byte) (height - 1);
             chunk.LowestEmptyBlockOffset = 0;
         }     
     }
