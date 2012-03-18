@@ -13,7 +13,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
     /// </summary>
     public sealed class FlatDebugTerrain : BiomedTerrain
     {
-        private const byte RockHeight = 1;
+        private const byte DirtHeight = 1;
 
         public FlatDebugTerrain(BiomeGenerator biomeGenerator) 
             : base(biomeGenerator)
@@ -25,13 +25,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
             for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
-                if (y >= RockHeight)
+                if (y >= DirtHeight)
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
                 else
-                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
             }
 
-            chunk.HighestSolidBlockOffset = RockHeight;
+            chunk.HighestSolidBlockOffset = DirtHeight;
             chunk.LowestEmptyBlockOffset = 0;
         }     
     }
