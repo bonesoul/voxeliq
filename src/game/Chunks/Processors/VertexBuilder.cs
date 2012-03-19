@@ -62,8 +62,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 
         public static void Clear(Chunk chunk)
         {
-            chunk.VertexList = new List<BlockVertex>();
-            chunk.IndexList = new List<short>();
+            chunk.VertexList.Clear();
+            chunk.IndexList.Clear();
             chunk.Index = 0;
         }
 
@@ -102,16 +102,13 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             var vertices = chunk.VertexList.ToArray();
             var indices = chunk.IndexList.ToArray();
 
-            lock (chunk)
-            {
-                if (vertices.Length == 0 || indices.Length == 0) return;
+            if (vertices.Length == 0 || indices.Length == 0) return;
 
-                chunk.VertexBuffer = new VertexBuffer(this.Game.GraphicsDevice, typeof (BlockVertex), vertices.Length, BufferUsage.WriteOnly);
-                chunk.VertexBuffer.SetData(vertices);
+            chunk.VertexBuffer = new VertexBuffer(this.Game.GraphicsDevice, typeof(BlockVertex), vertices.Length, BufferUsage.WriteOnly);
+            chunk.VertexBuffer.SetData(vertices);
 
-                chunk.IndexBuffer = new IndexBuffer(this.Game.GraphicsDevice, IndexElementSize.SixteenBits, indices.Length, BufferUsage.WriteOnly);
-                chunk.IndexBuffer.SetData(indices);
-            }
+            chunk.IndexBuffer = new IndexBuffer(this.Game.GraphicsDevice, IndexElementSize.SixteenBits, indices.Length, BufferUsage.WriteOnly);
+            chunk.IndexBuffer.SetData(indices);
         }
 
 

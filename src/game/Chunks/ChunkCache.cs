@@ -189,7 +189,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new MountainousTerrain(new RainForest());
+            this.Generator = new FlatDebugTerrain(new RainForest());
             base.Initialize();
         }
 
@@ -399,15 +399,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                 foreach (Chunk chunk in this._chunkStorage.Values)
                 {
-                    if (chunk.ChunkState != ChunkState.Ready) // if chunk is not clean & ready yet,
-                        continue; // just pass it.
-
-                    if (!IsChunkInViewRange(chunk))
-                        continue;
-
-                    if (!chunk.BoundingBox.Intersects(viewFrustrum)) // if chunk is not in view frustrum,
-                        continue; // pas it.
-
                     if (chunk.IndexBuffer == null || chunk.VertexBuffer == null)
                         continue;
 
@@ -416,6 +407,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
                     if (chunk.IndexBuffer.IndexCount == 0)
                         continue;
+
+                    if (!IsChunkInViewRange(chunk))
+                        continue;
+
+                    if (!chunk.BoundingBox.Intersects(viewFrustrum)) // if chunk is not in view frustrum,
+                        continue; // pas it.
 
                     Game.GraphicsDevice.SetVertexBuffer(chunk.VertexBuffer);
                     Game.GraphicsDevice.Indices = chunk.IndexBuffer;

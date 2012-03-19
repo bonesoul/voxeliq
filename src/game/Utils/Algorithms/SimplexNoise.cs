@@ -7,7 +7,7 @@ using System;
 
 namespace VolumetricStudios.VoxeliqGame.Utils.Algorithms
 {
-    public static class PerlinSimplexNoise
+    public static class SimplexNoise
     {
         #region Initizalize grad3
 
@@ -131,10 +131,10 @@ namespace VolumetricStudios.VoxeliqGame.Utils.Algorithms
         private static int[] perm = new int[512];
 
         /// <summary> 
-        /// Initializes the <see cref="PerlinSimplexNoise"/> class. 
+        /// Initializes the <see cref="SimplexNoise"/> class. 
         /// </summary> 
         /// <author>Sjef van Leeuwen 3-3-2007 18:27</author> 
-        static PerlinSimplexNoise()
+        static SimplexNoise()
         {
             for (int i = 0; i < 512; i++) perm[i] = p[i & 255];
         }

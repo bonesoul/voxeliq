@@ -114,8 +114,10 @@ namespace VolumetricStudios.VoxeliqGame.Graphics
         public override void Update(GameTime gameTime)
         {
             this.Position = this._player.Position;
+            
             var rotation = Matrix.CreateRotationX(CurrentElevation)*Matrix.CreateRotationY(CurrentRotation);
-                // transform camera position based on rotation and elevation.
+
+            // transform camera position based on rotation and elevation.
             var target = Vector3.Transform(Vector3.Forward, rotation) + Position;
             var upVector = Vector3.Transform(Vector3.Up, rotation);
             this.View = Matrix.CreateLookAt(Position, target, upVector);

@@ -31,8 +31,11 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
             }
 
-            chunk.HighestSolidBlockOffset = DirtHeight;
+            chunk.HighestSolidBlockOffset = DirtHeight - 1;
             chunk.LowestEmptyBlockOffset = 0;
+
+            // apply the biome generator on x-z column.
+            this.BiomeGenerator.ApplyBiome(chunk, DirtHeight - 1, offset + DirtHeight - 1, worldPositionX + this.Seed, worldPositionZ);
         }     
     }
 }

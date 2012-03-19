@@ -74,9 +74,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected virtual int GetDirtHeight(int blockX, int blockZ, float rockHeight)
         {
-            float octave1 = PerlinSimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
-            float octave2 = PerlinSimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
-            float octave3 = PerlinSimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
+            float octave1 = SimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
+            float octave2 = SimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
+            float octave3 = SimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
             return (int) (octaveSum*(Chunk.HeightInBlocks/8)) + (int) (rockHeight);
@@ -87,9 +87,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             int minimumGroundheight = Chunk.HeightInBlocks/2;
             int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.4f);
 
-            float octave1 = PerlinSimplexNoise.noise(blockX*0.0001f, blockZ*0.0001f)*0.5f;
-            float octave2 = PerlinSimplexNoise.noise(blockX*0.0005f, blockZ*0.0005f)*0.35f;
-            float octave3 = PerlinSimplexNoise.noise(blockX*0.02f, blockZ*0.02f)*0.15f;
+            float octave1 = SimplexNoise.noise(blockX*0.0001f, blockZ*0.0001f)*0.5f;
+            float octave2 = SimplexNoise.noise(blockX*0.0005f, blockZ*0.0005f)*0.35f;
+            float octave3 = SimplexNoise.noise(blockX*0.02f, blockZ*0.02f)*0.15f;
             float lowerGroundHeight = octave1 + octave2 + octave3;
 
             lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;

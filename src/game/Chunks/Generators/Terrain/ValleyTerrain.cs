@@ -48,18 +48,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected virtual float GenerateValleyNoise(int worldPositionX, int worldPositionZ, int blockY)
         {
-            float caveNoise = PerlinSimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.01f)* (0.015f*blockY) + 0.1f;
-            caveNoise += PerlinSimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.1f)*0.06f + 0.1f;
-            caveNoise += PerlinSimplexNoise.noise(worldPositionX*0.2f, worldPositionZ*0.2f, blockY*0.2f)*0.03f + 0.01f;
+            float caveNoise = SimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.01f)* (0.015f*blockY) + 0.1f;
+            caveNoise += SimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.1f)*0.06f + 0.1f;
+            caveNoise += SimplexNoise.noise(worldPositionX*0.2f, worldPositionZ*0.2f, blockY*0.2f)*0.03f + 0.01f;
 
             return caveNoise;
         }
 
         protected override int GetDirtHeight(int blockX, int blockZ, float rockHeight)
         {
-            float octave1 = PerlinSimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
-            float octave2 = PerlinSimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
-            float octave3 = PerlinSimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
+            float octave1 = SimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
+            float octave2 = SimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
+            float octave3 = SimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
             return (int) (octaveSum*(Chunk.HeightInBlocks/2f)) + (int) (rockHeight);
@@ -70,9 +70,9 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
             int minimumGroundheight = Chunk.HeightInBlocks/4;
             int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.5f);
 
-            float octave1 = PerlinSimplexNoise.noise(blockX*0.0001f, blockZ*0.0001f)*0.5f;
-            float octave2 = PerlinSimplexNoise.noise(blockX*0.0005f, blockZ*0.0005f)*0.35f;
-            float octave3 = PerlinSimplexNoise.noise(blockX*0.02f, blockZ*0.02f)*0.15f;
+            float octave1 = SimplexNoise.noise(blockX*0.0001f, blockZ*0.0001f)*0.5f;
+            float octave2 = SimplexNoise.noise(blockX*0.0005f, blockZ*0.0005f)*0.35f;
+            float octave3 = SimplexNoise.noise(blockX*0.02f, blockZ*0.02f)*0.15f;
             float lowerGroundHeight = octave1 + octave2 + octave3;
 
             lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;
