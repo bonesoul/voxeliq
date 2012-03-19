@@ -40,9 +40,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
                     this.GenerateBlocks(chunk, worldPositionX, worldPositionZ);
                 }
             }
-
-            if (this.BiomeGenerator != null)
-                this.BiomeGenerator.ApplyBiome(chunk);
         }
 
         protected virtual void GenerateBlocks(Chunk chunk, int worldPositionX, int worldPositionZ)
@@ -54,27 +51,25 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
             for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
-                BlockType blockType;
-
                 if (y > dirtHeight) // air
-                    blockType = BlockType.None;
-                else if (y > rockHeight) // dirt
-                    blockType = BlockType.Dirt;
-                else // rock level
-                    blockType = BlockType.Rock;
-
-                switch (blockType)
                 {
-                    case BlockType.None:
-                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
-                        break;
-                    default:
-                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
-                        break;
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
+                    if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
                 }
-
-                BlockStorage.Blocks[offset + y] = new Block(blockType);
+                else if (y > rockHeight) // dirt level
+                {
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
+                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
+                }
+                else // rock level
+                {
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
+                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
+                }
             }
+
+            // apply the biome generator on x-z column.
+            this.BiomeGenerator.ApplyBiome(chunk, dirtHeight, offset + dirtHeight, worldPositionX + this.Seed, worldPositionZ);
         }
 
         protected virtual int GetDirtHeight(int blockX, int blockZ, float rockHeight)

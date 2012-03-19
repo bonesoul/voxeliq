@@ -12,25 +12,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
     /// </summary>
     public sealed class RainForest : BiomeGenerator
     {
-        public override void ApplyBiome(Chunk chunk)
+        public override void ApplyBiome(Chunk chunk, int groundLevel, int groundOffset, int worldPositionX, int worldPositionZ)
         {
-            for (byte x = 0; x < Chunk.WidthInBlocks; x++)
-            {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
-                {
-                    int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
+            BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Grass;
 
-                    for (byte y = chunk.HighestSolidBlockOffset; y >= 0; y--)
-                    {                    
-                        if (!BlockStorage.Blocks[offset + y - 1].Exists)
-                            continue;
-
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Grass;                      
-
-                        break;
-                    }
-                }
-            }
+            if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
+                chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
         }
     }
 }

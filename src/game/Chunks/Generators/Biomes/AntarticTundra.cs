@@ -12,27 +12,17 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
     /// </summary>
     public sealed class AntarticTundra : BiomeGenerator
     {
-        public override void ApplyBiome(Chunk chunk)
+        private const byte SnowDepth = 5;
+
+        public override void ApplyBiome(Chunk chunk, int groundLevel, int groundOffset, int worldPositionX, int worldPositionZ)
         {
-            for (int x = 0; x < Chunk.WidthInBlocks; x++)
+            for (int y = 0; y < SnowDepth; y++)
             {
-                for (int z = 0; z < Chunk.LenghtInBlocks; z++)
-                {
-                    byte snowDepth = 5;
-                    var offset = BlockStorage.BlockIndexByRelativePosition(chunk, (byte) x, (byte) z);
-
-                    for (int y = chunk.HighestSolidBlockOffset; y > 0; y--)
-                    {
-                        if (!BlockStorage.Blocks[offset + y - 1].Exists)
-                            continue;
-
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Snow;
-
-                        snowDepth--;
-                        if (snowDepth == 0) break;
-                    }
-                }
+                BlockStorage.Blocks[groundOffset + y].Type = BlockType.Snow;
             }
+
+            if (groundLevel + SnowDepth > chunk.HighestSolidBlockOffset)
+                chunk.HighestSolidBlockOffset = (byte)(groundLevel + SnowDepth);
         }
     }
 }

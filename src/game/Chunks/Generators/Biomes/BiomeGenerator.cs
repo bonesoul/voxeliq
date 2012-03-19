@@ -7,7 +7,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
 {
     public class BiomeGenerator
     {
-        public virtual void ApplyBiome(Chunk chunk)
+        public virtual void ApplyBiome(Chunk chunk, int groundLevel, int groundOffset, int worldPositionX, int worldPositionZ)
         { }
     }
 }
