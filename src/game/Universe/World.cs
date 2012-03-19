@@ -5,7 +5,6 @@
 
 using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
-//using VolumetricStudios.VoxeliqGame.Chunks.Builders;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
@@ -16,30 +15,15 @@ namespace VolumetricStudios.VoxeliqGame.Universe
     /// World service interface.
     /// </summary>
     public interface IWorld
-    {
-    }
-
-    /// <summary>
-    /// Statistics interface.
-    /// </summary>
-    public interface IWorldStatisticsService
-    {
-        //int GenerationQueueCount { get; }
-        //int BuildingQueueCount { get; }
-    }
+    { }
 
     /// <summary>
     /// World.
     /// </summary>
-    public class World : DrawableGameComponent, IWorld, IWorldStatisticsService
+    public class World : DrawableGameComponent, IWorld
     {
         public ChunkStorage Chunks { get; set; } // chunk storage.
         private readonly ChunkCache _chunkCache; // chunk cache.
-
-        //public ChunkBuilder ChunkBuilder { get; protected set; } // Chunk builder.       
-
-        //public int GenerationQueueCount { get { return this.ChunkBuilder.GenerationQueueCount; } } // Generation queue count.
-        //public int BuildingQueueCount { get { return this.ChunkBuilder.BuildingQueueCount; } } // Building queue count.
 
         // required services.
         private ICameraControlService _cameraController;
@@ -72,7 +56,6 @@ namespace VolumetricStudios.VoxeliqGame.Universe
             this._chunkCache = chunkCache;
 
             // export services.
-            this.Game.Services.AddService(typeof (IWorldStatisticsService), this);
             this.Game.Services.AddService(typeof (IWorld), this);
         }
 
