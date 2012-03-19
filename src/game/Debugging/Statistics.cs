@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
+using VolumetricStudios.VoxeliqGame.Engine;
 using VolumetricStudios.VoxeliqGame.Universe;
 
 namespace VolumetricStudios.VoxeliqGame.Debugging
@@ -52,7 +53,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
 
         // required services.       
         private IWorld _world;
-        private IWorldStatisticsService _worldStatistics;
         private IPlayer _player;
         private IFogger _fogger;
         private IChunkStorage _chunkStorage;
@@ -82,7 +82,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
-            this._worldStatistics = (IWorldStatisticsService) this.Game.Services.GetService(typeof (IWorldStatisticsService));
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
@@ -173,7 +172,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             // infinitive world
             _stringBuilder.Length = 0;
             _stringBuilder.Append("inf:");
-            _stringBuilder.Append(this._chunkCache.IsInfinitive ? "On" : "Off");
+            _stringBuilder.Append(Settings.World.IsInfinitive ? "On" : "Off");
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 35), Color.White);
 
             // fly

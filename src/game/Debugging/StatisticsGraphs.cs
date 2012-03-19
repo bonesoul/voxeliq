@@ -15,24 +15,10 @@ using VolumetricStudios.VoxeliqGame.Graphics.Drawing;
 namespace VolumetricStudios.VoxeliqGame.Debugging
 {
     /// <summary>
-    /// Allows interaction with statistics-graphs service.
-    /// </summary>
-    public interface IStatisticsGraphs
-    {
-        bool EnableRendering { get; }
-        void Toggle();
-    }
-
-    // TODO: modulerize it!
-
-    /// <summary>
     /// Draws pretty statistics graphs!
     /// </summary>
-    public class StatisticsGraphs : DrawableGameComponent, IStatisticsGraphs
+    public class StatisticsGraphs : DrawableGameComponent
     {
-        // settings
-        public bool EnableRendering { get; private set; }
-
         // resources.
         private PrimitiveBatch _primitiveBatch;
         private SpriteBatch _spriteBatch;
@@ -60,10 +46,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
 
         public StatisticsGraphs(Game game)
             : base(game)
-        {
-            this.Game.Services.AddService(typeof (IStatisticsGraphs), this); // export service.
-            this.EnableRendering = false;
-        }
+        { }
 
         public override void Initialize()
         {
@@ -73,11 +56,6 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
             this._statistics = (IStatistics) this.Game.Services.GetService(typeof (IStatistics));
 
             base.Initialize();
-        }
-
-        public void Toggle()
-        {
-            this.EnableRendering = !this.EnableRendering;
         }
 
         protected override void LoadContent()
@@ -105,7 +83,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging
 
         public override void Draw(GameTime gameTime)
         {
-            if (!this.EnableRendering)
+            if (!Engine.Settings.Debugging.FPSGraphEnabled)
                 return;
 
             // backup state.

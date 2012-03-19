@@ -15,6 +15,7 @@ using VolumetricStudios.VoxeliqGame.Chunks.Processors;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
+using VolumetricStudios.VoxeliqGame.Engine;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
@@ -23,16 +24,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     public interface IChunkCache
     {
-        /// <summary>
-        /// Returns true if world is in infinitive mode.
-        /// </summary>
-        bool IsInfinitive { get; }
-
-        /// <summary>
-        /// Toggles infitinitive world.
-        /// </summary>
-        void ToggleInfinitiveWorld();
-
         /// <summary>
         /// Bounding box for the cache.
         /// </summary>
@@ -108,7 +99,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 15;
+        public const byte ViewRange = 5;
 
         /// <summary>
         /// Bounding box for view range.
@@ -118,17 +109,12 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 15;
+        public const byte CacheRange = 5;
 
         /// <summary>
         /// Bounding box for cache range.
         /// </summary>
         public BoundingBox CacheRangeBoundingBox { get; set; }
-
-        /// <summary>
-        /// Is the world infinitive?
-        /// </summary>
-        public bool IsInfinitive { get; private set; }
 
         /// <summary>
         /// Chunks drawn statistics.
@@ -172,7 +158,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         public ChunkCache(Game game)
             : base(game)
         {
-            this.IsInfinitive = true;
             this.Game.Services.AddService(typeof (IChunkCache), this); // export service.
 
             this.CacheThreadStarted = false;
@@ -204,7 +189,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new FlatDebugTerrain(new RainForest());
+            this.Generator = new MountainousTerrain(new RainForest());
             base.Initialize();
         }
 
@@ -305,7 +290,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
                 Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
 
-            if (this.IsInfinitive)
+            if (Settings.World.IsInfinitive)
                 this.RecacheChunks();
         }
 
@@ -481,11 +466,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
                 z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
             return true;
-        }
-
-        public void ToggleInfinitiveWorld()
-        {
-            this.IsInfinitive = !this.IsInfinitive;
         }
     }
 }

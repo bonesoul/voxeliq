@@ -150,6 +150,7 @@
     <Compile Include="Debugging\TimeRuler.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
+    <Compile Include="Engine\Settings.cs" />
     <Compile Include="Managers\AudioConfig.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />

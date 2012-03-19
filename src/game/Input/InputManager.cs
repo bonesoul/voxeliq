@@ -9,6 +9,7 @@ using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
+using VolumetricStudios.VoxeliqGame.Engine;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Universe;
 
@@ -51,7 +52,6 @@ namespace VolumetricStudios.VoxeliqGame.Input
         private IInGameDebuggerService _ingameDebuggerService;
         private IFogger _fogger;
         private ISkyService _skyService;
-        private IStatisticsGraphs _statisticsGraphs;
         private IChunkCache _chunkCache;
         private IBloomService _bloomService;
 
@@ -85,7 +85,6 @@ namespace VolumetricStudios.VoxeliqGame.Input
             this._ingameDebuggerService =(IInGameDebuggerService) this.Game.Services.GetService(typeof (IInGameDebuggerService));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
             this._skyService = (ISkyService) this.Game.Services.GetService(typeof (ISkyService));
-            this._statisticsGraphs = (IStatisticsGraphs) this.Game.Services.GetService(typeof (IStatisticsGraphs));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
             this._bloomService = (IBloomService) this.Game.Services.GetService(typeof (IBloomService));
 
@@ -157,7 +156,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
 
             // debug keys.
             if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                this._chunkCache.ToggleInfinitiveWorld();
+                Settings.World.ToggleInfinitiveWorld();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
                 this._player.ToggleFlyForm();
@@ -178,7 +177,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
                 this._bloomService.ToogleSettings();
 
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                this._statisticsGraphs.Toggle();
+                Settings.Debugging.ToggleFPSGraph();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();
