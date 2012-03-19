@@ -24,30 +24,26 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
             for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
             {
-                BlockType blockType;
-
                 if (y > dirtHeight) // air
-                    blockType = BlockType.None;
+                {
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
+                    if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
+                }
                 else if (y > rockHeight) // dirt
                 {
                     var valleyNoise = this.GenerateValleyNoise(worldPositionX, worldPositionZ, y);
-                    blockType = valleyNoise > 0.2f ? BlockType.None : BlockType.Dirt;
+                    BlockStorage.Blocks[offset + y] = new Block(valleyNoise > 0.2f ? BlockType.None : BlockType.Dirt);
+                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
                 else // rock level
-                    blockType = BlockType.Rock;
-
-                switch (blockType)
                 {
-                    case BlockType.None:
-                        if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte) y;
-                        break;
-                    default:
-                        if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte) y;
-                        break;
+                    BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
+                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
-
-                BlockStorage.Blocks[offset + y] = new Block(blockType);
             }
+
+            // apply the biome generator on x-z column.
+            this.BiomeGenerator.ApplyBiome(chunk, dirtHeight, offset + dirtHeight, worldPositionX + this.Seed, worldPositionZ);
         }
 
         protected virtual float GenerateValleyNoise(int worldPositionX, int worldPositionZ, int blockY)
