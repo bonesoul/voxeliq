@@ -5,7 +5,7 @@
 
 using VolumetricStudios.VoxeliqGame.Blocks;
 using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
+using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
@@ -17,8 +17,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected override void GenerateBlocks(Chunk chunk, int worldPositionX, int worldPositionZ)
         {
-            var rockHeight = this.GetRockHeight(worldPositionX + this.Seed, worldPositionZ);
-            var dirtHeight = this.GetDirtHeight(worldPositionX + this.Seed, worldPositionZ, rockHeight);
+            var rockHeight = this.GetRockHeight(worldPositionX, worldPositionZ);
+            var dirtHeight = this.GetDirtHeight(worldPositionX, worldPositionZ, rockHeight);
 
             var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
 
@@ -48,6 +48,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected virtual float GenerateValleyNoise(int worldPositionX, int worldPositionZ, int blockY)
         {
+            worldPositionX += this.Seed;
+
             float caveNoise = SimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.01f)* (0.015f*blockY) + 0.1f;
             caveNoise += SimplexNoise.noise(worldPositionX*0.01f, worldPositionZ*0.01f, blockY*0.1f)*0.06f + 0.1f;
             caveNoise += SimplexNoise.noise(worldPositionX*0.2f, worldPositionZ*0.2f, blockY*0.2f)*0.03f + 0.01f;
@@ -57,6 +59,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected override int GetDirtHeight(int blockX, int blockZ, float rockHeight)
         {
+            blockX += this.Seed;
+
             float octave1 = SimplexNoise.noise((blockX + 100)*0.001f, blockZ*0.001f)*0.5f;
             float octave2 = SimplexNoise.noise((blockX + 100)*0.002f, blockZ*0.002f)*0.25f;
             float octave3 = SimplexNoise.noise((blockX + 100)*0.01f, blockZ*0.01f)*0.25f;
@@ -67,6 +71,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected override float GetRockHeight(int blockX, int blockZ)
         {
+            blockX += this.Seed;
+
             int minimumGroundheight = Chunk.HeightInBlocks/4;
             int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.5f);
 

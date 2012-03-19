@@ -4,7 +4,7 @@
  */
 
 using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Utils.Algorithms;
+using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
 
 namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
@@ -16,6 +16,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 
         protected override float GetRockHeight(int blockX, int blockZ)
         {
+            blockX += this.Seed;
+
             int minimumGroundheight = Chunk.HeightInBlocks/4;
             int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.7f);
 

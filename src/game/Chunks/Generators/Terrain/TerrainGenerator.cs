@@ -13,7 +13,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
         /// <summary>
         /// A default seed for terrain generator if no seed is assigned.
         /// </summary>
-        private const int DefaultSeed = 2;
+        private const int DefaultSeed = 12323;
 
         /// <summary>
         /// Gets or sets the current seed.

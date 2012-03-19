@@ -5,7 +5,7 @@
 
 using System;
 
-namespace VolumetricStudios.VoxeliqGame.Utils.Algorithms
+namespace VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural
 {
     public static class SimplexNoise
     {
