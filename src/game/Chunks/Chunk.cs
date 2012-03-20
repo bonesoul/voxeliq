@@ -206,7 +206,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public Block BlockAt(int x, int y, int z)
         {
-            return BlockStorage.GetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+            return BlockStorage.FastBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
         /// <summary>

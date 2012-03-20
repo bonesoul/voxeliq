@@ -149,7 +149,7 @@ namespace VolumetricStudios.VoxeliqGame
 
             this.Velocity.Y += Gravity*(float) gameTime.ElapsedGameTime.TotalSeconds;
             var footPosition = Position + new Vector3(0f, -1.5f, 0f);
-            Block standingBlock = this._chunkCache.BlockAt(footPosition);
+            Block standingBlock = BlockStorage.BlockAt(footPosition);
 
             if (standingBlock.Exists) this.Velocity.Y = 0;
             this.Position += Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds;
@@ -168,7 +168,7 @@ namespace VolumetricStudios.VoxeliqGame
         public void Jump()
         {
             var footPosition = Position + new Vector3(0f, -1.5f, 0f);
-            Block standingBlock = this._chunkCache.BlockAt(footPosition);
+            Block standingBlock = BlockStorage.BlockAt(footPosition);
 
             if (!standingBlock.Exists && this.Velocity.Y != 0) return;
             float amountBelowSurface = ((ushort) footPosition.Y) + 1 - footPosition.Y;
@@ -224,11 +224,11 @@ namespace VolumetricStudios.VoxeliqGame
             testVector *= moveVector.Length() + 0.3f;
             var footPosition = Position + new Vector3(0f, -0.5f, 0f);
             Vector3 testPosition = footPosition + testVector;
-            if (this._chunkCache.BlockAt(testPosition).Exists) return;
+            if (BlockStorage.BlockAt(testPosition).Exists) return;
 
             // There should be some bounding box so his head does not enter a block above ;) /fasbat
             testPosition -= 2*new Vector3(0f, -0.5f, 0f);
-            if (this._chunkCache.BlockAt(testPosition).Exists) return;
+            if (BlockStorage.BlockAt(testPosition).Exists) return;
 
 
             this.Position += moveVector;
@@ -252,7 +252,7 @@ namespace VolumetricStudios.VoxeliqGame
             for (float x = 0.5f; x < 8f; x += 0.1f)
             {
                 Vector3 target = this._camera.Position + (LookVector*x);
-                var block = this._chunkCache.BlockAt(target);
+                var block = BlockStorage.BlockAt(target);
                 if (!block.Exists) this.AimedEmptyBlock = new PositionedBlock(new Vector3Int(target), block);
                 else
                 {

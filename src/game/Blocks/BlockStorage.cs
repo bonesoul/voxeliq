@@ -3,6 +3,7 @@
  *
  */
 
+using Microsoft.Xna.Framework;
 using VolumetricStudios.VoxeliqGame.Chunks;
 using VolumetricStudios.VoxeliqGame.Common.Logging;
 
@@ -54,27 +55,77 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
         }
 
+        #region block accessors
+
         /// <summary>
         /// Gets a block by given world position.
         /// </summary>
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
-        /// <returns></returns>
-        public static Block GetByWorldPosition(int x, int y, int z)
+        /// <returns>Copy of <see cref="Block"/></returns>
+        public static Block BlockAt(int x, int y, int z)
         {
+            // make sure given coordinates are in chunk cache's bounds.
+            if (!ChunkCache.IsInBounds(x, y, z))
+                return Block.Empty; // if it's out of bounds, just return an empty block.
+
+            // wrap x coordinate.
+            var wrapX = x % CacheWidthInBlocks;
+            if (wrapX < 0)
+                wrapX += CacheWidthInBlocks;
+
+            // wrap z coordinate.
+            var wrapZ = z % CacheLenghtInBlocks;
+            if (wrapZ < 0)
+                wrapZ += CacheLenghtInBlocks;
+
+            // calculate the flatten index.
+            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
+
+            // return block copy.
+            return Blocks[flattenIndex];
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        public static Block BlockAt(Vector3 position)
+        {
+            return BlockAt((int) position.X, (int) position.Y, (int) position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block FastBlockAt(int x, int y, int z)
+        {
+            // wrap x coordinate.
             var wrapX = x%CacheWidthInBlocks;
             if (wrapX < 0)
                 wrapX += CacheWidthInBlocks;
 
+            // wrap z coordinate.
             var wrapZ = z%CacheLenghtInBlocks;
             if (wrapZ < 0)
                 wrapZ += CacheLenghtInBlocks;
 
+            // calculate the flatten index.
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
 
+            // return block copy.
             return Blocks[flattenIndex];
         }
+
+        #endregion
 
         /// <summary>
         /// Sets a block by given world position.
@@ -98,6 +149,8 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
 
             Blocks[flattenIndex] = value;
         }
+
+        #region block index queries using world positions
 
         /// <summary>
         /// Returns block index by world position of block.
@@ -139,6 +192,10 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
             return flattenIndex;
         }
+
+        #endregion
+
+        #region block index queries using relative positions
 
         /// <summary>
         /// Returns block index by relative position of block in chunk.
@@ -188,5 +245,7 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
             return flattenIndex;
         }
+
+        #endregion
     }
 }

@@ -37,7 +37,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
             var trunkHeight = (byte) (5 + (byte) _treePlanter.Next(10));
 
             // trunk
-            for (int y = 1; y <= trunkHeight; y++ )
+            for (int y = 1; y <= trunkHeight; y++)
             {
                 BlockStorage.Blocks[grassOffset + y].Type = BlockType.Tree;
             }
@@ -55,8 +55,8 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
             }
 
             if (grassLevel + trunkHeight > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte)(grassLevel + trunkHeight);
+                chunk.HighestSolidBlockOffset = (byte) (grassLevel + trunkHeight);
 
-
+        }
     }
 }

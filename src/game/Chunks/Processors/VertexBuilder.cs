@@ -126,37 +126,37 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             Block blockMidNW, blockMidN, blockMidNE, blockMidW, blockMidM, blockMidE, blockMidSW, blockMidS, blockMidSE;
             Block blockBotNW, blockBotN, blockBotNE, blockBotW, blockBotM, blockBotE, blockBotSW, blockBotS, blockBotSE;
 
-            blockTopNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
-            blockTopM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
-            blockTopE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
-            blockTopSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
-            blockTopS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
-            blockTopSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopM = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
+            blockTopE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
 
-            blockMidNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
-            blockMidN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
-            blockMidNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
-            blockMidW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
+            blockMidNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
+            blockMidNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
             
             // here comes the self block in order but we don't need to calculate it ;)
 
-            blockMidE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
-            blockMidSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
-            blockMidS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
-            blockMidSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
+            blockMidSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
+            blockMidSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
 
-            blockBotNW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotN = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotNE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
-            blockBotM = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
-            blockBotE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
-            blockBotSW = this._chunkCache.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
-            blockBotS = this._chunkCache.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
-            blockBotSE = this._chunkCache.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotM = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
+            blockBotE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
 
             float sunTR, sunTL, sunBR, sunBL;
             float redTR, redTL, redBR, redBL;

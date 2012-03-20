@@ -25,11 +25,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
     public interface IChunkCache
     {
         /// <summary>
-        /// Bounding box for the cache.
-        /// </summary>
-        BoundingBox BoundingBox { get; set; }
-
-        /// <summary>
         /// Returns the chunk in given x-z position.
         /// </summary>
         /// <param name="x"></param>
@@ -52,22 +47,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="position"></param>
         /// <param name="block"></param>
         void SetBlock(Vector3Int position, Block block);
-
-        /// <summary>
-        /// returns the block at given coordinate.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        Block BlockAt(Vector3 position);
-
-        /// <summary>
-        /// returns the block at given coordinate.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
-        Block BlockAt(int x, int y, int z);
 
         /// <summary>
         /// Returns chunks drawn in last draw() call.
@@ -129,7 +108,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <summary>
         /// Bounding box for chunk cache.
         /// </summary>
-        public BoundingBox BoundingBox { get; set; }
+        public static BoundingBox BoundingBox { get; set; }
 
         /// <summary>
         /// The terrain generator.
@@ -314,7 +293,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             var southWestEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X - ViewRange, this._player.CurrentChunk.RelativePosition.Z - ViewRange);
             var northEastEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X + ViewRange, this._player.CurrentChunk.RelativePosition.Z + ViewRange);
 
-            this.BoundingBox = new BoundingBox(
+            BoundingBox = new BoundingBox(
                     new Vector3(southWestEdge.X*Chunk.WidthInBlocks, 0, southWestEdge.Z*Chunk.LenghtInBlocks),
                     new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
                                 (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
@@ -442,26 +421,20 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
             chunk.SetBlock((byte) (x%Chunk.WidthInBlocks), (byte) y, (byte) (z%Chunk.LenghtInBlocks), block);
         }
 
-        // returns the block at given coordinate.
-        public Block BlockAt(Vector3 position)
+        /// <summary>
+        /// Check if given x, y and z coordinates are in bounds of chunk cache.
+        /// </summary>
+        /// <param name="x">The x coordinate to check.</param>
+        /// <param name="y">The y coordinate to check.</param>
+        /// <param name="z">The z coordinate to check.</param>
+        /// <returns>True if given point/block is in bounds of chunk-cache.</returns>
+        /// <remarks>Prefer this method instead of BoundingBox.Contains as blocks need special handling!</remarks>
+        public static bool IsInBounds(int x, int y, int z)
         {
-            return BlockAt((int) position.X, (int) position.Y, (int) position.Z);
-        }
+            if (x < BoundingBox.Min.X || z < BoundingBox.Min.Z || x >= BoundingBox.Max.X ||
+                z >= BoundingBox.Max.Z || y < BoundingBox.Min.Y || y >= BoundingBox.Max.Y)                 
+                return false;
 
-        // returns the block at given coordinate.
-        // TODO move this function to blockstorage!
-        public Block BlockAt(int x, int y, int z)
-        {
-            if (!IsInBounds(x, y, z)) return Block.Empty;
-
-            return BlockStorage.GetByWorldPosition(x, y, z);
-        }
-
-        // returns true if given coordinate is in bounds.
-        public bool IsInBounds(int x, int y, int z)
-        {
-            if (x < this.BoundingBox.Min.X || z < this.BoundingBox.Min.Z || x >= this.BoundingBox.Max.X ||
-                z >= this.BoundingBox.Max.Z || y < this.BoundingBox.Min.Y || y >= this.BoundingBox.Max.Y) return false;
             return true;
         }
     }
