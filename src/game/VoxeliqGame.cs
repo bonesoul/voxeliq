@@ -73,7 +73,7 @@ namespace VolumetricStudios.VoxeliqGame
 
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
-            this.AddComponents(); // add the main compontents.
+            this.AddComponents(); // add the game compontents.
 
             base.Initialize();
         }
@@ -129,10 +129,12 @@ namespace VolumetricStudios.VoxeliqGame
             this._timeRuler.Visible = true;
             this._timeRuler.ShowLog = true;
             this.Components.Add(this._timeRuler);
-
-            base.Initialize();
         }
 
+        /// <summary>
+        /// Allows the game to run logic.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             // tell the TimeRuler that we're starting a new frame. you always want
@@ -158,7 +160,7 @@ namespace VolumetricStudios.VoxeliqGame
         /// <summary>
         /// Draws the scene.
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
@@ -173,6 +175,14 @@ namespace VolumetricStudios.VoxeliqGame
 
             // Stop measuring time for "Draw".
             this._timeRuler.EndMark("Draw");
+        }
+
+        /// <summary>
+        /// UnloadContent will be called once per game and is the place to unload
+        /// all content.
+        /// </summary>
+        protected override void UnloadContent()
+        {
         }
     }
 }

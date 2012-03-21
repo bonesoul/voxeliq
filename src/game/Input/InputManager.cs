@@ -139,8 +139,7 @@ namespace VolumetricStudios.VoxeliqGame.Input
         {
             var currentState = Keyboard.GetState();
 
-            if (currentState.IsKeyDown(Keys.Escape) && this._previousKeyboardState.IsKeyUp(Keys.Escape))
-                // allows quick exiting the game.
+            if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
                 this.Game.Exit();
 
             // movement keys.
