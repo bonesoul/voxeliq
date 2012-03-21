@@ -14,8 +14,11 @@ namespace VolumetricStudios.VoxeliqGame
 {
     public static class Program
     {
-        private static readonly Logger Logger = LogManager.CreateLogger();
+        private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
 
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
         private static void Main(string[] args)
         {
             // Watch for unhandled exceptions
@@ -43,8 +46,7 @@ namespace VolumetricStudios.VoxeliqGame
         private static void InitLoggers()
         {
             LogManager.Enabled = true; // enable logging facility.
-            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false));
-                // attach a console target.
+            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
         }
 
         private static void PrintBanner()
@@ -73,8 +75,7 @@ namespace VolumetricStudios.VoxeliqGame
         private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
             if (e.IsTerminating)
-                Logger.FatalException((e.ExceptionObject as Exception),
-                                      "voxeliq terminating because of unhandled exception.");
+                Logger.FatalException((e.ExceptionObject as Exception),"Voxeliq terminating because of unhandled exception.");
             else
                 Logger.ErrorException((e.ExceptionObject as Exception), "Caught unhandled exception.");
             Console.ReadLine();
