@@ -109,10 +109,6 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -137,12 +133,6 @@
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
     <Compile Include="Chunks\Generators\Biomes\Desert.cs" />
-    <Compile Include="Common\Config\Config.cs" />
-    <Compile Include="Common\Config\ConfigManager.cs" />
-    <Compile Include="Common\Helpers\IO\FileHelpers.cs" />
-    <Compile Include="Common\Helpers\Math\FastRandom.cs" />
-    <Compile Include="Common\Logging\LogConfig.cs" />
-    <Compile Include="Common\Logging\TinyLogger.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
@@ -216,6 +206,10 @@
       <Project>{68CA309E-2F40-4DA1-82D8-95B6CA2FB996}</Project>
       <Name>BlendBlueTheme</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.csproj">
+      <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
+      <Name>LibVolumetric</Name>
     </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Name>Content</Name>

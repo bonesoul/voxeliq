@@ -4,8 +4,8 @@
  */
 
 using Microsoft.Xna.Framework;
+using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Utils.Vector;
 

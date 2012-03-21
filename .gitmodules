@@ -1,0 +1,3 @@
+[submodule "dep/libvolumetric"]
+	path = dep/libvolumetric
+	url = git@github.com:raistlinthewiz/libvolumetric.git

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Common.Logging;
 
 namespace VolumetricStudios.VoxeliqGame.Universe
 {

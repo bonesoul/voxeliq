@@ -8,8 +8,8 @@ using System.Globalization;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Engine;
 using VolumetricStudios.VoxeliqGame.Universe;
 

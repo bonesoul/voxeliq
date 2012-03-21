@@ -3,7 +3,7 @@
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Common.Config;
+using VolumetricStudios.LibVolumetric.Configuration;
 
 namespace VolumetricStudios.VoxeliqGame.Graphics
 {

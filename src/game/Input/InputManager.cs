@@ -5,8 +5,8 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Common.Logging;
 using VolumetricStudios.VoxeliqGame.Debugging;
 using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
 using VolumetricStudios.VoxeliqGame.Engine;
