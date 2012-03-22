@@ -36,7 +36,7 @@ namespace VolumetricStudios.VoxeliqGame
             if (!_player.AimedSolidBlock.HasValue) 
                 return;
 
-            this._chunkCache.SetBlock(_player.AimedSolidBlock.Value.Position, Block.Empty);
+            this._chunkCache.SetBlockAt(_player.AimedSolidBlock.Value.Position, Block.Empty);
         }
 
         public override void SecondaryUse()
@@ -45,7 +45,7 @@ namespace VolumetricStudios.VoxeliqGame
             if (!_player.AimedEmptyBlock.HasValue || _player.AimedEmptyBlock.Value.Position == new Vector3Int(_player.Position + new Vector3(0f, -0.5f, 0f)))
                 return;
 
-            this._chunkCache.SetBlock(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
+            this._chunkCache.SetBlockAt(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
         }
 
         public override void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)

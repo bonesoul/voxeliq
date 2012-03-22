@@ -39,14 +39,14 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="block"></param>
-        void SetBlock(int x, int y, int z, Block block);
+        void SetBlockAt(int x, int y, int z, Block block);
 
         /// <summary>
         /// Sets a block in given x-y-z coordinate.
         /// </summary>
         /// <param name="position"></param>
         /// <param name="block"></param>
-        void SetBlock(Vector3Int position, Block block);
+        void SetBlockAt(Vector3Int position, Block block);
 
         /// <summary>
         /// Returns chunks drawn in last draw() call.
@@ -409,16 +409,19 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         }
 
         // Sets a block in given x-y-z coordinate.
-        public void SetBlock(Vector3Int position, Block block)
+        public void SetBlockAt(Vector3Int position, Block block)
         {
-            this.SetBlock(position.X, position.Y, position.Z, block);
+            this.SetBlockAt(position.X, position.Y, position.Z, block);
         }
 
         // Sets a block in given x-y-z coordinate.
-        public void SetBlock(int x, int y, int z, Block block)
+        public void SetBlockAt(int x, int y, int z, Block block)
         {
             var chunk = this.GetChunk(x, z);
-            chunk.SetBlock((byte) (x%Chunk.WidthInBlocks), (byte) y, (byte) (z%Chunk.LenghtInBlocks), block);
+            if (chunk == null)
+                return;
+
+            chunk.FastSetBlockAt((byte) (x%Chunk.WidthInBlocks), (byte) y, (byte) (z%Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
         }
 
         /// <summary>

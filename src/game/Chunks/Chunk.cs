@@ -206,8 +206,21 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <returns></returns>
         public Block BlockAt(int x, int y, int z)
         {
+            return BlockStorage.BlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
+        }
+
+        /// <summary>
+        /// Returns the block at given wolrd coordinate.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <returns></returns>
+        public Block FastBlockAt(int x, int y, int z)
+        {
             return BlockStorage.FastBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
+
 
         /// <summary>
         /// Sets block at given relative position.
@@ -216,7 +229,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="block"></param>
-        public void SetBlock(byte x, byte y, byte z, Block block)
+        public void FastSetBlockAt(byte x, byte y, byte z, Block block)
         {
             switch (block.Exists)
             {
@@ -230,7 +243,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                     break;
             }
 
-            BlockStorage.SetByWorldPosition(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
+            BlockStorage.FastSetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 

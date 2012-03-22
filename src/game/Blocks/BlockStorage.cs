@@ -6,6 +6,7 @@
 using Microsoft.Xna.Framework;
 using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
@@ -90,16 +91,6 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// <summary>
         /// Gets a block by given world position.
         /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(Vector3 position)
-        {
-            return BlockAt((int) position.X, (int) position.Y, (int) position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
@@ -125,7 +116,51 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
             return Blocks[flattenIndex];
         }
 
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        public static Block BlockAt(Vector3 position)
+        {
+            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        public static Block BlockAt(Vector3Int position)
+        {
+            return BlockAt(position.X, position.Y, position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block FastBlockAt(Vector3 position)
+        {
+            return FastBlockAt((int)position.X, (int)position.Y, (int)position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block FastBlockAt(Vector3Int position)
+        {
+            return FastBlockAt(position.X, position.Y, position.Z);
+        }
+
         #endregion
+
+        #region block setters
 
         /// <summary>
         /// Sets a block by given world position.
@@ -133,22 +168,108 @@ namespace VolumetricStudios.VoxeliqGame.Blocks
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
-        /// <param name="value">Block value to set.</param>
-        /// <returns></returns>
-        public static void SetByWorldPosition(int x, int y, int z, Block value)
+        /// <param name="block">Block to set.</param>
+        public static void SetBlockAt(int x, int y, int z, Block block)
         {
-            var wrapX = x%CacheWidthInBlocks;
+            // make sure given coordinates are in chunk cache's bounds.
+            if (!ChunkCache.IsInBounds(x, y, z))
+                return; // if it's out of bounds, just return;
+
+            // wrap x coordinate.
+            var wrapX = x % CacheWidthInBlocks;
             if (wrapX < 0)
                 wrapX += CacheWidthInBlocks;
 
-            var wrapZ = z%CacheLenghtInBlocks;
+            // wrap z coordinate.
+            var wrapZ = z % CacheLenghtInBlocks;
             if (wrapZ < 0)
                 wrapZ += CacheLenghtInBlocks;
 
+            // calculate the flatten index.
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
 
-            Blocks[flattenIndex] = value;
+            // sett the block
+            Blocks[flattenIndex] = block;
         }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <param name="block">Block to set.</param>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
+        public static void FastSetBlockAt(int x, int y, int z, Block block)
+        {
+            // make sure given coordinates are in chunk cache's bounds.
+            if (!ChunkCache.IsInBounds(x, y, z))
+                return; // if it's out of bounds, just return;
+
+            // wrap x coordinate.
+            var wrapX = x % CacheWidthInBlocks;
+            if (wrapX < 0)
+                wrapX += CacheWidthInBlocks;
+
+            // wrap z coordinate.
+            var wrapZ = z % CacheLenghtInBlocks;
+            if (wrapZ < 0)
+                wrapZ += CacheLenghtInBlocks;
+
+            // calculate the flatten index.
+            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
+
+            // sett the block
+            Blocks[flattenIndex] = block;
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        public static void SetBlockAt(Vector3 position, Block block)
+        {
+            SetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        public static void SetBlockAt(Vector3Int position, Block block)
+        {
+            SetBlockAt(position.X, position.Y, position.Z, block);
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
+        public static void FastSetBlockAt(Vector3 position, Block block)
+        {
+            FastSetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
+        public static void FastSetBlockAt(Vector3Int position, Block block)
+        {
+            FastSetBlockAt(position.X, position.Y, position.Z, block);
+        }
+
+        #endregion
 
         #region block index queries using world positions
 
