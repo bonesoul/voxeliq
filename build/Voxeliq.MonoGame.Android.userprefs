@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="e:\Source\voxeliq\src\game\Blocks\BlockStorage.cs">
+    <Files>
+      <File FileName="..\src\game\Blocks\Block.cs" Line="6" Column="11" />
+      <File FileName="..\src\android\Activity1.cs" Line="10" Column="40" />
+      <File FileName="e:\Source\voxeliq\src\game\Blocks\BlockStorage.cs" Line="7" Column="25" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.VoxeliqAndroid />
+  <MonoDevelop.Ide.ItemProperties.Voxeliq.MonoGame.Android AndroidDeviceId-Debug="037c714543dff4d7" />
+</Properties>
