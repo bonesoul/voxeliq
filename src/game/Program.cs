@@ -34,6 +34,14 @@ namespace VolumetricStudios.VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
+            
+            #if XNA
+                Logger.Trace("Using XNA (Direct) as the framework.");
+            #elif MONOGAME
+                Logger.Trace("Using MonoGame (OpenGL) as the framework.");
+            #else
+                Logger.Trace("Can not determine underlying framework.");
+            #endif
 
             using (var game = new VoxeliqGame()) // startup voxlr client.
             {

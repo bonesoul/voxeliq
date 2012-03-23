@@ -191,14 +191,6 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
 
         public override void Update(GameTime gameTime)
         {
-            if (!this.CacheThreadStarted)
-            {
-                var cacheThread = new Thread(CacheThread) { IsBackground = true };
-                cacheThread.Start();
-
-                this.CacheThreadStarted = true;
-            }
-
             this.ViewRangeBoundingBox = new BoundingBox(
                 new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (ViewRange*Chunk.LenghtInBlocks)),
@@ -214,6 +206,18 @@ namespace VolumetricStudios.VoxeliqGame.Chunks
                             Chunk.HeightInBlocks,
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
+
+                #if !MONOGAME
+                            if (!this.CacheThreadStarted)
+                            {
+                                var cacheThread = new Thread(CacheThread) { IsBackground = true };
+                                cacheThread.Start();
+
+                                this.CacheThreadStarted = true;
+                            }
+                #else
+                            this.Process();
+                #endif
         }
 
         private void CacheThread()
