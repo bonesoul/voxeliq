@@ -91,7 +91,7 @@ namespace VolumetricStudios.VoxeliqGame.Universe
 
             // load the dome.
             this._skyDome = Game.Content.Load<Model>("Models\\SkyDome");
-            this._skyDome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
+            //this._skyDome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
 
             // load maps.
             this._cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");

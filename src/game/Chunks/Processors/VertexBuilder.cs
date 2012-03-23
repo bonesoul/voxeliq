@@ -362,6 +362,7 @@ namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
             BlockTexture texture = Block.GetTexture(blockType, faceDir);
 
             int faceIndex = 0;
+
             HalfVector2[] textureUVMappings = TextureHelper.BlockTextureMappings[(int) texture*6 + faceIndex];
 
             //int crackStage = 0;

@@ -315,16 +315,16 @@ namespace VolumetricStudios.VoxeliqGame
             {
                 pass.Apply();
 
-                for (int i = 0; i < _aimedBlockModel.Meshes[0].MeshParts.Count; i++)
-                {
-                    ModelMeshPart parts = _aimedBlockModel.Meshes[0].MeshParts[i];
-                    if (parts.NumVertices == 0) continue;
+                //for (int i = 0; i < _aimedBlockModel.Meshes[0].MeshParts.Count; i++)
+                //{
+                //    ModelMeshPart parts = _aimedBlockModel.Meshes[0].MeshParts[i];
+                //    if (parts.NumVertices == 0) continue;
 
-                    Game.GraphicsDevice.Indices = parts.IndexBuffer;
-                    Game.GraphicsDevice.SetVertexBuffer(parts.VertexBuffer);
-                    Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, parts.NumVertices,
-                                                              parts.StartIndex, parts.PrimitiveCount);
-                }
+                //    Game.GraphicsDevice.Indices = parts.IndexBuffer;
+                //    Game.GraphicsDevice.SetVertexBuffer(parts.VertexBuffer);
+                //    Game.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, parts.NumVertices,
+                //                                              parts.StartIndex, parts.PrimitiveCount);
+                //}
             }
         }
     }
