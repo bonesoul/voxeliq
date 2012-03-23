@@ -110,8 +110,6 @@ namespace VolumetricStudios.VoxeliqGame.Input
         /// </summary>
         private void ProcessMouse()
         {
-            _cameraController.ElevateCamera(1);
-
             var currentState = Mouse.GetState();
 
             if (currentState == this._previousMouseState || !this.CaptureMouse)
