@@ -101,8 +101,8 @@ namespace VolumetricStudios.VoxeliqGame
 
             this.Components.Add(new Player(this, world));
 
-            bloom = new BloomComponent(this);
-            Components.Add(bloom);
+            //bloom = new BloomComponent(this);
+            //Components.Add(bloom);
 
             this.Components.Add(new Camera(this));
             this.Components.Add(new UserInterface(this));
@@ -111,7 +111,7 @@ namespace VolumetricStudios.VoxeliqGame
             this.Components.Add(new Statistics(this));
             this.Components.Add(new StatisticsGraphs(this));
 
-            this.Components.Add(new MusicManager(this));
+            //this.Components.Add(new MusicManager(this));
 
             //this._inputManager = new DigitalRune.Game.Input.InputManager(false);
             //Services.AddService(typeof(IInputService), this._inputManager);
@@ -164,7 +164,7 @@ namespace VolumetricStudios.VoxeliqGame
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
 
-            bloom.BeginDraw();
+            //bloom.BeginDraw();
 
             this.GraphicsDevice.Clear(Color.Black);
 
