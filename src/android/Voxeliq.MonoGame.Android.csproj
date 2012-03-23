@@ -243,5 +243,9 @@
       <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
       <Name>MonoGame.Framework.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Android.csproj">
+      <Project>{55697C10-B193-4612-8A99-09040FF61C4E}</Project>
+      <Name>LibVolumetric.Android</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
