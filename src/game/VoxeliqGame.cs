@@ -48,16 +48,6 @@ namespace VolumetricStudios.VoxeliqGame
 
         private TimeRuler _timeRuler;
 
-        #if ANDROID
-        public AndroidGameWindow Window
-        {
-            get
-            {
-                return Platform.Window;
-            }
-        }
-        #endif
-
         /// <summary>
         /// Logging facility.
         /// </summary>

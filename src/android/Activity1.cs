@@ -6,27 +6,24 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Microsoft.Xna.Framework;
 
 namespace VolumetricStudios.VoxeliqGame
 {
-	[Activity (Label = "Voxeliq.MonoGame.Android", MainLauncher = true)]
-	public class Activity1 : Activity
+	[Activity (
+        Label = "Voxeliq.MonoGame.Android", 
+        MainLauncher = true,
+        Icon = "@drawable/icon"
+        )]
+	public class Activity1 : AndroidGameActivity
 	{
-		int count = 1;
-
 		protected override void OnCreate (Bundle bundle)
 		{
-			base.OnCreate (bundle);
-
-			// Set our view from the "main" layout resource
-			SetContentView (Resource.Layout.Main);
-
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			
-			button.Click += delegate {
-				button.Text = string.Format ("{0} clicks!", count++); };
+            base.OnCreate (bundle);
+            VoxeliqGame.Activity = this;
+			var g = new VoxeliqGame();
+            SetContentView(g.Window);
+            g.Run();
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace VolumetricStudios.VoxeliqGame.Debugging.Profiling
         public static void Start(string key)
         {
             if (!Timers.ContainsKey(key)) Timers.Add(key, new Stopwatch());
-            else Timers[key].Restart();
+            else Timers[key].Reset();
             Timers[key].Start();
         }
 

@@ -198,7 +198,9 @@ namespace VolumetricStudios.VoxeliqGame.Input
         /// </summary>
         private void CenterCursor()
         {
+            #if !ANDROID
             Mouse.SetPosition(Game.Window.ClientBounds.Width/2, Game.Window.ClientBounds.Height/2);
+            #endif
         }
     }
 }
