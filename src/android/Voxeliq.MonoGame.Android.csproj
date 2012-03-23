@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1CEDC3EE-B2C0-4AB6-9C02-F7A5F4FB9989}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>VolumetricStudios.VoxeliqGame</RootNamespace>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AssemblyName>Voxeliq.MonoGame.Android</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activity1.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\game\Blocks\Block.cs">
+      <Link>Blocks\Block.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Blocks\BlockStorage.cs">
+      <Link>Blocks\BlockStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Chunk.cs">
+      <Link>Chunks\Chunk.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\ChunkCache.cs">
+      <Link>Chunks\ChunkCache.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\ChunkState.cs">
+      <Link>Chunks\ChunkState.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\ChunkStorage.cs">
+      <Link>Chunks\ChunkStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Biomes\AntarticTundra.cs">
+      <Link>Chunks\Generators\Biomes\AntarticTundra.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Biomes\BiomeGenerator.cs">
+      <Link>Chunks\Generators\Biomes\BiomeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Biomes\Desert.cs">
+      <Link>Chunks\Generators\Biomes\Desert.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Biomes\RainForest.cs">
+      <Link>Chunks\Generators\Biomes\RainForest.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Terrain\BiomedTerrain.cs">
+      <Link>Chunks\Generators\Terrain\BiomedTerrain.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Terrain\FlatDebugTerrain.cs">
+      <Link>Chunks\Generators\Terrain\FlatDebugTerrain.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Terrain\MountainousTerrain.cs">
+      <Link>Chunks\Generators\Terrain\MountainousTerrain.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Terrain\TerrainGenerator.cs">
+      <Link>Chunks\Generators\Terrain\TerrainGenerator.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Generators\Terrain\ValleyTerrain.cs">
+      <Link>Chunks\Generators\Terrain\ValleyTerrain.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Processors\Lightning.cs">
+      <Link>Chunks\Processors\Lightning.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Chunks\Processors\VertexBuilder.cs">
+      <Link>Chunks\Processors\VertexBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\BoundingBoxRenderer.cs">
+      <Link>Debugging\BoundingBoxRenderer.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\InGameDebugger.cs">
+      <Link>Debugging\InGameDebugger.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\Layout.cs">
+      <Link>Debugging\Layout.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\Statistics.cs">
+      <Link>Debugging\Statistics.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\StatisticsGraphs.cs">
+      <Link>Debugging\StatisticsGraphs.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\StringBuilderExtensions.cs">
+      <Link>Debugging\StringBuilderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\TimeRuler.cs">
+      <Link>Debugging\TimeRuler.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Debugging\Profiling\Profiler.cs">
+      <Link>Debugging\Profiling\Profiler.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Effects\PostProcessing\Bloom\BloomComponent.cs">
+      <Link>Effects\PostProcessing\Bloom\BloomComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Effects\PostProcessing\Bloom\BloomSettings.cs">
+      <Link>Effects\PostProcessing\Bloom\BloomSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Engine\Settings.cs">
+      <Link>Engine\Settings.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Graphics\Camera.cs">
+      <Link>Graphics\Camera.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Graphics\GraphicsConfig.cs">
+      <Link>Graphics\GraphicsConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Graphics\GraphicsManager.cs">
+      <Link>Graphics\GraphicsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Graphics\Rasterizer.cs">
+      <Link>Graphics\Rasterizer.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Graphics\Drawing\PrimitiveBatch.cs">
+      <Link>Graphics\Drawing\PrimitiveBatch.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Input\InputManager.cs">
+      <Link>Input\InputManager.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Interface\UserInterface.cs">
+      <Link>Interface\UserInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Managers\AudioConfig.cs">
+      <Link>Managers\AudioConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Managers\MusicManager.cs">
+      <Link>Managers\MusicManager.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Texture\DualTextured.cs">
+      <Link>Texture\DualTextured.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Texture\TextureHelper.cs">
+      <Link>Texture\TextureHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\game\UI\DebugConsole.cs">
+      <Link>UI\DebugConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\game\UI\GameScreenOverlay.cs">
+      <Link>UI\GameScreenOverlay.cs</Link>
+    </Compile>
+    <Compile Include="..\game\UI\SampleConsole.cs">
+      <Link>UI\SampleConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\BlockVertex.cs">
+      <Link>Universe\BlockVertex.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\Fogger.cs">
+      <Link>Universe\Fogger.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\PositionedBlock.cs">
+      <Link>Universe\PositionedBlock.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\Sky.cs">
+      <Link>Universe\Sky.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\Time.cs">
+      <Link>Universe\Time.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\Weapon.cs">
+      <Link>Universe\Weapon.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Universe\World.cs">
+      <Link>Universe\World.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utilities\MathHelper.cs">
+      <Link>Utilities\MathHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\DoubleIndexedDictionary.cs">
+      <Link>Utils\DoubleIndexedDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\SparseMatrix.cs">
+      <Link>Utils\SparseMatrix.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\Randomization\Procedural\PerlinNoise.cs">
+      <Link>Utils\Randomization\Procedural\PerlinNoise.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\Randomization\Procedural\SimplexNoise.cs">
+      <Link>Utils\Randomization\Procedural\SimplexNoise.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\Vector\Vector2Int.cs">
+      <Link>Utils\Vector\Vector2Int.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\Vector\Vector3Int.cs">
+      <Link>Utils\Vector\Vector3Int.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Utils\Vector\Vector4Byte.cs">
+      <Link>Utils\Vector\Vector4Byte.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Player.cs">
+      <Link>Player.cs</Link>
+    </Compile>
+    <Compile Include="..\game\Shovel.cs">
+      <Link>Shovel.cs</Link>
+    </Compile>
+    <Compile Include="..\game\VoxeliqGame.cs">
+      <Link>VoxeliqGame.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\monogame\MonoGame.Framework\MonoGame.Framework.Android.csproj">
+      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
+      <Name>MonoGame.Framework.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
