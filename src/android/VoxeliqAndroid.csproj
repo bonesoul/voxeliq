@@ -67,6 +67,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Android.csproj">
+      <Project>{55697C10-B193-4612-8A99-09040FF61C4E}</Project>
+      <Name>LibVolumetric.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
