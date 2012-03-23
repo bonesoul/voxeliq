@@ -1,6 +1,0 @@
-[submodule "dep/libvolumetric"]
-	path = dep/libvolumetric
-	url = git@github.com:raistlinthewiz/libvolumetric.git
-[submodule "dep/monogame"]
-	path = dep/monogame
-	url = git@github.com:raistlinthewiz/MonoGame.git
