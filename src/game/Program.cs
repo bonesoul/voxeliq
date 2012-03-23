@@ -21,7 +21,7 @@ namespace VolumetricStudios.VoxeliqGame
         private static void Main(string[] args)
         {
             // Watch for unhandled exceptions
-            //AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
 
             // Use invariant culture - we have to set it explicitly for every thread we create.
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
