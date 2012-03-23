@@ -56,11 +56,6 @@ namespace VolumetricStudios.VoxeliqGame
                 return Platform.Window;
             }
         }
-        #else
-        public GameWindow Window
-        {
-            get { return Platform.Window; }
-        }
         #endif
 
         /// <summary>
