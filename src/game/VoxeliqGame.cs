@@ -4,8 +4,6 @@
  */
 
 using System.Reflection;
-//using DigitalRune.Game.Input;
-//using DigitalRune.Game.UI;
 using Microsoft.Xna.Framework;
 using VolumetricStudios.LibVolumetric.Logging;
 using VolumetricStudios.VoxeliqGame.Chunks;
@@ -15,9 +13,14 @@ using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
 using VolumetricStudios.VoxeliqGame.Graphics;
 using VolumetricStudios.VoxeliqGame.Interface;
 using VolumetricStudios.VoxeliqGame.Managers;
-//using VolumetricStudios.VoxeliqGame.UI;
 using VolumetricStudios.VoxeliqGame.Universe;
 using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;
+
+#if XNA
+using DigitalRune.Game.Input;
+using DigitalRune.Game.UI;
+using VolumetricStudios.VoxeliqGame.UI;
+#endif
 
 namespace VolumetricStudios.VoxeliqGame
 {
@@ -41,8 +44,10 @@ namespace VolumetricStudios.VoxeliqGame
         /// </summary>
         public GraphicsManager ScreenManager { get; private set; }
 
-        //private DigitalRune.Game.Input.InputManager _inputManager;
-        //private UIManager _uiManager;
+        #if XNA
+        private DigitalRune.Game.Input.InputManager _inputManager;
+        private UIManager _uiManager;
+        #endif
 
         BloomComponent bloom;
 
@@ -102,8 +107,10 @@ namespace VolumetricStudios.VoxeliqGame
 
             this.Components.Add(new Player(this, world));
 
-            //bloom = new BloomComponent(this);
-            //Components.Add(bloom);
+            #if XNA
+            bloom = new BloomComponent(this);
+            Components.Add(bloom);
+            #endif
 
             this.Components.Add(new Camera(this));
             this.Components.Add(new UserInterface(this));
@@ -112,18 +119,20 @@ namespace VolumetricStudios.VoxeliqGame
             this.Components.Add(new Statistics(this));
             this.Components.Add(new StatisticsGraphs(this));
 
-            //this.Components.Add(new MusicManager(this));
+            #if XNA
+            this.Components.Add(new MusicManager(this));
 
-            //this._inputManager = new DigitalRune.Game.Input.InputManager(false);
-            //Services.AddService(typeof(IInputService), this._inputManager);
+            this._inputManager = new DigitalRune.Game.Input.InputManager(false);
+            Services.AddService(typeof(IInputService), this._inputManager);
 
-            //this._uiManager = new UIManager(this, _inputManager);
-            //Services.AddService(typeof(IUIService), this._uiManager);
+            this._uiManager = new UIManager(this, _inputManager);
+            Services.AddService(typeof(IUIService), this._uiManager);
 
-            //this.Components.Add(new GameScreenOverlay(this));
+            this.Components.Add(new GameScreenOverlay(this));
 
-            //// The component that shows a debugging console.
-            //this.Components.Add(new DebugConsole(this));
+            // The component that shows a debugging console.
+            this.Components.Add(new DebugConsole(this));
+            #endif
 
             this._timeRuler = new TimeRuler(this);
             this._timeRuler.Visible = true;
@@ -145,11 +154,13 @@ namespace VolumetricStudios.VoxeliqGame
 
             var deltaTime = gameTime.ElapsedGameTime;
 
-            //// Update input manager. The input manager gets the device states and performs other work.
-            //this._inputManager.Update(deltaTime);
+            #if XNA
+            // Update input manager. The input manager gets the device states and performs other work.
+            this._inputManager.Update(deltaTime);
 
-            //// Update UI manager. The UI manager updates all registered UIScreens.
-            //this._uiManager.Update(deltaTime);
+            // Update UI manager. The UI manager updates all registered UIScreens.
+            this._uiManager.Update(deltaTime);
+            #endif
 
             // Update game components.
             base.Update(gameTime);
@@ -165,7 +176,9 @@ namespace VolumetricStudios.VoxeliqGame
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
 
-            //bloom.BeginDraw();
+            #if XNA
+            bloom.BeginDraw();
+            #endif
 
             this.GraphicsDevice.Clear(Color.Black);
 

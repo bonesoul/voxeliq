@@ -1,11 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqClient", "..\src\game\VoxeliqClient.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E87B98FA-35CF-4A48-904A-0CB1A87A6D5D} = {E87B98FA-35CF-4A48-904A-0CB1A87A6D5D}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game-Content", "..\src\game-content\Game-Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalRune.Game.UI (XNA, Windows)", "..\dep\digitalrune\UI\DigitalRune.Game.UI\DigitalRune.Game.UI (XNA, Windows).csproj", "{8ADF4A57-4257-47B7-A2C3-3BA700613DB0}"
@@ -18,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendBlueTheme", "..\dep\di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVolumetric", "..\dep\libvolumetric\LibVolumetric.csproj", "{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.XNA.Win32", "..\src\game\Voxeliq.XNA.Win32.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,16 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|x86.ActiveCfg = Debug|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|x86.Build.0 = Debug|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Any CPU.ActiveCfg = Release|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Mixed Platforms.Build.0 = Release|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|x86.ActiveCfg = Release|x86
-		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|x86.Build.0 = Release|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Debug|x86.ActiveCfg = Debug|x86
@@ -91,6 +78,16 @@ Global
 		{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}.Release|x86.ActiveCfg = Release|Any CPU
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|x86.ActiveCfg = Debug|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Debug|x86.Build.0 = Debug|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Any CPU.ActiveCfg = Release|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|x86.ActiveCfg = Release|x86
+		{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
