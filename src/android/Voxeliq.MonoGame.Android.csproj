@@ -38,6 +38,14 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Lidgren.Network.Android, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\android\Lidgren.Network.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Android, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\android\MonoGame.Framework.Android.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -240,10 +248,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\monogame\MonoGame.Framework\MonoGame.Framework.Android.csproj">
-      <Project>{BA9476CF-99BA-4D03-92F2-73D2C5E58883}</Project>
-      <Name>MonoGame.Framework.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Android.csproj">
       <Project>{55697C10-B193-4612-8A99-09040FF61C4E}</Project>
       <Name>LibVolumetric.Android</Name>

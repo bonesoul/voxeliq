@@ -79,6 +79,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dep\digitalrune\DigitalRune.Mathematics.dll</HintPath>
     </Reference>
+    <Reference Include="Lidgren.Network.Windows">
+      <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Windows, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\windows\MonoGame.Framework.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
@@ -171,14 +178,10 @@
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
       <Name>LibVolumetric</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\dep\monogame\MonoGame.Framework\MonoGame.Framework.Windows.csproj">
-      <Project>{7DE47032-A904-4C29-BD22-2D235E8D91BA}</Project>
-      <Name>MonoGame.Framework.Windows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
-      <Name>Content</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
+      <Name>Game-Content %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

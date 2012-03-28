@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendBlueTheme", "..\dep\di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVolumetric", "..\dep\libvolumetric\LibVolumetric.csproj", "{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.XNA.Win32", "..\src\game\Voxeliq.XNA.Win32.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.XNA.Windows", "..\src\game\Voxeliq.XNA.Windows.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
