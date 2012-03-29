@@ -90,7 +90,9 @@ namespace VolumetricStudios.VoxeliqGame
         {
             this.Components.Add(new InputManager(this));
 
+            #if XNA
             this.Components.Add(new Sky(this));
+            #endif
             this.Components.Add(new Fogger(this));
 
             var chunkStorage = new ChunkStorage(this);
