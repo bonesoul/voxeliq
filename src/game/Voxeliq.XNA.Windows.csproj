@@ -207,9 +207,9 @@
       <Name>BlendBlueTheme</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
-    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.csproj">
+    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Windows.csproj">
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVolumetric</Name>
+      <Name>LibVolumetric.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Name>Content</Name>
