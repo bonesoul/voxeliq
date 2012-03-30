@@ -5,15 +5,15 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
-using VolumetricStudios.VoxeliqGame.Engine;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Universe;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Debugging;
+using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
+using VoxeliqStudios.Voxeliq.Engine;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Universe;
 
-namespace VolumetricStudios.VoxeliqGame.Input
+namespace VoxeliqStudios.Voxeliq.Input
 {
     /// <summary>
     /// Interface that allows interracting with the input manager.

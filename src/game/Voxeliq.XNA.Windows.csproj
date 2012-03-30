@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VolumetricStudios.VoxeliqGame</RootNamespace>
-    <AssemblyName>VoxeliqClient</AssemblyName>
+    <RootNamespace>VoxeliqStudios.Voxeliq</RootNamespace>
+    <AssemblyName>Voxeliq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\x86\Debug</OutputPath>
+    <OutputPath>..\..\bin\debug\windows\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS,XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,8 +54,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <OutputPath>..\..\bin\release\windows\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS,XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -64,7 +64,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>VolumetricStudios.VoxeliqGame.Program</StartupObject>
+    <StartupObject>VoxeliqStudios.Voxeliq.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DigitalRune, Version=1.6.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=MSIL">
@@ -207,9 +207,9 @@
       <Name>BlendBlueTheme</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
-    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Windows.csproj">
+    <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Windows.csproj">
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVolumetric.Windows</Name>
+      <Name>LibVoxeliq.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Name>Content</Name>

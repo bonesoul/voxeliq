@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Chunks;
 
-namespace VolumetricStudios.VoxeliqGame.Universe
+namespace VoxeliqStudios.Voxeliq.Universe
 {
     public interface IFogger
     {

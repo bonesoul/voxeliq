@@ -7,9 +7,9 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VolumetricStudios.LibVolumetric.Logging;
+using VoxeliqStudios.LibVoxeliq.Logging;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     public static class Program
     {

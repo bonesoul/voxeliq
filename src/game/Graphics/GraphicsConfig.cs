@@ -3,9 +3,9 @@
  *
  */
 
-using VolumetricStudios.LibVolumetric.Configuration;
+using VoxeliqStudios.LibVoxeliq.Configuration;
 
-namespace VolumetricStudios.VoxeliqGame.Graphics
+namespace VoxeliqStudios.Voxeliq.Graphics
 {
     public sealed class GraphicsConfig : Config
     {

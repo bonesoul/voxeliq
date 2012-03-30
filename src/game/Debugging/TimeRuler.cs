@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VolumetricStudios.VoxeliqGame.Debugging
+namespace VoxeliqStudios.Voxeliq.Debugging
 {
     /// <summary>
     /// Realtime CPU measuring tool

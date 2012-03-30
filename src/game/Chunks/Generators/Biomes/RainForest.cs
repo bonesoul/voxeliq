@@ -4,11 +4,10 @@
  */
 
 using System;
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain;
-using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
+namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes
 {
     /// <summary>
     /// Rain forest generator.

@@ -8,19 +8,19 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain;
-using VolumetricStudios.VoxeliqGame.Chunks.Processors;
-using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
-using VolumetricStudios.VoxeliqGame.Engine;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Universe;
-using VolumetricStudios.VoxeliqGame.Utils.Vector;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
+using VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain;
+using VoxeliqStudios.Voxeliq.Chunks.Processors;
+using VoxeliqStudios.Voxeliq.Debugging;
+using VoxeliqStudios.Voxeliq.Debugging.Profiling;
+using VoxeliqStudios.Voxeliq.Engine;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Universe;
+using VoxeliqStudios.Voxeliq.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks
+namespace VoxeliqStudios.Voxeliq.Chunks
 {
     public interface IChunkCache
     {

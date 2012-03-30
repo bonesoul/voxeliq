@@ -5,24 +5,24 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Chunks.Processors;
-using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Interface;
-using VolumetricStudios.VoxeliqGame.Managers;
-using VolumetricStudios.VoxeliqGame.Universe;
-using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;
-
-#if XNA
+using VoxeliqStudios.LibVoxeliq.Logging;
 using DigitalRune.Game.Input;
 using DigitalRune.Game.UI;
-using VolumetricStudios.VoxeliqGame.UI;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Chunks.Processors;
+using VoxeliqStudios.Voxeliq.Debugging;
+using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Interface;
+using VoxeliqStudios.Voxeliq.Managers;
+using VoxeliqStudios.Voxeliq.UI;
+using VoxeliqStudios.Voxeliq.Universe;
+using InputManager = VoxeliqStudios.Voxeliq.Input.InputManager;
+#if XNA
+
 #endif
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     /// <summary>
     /// The game client.

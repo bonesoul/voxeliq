@@ -8,12 +8,12 @@ using System.Globalization;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Engine;
-using VolumetricStudios.VoxeliqGame.Universe;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Engine;
+using VoxeliqStudios.Voxeliq.Universe;
 
-namespace VolumetricStudios.VoxeliqGame.Debugging
+namespace VoxeliqStudios.Voxeliq.Debugging
 {
     /// <summary>
     /// Allows interaction with the statistics service.

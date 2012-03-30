@@ -9,7 +9,7 @@ using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Consoles;
 using DigitalRune.Game.UI.Controls;
 
-namespace VolumetricStudios.VoxeliqGame.UI
+namespace VoxeliqStudios.Voxeliq.UI
 {
     // Displays an interactive console.
     public class SampleConsole : Window

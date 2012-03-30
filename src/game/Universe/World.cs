@@ -4,12 +4,12 @@
  */
 
 using Microsoft.Xna.Framework;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Utils.Vector;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqGame.Universe
+namespace VoxeliqStudios.Voxeliq.Universe
 {
     /// <summary>
     /// World service interface.

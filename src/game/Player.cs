@@ -5,14 +5,14 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.LibVolumetric.Logging;
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Universe;
-using VolumetricStudios.VoxeliqGame.Utils.Vector;
+using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Universe;
+using VoxeliqStudios.Voxeliq.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     /// <summary>
     /// Interface for controlling player.

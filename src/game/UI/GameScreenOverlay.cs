@@ -13,7 +13,7 @@ using DigitalRune.Mathematics.Algebra;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace VolumetricStudios.VoxeliqGame.UI
+namespace VoxeliqStudios.Voxeliq.UI
 {
     public class GameScreenOverlay : DrawableGameComponent
     {

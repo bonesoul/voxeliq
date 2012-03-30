@@ -3,10 +3,10 @@
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
+namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.

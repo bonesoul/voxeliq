@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
-namespace VolumetricStudios.VoxeliqGame.Texture
+namespace VoxeliqStudios.Voxeliq.Texture
 {
     [Serializable]
     public struct DualTextured : IVertexType

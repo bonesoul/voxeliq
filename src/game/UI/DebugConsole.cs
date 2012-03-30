@@ -18,10 +18,10 @@ using DigitalRune.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
-using VolumetricStudios.VoxeliqGame.Debugging;
+using VoxeliqStudios.Voxeliq.Debugging;
 using Console = DigitalRune.Game.UI.Controls.Console;
 
-namespace VolumetricStudios.VoxeliqGame.UI
+namespace VoxeliqStudios.Voxeliq.UI
 {
     // Creates a UIScreen for debugging. The screen contains a console, but other controls
     // or text could be added as well.

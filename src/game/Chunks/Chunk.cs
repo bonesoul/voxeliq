@@ -7,13 +7,13 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Universe;
-using VolumetricStudios.VoxeliqGame.Utils.Vector;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Debugging;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Universe;
+using VoxeliqStudios.Voxeliq.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks
+namespace VoxeliqStudios.Voxeliq.Chunks
 {
     /// <summary>
     /// Unit drawable chunk of blocks.
