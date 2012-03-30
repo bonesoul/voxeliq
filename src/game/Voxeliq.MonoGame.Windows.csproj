@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VolumetricStudios.VoxeliqGame</RootNamespace>
-    <AssemblyName>VoxeliqClient</AssemblyName>
+    <RootNamespace>VoxeliqStudios.Voxeliq</RootNamespace>
+    <AssemblyName>Voxeliq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\x86\Debug</OutputPath>
+    <OutputPath>..\..\bin\debug\windows\monogame\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,8 +54,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <OutputPath>..\..\bin\release\windows\monogame\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS, MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -64,21 +64,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>VolumetricStudios.VoxeliqGame.Program</StartupObject>
+    <StartupObject>VoxeliqStudios.Voxeliq.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DigitalRune, Version=1.6.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dep\digitalrune\DigitalRune.dll</HintPath>
-    </Reference>
-    <Reference Include="DigitalRune.Game, Version=1.0.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dep\digitalrune\DigitalRune.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="DigitalRune.Mathematics, Version=1.5.0.0, Culture=neutral, PublicKeyToken=83b2c390cd515404, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dep\digitalrune\DigitalRune.Mathematics.dll</HintPath>
-    </Reference>
     <Reference Include="Lidgren.Network.Windows">
       <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
     </Reference>
@@ -174,9 +162,9 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Windows.csproj">
+    <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Windows.csproj">
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVolumetric.Windows</Name>
+      <Name>LibVoxeliq.Windows</Name>
     </ProjectReference>
     <ProjectReference Include="..\game-content\Game-Content.contentproj">
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>

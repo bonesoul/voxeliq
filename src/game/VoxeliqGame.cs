@@ -6,20 +6,19 @@
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using DigitalRune.Game.Input;
-using DigitalRune.Game.UI;
 using VoxeliqStudios.Voxeliq.Chunks;
 using VoxeliqStudios.Voxeliq.Chunks.Processors;
 using VoxeliqStudios.Voxeliq.Debugging;
 using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
 using VoxeliqStudios.Voxeliq.Graphics;
 using VoxeliqStudios.Voxeliq.Interface;
-using VoxeliqStudios.Voxeliq.Managers;
-using VoxeliqStudios.Voxeliq.UI;
 using VoxeliqStudios.Voxeliq.Universe;
 using InputManager = VoxeliqStudios.Voxeliq.Input.InputManager;
-#if XNA
 
+#if XNA
+using DigitalRune.Game.Input;
+using DigitalRune.Game.UI;
+using VoxeliqStudios.Voxeliq.UI;
 #endif
 
 namespace VoxeliqStudios.Voxeliq
