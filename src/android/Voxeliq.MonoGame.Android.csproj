@@ -8,20 +8,23 @@
     <ProjectGuid>{1CEDC3EE-B2C0-4AB6-9C02-F7A5F4FB9989}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>VolumetricStudios.VoxeliqGame</RootNamespace>
+    <RootNamespace>VoxeliqStudios.Voxeliq</RootNamespace>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <AssemblyName>Voxeliq.MonoGame.Android</AssemblyName>
+    <AssemblyName>Voxeliq</AssemblyName>
+    <AndroidSupportedAbis>armeabi</AndroidSupportedAbis>
+    <AndroidStoreUncompressedFileExtensions />
+    <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;ANDROID</DefineConstants>
+    <OutputPath>..\..\bin\debug\android\monogame\</OutputPath>
+    <DefineConstants>DEBUG;ANDROID, MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -30,12 +33,13 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\..\bin\debug\android\monogame\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <ConsolePause>false</ConsolePause>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <DefineConstants>ANDROID, MONOGAME</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Lidgren.Network.Android, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
@@ -248,15 +252,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\libvolumetric\LibVolumetric.Android.csproj">
-      <Project>{55697C10-B193-4612-8A99-09040FF61C4E}</Project>
-      <Name>LibVolumetric.Android</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Splash.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Android.csproj">
+      <Project>{55697C10-B193-4612-8A99-09040FF61C4E}</Project>
+      <Name>LibVoxeliq.Android</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

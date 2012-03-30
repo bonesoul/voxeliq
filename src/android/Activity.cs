@@ -3,9 +3,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Microsoft.Xna.Framework;
-using VolumetricStudios.LibVolumetric.Logging;
+using VoxeliqStudios.LibVoxeliq.Logging;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     [Activity(
         Label = "Voxeliq", 

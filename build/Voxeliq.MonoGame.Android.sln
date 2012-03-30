@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.MonoGame.Android", "..\src\android\Voxeliq.MonoGame.Android.csproj", "{1CEDC3EE-B2C0-4AB6-9C02-F7A5F4FB9989}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVolumetric.Android", "..\dep\libvolumetric\LibVolumetric.Android.csproj", "{55697C10-B193-4612-8A99-09040FF61C4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVoxeliq.Android", "..\dep\libvoxeliq\src\LibVoxeliq.Android.csproj", "{55697C10-B193-4612-8A99-09040FF61C4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
