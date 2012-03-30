@@ -1,0 +1,3 @@
+[submodule "dep/libvoxeliq"]
+	path = dep/libvoxeliq
+	url = git@github.com:raistlinthewiz/libvoxeliq.git
