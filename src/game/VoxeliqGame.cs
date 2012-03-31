@@ -16,6 +16,7 @@ using VoxeliqStudios.Voxeliq.Universe;
 using InputManager = VoxeliqStudios.Voxeliq.Input.InputManager;
 
 #if XNA
+using VoxeliqStudios.Voxeliq.Managers;
 using DigitalRune.Game.Input;
 using DigitalRune.Game.UI;
 using VoxeliqStudios.Voxeliq.UI;

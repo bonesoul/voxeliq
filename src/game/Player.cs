@@ -134,7 +134,7 @@ namespace VoxeliqStudios.Voxeliq
             this._aimedBlockModel = Game.Content.Load<Model>("Models\\AimedBlock");
             this._aimedBlockTexture = Game.Content.Load<Texture2D>("Textures\\AimedBlock");
 
-            this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
+            //this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
         }
 
         public override void Update(GameTime gameTime)
