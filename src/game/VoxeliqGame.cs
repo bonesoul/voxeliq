@@ -17,9 +17,6 @@ using InputManager = VoxeliqStudios.Voxeliq.Input.InputManager;
 
 #if XNA
 using VoxeliqStudios.Voxeliq.Managers;
-using DigitalRune.Game.Input;
-using DigitalRune.Game.UI;
-using VoxeliqStudios.Voxeliq.UI;
 #endif
 
 namespace VoxeliqStudios.Voxeliq
@@ -43,11 +40,6 @@ namespace VoxeliqStudios.Voxeliq
         /// Screen manager.
         /// </summary>
         public GraphicsManager ScreenManager { get; private set; }
-
-        #if XNA
-        private DigitalRune.Game.Input.InputManager _inputManager;
-        private UIManager _uiManager;
-        #endif
 
         BloomComponent bloom;
 
@@ -123,17 +115,6 @@ namespace VoxeliqStudios.Voxeliq
 
             #if XNA
             this.Components.Add(new MusicManager(this));
-
-            this._inputManager = new DigitalRune.Game.Input.InputManager(false);
-            Services.AddService(typeof(IInputService), this._inputManager);
-
-            this._uiManager = new UIManager(this, _inputManager);
-            Services.AddService(typeof(IUIService), this._uiManager);
-
-            this.Components.Add(new GameScreenOverlay(this));
-
-            // The component that shows a debugging console.
-            this.Components.Add(new DebugConsole(this));
             #endif
 
             this._timeRuler = new TimeRuler(this);
@@ -155,14 +136,6 @@ namespace VoxeliqStudios.Voxeliq
             this._timeRuler.BeginMark("Update", Color.Blue);
 
             var deltaTime = gameTime.ElapsedGameTime;
-
-            #if XNA
-            // Update input manager. The input manager gets the device states and performs other work.
-            this._inputManager.Update(deltaTime);
-
-            // Update UI manager. The UI manager updates all registered UIScreens.
-            this._uiManager.Update(deltaTime);
-            #endif
 
             // Update game components.
             base.Update(gameTime);
