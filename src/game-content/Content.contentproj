@@ -45,11 +45,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\blocks-old.png">
-      <Name>blocks-old</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Textures\cloudmap.jpg">
       <Name>cloudmap</Name>
       <Importer>TextureImporter</Importer>
