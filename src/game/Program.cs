@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Threading;
 using VoxeliqStudios.LibVoxeliq.Logging;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     public static class Program
     {
@@ -34,6 +34,7 @@ namespace VolumetricStudios.VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
+            PrintKeys();
 
             using (var game = new VoxeliqGame()) // startup voxlr client.
             {
@@ -46,6 +47,22 @@ namespace VolumetricStudios.VoxeliqGame
         {
             LogManager.Enabled = true; // enable logging facility.
             LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
+        }
+
+        private static void PrintKeys()
+        {
+            Console.WriteLine("Debug keys:");
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine("F1: Infinitive-world: On/Off.");
+            Console.WriteLine("F2: Fly-mode: On/Off.");
+            Console.WriteLine("F3: Fog-mode: None/Near/Far.");
+            Console.WriteLine("F4: Dynamic Clouds: On/Off.");
+            Console.WriteLine("F5: Capture Mouse: On/Off.");
+            Console.WriteLine("F8: Bloom: On/Off.");
+            Console.WriteLine("F9: Debug Graphs: On/Off.");
+            Console.WriteLine("F10: In-game Debugger: On/Off.");
+            Console.WriteLine("F11: Frame-limiter: On/Off.");
+            Console.WriteLine("F12: Wireframe mode: On/Off.");
         }
 
         private static void PrintBanner()

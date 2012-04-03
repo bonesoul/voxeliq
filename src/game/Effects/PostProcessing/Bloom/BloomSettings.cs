@@ -1,4 +1,4 @@
-﻿namespace VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom
+﻿namespace VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom
 {
     public class BloomSettings
     {

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural
+namespace VoxeliqStudios.Voxeliq.Utils.Randomization.Procedural
 {
-    using System;
-
     namespace ImageTools.Core
     {
 

@@ -5,7 +5,7 @@
 
 using VoxeliqStudios.LibVoxeliq.Configuration;
 
-namespace VolumetricStudios.VoxeliqGame.Managers
+namespace VoxeliqStudios.Voxeliq.Managers
 {
     public sealed class AudioConfig : Config
     {

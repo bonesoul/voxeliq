@@ -6,17 +6,17 @@
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VolumetricStudios.VoxeliqGame.Chunks;
-using VolumetricStudios.VoxeliqGame.Chunks.Processors;
-using VolumetricStudios.VoxeliqGame.Debugging;
-using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
-using VolumetricStudios.VoxeliqGame.Graphics;
-using VolumetricStudios.VoxeliqGame.Interface;
-using VolumetricStudios.VoxeliqGame.Managers;
-using VolumetricStudios.VoxeliqGame.Universe;
-using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;
+using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Chunks.Processors;
+using VoxeliqStudios.Voxeliq.Debugging;
+using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
+using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Input;
+using VoxeliqStudios.Voxeliq.Interface;
+using VoxeliqStudios.Voxeliq.Managers;
+using VoxeliqStudios.Voxeliq.Universe;
 
-namespace VolumetricStudios.VoxeliqGame
+namespace VoxeliqStudios.Voxeliq
 {
     /// <summary>
     /// The game client.

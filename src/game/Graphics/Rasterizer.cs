@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VolumetricStudios.VoxeliqGame.Graphics
+namespace VoxeliqStudios.Voxeliq.Graphics
 {
     /// <summary>
     /// Rasterizer helper.

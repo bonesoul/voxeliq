@@ -3,7 +3,7 @@
  *
  */
 
-namespace VolumetricStudios.VoxeliqGame.Blocks
+namespace VoxeliqStudios.Voxeliq.Blocks
 {
     /// <summary>
     /// Basic block structure.

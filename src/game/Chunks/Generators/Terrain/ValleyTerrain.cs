@@ -3,11 +3,11 @@
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
-using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
+using VoxeliqStudios.Voxeliq.Utils.Randomization.Procedural;
 
-namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
+namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
 {
     public class ValleyTerrain : BiomedTerrain
     {

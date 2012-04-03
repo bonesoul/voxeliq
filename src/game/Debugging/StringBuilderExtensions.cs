@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace VolumetricStudios.VoxeliqGame.Debugging
+namespace VoxeliqStudios.Voxeliq.Debugging
 {
     /// <summary>
     /// Options for StringBuilder extension methods.

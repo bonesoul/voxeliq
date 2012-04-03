@@ -3,7 +3,7 @@
  *
  */
 
-namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
+namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes
 {
     public class BiomeGenerator
     {

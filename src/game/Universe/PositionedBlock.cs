@@ -3,10 +3,10 @@
  *
  */
 
-using VolumetricStudios.VoxeliqGame.Blocks;
-using VolumetricStudios.VoxeliqGame.Utils.Vector;
+using VoxeliqStudios.Voxeliq.Blocks;
+using VoxeliqStudios.Voxeliq.Utils.Vector;
 
-namespace VolumetricStudios.VoxeliqGame.Universe
+namespace VoxeliqStudios.Voxeliq.Universe
 {
     public struct PositionedBlock
     {

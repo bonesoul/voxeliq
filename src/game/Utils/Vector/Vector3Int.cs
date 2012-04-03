@@ -5,7 +5,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace VolumetricStudios.VoxeliqGame.Utils.Vector
+namespace VoxeliqStudios.Voxeliq.Utils.Vector
 {
     /// <summary>
     /// Basic Vector3 class that takes integer values that can be used on coordinate values within the world.

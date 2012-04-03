@@ -3,12 +3,7 @@
  *
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace VolumetricStudios.VoxeliqGame.Engine
+namespace VoxeliqStudios.Voxeliq.Engine
 {
     /// <summary>
     /// Gets or sets engine specific settings.

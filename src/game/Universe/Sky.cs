@@ -7,9 +7,9 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VolumetricStudios.VoxeliqGame.Graphics;
+using VoxeliqStudios.Voxeliq.Graphics;
 
-namespace VolumetricStudios.VoxeliqGame.Universe
+namespace VoxeliqStudios.Voxeliq.Universe
 {
     /// <summary>
     /// Allows interaction with sky service.

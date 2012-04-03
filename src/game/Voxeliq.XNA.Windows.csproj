@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VolumetricStudios.VoxeliqGame</RootNamespace>
-    <AssemblyName>VoxeliqClient</AssemblyName>
+    <RootNamespace>VoxeliqStudios.Voxeliq</RootNamespace>
+    <AssemblyName>Voxeliq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -64,7 +64,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>VolumetricStudios.VoxeliqGame.Program</StartupObject>
+    <StartupObject>VoxeliqStudios.Voxeliq.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
