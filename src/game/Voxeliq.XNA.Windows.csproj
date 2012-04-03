@@ -179,16 +179,11 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\digitalrune\UI\Themes\BlendBlue\BlendBlueTheme.contentproj">
-      <Project>{68CA309E-2F40-4DA1-82D8-95B6CA2FB996}</Project>
-      <Name>BlendBlueTheme</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
     <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Windows.csproj">
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVolumetric</Name>
+      <Name>LibVoxeliq.Windows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\game-content\Game-Content.contentproj">
+    <ProjectReference Include="..\game-content\Content.contentproj">
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>

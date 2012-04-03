@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibVoxeliq.Windows", "..\de
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.XNA.Windows", "..\src\game\Voxeliq.XNA.Windows.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game-Content", "..\src\game-content\Game-Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "..\src\game-content\Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
