@@ -36,6 +36,14 @@ namespace VoxeliqStudios.Voxeliq
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
             PrintKeys();
 
+            #if XNA
+            Logger.Trace("Using XNA (Direct) as the framework.");
+            #elif MONOGAME
+            Logger.Trace("Using MonoGame (OpenGL) as the framework.");
+            #else
+            Logger.Trace("Can not determine underlying framework.");
+            #endif
+
             using (var game = new VoxeliqGame()) // startup voxlr client.
             {
                 Logger.Trace("Starting game loop..");
@@ -63,6 +71,7 @@ namespace VoxeliqStudios.Voxeliq
             Console.WriteLine("F10: In-game Debugger: On/Off.");
             Console.WriteLine("F11: Frame-limiter: On/Off.");
             Console.WriteLine("F12: Wireframe mode: On/Off.");
+            Console.WriteLine("-----------------------------");
         }
 
         private static void PrintBanner()
