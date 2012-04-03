@@ -5,13 +5,13 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
 
-namespace VoxeliqStudios.Voxeliq.Blocks
+namespace VolumetricStudios.VoxeliqGame.Blocks
 {
     /// <summary>
     /// Stores all blocks in viewable chunks in a single huge array.

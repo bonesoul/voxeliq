@@ -3,15 +3,16 @@
  *
  */
 
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using VoxeliqStudios.Voxeliq.Blocks;
-using VoxeliqStudios.Voxeliq.Texture;
-using VoxeliqStudios.Voxeliq.Universe;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Texture;
+using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Processors
+namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 {
     public interface IVertexBuilder
     {

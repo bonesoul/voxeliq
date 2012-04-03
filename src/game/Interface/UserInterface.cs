@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqStudios.LibVoxeliq.Logging;
 
-namespace VoxeliqStudios.Voxeliq.Interface
+namespace VolumetricStudios.VoxeliqGame.Interface
 {
     public class UserInterface : DrawableGameComponent
     {

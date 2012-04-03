@@ -6,20 +6,17 @@
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Chunks.Processors;
-using VoxeliqStudios.Voxeliq.Debugging;
-using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Interface;
-using VoxeliqStudios.Voxeliq.Universe;
-using InputManager = VoxeliqStudios.Voxeliq.Input.InputManager;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Chunks.Processors;
+using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Interface;
+using VolumetricStudios.VoxeliqGame.Managers;
+using VolumetricStudios.VoxeliqGame.Universe;
+using InputManager = VolumetricStudios.VoxeliqGame.Input.InputManager;
 
-#if XNA
-using VoxeliqStudios.Voxeliq.Managers;
-#endif
-
-namespace VoxeliqStudios.Voxeliq
+namespace VolumetricStudios.VoxeliqGame
 {
     /// <summary>
     /// The game client.
@@ -82,9 +79,7 @@ namespace VoxeliqStudios.Voxeliq
         {
             this.Components.Add(new InputManager(this));
 
-            #if XNA
             this.Components.Add(new Sky(this));
-            #endif
             this.Components.Add(new Fogger(this));
 
             var chunkStorage = new ChunkStorage(this);
@@ -101,10 +96,8 @@ namespace VoxeliqStudios.Voxeliq
 
             this.Components.Add(new Player(this, world));
 
-            #if XNA
             bloom = new BloomComponent(this);
             Components.Add(bloom);
-            #endif
 
             this.Components.Add(new Camera(this));
             this.Components.Add(new UserInterface(this));
@@ -113,9 +106,7 @@ namespace VoxeliqStudios.Voxeliq
             this.Components.Add(new Statistics(this));
             this.Components.Add(new StatisticsGraphs(this));
 
-            #if XNA
             this.Components.Add(new MusicManager(this));
-            #endif
 
             this._timeRuler = new TimeRuler(this);
             this._timeRuler.Visible = true;
@@ -135,8 +126,6 @@ namespace VoxeliqStudios.Voxeliq
 
             this._timeRuler.BeginMark("Update", Color.Blue);
 
-            var deltaTime = gameTime.ElapsedGameTime;
-
             // Update game components.
             base.Update(gameTime);
 
@@ -151,9 +140,7 @@ namespace VoxeliqStudios.Voxeliq
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
 
-            #if XNA
             bloom.BeginDraw();
-            #endif
 
             this.GraphicsDevice.Clear(Color.Black);
 

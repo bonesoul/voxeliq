@@ -3,10 +3,10 @@
  *
  */
 
-using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
-using VoxeliqStudios.Voxeliq.Utils.Randomization.Procedural;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     public class MountainousTerrain : BiomedTerrain
     {

@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace VoxeliqStudios.Voxeliq.Utils
+namespace VolumetricStudios.VoxeliqGame.Utils
 {
     public class DoubleIndexedDictionary<T> : ConcurrentDictionary<long, T>
     {

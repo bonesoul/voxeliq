@@ -6,14 +6,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Debugging;
-using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
-using VoxeliqStudios.Voxeliq.Engine;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Universe;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom;
+using VolumetricStudios.VoxeliqGame.Engine;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Universe;
 
-namespace VoxeliqStudios.Voxeliq.Input
+namespace VolumetricStudios.VoxeliqGame.Input
 {
     /// <summary>
     /// Interface that allows interracting with the input manager.
@@ -198,9 +198,7 @@ namespace VoxeliqStudios.Voxeliq.Input
         /// </summary>
         private void CenterCursor()
         {
-            #if !ANDROID
             Mouse.SetPosition(Game.Window.ClientBounds.Width/2, Game.Window.ClientBounds.Height/2);
-            #endif
         }
     }
 }

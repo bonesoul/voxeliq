@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqStudios.Voxeliq.Debugging
+namespace VolumetricStudios.VoxeliqGame.Debugging
 {
     /// <summary>
     /// Alignment for layout.

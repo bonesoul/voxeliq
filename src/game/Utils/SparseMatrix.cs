@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace VoxeliqStudios.Voxeliq.Utils
+namespace VolumetricStudios.VoxeliqGame.Utils
 {
     public class SparseMatrix<T>
     {

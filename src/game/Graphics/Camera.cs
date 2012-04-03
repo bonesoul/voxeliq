@@ -6,7 +6,7 @@
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
 
-namespace VoxeliqStudios.Voxeliq.Graphics
+namespace VolumetricStudios.VoxeliqGame.Graphics
 {
     /// <summary>
     /// Interface that provides camera information.

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace VoxeliqStudios.Voxeliq.Debugging.Profiling
+namespace VolumetricStudios.VoxeliqGame.Debugging.Profiling
 {
     /// <summary>
     /// Provides methods for profiling.
@@ -24,7 +24,7 @@ namespace VoxeliqStudios.Voxeliq.Debugging.Profiling
         public static void Start(string key)
         {
             if (!Timers.ContainsKey(key)) Timers.Add(key, new Stopwatch());
-            else Timers[key].Reset();
+            else Timers[key].Restart();
             Timers[key].Start();
         }
 

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace VoxeliqStudios.Voxeliq.Utils.Vector
+namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 {
     public struct Vector4Byte
     {

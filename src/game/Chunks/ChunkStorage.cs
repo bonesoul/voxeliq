@@ -5,10 +5,10 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VoxeliqStudios.Voxeliq.Utils;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Utils;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
-namespace VoxeliqStudios.Voxeliq.Chunks
+namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     /// <summary>
     /// Allows interaction with the chunk storage service.

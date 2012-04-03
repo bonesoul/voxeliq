@@ -6,13 +6,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Blocks;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Universe;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
-namespace VoxeliqStudios.Voxeliq
+namespace VolumetricStudios.VoxeliqGame
 {
     /// <summary>
     /// Interface for controlling player.
@@ -134,7 +134,7 @@ namespace VoxeliqStudios.Voxeliq
             this._aimedBlockModel = Game.Content.Load<Model>("Models\\AimedBlock");
             this._aimedBlockTexture = Game.Content.Load<Texture2D>("Textures\\AimedBlock");
 
-            //this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
+            this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
         }
 
         public override void Update(GameTime gameTime)

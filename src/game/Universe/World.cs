@@ -5,11 +5,11 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Chunks;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
-namespace VoxeliqStudios.Voxeliq.Universe
+namespace VolumetricStudios.VoxeliqGame.Universe
 {
     /// <summary>
     /// World service interface.

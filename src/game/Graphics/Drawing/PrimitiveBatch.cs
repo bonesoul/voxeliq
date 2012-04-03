@@ -7,7 +7,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqStudios.Voxeliq.Graphics.Drawing
+namespace VolumetricStudios.VoxeliqGame.Graphics.Drawing
 {
     /* From FarSeer.DebugView - http://farseerphysics.codeplex.com/ */
 

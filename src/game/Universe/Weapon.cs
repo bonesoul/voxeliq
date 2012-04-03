@@ -5,10 +5,10 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqStudios.Voxeliq.Debugging;
-using VoxeliqStudios.Voxeliq.Graphics;
+using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Graphics;
 
-namespace VoxeliqStudios.Voxeliq.Universe
+namespace VolumetricStudios.VoxeliqGame.Universe
 {
     public class Weapon : DrawableGameComponent, IInGameDebuggable
     {

@@ -9,18 +9,18 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Blocks;
-using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
-using VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain;
-using VoxeliqStudios.Voxeliq.Chunks.Processors;
-using VoxeliqStudios.Voxeliq.Debugging;
-using VoxeliqStudios.Voxeliq.Debugging.Profiling;
-using VoxeliqStudios.Voxeliq.Engine;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Universe;
-using VoxeliqStudios.Voxeliq.Utils.Vector;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain;
+using VolumetricStudios.VoxeliqGame.Chunks.Processors;
+using VolumetricStudios.VoxeliqGame.Debugging;
+using VolumetricStudios.VoxeliqGame.Debugging.Profiling;
+using VolumetricStudios.VoxeliqGame.Engine;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Universe;
+using VolumetricStudios.VoxeliqGame.Utils.Vector;
 
-namespace VoxeliqStudios.Voxeliq.Chunks
+namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     public interface IChunkCache
     {
@@ -191,6 +191,14 @@ namespace VoxeliqStudios.Voxeliq.Chunks
 
         public override void Update(GameTime gameTime)
         {
+            if (!this.CacheThreadStarted)
+            {
+                var cacheThread = new Thread(CacheThread) {IsBackground = true};
+                cacheThread.Start();
+
+                this.CacheThreadStarted = true;
+            }
+
             this.ViewRangeBoundingBox = new BoundingBox(
                 new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (ViewRange*Chunk.LenghtInBlocks)),
@@ -206,18 +214,6 @@ namespace VoxeliqStudios.Voxeliq.Chunks
                             Chunk.HeightInBlocks,
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
-
-                #if !MONOGAME
-                            if (!this.CacheThreadStarted)
-                            {
-                                var cacheThread = new Thread(CacheThread) { IsBackground = true };
-                                cacheThread.Start();
-
-                                this.CacheThreadStarted = true;
-                            }
-                #else
-                            this.Process();
-                #endif
         }
 
         private void CacheThread()

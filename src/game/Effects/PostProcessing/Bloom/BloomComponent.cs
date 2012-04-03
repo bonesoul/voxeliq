@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom
+namespace VolumetricStudios.VoxeliqGame.Effects.PostProcessing.Bloom
 {
     public interface IBloomService
     {

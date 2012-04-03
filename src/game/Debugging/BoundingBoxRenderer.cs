@@ -6,7 +6,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqStudios.Voxeliq.Debugging
+namespace VolumetricStudios.VoxeliqGame.Debugging
 {
     public static class BoundingBoxRenderer
     {

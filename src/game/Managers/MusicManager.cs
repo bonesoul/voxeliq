@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-namespace VoxeliqStudios.Voxeliq.Managers
+namespace VolumetricStudios.VoxeliqGame.Managers
 {
     enum AmbientMusic
     {
@@ -41,7 +41,7 @@ namespace VoxeliqStudios.Voxeliq.Managers
 
             foreach (var entry in this._ambientMusicsNames.ToArray())
             {
-                this._ambientMusicSoundEffects.Add(entry, Game.Content.Load<SoundEffect>(@"Audio\Music\ambient\" + entry.ToString()));
+                this._ambientMusicSoundEffects.Add(entry, Game.Content.Load<SoundEffect>(@"audio\music\ambient\" + entry.ToString()));
             }
 
             this.PlayBackroundSong();

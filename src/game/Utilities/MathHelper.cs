@@ -5,7 +5,7 @@
 
 using System;
 
-namespace VoxeliqStudios.Voxeliq.Utilities
+namespace VolumetricStudios.VoxeliqGame.Utilities
 {
     public static class MathHelper
     {

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
-namespace VoxeliqStudios.Voxeliq.Universe
+namespace VolumetricStudios.VoxeliqGame.Universe
 {
     [Serializable]
     public struct BlockVertex : IVertexType

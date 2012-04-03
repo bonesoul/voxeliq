@@ -5,9 +5,9 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using VoxeliqStudios.Voxeliq.Blocks;
+using VolumetricStudios.VoxeliqGame.Blocks;
 
-namespace VoxeliqStudios.Voxeliq.Texture
+namespace VolumetricStudios.VoxeliqGame.Texture
 {
     /// <summary>
     /// Provides texture-helper methods like uv-mappings for blocks.

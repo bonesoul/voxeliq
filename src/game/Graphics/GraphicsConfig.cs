@@ -5,7 +5,7 @@
 
 using VoxeliqStudios.LibVoxeliq.Configuration;
 
-namespace VoxeliqStudios.Voxeliq.Graphics
+namespace VolumetricStudios.VoxeliqGame.Graphics
 {
     public sealed class GraphicsConfig : Config
     {

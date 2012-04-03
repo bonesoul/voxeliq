@@ -3,9 +3,9 @@
  *
  */
 
-using VoxeliqStudios.Voxeliq.Blocks;
+using VolumetricStudios.VoxeliqGame.Blocks;
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes
 {
     public sealed class Desert : BiomeGenerator
     {

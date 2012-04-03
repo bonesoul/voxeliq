@@ -3,7 +3,7 @@
  *
  */
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     /// <summary>
     /// A terrain generator.

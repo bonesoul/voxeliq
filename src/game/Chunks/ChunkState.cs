@@ -3,7 +3,7 @@
  *
  */
 
-namespace VoxeliqStudios.Voxeliq.Chunks
+namespace VolumetricStudios.VoxeliqGame.Chunks
 {
     /// <summary>
     /// The chunk state.

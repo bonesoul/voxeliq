@@ -3,9 +3,9 @@
  *
  */
 
-using VoxeliqStudios.Voxeliq.Blocks;
+using VolumetricStudios.VoxeliqGame.Blocks;
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Processors
+namespace VolumetricStudios.VoxeliqGame.Chunks.Processors
 {
     /// <summary>
     /// Ligten processor.

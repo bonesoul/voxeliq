@@ -3,11 +3,13 @@
  *
  */
 
-using VoxeliqStudios.Voxeliq.Blocks;
-using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
-using VoxeliqStudios.Voxeliq.Utils.Randomization.Procedural;
+using VolumetricStudios.VoxeliqGame.Blocks;
+using VolumetricStudios.VoxeliqGame.Chunks.Generators.Biomes;
+using VolumetricStudios.VoxeliqGame.Utilities;
+using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural;
+using VolumetricStudios.VoxeliqGame.Utils.Randomization.Procedural.ImageTools.Core;
 
-namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
+namespace VolumetricStudios.VoxeliqGame.Chunks.Generators.Terrain
 {
     /// <summary>
     /// A basic terrain generator that supports biomes.

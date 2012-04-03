@@ -3,7 +3,7 @@
  *
  */
 
-namespace VoxeliqStudios.Voxeliq.Utils.Vector
+namespace VolumetricStudios.VoxeliqGame.Utils.Vector
 {
     public struct Vector2Int
     {

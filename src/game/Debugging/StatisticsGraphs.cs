@@ -9,10 +9,10 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqStudios.LibVoxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Graphics.Drawing;
+using VolumetricStudios.VoxeliqGame.Graphics;
+using VolumetricStudios.VoxeliqGame.Graphics.Drawing;
 
-namespace VoxeliqStudios.Voxeliq.Debugging
+namespace VolumetricStudios.VoxeliqGame.Debugging
 {
     /// <summary>
     /// Draws pretty statistics graphs!
