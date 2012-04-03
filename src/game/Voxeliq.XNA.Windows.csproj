@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\x86\Debug</OutputPath>
+    <OutputPath>..\..\bin\debug\windows\xna\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS, XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,7 +54,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x86\Release</OutputPath>
+    <OutputPath>..\..\bin\release\windows\xna\</OutputPath>
     <DefineConstants>TRACE;WINDOWS, XNA</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
