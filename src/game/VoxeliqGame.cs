@@ -79,7 +79,10 @@ namespace VoxeliqStudios.Voxeliq
         {
             this.Components.Add(new InputManager(this));
 
+            #if XNA
             this.Components.Add(new Sky(this));
+            #endif
+
             this.Components.Add(new Fogger(this));
 
             var chunkStorage = new ChunkStorage(this);
@@ -96,8 +99,10 @@ namespace VoxeliqStudios.Voxeliq
 
             this.Components.Add(new Player(this, world));
 
+            #if XNA
             bloom = new BloomComponent(this);
             Components.Add(bloom);
+            #endif
 
             this.Components.Add(new Camera(this));
             this.Components.Add(new UserInterface(this));
@@ -106,7 +111,9 @@ namespace VoxeliqStudios.Voxeliq
             this.Components.Add(new Statistics(this));
             this.Components.Add(new StatisticsGraphs(this));
 
+            #if XNA
             this.Components.Add(new MusicManager(this));
+            #endif
 
             this._timeRuler = new TimeRuler(this);
             this._timeRuler.Visible = true;
@@ -140,7 +147,9 @@ namespace VoxeliqStudios.Voxeliq
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
 
+            #if XNA
             bloom.BeginDraw();
+            #endif
 
             this.GraphicsDevice.Clear(Color.Black);
 

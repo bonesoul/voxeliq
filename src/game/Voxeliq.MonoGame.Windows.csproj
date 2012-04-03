@@ -137,9 +137,6 @@
     <Compile Include="Chunks\Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
-    <Compile Include="UI\DebugConsole.cs" />
-    <Compile Include="UI\SampleConsole.cs" />
-    <Compile Include="UI\GameScreenOverlay.cs" />
     <Compile Include="Universe\BlockVertex.cs" />
     <Compile Include="Universe\PositionedBlock.cs" />
     <Compile Include="Universe\Time.cs" />
@@ -166,9 +163,9 @@
       <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
       <Name>LibVoxeliq.Windows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\game-content\Game-Content.contentproj">
+    <ProjectReference Include="..\game-content\Content.contentproj">
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
-      <Name>Game-Content %28Content%29</Name>
+      <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
