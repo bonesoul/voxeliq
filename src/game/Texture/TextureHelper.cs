@@ -53,7 +53,7 @@ namespace VoxeliqStudios.Voxeliq.Texture
         static TextureHelper()
         {
             BuildBlockTextureMappings(); // build the uv-mappings for blocks textures.
-            BuildCrackTextureMappings(); // build the uv-mappings for crack textures.
+            //BuildCrackTextureMappings(); // build the uv-mappings for crack textures.
         }
 
         /// <summary>
@@ -160,108 +160,108 @@ namespace VoxeliqStudios.Voxeliq.Texture
             return mapping;
         }
 
-        /// <summary>
-        /// Builds uv-mappings for all crack textures.
-        /// </summary>
-        private static void BuildCrackTextureMappings()
-        {
-            for (int i = 0; i < 256; i++)
-            {
-                CrackTextureMappings.Add((i*6), GetCrackTextureMapping(i, BlockFaceDirection.XIncreasing));
-                    // build x-increasing mapping for the texture.
-                CrackTextureMappings.Add((i*6) + 1, GetCrackTextureMapping(i, BlockFaceDirection.XDecreasing));
-                    // build x-decreasing mapping for the texture.
-                CrackTextureMappings.Add((i*6) + 2, GetCrackTextureMapping(i, BlockFaceDirection.YIncreasing));
-                    // build y-increasing mapping for the texture.
-                CrackTextureMappings.Add((i*6) + 3, GetCrackTextureMapping(i, BlockFaceDirection.YDecreasing));
-                    // build y-decreasing mapping for the texture.
-                CrackTextureMappings.Add((i*6) + 4, GetCrackTextureMapping(i, BlockFaceDirection.ZIncreasing));
-                    // build z-increasing mapping for the texture.
-                CrackTextureMappings.Add((i*6) + 5, GetCrackTextureMapping(i, BlockFaceDirection.ZDecreasing));
-                    // build z-increasing mapping for the texture.   
-            }
-        }
+        ///// <summary>
+        ///// Builds uv-mappings for all crack textures.
+        ///// </summary>
+        //private static void BuildCrackTextureMappings()
+        //{
+        //    for (int i = 0; i < 256; i++)
+        //    {
+        //        CrackTextureMappings.Add((i*6), GetCrackTextureMapping(i, BlockFaceDirection.XIncreasing));
+        //            // build x-increasing mapping for the texture.
+        //        CrackTextureMappings.Add((i*6) + 1, GetCrackTextureMapping(i, BlockFaceDirection.XDecreasing));
+        //            // build x-decreasing mapping for the texture.
+        //        CrackTextureMappings.Add((i*6) + 2, GetCrackTextureMapping(i, BlockFaceDirection.YIncreasing));
+        //            // build y-increasing mapping for the texture.
+        //        CrackTextureMappings.Add((i*6) + 3, GetCrackTextureMapping(i, BlockFaceDirection.YDecreasing));
+        //            // build y-decreasing mapping for the texture.
+        //        CrackTextureMappings.Add((i*6) + 4, GetCrackTextureMapping(i, BlockFaceDirection.ZIncreasing));
+        //            // build z-increasing mapping for the texture.
+        //        CrackTextureMappings.Add((i*6) + 5, GetCrackTextureMapping(i, BlockFaceDirection.ZDecreasing));
+        //            // build z-increasing mapping for the texture.   
+        //    }
+        //}
 
-        /// <summary>
-        /// Calculates uv-mappings for given texture and direction.
-        /// </summary>
-        /// <param name="textureIndex">The asked texture's texture-index.</param>
-        /// <param name="direction">The asked direction.</param>
-        /// <returns>Returns list of uv-mappings for given textureIndex and face-direction.</returns>
-        private static HalfVector2[] GetCrackTextureMapping(int textureIndex, BlockFaceDirection direction)
-        {
-            int y = textureIndex/CrackTextureAtlasSize; // y-position for the texture.
-            int x = textureIndex%CrackTextureAtlasSize; // x-position for the texture.
+        ///// <summary>
+        ///// Calculates uv-mappings for given texture and direction.
+        ///// </summary>
+        ///// <param name="textureIndex">The asked texture's texture-index.</param>
+        ///// <param name="direction">The asked direction.</param>
+        ///// <returns>Returns list of uv-mappings for given textureIndex and face-direction.</returns>
+        //private static HalfVector2[] GetCrackTextureMapping(int textureIndex, BlockFaceDirection direction)
+        //{
+        //    int y = textureIndex/CrackTextureAtlasSize; // y-position for the texture.
+        //    int x = textureIndex%CrackTextureAtlasSize; // x-position for the texture.
 
-            float yOffset = y*UnitCrackTextureOffset; // the unit y-offset.
-            float xOffset = x*UnitCrackTextureOffset; // the unit x-offset;
+        //    float yOffset = y*UnitCrackTextureOffset; // the unit y-offset.
+        //    float xOffset = x*UnitCrackTextureOffset; // the unit x-offset;
 
-            var mapping = new HalfVector2[6]; // contains texture mapping for the two triangles contained.
-            switch (direction)
-            {
-                case BlockFaceDirection.XIncreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0 // first triangle.
-                    mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1 // second triangle.
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    break;
+        //    var mapping = new HalfVector2[6]; // contains texture mapping for the two triangles contained.
+        //    switch (direction)
+        //    {
+        //        case BlockFaceDirection.XIncreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0 // first triangle.
+        //            mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1 // second triangle.
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            break;
 
-                case BlockFaceDirection.XDecreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    break;
+        //        case BlockFaceDirection.XDecreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            break;
 
-                case BlockFaceDirection.YIncreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[1] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    break;
+        //        case BlockFaceDirection.YIncreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[1] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            break;
 
-                case BlockFaceDirection.YDecreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    break;
+        //        case BlockFaceDirection.YDecreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            break;
 
-                case BlockFaceDirection.ZIncreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    break;
+        //        case BlockFaceDirection.ZIncreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            break;
 
-                case BlockFaceDirection.ZDecreasing:
-                    mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
-                    break;
-            }
-            return mapping;
-        }
+        //        case BlockFaceDirection.ZDecreasing:
+        //            mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
+        //            mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
+        //            mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
+        //            mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
+        //                // 1,1
+        //            break;
+        //    }
+        //    return mapping;
+        //}
     }
 }

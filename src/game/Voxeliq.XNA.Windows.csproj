@@ -129,7 +129,7 @@
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Engine\Settings.cs" />
-    <Compile Include="Managers\AudioConfig.cs" />
+    <Compile Include="Audio\AudioConfig.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
@@ -142,7 +142,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
-    <Compile Include="Managers\MusicManager.cs" />
+    <Compile Include="Audio\MusicManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
@@ -221,7 +221,6 @@
       <Link>config.ini</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

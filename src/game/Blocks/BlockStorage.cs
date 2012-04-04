@@ -195,6 +195,28 @@ namespace VoxeliqStudios.Voxeliq.Blocks
         /// <summary>
         /// Sets a block by given world position.
         /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        public static void SetBlockAt(Vector3 position, Block block)
+        {
+            SetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        public static void SetBlockAt(Vector3Int position, Block block)
+        {
+            SetBlockAt(position.X, position.Y, position.Z, block);
+        }
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
@@ -221,28 +243,6 @@ namespace VoxeliqStudios.Voxeliq.Blocks
 
             // sett the block
             Blocks[flattenIndex] = block;
-        }
-
-        /// <summary>
-        /// Sets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <param name="block">Block to set.</param>
-        public static void SetBlockAt(Vector3 position, Block block)
-        {
-            SetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
-        }
-
-        /// <summary>
-        /// Sets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <param name="block">Block to set.</param>
-        public static void SetBlockAt(Vector3Int position, Block block)
-        {
-            SetBlockAt(position.X, position.Y, position.Z, block);
         }
 
         /// <summary>

@@ -69,7 +69,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain
             }
 
             // apply the biome generator on x-z column.
-            this.BiomeGenerator.ApplyBiome(chunk, dirtHeight, offset + dirtHeight, worldPositionX + this.Seed, worldPositionZ);
+            this.BiomeGenerator.ApplyBiome(chunk, dirtHeight, offset + dirtHeight, worldPositionX, worldPositionZ);
         }
 
         protected virtual int GetDirtHeight(int blockX, int blockZ, float rockHeight)

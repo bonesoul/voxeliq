@@ -168,7 +168,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
             localBR = Color.Green;
             localBL = Color.Blue;
 
-            // XDecreasing
+            // -X face.
             if (!blockMidW.Exists && !(block.Type == BlockType.Water && blockMidW.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopNW.Sun + blockTopW.Sun + blockMidNW.Sun + blockMidW.Sun)/4);
@@ -199,6 +199,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // +X face.
             if (!blockMidE.Exists && !(block.Type == BlockType.Water && blockMidE.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopSE.Sun + blockTopE.Sun + blockMidSE.Sun + blockMidE.Sun)/4);
@@ -229,6 +230,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // -Y face.
             if (!blockBotM.Exists && !(block.Type == BlockType.Water && blockBotM.Type == BlockType.Water))
             {
                 sunBL = (1f/Chunk.MaxSunValue)*((blockBotSW.Sun + blockBotS.Sun + blockBotM.Sun + blockTopW.Sun)/4);
@@ -259,6 +261,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // +Y face.
             if (!blockTopM.Exists && !(block.Type == BlockType.Water && blockTopM.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopNW.Sun + blockTopN.Sun + blockTopW.Sun + blockTopM.Sun)/4);
@@ -289,6 +292,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // -Z face.
             if (!blockMidS.Exists && !(block.Type == BlockType.Water && blockMidS.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopSW.Sun + blockTopS.Sun + blockMidSW.Sun + blockMidS.Sun)/4);
@@ -319,6 +323,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL,
                                   sunBR, localTL, localTR, localBL, localBR);
             }
+            // +Z face.
             if (!blockMidN.Exists && !(block.Type == BlockType.Water && blockMidN.Type == BlockType.Water))
             {
                 sunTL = (1f/Chunk.MaxSunValue)*((blockTopNE.Sun + blockTopN.Sun + blockMidNE.Sun + blockMidN.Sun)/4);

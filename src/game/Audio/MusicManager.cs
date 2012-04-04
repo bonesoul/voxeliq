@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-namespace VoxeliqStudios.Voxeliq.Managers
+namespace VoxeliqStudios.Voxeliq.Audio
 {
     enum AmbientMusic
     {

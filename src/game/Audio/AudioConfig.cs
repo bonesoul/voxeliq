@@ -5,7 +5,7 @@
 
 using VoxeliqStudios.LibVoxeliq.Configuration;
 
-namespace VoxeliqStudios.Voxeliq.Managers
+namespace VoxeliqStudios.Voxeliq.Audio
 {
     public sealed class AudioConfig : Config
     {

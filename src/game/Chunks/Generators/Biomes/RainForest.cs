@@ -18,43 +18,57 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes
 
         public override void ApplyBiome(Chunk chunk, int groundLevel, int groundOffset, int worldPositionX, int worldPositionZ)
         {
-            bool plantTree = _treePlanter.Next(700) == 1;
+            bool plantTree = _treePlanter.Next(1000) == 1;
 
-            BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Grass;
+            BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Tree;
 
             if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
                 chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
 
             if (plantTree)
             {
-                this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
+                //this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
             }
         }
 
         private void PlantTree(Chunk chunk, int grassLevel, int grassOffset, int worldPositionX, int worldPositionZ)
         {
+            // based on: http://techcraft.codeplex.com/SourceControl/changeset/view/5c1888588e5d#TechCraft%2fNewTake%2fNewTake%2fmodel%2fterrain%2fSimpleTerrain.cs
+
             var trunkHeight = (byte) (5 + (byte) _treePlanter.Next(10));
 
+            Console.WriteLine("tree location: {0},{1},{2}", worldPositionX, grassLevel, worldPositionZ);
             // trunk
-            for (int y = 1; y <= trunkHeight; y++)
+            for (byte y = 1; y <= trunkHeight; y++)
             {
                 BlockStorage.Blocks[grassOffset + y].Type = BlockType.Tree;
-            }
 
-            // foliage
-            int radius = 3 + _treePlanter.Next(2);
+                // set the foliage.
+                int radius = 2;
 
-            for (int i = 0; i < 40 + _treePlanter.Next(4); i++)
-            {
-                int lx = worldPositionX + _treePlanter.Next(radius) - _treePlanter.Next(radius);
-                int ly = grassLevel + trunkHeight + _treePlanter.Next(radius) - _treePlanter.Next(radius);
-                int lz = worldPositionZ + _treePlanter.Next(radius) - _treePlanter.Next(radius);
 
-                // http://techcraft.codeplex.com/SourceControl/changeset/view/5c1888588e5d#TechCraft%2fNewTake%2fNewTake%2fmodel%2fterrain%2fSimpleTerrain.cs
+                Console.WriteLine("foliage: {0}-{1}, {2}, {3}", worldPositionX - radius, worldPositionX + radius, grassLevel + y, worldPositionZ);
+                for (int x = worldPositionX - radius; x <= worldPositionX + radius; x++)
+                {
+                    //for (int z = worldPositionZ - radius; z <= worldPositionZ + radius; z++)
+                    //{
+                    if (!BlockStorage.BlockAt(x, grassLevel + y, worldPositionZ).Exists)
+                    {
+                        Console.Write("leave ");
+                        BlockStorage.SetBlockAt(x, grassLevel + y, worldPositionZ, new Block(BlockType.Leaves));
+                    }
+                    else
+                    {
+                        Console.Write("solid ");
+                    }                    
+                    //}
+                }
+
+                Console.WriteLine();
             }
 
             if (grassLevel + trunkHeight > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte) (grassLevel + trunkHeight);
+                chunk.HighestSolidBlockOffset = (byte) (grassLevel + trunkHeight + 1);
 
         }
     }
