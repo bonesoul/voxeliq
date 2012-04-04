@@ -11,6 +11,8 @@ using VoxeliqStudios.Voxeliq.Texture;
 using VoxeliqStudios.Voxeliq.Universe;
 using VoxeliqStudios.Voxeliq.Utils.Vector;
 
+// TODO: Document this file!
+
 namespace VoxeliqStudios.Voxeliq.Chunks.Processors
 {
     public interface IVertexBuilder
@@ -52,7 +54,9 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
             if (chunk.LowestEmptyBlockOffset > 0)
                 chunk.LowestEmptyBlockOffset--;
 
-            chunk.BoundingBox = new BoundingBox(new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LenghtInBlocks));
+            chunk.BoundingBox = new BoundingBox(
+                new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), 
+                new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LenghtInBlocks));
 
             this.BuildVertexList(chunk);
 
@@ -196,8 +200,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             // +X face.
             if (!blockMidE.Exists && !(block.Type == BlockType.Water && blockMidE.Type == BlockType.Water))
@@ -227,8 +230,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.XIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             // -Y face.
             if (!blockBotM.Exists && !(block.Type == BlockType.Water && blockBotM.Type == BlockType.Water))
@@ -258,8 +260,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             // +Y face.
             if (!blockTopM.Exists && !(block.Type == BlockType.Water && blockTopM.Type == BlockType.Water))
@@ -289,8 +290,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.YIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             // -Z face.
             if (!blockMidS.Exists && !(block.Type == BlockType.Water && blockMidS.Type == BlockType.Water))
@@ -320,8 +320,7 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZDecreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
             // +Z face.
             if (!blockMidN.Exists && !(block.Type == BlockType.Water && blockMidN.Type == BlockType.Water))
@@ -351,21 +350,19 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
                 localBL = new Color(redBL, grnBL, bluBL);
                 localBR = new Color(redBR, grnBR, bluBR);
 
-                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL,
-                                  sunBR, localTL, localTR, localBL, localBR);
+                BuildFaceVertices(chunk, worldPosition, block.Type, BlockFaceDirection.ZIncreasing, sunTL, sunTR, sunBL, sunBR, localTL, localTR, localBL, localBR);
             }
         }
 
-        private static void BuildFaceVertices(Chunk chunk, Vector3Int position, BlockType blockType,
-                                              BlockFaceDirection faceDir, float sunLightTL, float sunLightTR,
-                                              float sunLightBL, float sunLightBR, Color localLightTL, Color localLightTR,
-                                              Color localLightBL, Color localLightBR)
+        private static void BuildFaceVertices(Chunk chunk, Vector3Int position, BlockType blockType, BlockFaceDirection faceDir, 
+                                                float sunLightTL, float sunLightTR, float sunLightBL, float sunLightBR, 
+                                                Color localLightTL, Color localLightTR, Color localLightBL, Color localLightBR)
         {
             if (chunk.Disposed) return;
 
             BlockTexture texture = Block.GetTexture(blockType, faceDir);
 
-            int faceIndex = 0;
+            int faceIndex = 0; // techcraft actually uses (int)faceDir here. Further investigate it. /raist.
             HalfVector2[] textureUVMappings = TextureHelper.BlockTextureMappings[(int) texture*6 + faceIndex];
 
             //int crackStage = 0;
@@ -374,78 +371,78 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Processors
             switch (faceDir)
             {
                 case BlockFaceDirection.XIncreasing:
-                    {
-                        //TR,TL,BR,BR,TL,BL
-                        AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[0], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[1], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[2], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
-                        AddIndex(chunk, 0, 1, 2, 2, 1, 3);
-                    }
-                    break;
+                {
+                    //TR,TL,BR,BR,TL,BL
+                    AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[1], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[2], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
+                    AddIndex(chunk, 0, 1, 2, 2, 1, 3);
+                }
+                break;
 
                 case BlockFaceDirection.XDecreasing:
-                    {
-                        //TR,TL,BL,TR,BL,BR
-                        AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[0], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[1], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[2], sunLightBL, localLightBL);
-                        AddIndex(chunk, 0, 1, 3, 0, 3, 2);
-                    }
-                    break;
+                {
+                    //TR,TL,BL,TR,BL,BR
+                    AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[1], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[2], sunLightBL, localLightBL);
+                    AddIndex(chunk, 0, 1, 3, 0, 3, 2);
+                }
+                break;
 
                 case BlockFaceDirection.YIncreasing:
-                    {
-                        //BL,BR,TR,BL,TR,TL
-                        AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[4], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[5], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[1], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[3], sunLightBL, localLightBL);
-                        AddIndex(chunk, 3, 2, 0, 3, 0, 1);
-                    }
-                    break;
+                {
+                    //BL,BR,TR,BL,TR,TL
+                    AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[2], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[4], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[5], sunLightBL, localLightBL);
+                    AddIndex(chunk, 3, 2, 0, 3, 0, 1);
+                }
+                break;
 
                 case BlockFaceDirection.YDecreasing:
-                    {
-                        //TR,BR,TL,TL,BR,BL
-                        AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[0], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[2], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[4], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
-                        AddIndex(chunk, 0, 2, 1, 1, 2, 3);
-                    }
-                    break;
+                {
+                    //TR,BR,TL,TL,BR,BL
+                    AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[2], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[4], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
+                    AddIndex(chunk, 0, 2, 1, 1, 2, 3);
+                }
+                break;
 
                 case BlockFaceDirection.ZIncreasing:
-                    {
-                        //TR,TL,BL,TR,BL,BR
-                        AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[0], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[1], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[5], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[2], sunLightBL, localLightBL);
-                        AddIndex(chunk, 0, 1, 3, 0, 3, 2);
-                    }
-                    break;
+                {
+                    //TR,TL,BL,TR,BL,BR
+                    AddVertex(chunk, position, new Vector3(0, 1, 1), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(1, 1, 1), textureUVMappings[1], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(0, 0, 1), textureUVMappings[5], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(1, 0, 1), textureUVMappings[2], sunLightBL, localLightBL);
+                    AddIndex(chunk, 0, 1, 3, 0, 3, 2);
+                }
+                break;
 
                 case BlockFaceDirection.ZDecreasing:
-                    {
-                        //TR,TL,BR,BR,TL,BL
-                        AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[0], sunLightTR, localLightTR);
-                        AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[1], sunLightTL, localLightTL);
-                        AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[2], sunLightBR, localLightBR);
-                        AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
-                        AddIndex(chunk, 0, 1, 2, 2, 1, 3);
-                    }
-                    break;
+                {
+                    //TR,TL,BR,BR,TL,BL
+                    AddVertex(chunk, position, new Vector3(1, 1, 0), textureUVMappings[0], sunLightTR, localLightTR);
+                    AddVertex(chunk, position, new Vector3(0, 1, 0), textureUVMappings[1], sunLightTL, localLightTL);
+                    AddVertex(chunk, position, new Vector3(1, 0, 0), textureUVMappings[2], sunLightBR, localLightBR);
+                    AddVertex(chunk, position, new Vector3(0, 0, 0), textureUVMappings[5], sunLightBL, localLightBL);
+                    AddIndex(chunk, 0, 1, 2, 2, 1, 3);
+                }
+                break;
             }
         }
 
-        private static void AddVertex(Chunk chunk, Vector3Int position, Vector3 addition, HalfVector2 textureCoordinate,
-                                      float sunlight, Color localLight)
+        private static void AddVertex(Chunk chunk, Vector3Int position, Vector3 addition, HalfVector2 textureCoordinate, float sunlight, Color localLight)
         {
-            //chunk.VertexList.Add(new BlockVertex(position.AsVector3() + addition, textureCoordinate, sunlight, localLight.ToVector3()));
             chunk.VertexList.Add(new BlockVertex(position.AsVector3() + addition, textureCoordinate, sunlight));
+
+            //chunk.VertexList.Add(new BlockVertex(position.AsVector3() + addition, textureCoordinate, sunlight, localLight.ToVector3()));            
         }
 
         private static void AddIndex(Chunk chunk, short i1, short i2, short i3, short i4, short i5, short i6)

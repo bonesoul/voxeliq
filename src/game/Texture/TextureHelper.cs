@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VoxeliqStudios.Voxeliq.Blocks;
 
+// TODO: Document this file!
+
 namespace VoxeliqStudios.Voxeliq.Texture
 {
     /// <summary>
@@ -41,14 +43,12 @@ namespace VoxeliqStudios.Voxeliq.Texture
         /// <summary>
         /// Provides uv-mappings for blocks.
         /// </summary>
-        public static readonly Dictionary<int, HalfVector2[]> BlockTextureMappings =
-            new Dictionary<int, HalfVector2[]>();
+        public static readonly Dictionary<int, HalfVector2[]> BlockTextureMappings = new Dictionary<int, HalfVector2[]>();
 
         /// <summary>
         /// Provides uv-mappings for crack effects.
         /// </summary>
-        public static readonly Dictionary<int, HalfVector2[]> CrackTextureMappings =
-            new Dictionary<int, HalfVector2[]>();
+        public static readonly Dictionary<int, HalfVector2[]> CrackTextureMappings = new Dictionary<int, HalfVector2[]>();
 
         static TextureHelper()
         {
@@ -63,18 +63,12 @@ namespace VoxeliqStudios.Voxeliq.Texture
         {
             for (int i = 0; i < (int) BlockTexture.Maximum; i++)
             {
-                BlockTextureMappings.Add((i*6), GetBlockTextureMapping(i, BlockFaceDirection.XIncreasing));
-                    // build x-increasing mapping for the texture.
-                BlockTextureMappings.Add((i*6) + 1, GetBlockTextureMapping(i, BlockFaceDirection.XDecreasing));
-                    // build x-decreasing mapping for the texture.
-                BlockTextureMappings.Add((i*6) + 2, GetBlockTextureMapping(i, BlockFaceDirection.YIncreasing));
-                    // build y-increasing mapping for the texture.
-                BlockTextureMappings.Add((i*6) + 3, GetBlockTextureMapping(i, BlockFaceDirection.YDecreasing));
-                    // build y-decreasing mapping for the texture.
-                BlockTextureMappings.Add((i*6) + 4, GetBlockTextureMapping(i, BlockFaceDirection.ZIncreasing));
-                    // build z-increasing mapping for the texture.
-                BlockTextureMappings.Add((i*6) + 5, GetBlockTextureMapping(i, BlockFaceDirection.ZDecreasing));
-                    // build z-increasing mapping for the texture.   
+                BlockTextureMappings.Add((i*6), GetBlockTextureMapping(i, BlockFaceDirection.XIncreasing)); // build x-increasing mapping for the texture.
+                BlockTextureMappings.Add((i*6) + 1, GetBlockTextureMapping(i, BlockFaceDirection.XDecreasing)); // build x-decreasing mapping for the texture.
+                BlockTextureMappings.Add((i*6) + 2, GetBlockTextureMapping(i, BlockFaceDirection.YIncreasing)); // build y-increasing mapping for the texture.
+                BlockTextureMappings.Add((i*6) + 3, GetBlockTextureMapping(i, BlockFaceDirection.YDecreasing)); // build y-decreasing mapping for the texture.
+                BlockTextureMappings.Add((i*6) + 4, GetBlockTextureMapping(i, BlockFaceDirection.ZIncreasing)); // build z-increasing mapping for the texture.
+                BlockTextureMappings.Add((i*6) + 5, GetBlockTextureMapping(i, BlockFaceDirection.ZDecreasing)); // build z-increasing mapping for the texture.   
             }
         }
 
@@ -101,18 +95,15 @@ namespace VoxeliqStudios.Voxeliq.Texture
                     mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1 // second triangle.
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     break;
 
                 case BlockFaceDirection.XDecreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     break;
 
@@ -122,8 +113,7 @@ namespace VoxeliqStudios.Voxeliq.Texture
                     mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
                     mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     break;
 
                 case BlockFaceDirection.YDecreasing:
@@ -132,18 +122,15 @@ namespace VoxeliqStudios.Voxeliq.Texture
                     mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     break;
 
                 case BlockFaceDirection.ZIncreasing:
                     mapping[0] = new HalfVector2(xOffset, yOffset); // 0,0
                     mapping[1] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[2] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     mapping[3] = new HalfVector2(xOffset, yOffset); // 0,0
-                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     mapping[5] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     break;
 
@@ -153,8 +140,7 @@ namespace VoxeliqStudios.Voxeliq.Texture
                     mapping[2] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[3] = new HalfVector2(xOffset, yOffset + UnitBlockTextureOffset); // 0,1
                     mapping[4] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset); // 1,0
-                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset);
-                        // 1,1
+                    mapping[5] = new HalfVector2(xOffset + UnitBlockTextureOffset, yOffset + UnitBlockTextureOffset); // 1,1
                     break;
             }
             return mapping;
