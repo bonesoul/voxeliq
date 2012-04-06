@@ -4,8 +4,8 @@
  */
 
 using Microsoft.Xna.Framework;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp

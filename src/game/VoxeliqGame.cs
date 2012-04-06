@@ -5,7 +5,6 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Audio;
 using VoxeliqStudios.Voxeliq.Chunks;
 using VoxeliqStudios.Voxeliq.Chunks.Processors;
@@ -14,6 +13,7 @@ using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
 using VoxeliqStudios.Voxeliq.Graphics;
 using VoxeliqStudios.Voxeliq.Input;
 using VoxeliqStudios.Voxeliq.Interface;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Universe;
 
 namespace VoxeliqStudios.Voxeliq

@@ -20,14 +20,14 @@ namespace VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes
         {
             bool plantTree = _treePlanter.Next(1000) == 1;
 
-            BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Tree;
+            BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Grass;
 
             if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
                 chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
 
             if (plantTree)
             {
-                //this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
+                this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
             }
         }
 

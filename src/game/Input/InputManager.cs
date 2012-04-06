@@ -5,12 +5,12 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Chunks;
 using VoxeliqStudios.Voxeliq.Debugging;
 using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
 using VoxeliqStudios.Voxeliq.Engine;
 using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Universe;
 
 namespace VoxeliqStudios.Voxeliq.Input

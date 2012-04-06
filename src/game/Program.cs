@@ -7,7 +7,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VoxeliqStudios.LibVoxeliq.Logging;
+using VoxeliqStudios.Voxeliq.Logging;
 
 namespace VoxeliqStudios.Voxeliq
 {

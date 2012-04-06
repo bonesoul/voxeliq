@@ -5,9 +5,9 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Chunks;
 using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Universe;
 
 namespace VoxeliqStudios.Voxeliq.Debugging

@@ -4,9 +4,9 @@
  */
 
 using Microsoft.Xna.Framework;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Chunks;
 using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Utils.Vector;
 
 namespace VoxeliqStudios.Voxeliq.Universe

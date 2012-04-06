@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Chunks;
+using VoxeliqStudios.Voxeliq.Logging;
 
 namespace VoxeliqStudios.Voxeliq.Universe
 {

@@ -97,6 +97,10 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -121,6 +125,8 @@
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
     <Compile Include="Chunks\Generators\Biomes\Desert.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
@@ -130,6 +136,9 @@
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Engine\Settings.cs" />
     <Compile Include="Audio\AudioConfig.cs" />
+    <Compile Include="IO\FileHelper.cs" />
+    <Compile Include="Logging\LogConfig.cs" />
+    <Compile Include="Logging\TinyLogger.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
@@ -162,7 +171,8 @@
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
-    <Compile Include="Utilities\MathHelper.cs" />
+    <Compile Include="Utils\Mathematics\MathHelper.cs" />
+    <Compile Include="Utils\Mathematics\FastRandom.cs" />
     <Compile Include="Utils\Randomization\Procedural\PerlinNoise.cs" />
     <Compile Include="Utils\Randomization\Procedural\SimplexNoise.cs" />
     <Compile Include="Utils\DoubleIndexedDictionary.cs" />
@@ -179,10 +189,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Windows.csproj">
-      <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVoxeliq.Windows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\game-content\Content.contentproj">
       <Name>Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>

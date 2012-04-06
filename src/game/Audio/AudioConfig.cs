@@ -3,7 +3,7 @@
  *
  */
 
-using VoxeliqStudios.LibVoxeliq.Configuration;
+using VoxeliqStudios.Voxeliq.Configuration;
 
 namespace VoxeliqStudios.Voxeliq.Audio
 {

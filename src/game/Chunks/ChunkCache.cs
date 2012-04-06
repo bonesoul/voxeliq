@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqStudios.LibVoxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Blocks;
 using VoxeliqStudios.Voxeliq.Chunks.Generators.Biomes;
 using VoxeliqStudios.Voxeliq.Chunks.Generators.Terrain;
@@ -17,6 +16,7 @@ using VoxeliqStudios.Voxeliq.Debugging;
 using VoxeliqStudios.Voxeliq.Debugging.Profiling;
 using VoxeliqStudios.Voxeliq.Engine;
 using VoxeliqStudios.Voxeliq.Graphics;
+using VoxeliqStudios.Voxeliq.Logging;
 using VoxeliqStudios.Voxeliq.Universe;
 using VoxeliqStudios.Voxeliq.Utils.Vector;
 
