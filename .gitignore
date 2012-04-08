@@ -1,1 +1,5 @@
 /bin/
+
+.DS_Store
+
+src/game/Voxeliq.MonoGame.MacOS.pidb
