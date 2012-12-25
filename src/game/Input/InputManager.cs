@@ -155,7 +155,7 @@ namespace VoxeliqStudios.Voxeliq.Input
 
             // debug keys.
             if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                Settings.World.ToggleInfinitiveWorld();
+                Engine.Settings.World.ToggleInfinitiveWorld();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
                 this._player.ToggleFlyForm();
@@ -176,7 +176,7 @@ namespace VoxeliqStudios.Voxeliq.Input
                 this._bloomService.ToogleSettings();
 
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                Settings.Debugging.ToggleFPSGraph();
+                Engine.Settings.Debugging.ToggleFPSGraph();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();
