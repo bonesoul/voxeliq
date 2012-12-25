@@ -19,7 +19,7 @@ namespace VoxeliqStudios.Voxeliq.Audio
         //frogsAmbient
     }
 
-    public class MusicManager : GameComponent
+    public class AudioManager : GameComponent
     {
         private Song _backgroundSong;
         private IEnumerable<AmbientMusic> _ambientMusicsNames;
@@ -28,7 +28,7 @@ namespace VoxeliqStudios.Voxeliq.Audio
 
         private readonly Random _random = new Random();
 
-        public MusicManager(Game game)
+        public AudioManager(Game game)
             : base(game)
         { }
 

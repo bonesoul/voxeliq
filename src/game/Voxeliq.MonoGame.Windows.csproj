@@ -77,6 +77,9 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nini">
+      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -94,6 +97,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioConfig.cs" />
+    <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockStorage.cs" />
     <Compile Include="Chunks\ChunkState.cs" />
@@ -101,6 +106,8 @@
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Chunks\ChunkStorage.cs" />
     <Compile Include="Chunks\Generators\Biomes\Desert.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\StatisticsGraphs.cs" />
@@ -109,7 +116,9 @@
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Engine\Settings.cs" />
-    <Compile Include="Managers\AudioConfig.cs" />
+    <Compile Include="IO\FileHelper.cs" />
+    <Compile Include="Logging\LogConfig.cs" />
+    <Compile Include="Logging\TinyLogger.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
@@ -122,7 +131,6 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
-    <Compile Include="Managers\MusicManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
@@ -142,7 +150,8 @@
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
-    <Compile Include="Utilities\MathHelper.cs" />
+    <Compile Include="Utils\Mathematics\FastRandom.cs" />
+    <Compile Include="Utils\Mathematics\MathHelper.cs" />
     <Compile Include="Utils\Randomization\Procedural\PerlinNoise.cs" />
     <Compile Include="Utils\Randomization\Procedural\SimplexNoise.cs" />
     <Compile Include="Utils\DoubleIndexedDictionary.cs" />
@@ -159,10 +168,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dep\libvoxeliq\src\LibVoxeliq.Windows.csproj">
-      <Project>{4DBD46B4-CFBF-434C-ACD3-34880DAC7224}</Project>
-      <Name>LibVoxeliq.Windows</Name>
-    </ProjectReference>
     <ProjectReference Include="..\game-content\Content.contentproj">
       <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
       <Name>Content</Name>
@@ -201,7 +206,6 @@
       <Link>config.ini</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
