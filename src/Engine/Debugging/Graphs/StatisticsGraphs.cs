@@ -15,7 +15,7 @@ using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Drawing;
 using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Debugging
+namespace VoxeliqEngine.Debugging.Graphs
 {
     /// <summary>
     /// Draws pretty statistics graphs!

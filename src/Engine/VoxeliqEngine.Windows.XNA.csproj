@@ -88,7 +88,7 @@
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\Profiling\Profiler.cs" />
     <Compile Include="Debugging\Statistics.cs" />
-    <Compile Include="Debugging\StatisticsGraphs.cs" />
+    <Compile Include="Debugging\Graphs\StatisticsGraphs.cs" />
     <Compile Include="Debugging\StringBuilderExtensions.cs" />
     <Compile Include="Debugging\TimeRuler.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />

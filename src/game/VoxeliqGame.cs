@@ -12,6 +12,7 @@ using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Input;
