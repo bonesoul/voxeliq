@@ -62,7 +62,7 @@ namespace VoxeliqEngine.Engine
             /// </summary>
             static Debugging()
             {
-                FPSGraphEnabled = false;
+                FPSGraphEnabled = true;
             }
         }
 
