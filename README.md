@@ -4,9 +4,11 @@
 
 voxeliq is an open source block-based game engine implementation developed with C#. It uses XNA or the Monogame as the basis.
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
-Please see the file LICENSE for license details.
+Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/master/LICENSE) for license details.
 
 **Copyright (C) 2011 - 2013, Voxeliq Studios**
+
+This program is free software; you can redistribute it and/or modify it under the terms of the Microsoft Public License (Ms-PL).
 
 # Stay awhile and listen
 - Read the FAQ and check the wiki before asking!
