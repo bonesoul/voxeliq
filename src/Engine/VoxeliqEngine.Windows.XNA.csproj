@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>696a1687-6361-40bf-94dd-3e3a8cab37d4</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
   </PropertyGroup>
@@ -125,6 +125,13 @@
     <Compile Include="Utils\Vector\Vector2Int.cs" />
     <Compile Include="Utils\Vector\Vector3Int.cs" />
     <Compile Include="Utils\Vector\Vector4Byte.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Content\Content.contentproj">
+      <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
+      <Name>Content</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
