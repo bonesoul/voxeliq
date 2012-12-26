@@ -12,6 +12,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using VoxeliqEngine.Logging;
 
 namespace VoxeliqEngine.Audio
 {
@@ -30,27 +31,36 @@ namespace VoxeliqEngine.Audio
 
         private readonly Random _random = new Random();
 
+        private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
+
         public AudioManager(Game game)
             : base(game)
         { }
 
         public override void Initialize()
         {
-            this._backgroundSong = Game.Content.Load<Song>(@"audio\music\funandrun");
-
-            // load ambient musics.
-            this._ambientMusicsNames = Enum.GetValues(typeof(AmbientMusic)).Cast<AmbientMusic>();
-
-            foreach (var entry in this._ambientMusicsNames.ToArray())
+            try
             {
-                this._ambientMusicSoundEffects.Add(entry, Game.Content.Load<SoundEffect>(@"audio\music\ambient\" + entry.ToString()));
+                this._backgroundSong = Game.Content.Load<Song>(@"audio\music\funandrun");
+
+                // load ambient musics.
+                this._ambientMusicsNames = Enum.GetValues(typeof (AmbientMusic)).Cast<AmbientMusic>();
+
+                foreach (var entry in this._ambientMusicsNames.ToArray())
+                {
+                    this._ambientMusicSoundEffects.Add(entry,Game.Content.Load<SoundEffect>(@"audio\music\ambient\" + entry.ToString()));
+                }
+
+                this.PlayBackroundSong();
+
+                var ambientMusicThread = new Thread(AmbientMusicLoop);
+                ambientMusicThread.Name = "Ambient Music Thread";
+                ambientMusicThread.Start();
             }
-
-            this.PlayBackroundSong();
-
-            var ambientMusicThread = new Thread(AmbientMusicLoop);
-            ambientMusicThread.Name = "Ambient Music Thread";
-            ambientMusicThread.Start();
+            catch (Exception e)
+            {
+                Logger.FatalException(e, "AudioManager is offline due to unexpected exception.");
+            }
         }
 
         private void AmbientMusicLoop()
