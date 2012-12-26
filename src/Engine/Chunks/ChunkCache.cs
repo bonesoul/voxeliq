@@ -80,7 +80,7 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Range of viewable chunks.
         /// </summary>
-        public const byte ViewRange = 1;
+        public const byte ViewRange = 10;
 
         /// <summary>
         /// Bounding box for view range.
@@ -90,7 +90,7 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Chunk range cache.
         /// </summary>
-        public const byte CacheRange = 1;
+        public const byte CacheRange = 10;
 
         /// <summary>
         /// Bounding box for cache range.

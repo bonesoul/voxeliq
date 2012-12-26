@@ -39,7 +39,6 @@ namespace VoxeliqEngine.Audio
         private AudioConfig()
             : base("Audio")
         {
-            this.Enabled = false;
         }
     }
 }
