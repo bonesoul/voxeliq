@@ -62,6 +62,7 @@ namespace VoxeliqEngine.Effects.PostProcessing.Bloom
         public BloomComponent(Game game) 
             : base(game)
         {
+            this.Visible = false;
             this.Game.Services.AddService(typeof(IBloomService), this); // export the service.
         }
 
