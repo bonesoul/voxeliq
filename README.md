@@ -17,7 +17,7 @@ Please see the file LICENSE for license details.
 - [Voxeliq website](http://www.voxeliq.org/games/voxeliq/)
 - [IndieDB](http://www.indiedb.com/engines/voxeliq)
 - [Steam Greenlight](http://steamcommunity.com/sharedfiles/filedetails/?id=110290631)
-- [voxeliq@techcraft](https://voxeliq.codeplex.com/)
+- [voxeliq@codeplex](https://voxeliq.codeplex.com/)
 
 # DevLog Videos
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
