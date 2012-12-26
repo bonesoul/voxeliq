@@ -112,7 +112,7 @@ namespace VoxeliqStudios.Voxeliq
             this.Components.Add(new StatisticsGraphs(this));
 
             #if XNA
-            this.Components.Add(new MusicManager(this));
+            this.Components.Add(new AudioManager(this));
             #endif
 
             this._timeRuler = new TimeRuler(this);

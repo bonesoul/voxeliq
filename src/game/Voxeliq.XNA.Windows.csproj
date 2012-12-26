@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockStorage.cs" />
     <Compile Include="Chunks\ChunkState.cs" />
@@ -151,7 +152,6 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Interface\UserInterface.cs" />
-    <Compile Include="Audio\MusicManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
