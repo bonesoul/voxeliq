@@ -5,16 +5,18 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using VoxeliqStudios.Voxeliq.Audio;
-using VoxeliqStudios.Voxeliq.Chunks;
-using VoxeliqStudios.Voxeliq.Chunks.Processors;
-using VoxeliqStudios.Voxeliq.Debugging;
-using VoxeliqStudios.Voxeliq.Effects.PostProcessing.Bloom;
-using VoxeliqStudios.Voxeliq.Graphics;
-using VoxeliqStudios.Voxeliq.Input;
-using VoxeliqStudios.Voxeliq.Interface;
-using VoxeliqStudios.Voxeliq.Logging;
-using VoxeliqStudios.Voxeliq.Universe;
+using VoxeliqEngine;
+using VoxeliqEngine.Audio;
+using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Chunks.Processors;
+using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Effects.PostProcessing.Bloom;
+using VoxeliqEngine.Graphics;
+using VoxeliqEngine.Input;
+using VoxeliqEngine.Interface;
+using VoxeliqEngine.Logging;
+using VoxeliqEngine.Universe;
+
 
 namespace VoxeliqStudios.Voxeliq
 {
@@ -27,11 +29,6 @@ namespace VoxeliqStudios.Voxeliq
         /// Graphics device manager.
         /// </summary>
         private readonly GraphicsDeviceManager _graphicsDeviceManager;
-
-        /// <summary>
-        /// Rasterizer helper.
-        /// </summary>
-        public readonly Rasterizer Rasterizer;
 
         /// <summary>
         /// Screen manager.
@@ -54,7 +51,6 @@ namespace VoxeliqStudios.Voxeliq
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
-            this.Rasterizer = new Rasterizer();
         }
 
         /// <summary>
@@ -112,7 +108,7 @@ namespace VoxeliqStudios.Voxeliq
             this.Components.Add(new StatisticsGraphs(this));
 
             #if XNA
-            this.Components.Add(new MusicManager(this));
+            this.Components.Add(new AudioManager(this));
             #endif
 
             this._timeRuler = new TimeRuler(this);
@@ -153,7 +149,7 @@ namespace VoxeliqStudios.Voxeliq
 
             this.GraphicsDevice.Clear(Color.Black);
 
-            this.GraphicsDevice.RasterizerState = this.Rasterizer.State;
+            this.GraphicsDevice.RasterizerState = Rasterizer.Instance.State;
 
             base.Draw(gameTime);
 
