@@ -22,6 +22,9 @@ This program is free software; you can redistribute it and/or modify it under th
 - [voxeliq@github](https://github.com/raistlinthewiz/voxeliq)
 - [voxeliq@codeplex](https://voxeliq.codeplex.com/)
 - [voxeliq@reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
+- [voxeliq@twitter](https://twitter.com/voxeliq)
+- [voxeliq@youtube](http://www.youtube.com/voxeliq)
+- [voxeliq@facebook](https://www.facebook.com/VoxeliqStudios)
 
 # DevLog Videos
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
