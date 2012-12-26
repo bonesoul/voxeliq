@@ -68,7 +68,7 @@ namespace VoxeliqStudios.Voxeliq
             Console.WriteLine("F3: Fog-mode: None/Near/Far.");
             Console.WriteLine("F4: Dynamic Clouds: On/Off.");
             Console.WriteLine("F5: Capture Mouse: On/Off.");
-            Console.WriteLine("F8: Bloom: On/Off.");
+            Console.WriteLine("F7: Bloom: On/Off.");
             Console.WriteLine("F9: Debug Graphs: On/Off.");
             Console.WriteLine("F10: In-game Debugger: On/Off.");
             Console.WriteLine("F11: Frame-limiter: On/Off.");
