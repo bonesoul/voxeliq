@@ -19,7 +19,9 @@ This program is free software; you can redistribute it and/or modify it under th
 - [Voxeliq website](http://www.voxeliq.org/games/voxeliq/)
 - [IndieDB](http://www.indiedb.com/engines/voxeliq)
 - [Steam Greenlight](http://steamcommunity.com/sharedfiles/filedetails/?id=110290631)
+- [voxeliq@github](https://github.com/raistlinthewiz/voxeliq)
 - [voxeliq@codeplex](https://voxeliq.codeplex.com/)
+- [voxeliq@reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
 
 # DevLog Videos
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
