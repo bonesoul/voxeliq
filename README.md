@@ -11,7 +11,7 @@ Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/mas
 This program is free software; you can redistribute it and/or modify it under the terms of the Microsoft Public License (Ms-PL).
 
 # Stay awhile and listen
-- Read the FAQ and check the wiki before asking!
+- Read the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) and check the [wiki](https://github.com/raistlinthewiz/voxeliq/wiki) before asking!
 - Check out the forums.
  
 # More info
