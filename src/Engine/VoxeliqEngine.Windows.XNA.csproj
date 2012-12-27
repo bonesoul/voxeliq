@@ -84,6 +84,8 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
+    <Compile Include="Debugging\Graphs\Graph.cs" />
+    <Compile Include="Debugging\Graphs\StatsGraphs.cs" />
     <Compile Include="Debugging\InGameDebugger.cs" />
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\Profiling\Profiler.cs" />

@@ -38,6 +38,13 @@ namespace VoxeliqEngine.Debugging.Graphs
         public int FPSGraphAdaptiveMinimum;
         public int FPSGraphAdaptiveMaximum = 1000;
 
+        private readonly List<float> _fpsGraphValues = new List<float>();
+        private readonly Vector2[] _fpsGraphBackground = new Vector2[4];
+        private Rectangle _fpsGraphBounds = new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35);
+
+        public bool AdaptiveLimits = true;
+        public int ValuesToGraph = 2500;
+
         // ready chunks graph values
         private int _readyChunksMax;
         private int _readyChunksAverage;
@@ -46,13 +53,6 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public int ReadyChunksGraphAdaptiveMinimum;
         public int ReadyChunksGraphAdaptiveMaximum = 1000;
-
-        public bool AdaptiveLimits = true;
-        public int ValuesToGraph = 2500;
-
-        private readonly List<float> _fpsGraphValues = new List<float>();
-        private readonly Vector2[] _fpsGraphBackground = new Vector2[4];
-        private Rectangle _fpsGraphBounds = new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35);
 
         private readonly List<float> _readyChunksGraphValues = new List<float>();
         private readonly Vector2[] _readyChunksBackground = new Vector2[4];
