@@ -117,7 +117,7 @@ namespace VoxeliqEngine.Debugging
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
+            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//Verdana");
         }
 
         /// <summary>
