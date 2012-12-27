@@ -210,7 +210,6 @@ namespace VoxeliqEngine.Chunks
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
 
-            #if XNA
                 if (!this.CacheThreadStarted)
                 {
                     var cacheThread = new Thread(CacheThread) {IsBackground = true};
@@ -218,9 +217,6 @@ namespace VoxeliqEngine.Chunks
 
                     this.CacheThreadStarted = true;
                 }
-            #elif MONOGAME
-                this.Process();              
-            #endif
 
         }
 
