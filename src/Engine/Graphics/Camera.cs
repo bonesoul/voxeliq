@@ -97,6 +97,7 @@ namespace VoxeliqEngine.Graphics
         public Camera(Game game)
             : base(game)
         {
+            // export the services.
             game.Services.AddService(typeof (ICamera), this);
             game.Services.AddService(typeof (ICameraControlService), this);
         }
