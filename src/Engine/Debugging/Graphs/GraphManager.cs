@@ -28,7 +28,7 @@ namespace VoxeliqEngine.Debugging.Graphs
         private Matrix _localProjection;
         private Matrix _localView;
 
-        private List<DebugGraph> _graphs=new List<DebugGraph>();  
+        private readonly List<DebugGraph> _graphs=new List<DebugGraph>();  
 
         public GraphManager(Game game)
             : base(game)
@@ -42,10 +42,11 @@ namespace VoxeliqEngine.Debugging.Graphs
             this._statistics = (IStatistics)this.Game.Services.GetService(typeof(IStatistics));
 
             this._graphs.Add(new FPSGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35)));
-            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 70, 270, 35)));
-            this._graphs.Add(new LightenQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 140, 270, 35)));
-            this._graphs.Add(new BuildQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 210, 270, 35)));
-            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 280, 270, 35)));
+            this._graphs.Add(new MemGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 65, 270, 35)));
+            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 120, 270, 35)));
+            this._graphs.Add(new LightenQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 175, 270, 35)));
+            this._graphs.Add(new BuildQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 230, 270, 35)));
+            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 285, 270, 35)) { AdaptiveLimits = false });
 
             base.Initialize();
         }
@@ -54,7 +55,7 @@ namespace VoxeliqEngine.Debugging.Graphs
         {
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
+            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//Verdana");
             _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;           
             

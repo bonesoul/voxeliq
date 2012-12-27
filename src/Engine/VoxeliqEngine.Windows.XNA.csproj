@@ -88,6 +88,7 @@
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\ReadyQ.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\LightenQ.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\GenerateQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\MemGraph.cs" />
     <Compile Include="Debugging\Graphs\Implementations\FPSGraph.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\BuildQ.cs" />
     <Compile Include="Debugging\Graphs\GraphManager.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
     <Compile Include="Utils\DoubleIndexedDictionary.cs" />
+    <Compile Include="Utils\Extensions\NumberExtensions.cs" />
     <Compile Include="Utils\Mathematics\FastRandom.cs" />
     <Compile Include="Utils\Mathematics\MathHelper.cs" />
     <Compile Include="Utils\Randomization\Procedural\PerlinNoise.cs" />

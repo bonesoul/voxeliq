@@ -14,6 +14,7 @@ using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Engine;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
+using VoxeliqEngine.Utils.Extensions;
 
 namespace VoxeliqEngine.Debugging
 {
@@ -28,10 +29,10 @@ namespace VoxeliqEngine.Debugging
         int FPS { get; }
 
         /// <summary>
-        /// Returns used memory size as string.
+        /// Returns the memory size.
         /// </summary>
         /// <returns></returns>
-        string GetMemoryUsed();
+        long MemoryUsed { get; }
 
         int GenerateQueue { get; }
         int LightenQueue { get; }
@@ -45,6 +46,16 @@ namespace VoxeliqEngine.Debugging
         public int FPS { get; private set; } // the current FPS.
         private int _frameCounter = 0; // the frame count.
         private TimeSpan _elapsedTime = TimeSpan.Zero;
+
+        // memory stuff
+        /// <summary>
+        /// Returns the memory size.
+        /// </summary>
+        /// <returns></returns>
+        public long MemoryUsed
+        {
+            get { return GC.GetTotalMemory(false); }
+        }
 
         // drawn-text stuff.
         private string _drawnBlocks;
@@ -146,7 +157,6 @@ namespace VoxeliqEngine.Debugging
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-
             // FPS
             _stringBuilder.Length = 0;
             _stringBuilder.Append("fps:");
@@ -156,7 +166,7 @@ namespace VoxeliqEngine.Debugging
             // mem used
             _stringBuilder.Length = 0;
             _stringBuilder.Append("mem:");
-            _stringBuilder.Append(this.GetMemoryUsed());
+            _stringBuilder.Append(this.MemoryUsed.GetKiloString());
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(75, 5), Color.White);
 
             // player position
@@ -230,29 +240,6 @@ namespace VoxeliqEngine.Debugging
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
 
             _spriteBatch.End();
-        }
-
-        /// <summary>
-        /// Returns used memory size as string.
-        /// </summary>
-        /// <returns></returns>
-        public string GetMemoryUsed()
-        {
-            return this.GetMemSize(GC.GetTotalMemory(false));
-        }
-
-        /// <summary>
-        /// Returns pretty memory size text.
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        private string GetMemSize(long size)
-        {
-            int i;
-            string[] suffixes = {"B", "KB", "MB", "GB", "TB"};
-            double dblSByte = 0;
-            for (i = 0; (int) (size/1024) > 0; i++, size /= 1024) dblSByte = size/1024.0;
-            return dblSByte.ToString("0.00") + suffixes[i];
         }
     }
 }

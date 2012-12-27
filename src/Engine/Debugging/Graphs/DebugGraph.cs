@@ -11,6 +11,12 @@ namespace VoxeliqEngine.Debugging.Graphs
 {
     public class DebugGraph
     {
+        protected Game Game { get; private set; }
+        protected Rectangle Bounds { get; private set; }
+
+        protected readonly List<float> GraphValues = new List<float>();
+        protected readonly Vector2[] Background = new Vector2[4];        
+
         // stuff required for drawing.
         protected PrimitiveBatch PrimitiveBatch;
         protected SpriteBatch SpriteBatch;
@@ -29,19 +35,11 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         // settings 
 
-        protected bool AdaptiveLimits { get; private set; }
-        protected int ValuesToGraph {get; private set;}
-
-        protected readonly List<float> GraphValues = new List<float>();
-        protected readonly Vector2[] Background = new Vector2[4];
-        public Rectangle Bounds { get; private set; }
-
-        public bool Attached { get; private set; }
-        protected Game Game { get; private set; }
+        public bool AdaptiveLimits { get; set; }
+        public int ValuesToGraph {get; private set;}
 
         public DebugGraph(Game game, Rectangle bounds)            
         {
-            this.Attached = false;
             this.Game = game;
 
             this.Bounds = bounds;
@@ -52,9 +50,6 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public void AttachGraphics(PrimitiveBatch primitiveBatch, SpriteBatch spriteBatch, SpriteFont spriteFont, Matrix localProjection, Matrix localView)
         {
-            if (this.Attached)
-                return;
-
             this.PrimitiveBatch = primitiveBatch;
             this.SpriteBatch = spriteBatch;
             this.SpriteFont = spriteFont;
@@ -63,8 +58,6 @@ namespace VoxeliqEngine.Debugging.Graphs
 
             this.Initialize();
             this.LoadContent();
-
-            this.Attached = true;
         }
 
         protected virtual void Initialize()
@@ -72,10 +65,10 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public void LoadContent()
         {
-            Background[0] = new Vector2(Bounds.X, Bounds.Y);
-            Background[1] = new Vector2(Bounds.X, Bounds.Y + Bounds.Height);
-            Background[2] = new Vector2(Bounds.X + Bounds.Width, Bounds.Y + Bounds.Height);
-            Background[3] = new Vector2(Bounds.X + Bounds.Width, Bounds.Y);
+            Background[0] = new Vector2(Bounds.X - 2, Bounds.Y - 2); // top left
+            Background[3] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y - 2); // top right
+            Background[1] = new Vector2(Bounds.X - 2, Bounds.Y + Bounds.Height + 14); // bottom left
+            Background[2] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y + Bounds.Height + 14); // bottom right
         }
 
         public virtual void Update(GameTime gameTime)
