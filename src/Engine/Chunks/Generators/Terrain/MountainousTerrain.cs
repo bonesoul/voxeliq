@@ -6,7 +6,7 @@
  */
 
 using VoxeliqEngine.Chunks.Generators.Biomes;
-using VoxeliqEngine.Utils.Randomization.Procedural;
+using VoxeliqEngine.Common.Randomization.Procedural;
 
 namespace VoxeliqEngine.Chunks.Generators.Terrain
 {

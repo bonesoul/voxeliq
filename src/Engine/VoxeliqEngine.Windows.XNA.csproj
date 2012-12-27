@@ -52,6 +52,7 @@
       <HintPath>..\..\dep\nini\Nini.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -82,6 +83,14 @@
     <Compile Include="Chunks\Generators\Terrain\ValleyTerrain.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
+    <Compile Include="Common\Extensions\ArrayExtensions.cs" />
+    <Compile Include="Common\Extensions\BigIntegerExtensions.cs" />
+    <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Common\Extensions\ListExtensions.cs" />
+    <Compile Include="Common\Extensions\StringExtensions.cs" />
+    <Compile Include="Common\Helpers\ConcurrentList.cs" />
+    <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
@@ -125,16 +134,16 @@
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
-    <Compile Include="Utils\DoubleIndexedDictionary.cs" />
-    <Compile Include="Utils\Extensions\NumberExtensions.cs" />
-    <Compile Include="Utils\Mathematics\FastRandom.cs" />
-    <Compile Include="Utils\Mathematics\MathHelper.cs" />
-    <Compile Include="Utils\Randomization\Procedural\PerlinNoise.cs" />
-    <Compile Include="Utils\Randomization\Procedural\SimplexNoise.cs" />
-    <Compile Include="Utils\SparseMatrix.cs" />
-    <Compile Include="Utils\Vector\Vector2Int.cs" />
-    <Compile Include="Utils\Vector\Vector3Int.cs" />
-    <Compile Include="Utils\Vector\Vector4Byte.cs" />
+    <Compile Include="Common\DoubleIndexedDictionary.cs" />
+    <Compile Include="Common\Extensions\NumberExtensions.cs" />
+    <Compile Include="Common\Randomization\FastRandom.cs" />
+    <Compile Include="Common\Math\MathHelper.cs" />
+    <Compile Include="Common\Randomization\Procedural\PerlinNoise.cs" />
+    <Compile Include="Common\Randomization\Procedural\SimplexNoise.cs" />
+    <Compile Include="Common\SparseMatrix.cs" />
+    <Compile Include="Common\Vector\Vector2Int.cs" />
+    <Compile Include="Common\Vector\Vector3Int.cs" />
+    <Compile Include="Common\Vector\Vector4Byte.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Content\Content.contentproj">

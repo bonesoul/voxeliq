@@ -7,7 +7,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace VoxeliqEngine.Utils.Vector
+namespace VoxeliqEngine.Common.Vector
 {
     /// <summary>
     /// Basic Vector3 class that takes integer values that can be used on coordinate values within the world.

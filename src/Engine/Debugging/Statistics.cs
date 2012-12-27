@@ -12,10 +12,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Common.Extensions;
 using VoxeliqEngine.Engine;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Extensions;
 
 namespace VoxeliqEngine.Debugging
 {

@@ -5,9 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using System;
-
-namespace VoxeliqEngine.Utils.Mathematics
+namespace VoxeliqEngine.Common.Math
 {
     public static class MathHelper
     {
@@ -167,7 +165,7 @@ namespace VoxeliqEngine.Utils.Mathematics
         /// <returns>Value along the y-axis</returns>
         public static int CantorY(int c)
         {
-            int j = (int)(Math.Sqrt(0.25 + 2 * c) - 0.5);
+            int j = (int)(System.Math.Sqrt(0.25 + 2 * c) - 0.5);
             return c - j * (j + 1) / 2;
         }
 
@@ -178,7 +176,7 @@ namespace VoxeliqEngine.Utils.Mathematics
         /// <returns>Value along the x-axis</returns>
         public static int CantorX(int c)
         {
-            int j = (int)(Math.Sqrt(0.25 + 2 * c) - 0.5);
+            int j = (int)(System.Math.Sqrt(0.25 + 2 * c) - 0.5);
             return j - CantorY(c);
         }
 

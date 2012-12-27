@@ -7,10 +7,10 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("VoxeliqEngine")]
 [assembly: AssemblyProduct("VoxeliqEngine")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyDescription("A block engine.")]
+[assembly: AssemblyCompany("Voxeliq Studios")]
+[assembly: AssemblyCopyright("Copyright ©  2012 - 2013")]
+[assembly: AssemblyTrademark("Voxeliq Studios")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.*")]

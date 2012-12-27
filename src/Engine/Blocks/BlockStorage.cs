@@ -7,8 +7,8 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Logging;
-using VoxeliqEngine.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175

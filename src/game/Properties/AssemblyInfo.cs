@@ -11,12 +11,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("voxeliq-client")]
-[assembly: AssemblyProduct("voxeliq-client")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("Volumetric Studios")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTitle("VoxeliqSample")]
+[assembly: AssemblyProduct("VoxeliqEngine")]
+[assembly: AssemblyDescription("A block engine.")]
+[assembly: AssemblyCompany("Voxeliq Studios")]
+[assembly: AssemblyCopyright("Copyright ©  2012 - 2013")]
+[assembly: AssemblyTrademark("Voxeliq Studios")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

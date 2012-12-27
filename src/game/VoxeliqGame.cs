@@ -21,7 +21,7 @@ using VoxeliqEngine.Interface;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
 
-namespace VoxeliqStudios.Voxeliq
+namespace SampleGame
 {
     /// <summary>
     /// The game client.
