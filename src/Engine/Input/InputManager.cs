@@ -177,7 +177,7 @@ namespace VoxeliqEngine.Input
                 this._bloomService.ToogleSettings();
 
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                Engine.Settings.Debugging.ToggleFPSGraph();
+                Engine.Settings.Debugging.ToggleDebugGraphs();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();
