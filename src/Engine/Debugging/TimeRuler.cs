@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 
 namespace VoxeliqEngine.Debugging
 {
@@ -267,7 +268,7 @@ namespace VoxeliqEngine.Debugging
             this.texture = new Texture2D(this.Game.GraphicsDevice, 1, 1);
             Color[] whitePixels = new Color[] { Color.White };
             texture.SetData<Color>(whitePixels);
-            this.debugFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
+            this.debugFont = AssetManager.Instance.Verdana;
 
             // Initialize Parameters.
             logs = new FrameLog[2];

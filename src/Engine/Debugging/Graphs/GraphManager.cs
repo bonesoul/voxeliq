@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Debugging.Graphs.Implementations;
 using VoxeliqEngine.Debugging.Graphs.Implementations.ChunkGraphs;
@@ -56,7 +57,7 @@ namespace VoxeliqEngine.Debugging.Graphs
             // init the drawing related objects.
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//Verdana");
+            _spriteFont = AssetManager.Instance.Verdana;
             _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;           
             

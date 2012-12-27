@@ -8,6 +8,7 @@
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqEngine;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
@@ -77,6 +78,8 @@ namespace VoxeliqStudios.Voxeliq
         private void AddComponents()
         {
             this.Components.Add(new InputManager(this));
+
+            this.Components.Add(new AssetManager(this));
 
             #if XNA
             this.Components.Add(new Sky(this));

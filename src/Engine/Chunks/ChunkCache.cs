@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks.Generators.Biomes;
 using VoxeliqEngine.Chunks.Generators.Terrain;
@@ -176,9 +177,9 @@ namespace VoxeliqEngine.Chunks
 
         protected override void LoadContent()
         {
-            this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
-            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\terrain");
-            this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
+            this._blockEffect = AssetManager.Instance.BlockEffect;
+            this._blockTextureAtlas = AssetManager.Instance.BlockTextureAtlas;
+            this._crackTextureAtlas = AssetManager.Instance.CrackTextureAtlas;
         }
 
         public bool IsChunkInViewRange(Chunk chunk)

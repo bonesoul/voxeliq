@@ -8,6 +8,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 
 namespace VoxeliqEngine.Effects.PostProcessing.Bloom
 {
@@ -70,9 +71,9 @@ namespace VoxeliqEngine.Effects.PostProcessing.Bloom
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            bloomExtractEffect = Game.Content.Load<Effect>("Effects\\PostProcessing\\Bloom\\BloomExtract");
-            bloomCombineEffect = Game.Content.Load<Effect>("Effects\\PostProcessing\\Bloom\\BloomCombine");
-            gaussianBlurEffect = Game.Content.Load<Effect>("Effects\\PostProcessing\\Bloom\\GaussianBlur");
+            bloomExtractEffect = AssetManager.Instance.BloomExtractEffect;
+            bloomCombineEffect = AssetManager.Instance.BloomCombineEffect;
+            gaussianBlurEffect = AssetManager.Instance.GaussianBlurEffect;
 
             // Look up the resolution and format of our main backbuffer.
             PresentationParameters pp = GraphicsDevice.PresentationParameters;

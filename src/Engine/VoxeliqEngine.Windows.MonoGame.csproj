@@ -61,6 +61,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AssetManager.cs" />
     <Compile Include="Audio\AudioConfig.cs" />
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />

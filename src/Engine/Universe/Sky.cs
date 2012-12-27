@@ -8,6 +8,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Logging;
 
@@ -92,15 +93,15 @@ namespace VoxeliqEngine.Universe
             // load required assets.
 
             // load the dome.
-            this._skyDome = Game.Content.Load<Model>("Models\\SkyDome");
-            this._skyDome.Meshes[0].MeshParts[0].Effect = Game.Content.Load<Effect>("Effects\\SkyDome");
+            this._skyDome = AssetManager.Instance.SkyDomeModel;
+            this._skyDome.Meshes[0].MeshParts[0].Effect = AssetManager.Instance.SkyDomeEffect;
 
             // load maps.
-            this._cloudMap = Game.Content.Load<Texture2D>("Textures\\cloudmap");
-            this._starMap = Game.Content.Load<Texture2D>("Textures\\starmap");
+            this._cloudMap = AssetManager.Instance.CloudMapTexture;
+            this._starMap = AssetManager.Instance.StarMapTexture;
 
             // for gpu generated clouds.
-            this._perlinNoiseEffect = Game.Content.Load<Effect>("Effects\\PerlinNoise");
+            this._perlinNoiseEffect = AssetManager.Instance.PerlinNoiseEffect;
             var presentationParameters = GraphicsDevice.PresentationParameters;
 
             this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth,presentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            

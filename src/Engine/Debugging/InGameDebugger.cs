@@ -7,6 +7,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Logging;
@@ -63,7 +64,7 @@ namespace VoxeliqEngine.Debugging
             Logger.Trace("init()");
 
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//CalibriDebug");
+            _spriteFont = AssetManager.Instance.Verdana;
 
             // import service.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));

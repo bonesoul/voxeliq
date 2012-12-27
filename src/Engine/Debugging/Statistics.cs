@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Engine;
 using VoxeliqEngine.Logging;
@@ -117,7 +118,7 @@ namespace VoxeliqEngine.Debugging
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//Verdana");
+            _spriteFont = AssetManager.Instance.Verdana;
         }
 
         /// <summary>

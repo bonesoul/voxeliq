@@ -7,6 +7,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Logging;
 
 namespace VoxeliqEngine.Interface
@@ -38,8 +39,8 @@ namespace VoxeliqEngine.Interface
 
         protected override void LoadContent()
         {
-            _crosshairNormalTexture = Game.Content.Load<Texture2D>("Textures\\Crosshairs\\Normal");
-            _crosshairShovelTexture = Game.Content.Load<Texture2D>("Textures\\Crosshairs\\Shovel");
+            this._crosshairNormalTexture = AssetManager.Instance.CrossHairNormalTexture;
+            this._crosshairShovelTexture = AssetManager.Instance.CrossHairShovelTexture;
         }
 
         public override void Draw(GameTime gameTime)

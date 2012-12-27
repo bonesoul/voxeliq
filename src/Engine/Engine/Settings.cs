@@ -62,7 +62,7 @@ namespace VoxeliqEngine.Engine
             /// </summary>
             static Debugging()
             {
-                DebugGraphsEnabled = true;
+                DebugGraphsEnabled = false;
             }
         }
 
