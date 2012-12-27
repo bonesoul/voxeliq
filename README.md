@@ -26,6 +26,10 @@ This program is free software; you can redistribute it and/or modify it under th
 - [voxeliq@youtube](http://www.youtube.com/voxeliq)
 - [voxeliq@facebook](https://www.facebook.com/VoxeliqStudios)
 
+# Whats New?
+Implemented more debug graphs;
+![Screenshot](http://i.imgur.com/OtQy4.jpg)
+
 # DevLog Videos
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
 - [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
