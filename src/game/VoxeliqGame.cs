@@ -109,7 +109,7 @@ namespace VoxeliqStudios.Voxeliq
             this.Components.Add(new InGameDebugger(this));
             this.Components.Add(new Statistics(this));
             //this.Components.Add(new StatisticsGraphs(this));
-            this.Components.Add(new StatsGraphs(this));
+            this.Components.Add(new GraphManager(this));
 
             #if XNA
             this.Components.Add(new AudioManager(this));

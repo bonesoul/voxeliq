@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Debugging.Graphs.Implementations;
+using VoxeliqEngine.Debugging.Graphs.Implementations.ChunkGraphs;
+using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Drawing;
 
 namespace VoxeliqEngine.Debugging.Graphs
 {
-    public interface IStatsGraphs
+    public interface IGraphManager
     {
-        void AddGraph(string name, ref int valueToObserve);
     }
 
-    public class StatsGraphs : DrawableGameComponent, IStatsGraphs
+    public class GraphManager : DrawableGameComponent, IGraphManager
     {
         // required services
         private IStatistics _statistics;
@@ -27,10 +30,10 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         private List<DebugGraph> _graphs=new List<DebugGraph>();  
 
-        public StatsGraphs(Game game)
+        public GraphManager(Game game)
             : base(game)
         {
-            game.Services.AddService(typeof(IStatsGraphs), this); // export the service.
+            game.Services.AddService(typeof(IGraphManager), this); // export the service.
         }
 
         public override void Initialize()
@@ -38,7 +41,11 @@ namespace VoxeliqEngine.Debugging.Graphs
             // import required services.
             this._statistics = (IStatistics)this.Game.Services.GetService(typeof(IStatistics));
 
-            this._graphs.Add(new FPSGraph(this.Game));
+            this._graphs.Add(new FPSGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35)));
+            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 70, 270, 35)));
+            this._graphs.Add(new LightenQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 140, 270, 35)));
+            this._graphs.Add(new BuildQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 210, 270, 35)));
+            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 280, 270, 35)));
 
             base.Initialize();
         }
@@ -61,6 +68,9 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Draw(GameTime gameTime)
         {
+            if (!Engine.Settings.Debugging.DebugGraphsEnabled)
+                return;
+
             // backup state.
             var previousRasterizerState = this.Game.GraphicsDevice.RasterizerState;
             var previousDepthStencilState = this.Game.GraphicsDevice.DepthStencilState;
@@ -96,17 +106,15 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Update(GameTime gameTime)
         {
+            if (!Engine.Settings.Debugging.DebugGraphsEnabled)
+                return;
+
             foreach (var graph in this._graphs)
             {
                 graph.Update(gameTime);
             }
 
             base.Update(gameTime);
-        }
-
-        public void AddGraph(string name, ref int valueToObserve)
-        {
-            throw new NotImplementedException();
         }
     }
 }

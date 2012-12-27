@@ -32,6 +32,11 @@ namespace VoxeliqEngine.Debugging
         /// </summary>
         /// <returns></returns>
         string GetMemoryUsed();
+
+        int GenerateQueue { get; }
+        int LightenQueue { get; }
+        int BuildQueue { get; }
+        int ReadyQueue { get; }
     }
 
     public sealed class Statistics : DrawableGameComponent, IStatistics
@@ -59,6 +64,11 @@ namespace VoxeliqEngine.Debugging
         private IFogger _fogger;
         private IChunkStorage _chunkStorage;
         private IChunkCache _chunkCache;
+
+        public int GenerateQueue { get; private set; }
+        public int LightenQueue { get; private set; }
+        public int BuildQueue { get; private set; }
+        public int ReadyQueue { get; private set; }
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loging-facility
@@ -190,33 +200,33 @@ namespace VoxeliqEngine.Debugging
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(120, 35), Color.White);
 
             // process queues.
-            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
-            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
-            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
-            var readyState = this._chunkCache.StateStatistics[ChunkState.Ready];
+            this.GenerateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
+            this.LightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
+            this.BuildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
+            this.ReadyQueue = this._chunkCache.StateStatistics[ChunkState.Ready];
 
             // generation
             _stringBuilder.Length = 0;
             _stringBuilder.Append("GenerateQ:");
-            _stringBuilder.AppendNumber(generateQueue);
+            _stringBuilder.AppendNumber(this.GenerateQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 65), Color.White);
 
             // lighten
             _stringBuilder.Length = 0;
             _stringBuilder.Append("LightenQ:");
-            _stringBuilder.AppendNumber(lightenQueue);
+            _stringBuilder.AppendNumber(this.LightenQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 80), Color.White);
 
             // build
             _stringBuilder.Length = 0;
             _stringBuilder.Append("BuildQ:");
-            _stringBuilder.AppendNumber(buildQueue);
+            _stringBuilder.AppendNumber(this.BuildQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 95), Color.White);
 
             // ready
             _stringBuilder.Length = 0;
             _stringBuilder.Append("Ready:");
-            _stringBuilder.AppendNumber(readyState);
+            _stringBuilder.AppendNumber(this.ReadyQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
 
             _spriteBatch.End();
