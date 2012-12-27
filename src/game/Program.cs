@@ -38,15 +38,17 @@ namespace VoxeliqStudios.Voxeliq
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
             PrintKeys();
 
+            var frameworkVersion = System.Reflection.Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
+
             #if XNA
-            Logger.Trace("Using XNA (Direct) as the framework.");
+            Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));
             #elif MONOGAME
-            Logger.Trace("Using MonoGame (OpenGL) as the framework.");
+            Logger.Trace(String.Format("Using MonoGame (v{0}) as the framework.", frameworkVersion));
             #else
             Logger.Trace("Can not determine underlying framework.");
-            #endif
+            #endif  
 
-            using (var game = new VoxeliqGame()) // startup voxlr client.
+            using (var game = new VoxeliqGame()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
                 game.Run();
@@ -68,7 +70,8 @@ namespace VoxeliqStudios.Voxeliq
             Console.WriteLine("F3: Fog-mode: None/Near/Far.");
             Console.WriteLine("F4: Dynamic Clouds: On/Off.");
             Console.WriteLine("F5: Capture Mouse: On/Off.");
-            Console.WriteLine("F7: Bloom: On/Off.");
+            Console.WriteLine("F6: Bloom: On/Off.");
+            Console.WriteLine("F7: Bloom State: Default/Soft/Desaturated/Saturated/Blurry/Subtle");
             Console.WriteLine("F9: Debug Graphs: On/Off.");
             Console.WriteLine("F10: In-game Debugger: On/Off.");
             Console.WriteLine("F11: Frame-limiter: On/Off.");

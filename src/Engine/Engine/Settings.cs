@@ -47,14 +47,14 @@ namespace VoxeliqEngine.Engine
             /// <summary>
             /// Gets or sets if fps-graph is enabled.
             /// </summary>
-            public static bool FPSGraphEnabled { get; set; }
+            public static bool DebugGraphsEnabled { get; set; }
 
             /// <summary>
             /// Toggles fps-graph on or off.
             /// </summary>
-            public static void ToggleFPSGraph()
+            public static void ToggleDebugGraphs()
             {
-                FPSGraphEnabled = !FPSGraphEnabled;
+                DebugGraphsEnabled = !DebugGraphsEnabled;
             }
 
             /// <summary>
@@ -62,7 +62,7 @@ namespace VoxeliqEngine.Engine
             /// </summary>
             static Debugging()
             {
-                FPSGraphEnabled = false;
+                DebugGraphsEnabled = true;
             }
         }
 
