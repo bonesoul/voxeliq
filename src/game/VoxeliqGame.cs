@@ -9,6 +9,7 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqEngine;
 using VoxeliqEngine.Assets;
+using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
