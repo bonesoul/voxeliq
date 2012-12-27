@@ -5,9 +5,11 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Logging;
 
 namespace VoxeliqEngine.Assets
 {
@@ -66,6 +68,13 @@ namespace VoxeliqEngine.Assets
 
         public SpriteFont Verdana { get; private set; }
 
+#if MONOGAME
+        private const string EffectShaderExtension = ".mgfxo";
+#else 
+        private const string EffectShaderExtension = ""; 
+#endif
+
+        private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
 
         public AssetManager(Game game)
             : base(game)
@@ -82,27 +91,41 @@ namespace VoxeliqEngine.Assets
 
         public void LoadContent()
         {
-            this.AimedBlockModel = Game.Content.Load<Model>(@"Models/AimedBlock");
-            this.SampleModel = Game.Content.Load<Model>(@"Models/Mii");
-            this.SkyDomeModel = Game.Content.Load<Model>(@"Models/SkyDome");
+            try
+            {                                
+                this.AimedBlockModel = Game.Content.Load<Model>(@"Models/AimedBlock");
+                this.SampleModel = Game.Content.Load<Model>(@"Models/Mii");
+                this.SkyDomeModel = Game.Content.Load<Model>(@"Models/SkyDome");
 
-            this.BlockEffect = Game.Content.Load<Effect>(@"Effects/BlockEffect");
-            this.AimedBlockEffect = new BasicEffect(Game.GraphicsDevice);
-            this.BloomExtractEffect = Game.Content.Load<Effect>(@"Effects/PostProcessing/Bloom/BloomExtract");
-            this.BloomCombineEffect = Game.Content.Load<Effect>(@"Effects/PostProcessing/Bloom/BloomCombine");
-            this.GaussianBlurEffect = Game.Content.Load<Effect>(@"Effects/PostProcessing/Bloom/GaussianBlur");
-            this.SkyDomeEffect = Game.Content.Load<Effect>(@"Effects/SkyDome");
-            this.PerlinNoiseEffect = Game.Content.Load<Effect>(@"Effects/PerlinNoise");
+                this.BlockEffect = this.LoadEffectShader(@"Effects/BlockEffect");
+                this.AimedBlockEffect = new BasicEffect(Game.GraphicsDevice);
+                this.BloomExtractEffect = this.LoadEffectShader(@"Effects/PostProcessing/Bloom/BloomExtract");
+                this.BloomCombineEffect = this.LoadEffectShader(@"Effects/PostProcessing/Bloom/BloomCombine");
+                this.GaussianBlurEffect = this.LoadEffectShader(@"Effects/PostProcessing/Bloom/GaussianBlur");
+                this.SkyDomeEffect = this.LoadEffectShader(@"Effects/SkyDome");
+                this.PerlinNoiseEffect = this.LoadEffectShader(@"Effects/PerlinNoise");
 
-            this.BlockTextureAtlas = Game.Content.Load<Texture2D>(@"Textures/terrain");
-            this.CrackTextureAtlas = Game.Content.Load<Texture2D>(@"Textures/cracks");
-            this.AimedBlockTexture = Game.Content.Load<Texture2D>(@"Textures/AimedBlock");
-            this.CrossHairNormalTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Normal");
-            this.CrossHairShovelTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Shovel");
-            this.CloudMapTexture = Game.Content.Load<Texture2D>(@"Textures/cloudmap");
-            this.StarMapTexture = Game.Content.Load<Texture2D>(@"Textures/starmap");
+                this.BlockTextureAtlas = Game.Content.Load<Texture2D>(@"Textures/terrain");
+                this.CrackTextureAtlas = Game.Content.Load<Texture2D>(@"Textures/cracks");
+                this.AimedBlockTexture = Game.Content.Load<Texture2D>(@"Textures/AimedBlock");
+                this.CrossHairNormalTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Normal");
+                this.CrossHairShovelTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Shovel");
+                this.CloudMapTexture = Game.Content.Load<Texture2D>(@"Textures/cloudmap");
+                this.StarMapTexture = Game.Content.Load<Texture2D>(@"Textures/starmap");
 
-            this.Verdana = Game.Content.Load<SpriteFont>(@"Fonts/Verdana");
+                this.Verdana = Game.Content.Load<SpriteFont>(@"Fonts/Verdana");
+            }
+            catch(Exception e)
+            {
+                Logger.FatalException(e, "Error while loading assets!");
+                Console.ReadLine();
+                Environment.Exit(-1);
+            }
+        }
+
+        private Effect LoadEffectShader(string path)
+        {
+            return this.Game.Content.Load<Effect>(path + EffectShaderExtension);
         }
 
         private static AssetManager _instance; // the instance.

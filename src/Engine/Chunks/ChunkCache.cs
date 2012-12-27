@@ -210,7 +210,6 @@ namespace VoxeliqEngine.Chunks
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
 
-            #if XNA
                 if (!this.CacheThreadStarted)
                 {
                     var cacheThread = new Thread(CacheThread) {IsBackground = true};
@@ -218,9 +217,6 @@ namespace VoxeliqEngine.Chunks
 
                     this.CacheThreadStarted = true;
                 }
-            #elif MONOGAME
-                this.Process();              
-            #endif
 
         }
 
@@ -362,7 +358,11 @@ namespace VoxeliqEngine.Chunks
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
 
             // texture parameters
+#if XNA
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+#elif MONOGAME
+            _blockEffect.Parameters["BlockTextureAtlasSampler"].SetValue(_blockTextureAtlas);
+#endif
 
             // atmospheric settings
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);
