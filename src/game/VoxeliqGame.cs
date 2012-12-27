@@ -9,7 +9,6 @@ using System.Reflection;
 using Microsoft.Xna.Framework;
 using VoxeliqEngine;
 using VoxeliqEngine.Assets;
-using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
@@ -20,7 +19,6 @@ using VoxeliqEngine.Input;
 using VoxeliqEngine.Interface;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
-
 
 namespace VoxeliqStudios.Voxeliq
 {
@@ -103,7 +101,7 @@ namespace VoxeliqStudios.Voxeliq
 
             #if XNA
             bloom = new BloomComponent(this);
-            Components.Add(bloom);
+            this.Components.Add(bloom);
             #endif
 
             this.Components.Add(new Camera(this));
@@ -111,7 +109,6 @@ namespace VoxeliqStudios.Voxeliq
 
             this.Components.Add(new InGameDebugger(this));
             this.Components.Add(new Statistics(this));
-            //this.Components.Add(new StatisticsGraphs(this));
             this.Components.Add(new GraphManager(this));
 
             #if XNA

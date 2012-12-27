@@ -38,13 +38,15 @@ namespace VoxeliqStudios.Voxeliq
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
             PrintKeys();
 
+            var frameworkVersion = System.Reflection.Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
+
             #if XNA
-            Logger.Trace("Using XNA (Direct) as the framework.");
+            Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));
             #elif MONOGAME
-            Logger.Trace("Using MonoGame (OpenGL) as the framework.");
+            Logger.Trace(String.Format("Using MonoGame (v{0}) as the framework.", frameworkVersion));
             #else
             Logger.Trace("Can not determine underlying framework.");
-            #endif
+            #endif  
 
             using (var game = new VoxeliqGame()) // startup voxlr client.
             {
