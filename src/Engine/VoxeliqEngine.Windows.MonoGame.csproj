@@ -42,8 +42,16 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework.Windows">
+    <Reference Include="Lidgren.Network.Windows, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework.Windows, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dep\monogame\windows\MonoGame.Framework.Windows.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />

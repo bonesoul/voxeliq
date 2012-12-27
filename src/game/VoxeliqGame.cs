@@ -21,7 +21,6 @@ using VoxeliqEngine.Interface;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
 
-
 namespace VoxeliqStudios.Voxeliq
 {
     /// <summary>
@@ -103,7 +102,7 @@ namespace VoxeliqStudios.Voxeliq
 
             #if XNA
             bloom = new BloomComponent(this);
-            Components.Add(bloom);
+            this.Components.Add(bloom);
             #endif
 
             this.Components.Add(new Camera(this));
@@ -111,7 +110,6 @@ namespace VoxeliqStudios.Voxeliq
 
             this.Components.Add(new InGameDebugger(this));
             this.Components.Add(new Statistics(this));
-            //this.Components.Add(new StatisticsGraphs(this));
             this.Components.Add(new GraphManager(this));
 
             #if XNA

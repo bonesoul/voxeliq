@@ -70,8 +70,7 @@
     <Reference Include="Lidgren.Network.Windows">
       <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework.Windows, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MonoGame.Framework.Windows">
       <HintPath>..\..\dep\monogame\windows\MonoGame.Framework.Windows.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
@@ -149,7 +148,13 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)Content
 xcopy $(TargetDir)..\xna\Content $(TargetDir)Content /Y /E /D
-xcopy $(TargetDir)..\..\..\..\dep\monogame\windows $(TargetDir) /Y /E /D</PostBuildEvent>
+xcopy $(TargetDir)..\xna\Content\Effects $(TargetDir)Content\Effects /Y /E /D
+CD /D $(SolutionDir)
+Call build-effects.bat</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 
