@@ -12,15 +12,17 @@ using VoxeliqEngine.Graphics.Drawing;
 
 namespace VoxeliqEngine.Debugging.Graphs
 {
+    /// <summary>
+    /// GraphManager can render debug graphs.
+    /// </summary>
     public interface IGraphManager
-    {
-    }
+    { }
 
+    /// <summary>
+    /// GraphManager is DrawableGameComponent that can render debug graphs.
+    /// </summary>
     public class GraphManager : DrawableGameComponent, IGraphManager
     {
-        // required services
-        private IStatistics _statistics;
-
         // stuff needed for drawing.
         private PrimitiveBatch _primitiveBatch;
         private SpriteBatch _spriteBatch;
@@ -28,7 +30,7 @@ namespace VoxeliqEngine.Debugging.Graphs
         private Matrix _localProjection;
         private Matrix _localView;
 
-        private readonly List<DebugGraph> _graphs=new List<DebugGraph>();  
+        private readonly List<DebugGraph> _graphs=new List<DebugGraph>(); // the current graphs list.
 
         public GraphManager(Game game)
             : base(game)
@@ -38,9 +40,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Initialize()
         {
-            // import required services.
-            this._statistics = (IStatistics)this.Game.Services.GetService(typeof(IStatistics));
-
+            // create the graphs modules.
             this._graphs.Add(new FPSGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35)));
             this._graphs.Add(new MemGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 65, 270, 35)));
             this._graphs.Add(new GenerateQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 120, 270, 35)));
@@ -53,12 +53,14 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         protected override void LoadContent()
         {
+            // init the drawing related objects.
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _spriteFont = Game.Content.Load<SpriteFont>("Fonts//Verdana");
             _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;           
             
+            // attach the drawing objects to the graph modules.
             foreach (var graph in this._graphs)
             {
                 graph.AttachGraphics(this._primitiveBatch, this._spriteBatch, this._spriteFont, this._localProjection, this._localView);
@@ -69,36 +71,36 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Draw(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled)
+            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
                 return;
 
-            // backup state.
+            // backup  the raster and depth-stencil states.
             var previousRasterizerState = this.Game.GraphicsDevice.RasterizerState;
             var previousDepthStencilState = this.Game.GraphicsDevice.DepthStencilState;
 
-            // set new state
+            // set new states for drawing primitive shapes.
             this.Game.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
             this.Game.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
 
-            _primitiveBatch.Begin(this._localProjection, this._localView);
+            _primitiveBatch.Begin(this._localProjection, this._localView); // initialize the primitive batch.
 
             foreach (var graph in this._graphs)
             {
-                graph.DrawGraph(gameTime);
+                graph.DrawGraph(gameTime); // let the graphs draw their primitives.
             }
 
-            _primitiveBatch.End();
+            _primitiveBatch.End(); // end the batch.
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); // initialize the sprite batch.
 
             foreach (var graph in this._graphs)
             {
-                graph.DrawStrings(gameTime);
+                graph.DrawStrings(gameTime); // let the graphs draw their sprites.
             }
 
-            _spriteBatch.End();
+            _spriteBatch.End(); // end the batch.
 
-            // restore old state.
+            // restore old states.
             this.Game.GraphicsDevice.RasterizerState = previousRasterizerState;
             this.Game.GraphicsDevice.DepthStencilState = previousDepthStencilState;
 
@@ -107,12 +109,12 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Update(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled)
+            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
                 return;
 
             foreach (var graph in this._graphs)
             {
-                graph.Update(gameTime);
+                graph.Update(gameTime); // let the graphs update themself.
             }
 
             base.Update(gameTime);
