@@ -12,6 +12,7 @@ using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Input;
@@ -107,7 +108,8 @@ namespace VoxeliqStudios.Voxeliq
 
             this.Components.Add(new InGameDebugger(this));
             this.Components.Add(new Statistics(this));
-            this.Components.Add(new StatisticsGraphs(this));
+            //this.Components.Add(new StatisticsGraphs(this));
+            this.Components.Add(new GraphManager(this));
 
             #if XNA
             this.Components.Add(new AudioManager(this));
