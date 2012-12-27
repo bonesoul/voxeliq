@@ -62,6 +62,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AssetManager.cs" />
     <Compile Include="Audio\AudioConfig.cs" />
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />
@@ -84,17 +85,25 @@
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
+    <Compile Include="Debugging\Graphs\DebugGraph.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\ReadyQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\LightenQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\GenerateQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\MemGraph.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\FPSGraph.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\BuildQ.cs" />
+    <Compile Include="Debugging\Graphs\GraphManager.cs" />
     <Compile Include="Debugging\InGameDebugger.cs" />
     <Compile Include="Debugging\Layout.cs" />
     <Compile Include="Debugging\Profiling\Profiler.cs" />
     <Compile Include="Debugging\Statistics.cs" />
-    <Compile Include="Debugging\StatisticsGraphs.cs" />
     <Compile Include="Debugging\StringBuilderExtensions.cs" />
     <Compile Include="Debugging\TimeRuler.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Engine\Settings.cs" />
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\Drawing\BasicShapes.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\GraphicsConfig.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
@@ -117,6 +126,7 @@
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
     <Compile Include="Utils\DoubleIndexedDictionary.cs" />
+    <Compile Include="Utils\Extensions\NumberExtensions.cs" />
     <Compile Include="Utils\Mathematics\FastRandom.cs" />
     <Compile Include="Utils\Mathematics\MathHelper.cs" />
     <Compile Include="Utils\Randomization\Procedural\PerlinNoise.cs" />

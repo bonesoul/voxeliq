@@ -10,10 +10,12 @@ using System.Globalization;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Engine;
 using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
+using VoxeliqEngine.Utils.Extensions;
 
 namespace VoxeliqEngine.Debugging
 {
@@ -28,10 +30,15 @@ namespace VoxeliqEngine.Debugging
         int FPS { get; }
 
         /// <summary>
-        /// Returns used memory size as string.
+        /// Returns the memory size.
         /// </summary>
         /// <returns></returns>
-        string GetMemoryUsed();
+        long MemoryUsed { get; }
+
+        int GenerateQueue { get; }
+        int LightenQueue { get; }
+        int BuildQueue { get; }
+        int ReadyQueue { get; }
     }
 
     public sealed class Statistics : DrawableGameComponent, IStatistics
@@ -40,6 +47,16 @@ namespace VoxeliqEngine.Debugging
         public int FPS { get; private set; } // the current FPS.
         private int _frameCounter = 0; // the frame count.
         private TimeSpan _elapsedTime = TimeSpan.Zero;
+
+        // memory stuff
+        /// <summary>
+        /// Returns the memory size.
+        /// </summary>
+        /// <returns></returns>
+        public long MemoryUsed
+        {
+            get { return GC.GetTotalMemory(false); }
+        }
 
         // drawn-text stuff.
         private string _drawnBlocks;
@@ -59,6 +76,11 @@ namespace VoxeliqEngine.Debugging
         private IFogger _fogger;
         private IChunkStorage _chunkStorage;
         private IChunkCache _chunkCache;
+
+        public int GenerateQueue { get; private set; }
+        public int LightenQueue { get; private set; }
+        public int BuildQueue { get; private set; }
+        public int ReadyQueue { get; private set; }
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loging-facility
@@ -96,7 +118,7 @@ namespace VoxeliqEngine.Debugging
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = Game.Content.Load<SpriteFont>("Fonts//calibri");
+            _spriteFont = AssetManager.Instance.Verdana;
         }
 
         /// <summary>
@@ -136,7 +158,6 @@ namespace VoxeliqEngine.Debugging
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-
             // FPS
             _stringBuilder.Length = 0;
             _stringBuilder.Append("fps:");
@@ -146,7 +167,7 @@ namespace VoxeliqEngine.Debugging
             // mem used
             _stringBuilder.Length = 0;
             _stringBuilder.Append("mem:");
-            _stringBuilder.Append(this.GetMemoryUsed());
+            _stringBuilder.Append(this.MemoryUsed.GetKiloString());
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(75, 5), Color.White);
 
             // player position
@@ -190,59 +211,36 @@ namespace VoxeliqEngine.Debugging
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(120, 35), Color.White);
 
             // process queues.
-            var generateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
-            var lightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
-            var buildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
-            var readyState = this._chunkCache.StateStatistics[ChunkState.Ready];
+            this.GenerateQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingGenerate] + this._chunkCache.StateStatistics[ChunkState.Generating];
+            this.LightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
+            this.BuildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
+            this.ReadyQueue = this._chunkCache.StateStatistics[ChunkState.Ready];
 
             // generation
             _stringBuilder.Length = 0;
             _stringBuilder.Append("GenerateQ:");
-            _stringBuilder.AppendNumber(generateQueue);
+            _stringBuilder.AppendNumber(this.GenerateQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 65), Color.White);
 
             // lighten
             _stringBuilder.Length = 0;
             _stringBuilder.Append("LightenQ:");
-            _stringBuilder.AppendNumber(lightenQueue);
+            _stringBuilder.AppendNumber(this.LightenQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 80), Color.White);
 
             // build
             _stringBuilder.Length = 0;
             _stringBuilder.Append("BuildQ:");
-            _stringBuilder.AppendNumber(buildQueue);
+            _stringBuilder.AppendNumber(this.BuildQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 95), Color.White);
 
             // ready
             _stringBuilder.Length = 0;
             _stringBuilder.Append("Ready:");
-            _stringBuilder.AppendNumber(readyState);
+            _stringBuilder.AppendNumber(this.ReadyQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
 
             _spriteBatch.End();
-        }
-
-        /// <summary>
-        /// Returns used memory size as string.
-        /// </summary>
-        /// <returns></returns>
-        public string GetMemoryUsed()
-        {
-            return this.GetMemSize(GC.GetTotalMemory(false));
-        }
-
-        /// <summary>
-        /// Returns pretty memory size text.
-        /// </summary>
-        /// <param name="size"></param>
-        /// <returns></returns>
-        private string GetMemSize(long size)
-        {
-            int i;
-            string[] suffixes = {"B", "KB", "MB", "GB", "TB"};
-            double dblSByte = 0;
-            for (i = 0; (int) (size/1024) > 0; i++, size /= 1024) dblSByte = size/1024.0;
-            return dblSByte.ToString("0.00") + suffixes[i];
         }
     }
 }

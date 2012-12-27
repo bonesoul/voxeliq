@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks.Generators.Biomes;
 using VoxeliqEngine.Chunks.Generators.Terrain;
@@ -176,9 +177,9 @@ namespace VoxeliqEngine.Chunks
 
         protected override void LoadContent()
         {
-            this._blockEffect = Game.Content.Load<Effect>("Effects\\BlockEffect");
-            this._blockTextureAtlas = Game.Content.Load<Texture2D>("Textures\\terrain");
-            this._crackTextureAtlas = Game.Content.Load<Texture2D>("Textures\\cracks");
+            this._blockEffect = AssetManager.Instance.BlockEffect;
+            this._blockTextureAtlas = AssetManager.Instance.BlockTextureAtlas;
+            this._crackTextureAtlas = AssetManager.Instance.CrackTextureAtlas;
         }
 
         public bool IsChunkInViewRange(Chunk chunk)
@@ -209,7 +210,6 @@ namespace VoxeliqEngine.Chunks
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
 
-            #if XNA
                 if (!this.CacheThreadStarted)
                 {
                     var cacheThread = new Thread(CacheThread) {IsBackground = true};
@@ -217,9 +217,6 @@ namespace VoxeliqEngine.Chunks
 
                     this.CacheThreadStarted = true;
                 }
-            #elif MONOGAME
-                this.Process();              
-            #endif
 
         }
 
@@ -273,8 +270,8 @@ namespace VoxeliqEngine.Chunks
             //this._timeRuler.EndMark(1, "Chunk Cache");
             Profiler.Stop("chunk-cache-loop");
 
-            if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
-                Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
+            //if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
+                //Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
 
             if (Settings.World.IsInfinitive)
                 this.RecacheChunks();
@@ -361,7 +358,11 @@ namespace VoxeliqEngine.Chunks
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
 
             // texture parameters
+#if XNA
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
+#elif MONOGAME
+            _blockEffect.Parameters["BlockTextureAtlasSampler"].SetValue(_blockTextureAtlas);
+#endif
 
             // atmospheric settings
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);

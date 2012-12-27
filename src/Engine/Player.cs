@@ -7,6 +7,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Assets;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Graphics;
@@ -132,11 +133,11 @@ namespace VoxeliqEngine
 
         protected override void LoadContent()
         {
-            this._aimedBlockEffect = new BasicEffect(Game.GraphicsDevice);
-            this._aimedBlockModel = Game.Content.Load<Model>("Models\\AimedBlock");
-            this._aimedBlockTexture = Game.Content.Load<Texture2D>("Textures\\AimedBlock");
+            this._aimedBlockModel = AssetManager.Instance.AimedBlockModel;
+            this._aimedBlockEffect = AssetManager.Instance.AimedBlockEffect;
+            this._aimedBlockTexture = AssetManager.Instance.AimedBlockTexture;
 
-            this._sampleModel = Game.Content.Load<Model>("Models\\Mii");
+            this._sampleModel = AssetManager.Instance.SampleModel;
         }
 
         public override void Update(GameTime gameTime)

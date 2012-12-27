@@ -55,7 +55,7 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINE
      perlin += tex2D(TextureSampler, (PSIn.TextureCoords)*32+xTime*move)/32;    
      
      Output.Color.rgb = 1.0f-pow(perlin.r, xOvercast)*2.0f;
-	 
+
      Output.Color.a = 1;
  
      return Output;
@@ -65,7 +65,7 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINE
  {
      pass Pass0
      {
-         VertexShader = compile vs_1_1 PerlinVS();
-         PixelShader = compile ps_2_0 PerlinPS();
+         VertexShader = compile vs_3_0 PerlinVS();
+         PixelShader = compile ps_3_0 PerlinPS();
      }
  }
