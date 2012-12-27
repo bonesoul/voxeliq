@@ -48,11 +48,11 @@
   <ItemGroup>
     <Reference Include="Lidgren.Network.Windows, Version=2011.3.12.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MonoGame\MonoGame.Framework\bin\Release\Lidgren.Network.Windows.dll</HintPath>
+      <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
     </Reference>
     <Reference Include="MonoGame.Framework.Windows, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\MonoGame\MonoGame.Framework\bin\Release\MonoGame.Framework.Windows.dll</HintPath>
+      <HintPath>..\..\dep\monogame\windows\MonoGame.Framework.Windows.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Nini">
