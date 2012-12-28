@@ -20,25 +20,25 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Returns the chunk in given x-z coordinate.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="Chunk"/></returns>
         Chunk this[int x, int z] { get; set; }
 
         /// <summary>
         /// Removes the chunk at given x-z coordinate.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="Chunk"/></returns>
         Chunk Remove(int x, int z);
 
         /// <summary>
         /// Returns true if a chunk exists at given x-z coordinate.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="bool"/></returns>
         bool ContainsKey(int x, int z);
 
         /// <summary>
@@ -53,29 +53,26 @@ namespace VoxeliqEngine.Chunks
     }
 
     /// <summary>
-    /// Chunk storage that stores chunks over memory and can load & save chunks to disk.
+    /// Chunk storage that stores chunks within memory and can load & save chunks to disk.
     /// </summary>
     public class ChunkStorage : GameComponent, IChunkStorage
     {
-        /// <summary>
-        /// The memory instance of ChunkStorage.
-        /// </summary>
-        private static ChunkStorage _instance;
-
-        /// <summary>
-        /// The memory instance of ChunkStorage.
-        /// </summary>
-        public static ChunkStorage Instance
-        {
-            get { return _instance; }
-        }
-
-
         private readonly DoubleIndexedDictionary<Chunk> _dictionary = new DoubleIndexedDictionary<Chunk>();
 
+        /// <summary>
+        /// South west edge of the current chunk storage.
+        /// </summary>
         public Vector2Int SouthWestEdge;
+
+        /// <summary>
+        /// North east edge of the current chunk storage.
+        /// </summary>
         public Vector2Int NorthEastEdge;
 
+        /// <summary>
+        /// Creates a new chunk storage instance which can hold chunks.
+        /// </summary>
+        /// <param name="game"></param>
         public ChunkStorage(Game game)
             : base(game)
         {
@@ -83,45 +80,64 @@ namespace VoxeliqEngine.Chunks
             this.Game.Services.AddService(typeof (IChunkStorage), this); // export service.
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
-        // Returns the chunk in given x-z coordinate.
+        /// <summary>
+        /// Returns the chunk in given x-z coordinate.
+        /// </summary>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="Chunk"/></returns>
         public Chunk this[int x, int z]
         {
             get { return this._dictionary[x, z]; }
             set { this._dictionary[x, z] = value; }
         }
 
-        // Removes the chunk at given x-z coordinate.
+        /// <summary>
+        /// Removes the chunk at given x-z coordinate.
+        /// </summary>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="Chunk"/></returns>
         public Chunk Remove(int x, int z)
         {
             return this._dictionary.Remove(x, z);
         }
 
-        // Returns true if a chunk exists at given x-z coordinate.
+        /// <summary>
+        /// Returns true if a chunk exists at given x-z coordinate.
+        /// </summary>
+        /// <param name="x">The x coordinate of the chunk.</param>
+        /// <param name="z">The z coordinate of the chunk.</param>
+        /// <returns><see cref="bool"/></returns>
         public bool ContainsKey(int x, int z)
         {
             return this._dictionary.ContainsKey(x, z);
         }
 
-        // Returns total count of chunk stored.
+        /// <summary>
+        /// Returns total count of chunk stored.
+        /// </summary>
         public int Count
         {
             get { return this._dictionary.Count; }
         }
 
-        // Returns an enumarable list of chunks stored.
+        /// <summary>
+        /// Returns an enumarable list of chunks stored.
+        /// </summary>
         public IEnumerable<Chunk> Values
         {
             get { return this._dictionary.Values; }
+        }
+
+        private static ChunkStorage _instance; // The memory instance of ChunkStorage.
+
+        /// <summary>
+        /// The memory instance of ChunkStorage.
+        /// </summary>
+        public static ChunkStorage Instance
+        {
+            get { return _instance; }
         }
     }
 }

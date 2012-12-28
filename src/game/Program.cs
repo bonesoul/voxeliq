@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
 
-namespace SampleGame
+namespace Voxeliq.Game
 {
     public static class Program
     {
