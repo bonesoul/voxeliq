@@ -9,8 +9,8 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
+using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
 
 namespace VoxeliqEngine.Universe
 {

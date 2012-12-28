@@ -7,8 +7,8 @@
 
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Utils;
-using VoxeliqEngine.Utils.Vector;
+using VoxeliqEngine.Common;
+using VoxeliqEngine.Common.Vector;
 
 namespace VoxeliqEngine.Chunks
 {

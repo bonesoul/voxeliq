@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Xna.Framework;
+using VoxeliqEngine.Common.Extensions;
 using VoxeliqEngine.Graphics.Drawing;
-using VoxeliqEngine.Utils.Extensions;
 
 namespace VoxeliqEngine.Debugging.Graphs.Implementations
 {

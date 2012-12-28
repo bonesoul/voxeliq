@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
 namespace VoxeliqEngine
 {

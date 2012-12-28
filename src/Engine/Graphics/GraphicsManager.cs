@@ -6,7 +6,7 @@
  */
 
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Logging;
+using VoxeliqEngine.Common.Logging;
 
 namespace VoxeliqEngine.Graphics
 {
@@ -18,7 +18,7 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// Returns true if game is set to fixed time steps.
         /// </summary>
-        bool IsFixedTimeStep { get; }
+        bool FixedTimeStepsEnabled { get; }
 
         /// <summary>
         /// Returns true if vertical sync is enabled.
@@ -47,7 +47,7 @@ namespace VoxeliqEngine.Graphics
     public sealed class GraphicsManager : IGraphicsManager
     {
         // settings
-        public bool IsFixedTimeStep { get; private set; } // Returns true if game is set to fixed time steps.
+        public bool FixedTimeStepsEnabled { get; private set; } // Returns true if game is set to fixed time steps.
         public bool VerticalSyncEnabled { get; private set; } // Returns true if vertical sync is enabled.
         public bool FullScreenEnabled { get; private set; } // Returns true if full-screen is enabled.
 
@@ -69,8 +69,8 @@ namespace VoxeliqEngine.Graphics
             this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = GraphicsConfig.Instance.FullScreenEnabled;
             this._graphicsDeviceManager.PreferredBackBufferWidth = GraphicsConfig.Instance.Width;
             this._graphicsDeviceManager.PreferredBackBufferHeight = GraphicsConfig.Instance.Height;
-            this.IsFixedTimeStep = this._game.IsFixedTimeStep = false;
-            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = false;
+            this.FixedTimeStepsEnabled = this._game.IsFixedTimeStep = GraphicsConfig.Instance.FixedTimeStepsEnabled;
+            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = GraphicsConfig.Instance.VerticalSyncEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }
 
@@ -79,8 +79,8 @@ namespace VoxeliqEngine.Graphics
         /// </summary>
         public void ToggleFixedTimeSteps()
         {
-            this.IsFixedTimeStep = !this.IsFixedTimeStep;
-            this._game.IsFixedTimeStep = this.IsFixedTimeStep;
+            this.FixedTimeStepsEnabled = !this.FixedTimeStepsEnabled;
+            this._game.IsFixedTimeStep = this.FixedTimeStepsEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }
 

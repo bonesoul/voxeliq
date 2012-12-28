@@ -8,7 +8,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
-using VoxeliqEngine.Logging;
+using VoxeliqEngine.Common.Logging;
 
 namespace VoxeliqEngine.Interface
 {
