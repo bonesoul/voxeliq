@@ -27,7 +27,9 @@ This program is free software; you can redistribute it and/or modify it under th
 - [voxeliq@facebook](https://www.facebook.com/VoxeliqStudios)
 
 # Whats New?
-Implemented more debug graphs;
+- CI server is up and running! - http://voxeliq-ci.cloudapp.net
+- Implemented more debug graphs;
+
 ![Screenshot](http://i.imgur.com/OtQy4.jpg)
 
 # DevLog Videos
