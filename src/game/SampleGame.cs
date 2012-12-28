@@ -12,13 +12,13 @@ using VoxeliqEngine.Assets;
 using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
+using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Input;
 using VoxeliqEngine.Interface;
-using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
 
 namespace SampleGame
@@ -26,7 +26,7 @@ namespace SampleGame
     /// <summary>
     /// The game client.
     /// </summary>
-    public class VoxeliqGame : Game
+    public class SampleGame : Game
     {
         /// <summary>
         /// Graphics device manager.
@@ -50,7 +50,7 @@ namespace SampleGame
         /// <summary>
         /// Creates a new VoxlrClient.
         /// </summary>
-        public VoxeliqGame()
+        public SampleGame()
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);

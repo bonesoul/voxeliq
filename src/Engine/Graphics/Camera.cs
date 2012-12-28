@@ -6,7 +6,7 @@
  */
 
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Logging;
+using VoxeliqEngine.Common.Logging;
 
 namespace VoxeliqEngine.Graphics
 {

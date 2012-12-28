@@ -13,8 +13,8 @@ using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Extensions;
+using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Engine;
-using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqEngine.Debugging

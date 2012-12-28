@@ -9,36 +9,35 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VoxeliqEngine.Logging;
+using VoxeliqEngine.Common.Logging;
 
 namespace SampleGame
 {
     public static class Program
     {
-        private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
+        private static readonly Logger Logger = LogManager.CreateLogger(); // logger instance.
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         private static void Main(string[] args)
         {
-            // Watch for unhandled exceptions
-            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
-
-            // Use invariant culture - we have to set it explicitly for every thread we create.
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler; // Watch for any unhandled exceptions.
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Use invariant culture - we have to set it explicitly for every thread we create to prevent any mpq-reading problems (mostly because of number formats).
+            
 
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
+            PrintKeys();
             Console.ResetColor();
 
             InitLoggers(); // init logging facility.
 
-            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetExecutingAssembly().GetName().Version);
-            PrintKeys();
+            // print version information.
+            var frameworkVersion = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
 
-            var frameworkVersion = System.Reflection.Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
+            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (VoxeliqEngine.Player)).GetName().Version);            
 
             #if XNA
             Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));
@@ -48,17 +47,92 @@ namespace SampleGame
             Logger.Trace("Can not determine underlying framework.");
             #endif  
 
-            using (var game = new VoxeliqGame()) // startup the game.
+            using (var game = new SampleGame()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
                 game.Run();
             }
         }
 
+        #region logging facility
+
         private static void InitLoggers()
         {
-            LogManager.Enabled = true; // enable logging facility.
-            LogManager.AttachLogTarget(new ConsoleTarget(Logger.Level.Trace, Logger.Level.Fatal, false)); // attach a console target.
+            LogManager.Enabled = true; // enable logger by default.
+
+            foreach (var targetConfig in LogConfig.Instance.Targets)
+            {
+                if (!targetConfig.Enabled)
+                    continue;
+
+                LogTarget target = null;
+                switch (targetConfig.Target.ToLower())
+                {
+                    case "console":
+                        target = new ConsoleTarget(targetConfig.MinimumLevel, targetConfig.MaximumLevel,
+                                                   targetConfig.IncludeTimeStamps);
+                        break;
+                    case "file":
+                        target = new FileTarget(targetConfig.FileName, targetConfig.MinimumLevel,
+                                                targetConfig.MaximumLevel, targetConfig.IncludeTimeStamps,
+                                                targetConfig.ResetOnStartup);
+                        break;
+                }
+
+                if (target != null)
+                    LogManager.AttachLogTarget(target);
+            }
+        }
+
+        #endregion
+
+        #region unhandled exception emitter
+
+        /// <summary>
+        /// Unhandled exception emitter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+
+            if (e.IsTerminating)
+                Logger.FatalException(ex, "Voxeliq Engine is terminating because of unhandled exception.");
+            else
+                Logger.ErrorException(ex, "Caught unhandled exception.");
+
+            Console.ReadLine();
+        }
+
+        #endregion
+
+        #region console banners
+
+        /// <summary>
+        /// Prints an info banner.
+        /// </summary>
+        private static void PrintBanner()
+        {
+            Console.WriteLine(@"                          .__  .__        ");
+            Console.WriteLine(@" ___  _________  ___ ____ |  | |__| ______");
+            Console.WriteLine(@" \  \/ /  _ \  \/  // __ \|  | |  |/ ____/");
+            Console.WriteLine(@"  \   (  <_> >    <\  ___/|  |_|  < <_|  |");
+            Console.WriteLine(@"   \_/ \____/__/\_ \\___  >____/__|\__   |");
+            Console.WriteLine(@"                  \/    \/            |__|");
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Prints a copyright banner.
+        /// </summary>
+        private static void PrintLicense()
+        {
+            Console.WriteLine("Copyright (C) 2011 - 2013, Voxeliq Engine");
+            Console.WriteLine("mooege comes with ABSOLUTELY NO WARRANTY.");
+            Console.WriteLine("This is free software, and you are welcome to redistribute it under certain conditions; see the LICENSE file for details.");
+            Console.WriteLine();
         }
 
         private static void PrintKeys()
@@ -79,36 +153,6 @@ namespace SampleGame
             Console.WriteLine("-----------------------------");
         }
 
-        private static void PrintBanner()
-        {
-            Console.WriteLine(@"                          .__  .__        ");
-            Console.WriteLine(@" ___  _________  ___ ____ |  | |__| ______");
-            Console.WriteLine(@" \  \/ /  _ \  \/  // __ \|  | |  |/ ____/");
-            Console.WriteLine(@"  \   (  <_> >    <\  ___/|  |_|  < <_|  |");
-            Console.WriteLine(@"   \_/ \____/__/\_ \\___  >____/__|\__   |");
-            Console.WriteLine(@"                  \/    \/            |__|");
-
-            Console.WriteLine();
-        }
-
-        private static void PrintLicense()
-        {
-            Console.WriteLine("Copyright (C) 2011 - 2012 voxeliq project");
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Unhandled exception handler.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">UnhandledExceptionEventArgs</param>
-        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
-        {
-            if (e.IsTerminating)
-                Logger.FatalException((e.ExceptionObject as Exception),"Voxeliq terminating because of unhandled exception.");
-            else
-                Logger.ErrorException((e.ExceptionObject as Exception), "Caught unhandled exception.");
-            Console.ReadLine();
-        }
+        #endregion
     }
 }

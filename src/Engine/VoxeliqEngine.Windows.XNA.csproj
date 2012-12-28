@@ -91,8 +91,9 @@
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
-    <Compile Include="Configuration\Config.cs" />
-    <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Common\Configuration\Config.cs" />
+    <Compile Include="Common\Configuration\ConfigManager.cs" />
+    <Compile Include="Common\Versions\VersionInfo.cs" />
     <Compile Include="Debugging\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Graphs\DebugGraph.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\ReadyQ.cs" />
@@ -120,8 +121,13 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\UserInterface.cs" />
     <Compile Include="IO\FileHelper.cs" />
-    <Compile Include="Logging\LogConfig.cs" />
-    <Compile Include="Logging\TinyLogger.cs" />
+    <Compile Include="Common\Logging\ConsoleTarget.cs" />
+    <Compile Include="Common\Logging\FileTarget.cs" />
+    <Compile Include="Common\Logging\LogConfig.cs" />
+    <Compile Include="Common\Logging\Logger.cs" />
+    <Compile Include="Common\Logging\LogManager.cs" />
+    <Compile Include="Common\Logging\LogRouter.cs" />
+    <Compile Include="Common\Logging\LogTarget.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shovel.cs" />

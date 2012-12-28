@@ -7,9 +7,9 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
 
 namespace VoxeliqEngine.Universe
 {

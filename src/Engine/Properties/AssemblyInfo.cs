@@ -1,6 +1,14 @@
-﻿using System.Reflection;
+﻿/*
+ * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using VoxeliqEngine.Common.Versions;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -31,4 +39,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.1.*")]
+
+// Set the assembly version from VersionInfo.cs file.
+[assembly: AssemblyVersion(VersionInfo.Assembly.Version)]
