@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace VoxeliqEngine.Utils
+namespace VoxeliqEngine.Common
 {
     public class DoubleIndexedDictionary<T> : ConcurrentDictionary<long, T>
     {

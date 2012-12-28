@@ -12,7 +12,7 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using VoxeliqEngine.Logging;
+using VoxeliqEngine.Common.Logging;
 
 namespace VoxeliqEngine.Audio
 {

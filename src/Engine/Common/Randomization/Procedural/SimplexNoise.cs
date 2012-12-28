@@ -5,9 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using System;
-
-namespace VoxeliqEngine.Utils.Randomization.Procedural
+namespace VoxeliqEngine.Common.Randomization.Procedural
 {
     public static class SimplexNoise
     {
@@ -313,11 +311,11 @@ namespace VoxeliqEngine.Utils.Randomization.Procedural
         {
             float n0, n1, n2; // Noise contributions from the three corners 
             // Skew the input space to determine which simplex cell we're in 
-            float F2 = (float) (0.5*(Math.Sqrt(3.0) - 1.0));
+            float F2 = (float) (0.5*(System.Math.Sqrt(3.0) - 1.0));
             float s = (xin + yin)*F2; // Hairy factor for 2D 
             int i = fastfloor(xin + s);
             int j = fastfloor(yin + s);
-            float g2 = (float) ((3.0 - Math.Sqrt(3.0))/6.0);
+            float g2 = (float) ((3.0 - System.Math.Sqrt(3.0))/6.0);
             float t = (i + j)*g2;
             float X0 = i - t; // Unskew the cell origin back to (x,y) space 
             float Y0 = j - t;

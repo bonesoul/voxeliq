@@ -1,16 +1,24 @@
-﻿using System.Reflection;
+﻿/*
+ * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using VoxeliqEngine.Common.Versions;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("VoxeliqEngine")]
 [assembly: AssemblyProduct("VoxeliqEngine")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyDescription("A block engine.")]
+[assembly: AssemblyCompany("Voxeliq Studios")]
+[assembly: AssemblyCopyright("Copyright ©  2012 - 2013")]
+[assembly: AssemblyTrademark("Voxeliq Studios")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -31,4 +39,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+
+// Set the assembly version from VersionInfo.cs file.
+[assembly: AssemblyVersion(VersionInfo.Assembly.Version)]

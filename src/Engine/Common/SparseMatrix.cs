@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace VoxeliqEngine.Utils
+namespace VoxeliqEngine.Common
 {
     public class SparseMatrix<T>
     {

@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Configuration;
+using VoxeliqEngine.Common.Configuration;
 
 namespace VoxeliqEngine.Audio
 {

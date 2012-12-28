@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VoxeliqEngine.Blocks;
+using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Texture;
 using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
 // TODO: Document this file!
 

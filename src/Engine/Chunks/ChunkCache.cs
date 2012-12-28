@@ -15,13 +15,13 @@ using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks.Generators.Biomes;
 using VoxeliqEngine.Chunks.Generators.Terrain;
 using VoxeliqEngine.Chunks.Processors;
+using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Profiling;
 using VoxeliqEngine.Engine;
 using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
 using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
 namespace VoxeliqEngine.Chunks
 {

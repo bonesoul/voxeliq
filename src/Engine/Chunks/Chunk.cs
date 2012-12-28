@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Blocks;
+using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
 namespace VoxeliqEngine.Chunks
 {

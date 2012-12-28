@@ -6,7 +6,7 @@
  */
 
 using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Utils.Vector;
+using VoxeliqEngine.Common.Vector;
 
 namespace VoxeliqEngine.Universe
 {

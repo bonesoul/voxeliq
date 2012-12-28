@@ -7,10 +7,10 @@
 
 using System;
 using Nini.Config;
+using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.IO;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Configuration
+namespace VoxeliqEngine.Common.Configuration
 {
     public sealed class ConfigManager
     {
@@ -23,15 +23,15 @@ namespace VoxeliqEngine.Configuration
         {
             try
             {
-                ConfigFile = string.Format("{0}/{1}", FileHelpers.AssemblyRoot, "config.ini");// the config file's location.
+                ConfigFile = string.Format("{0}/{1}", FileHelpers.AssemblyRoot, "config.ini"); // the config file's location.
                 Parser = new IniConfigSource(ConfigFile); // see if the file exists by trying to parse it.
                 _fileExists = true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Parser = new IniConfigSource(); // initiate a new .ini source.
                 _fileExists = false;
-                Logger.Warn("Error loading settings config.ini, will be using default settings.");
+                Logger.WarnException(e, "Error loading settings config.ini, will be using default settings. Exception thrown: ");
             }
             finally
             {
@@ -47,17 +47,17 @@ namespace VoxeliqEngine.Configuration
             Parser.ExpandKeyValues();
         }
 
-        internal static IConfig Section(string section) // Returns the asked config section.
+        static internal IConfig Section(string section) // Returns the asked config section.
         {
             return Parser.Configs[section];
         }
 
-        internal static IConfig AddSection(string section) // Adds a config section.
+        static internal IConfig AddSection(string section) // Adds a config section.
         {
             return Parser.AddConfig(section);
         }
 
-        internal static void Save() //  Saves the settings.
+        static internal void Save() //  Saves the settings.
         {
             if (_fileExists) Parser.Save();
             else

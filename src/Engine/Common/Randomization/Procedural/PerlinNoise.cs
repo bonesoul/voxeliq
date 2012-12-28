@@ -7,7 +7,7 @@
 
 using System;
 
-namespace VoxeliqEngine.Utils.Randomization.Procedural
+namespace VoxeliqEngine.Common.Randomization.Procedural
 {
     namespace ImageTools.Core
     {
@@ -77,17 +77,17 @@ namespace VoxeliqEngine.Utils.Randomization.Procedural
                    lattice points, dots them with the input vector, and interpolates the
                    results to produce a single output value in [0, 1] range. */
 
-                int ix = (int)Math.Floor(x);
+                int ix = (int)System.Math.Floor(x);
                 double fx0 = x - ix;
                 double fx1 = fx0 - 1;
                 double wx = Smooth(fx0);
 
-                int iy = (int)Math.Floor(y);
+                int iy = (int)System.Math.Floor(y);
                 double fy0 = y - iy;
                 double fy1 = fy0 - 1;
                 double wy = Smooth(fy0);
 
-                int iz = (int)Math.Floor(z);
+                int iz = (int)System.Math.Floor(z);
                 double fz0 = z - iz;
                 double fz1 = fz0 - 1;
                 double wz = Smooth(fz0);
@@ -119,10 +119,10 @@ namespace VoxeliqEngine.Utils.Randomization.Procedural
                 for (int i = 0; i < GradientSizeTable; i++)
                 {
                     double z = 1f - 2f * _random.NextDouble();
-                    double r = Math.Sqrt(1f - z * z);
-                    double theta = 2 * Math.PI * _random.NextDouble();
-                    _gradients[i * 3] = r * Math.Cos(theta);
-                    _gradients[i * 3 + 1] = r * Math.Sin(theta);
+                    double r = System.Math.Sqrt(1f - z * z);
+                    double theta = 2 * System.Math.PI * _random.NextDouble();
+                    _gradients[i * 3] = r * System.Math.Cos(theta);
+                    _gradients[i * 3 + 1] = r * System.Math.Sin(theta);
                     _gradients[i * 3 + 2] = z;
                 }
             }
