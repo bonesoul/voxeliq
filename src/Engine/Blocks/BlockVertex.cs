@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 
-namespace VoxeliqEngine.Universe
+namespace VoxeliqEngine.Blocks
 {
     [Serializable]
     public struct BlockVertex : IVertexType

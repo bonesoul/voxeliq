@@ -5,10 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Common.Vector;
 
-namespace VoxeliqEngine.Universe
+namespace VoxeliqEngine.Blocks
 {
     public struct PositionedBlock
     {

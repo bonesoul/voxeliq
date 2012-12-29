@@ -133,9 +133,9 @@
     <Compile Include="Shovel.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
-    <Compile Include="Universe\BlockVertex.cs" />
+    <Compile Include="Blocks\BlockVertex.cs" />
     <Compile Include="Universe\Fogger.cs" />
-    <Compile Include="Universe\PositionedBlock.cs" />
+    <Compile Include="Blocks\PositionedBlock.cs" />
     <Compile Include="Universe\Sky.cs" />
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
