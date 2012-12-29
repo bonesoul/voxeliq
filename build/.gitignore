@@ -23,6 +23,5 @@
 /*.Windows.sln.DotSettings
 /*.DotSettings
 /*.userprefs
-/*.testsettings
-/*.vsmdi
+/Local.vsmdi
 /TestResults/
