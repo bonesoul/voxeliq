@@ -2,36 +2,44 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using VoxeliqGame;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Vector;
 
 namespace Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ChunkStorageTests
     {
-        [TestMethod]
+        private Game _game;
+        private ChunkStorage _chunkStorage;
+        private Chunk _chunk;
+
+        [SetUp]
+        public void Init()
+        {
+            _game = new Game();
+            _chunkStorage = new ChunkStorage(_game);
+            _chunk = new Chunk(new Vector2Int(0, 0));
+        }
+
+        [Test]
         [Description("Tests the internal dictionary used by the chunk storage.")]
         public void TestChunkStorage()
         {
-            var game = new Game();
-            var chunkStorage = new ChunkStorage(game);
-            var chunk = new Chunk(new Vector2Int(0, 0));
+            _chunkStorage[0, 0] = _chunk;
 
-            chunkStorage[0, 0] = chunk;
+            Assert.IsTrue(_chunkStorage.ContainsKey(0,0));
+            Assert.AreEqual(_chunk, _chunkStorage[0, 0]);
 
-            Assert.IsTrue(chunkStorage.ContainsKey(0,0));
-            Assert.AreEqual(chunk, chunkStorage[0, 0]);
+            _chunkStorage.Remove(0, 0);
 
-            chunkStorage.Remove(0, 0);
+            Assert.IsFalse(_chunkStorage.ContainsKey(0, 0));
 
-            Assert.IsFalse(chunkStorage.ContainsKey(0, 0));
+            _chunkStorage[-1, -1] = new Chunk(new Vector2Int(-1, -1));
 
-            chunkStorage[-1, -1] = new Chunk(new Vector2Int(-1, -1));
-
-            Assert.IsTrue(chunkStorage.ContainsKey(-1, -1));
+            Assert.IsTrue(_chunkStorage.ContainsKey(-1, -1));
         }
     }
 }
