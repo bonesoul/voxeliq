@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Voxeliq.Game;
+using VoxeliqGame;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Vector;
 
@@ -16,7 +16,7 @@ namespace Tests
         [Description("Tests the internal dictionary used by the chunk storage.")]
         public void TestChunkStorage()
         {
-            var game = new SampleGame();
+            var game = new Game();
             var chunkStorage = new ChunkStorage(game);
             var chunk = new Chunk(new Vector2Int(0, 0));
 

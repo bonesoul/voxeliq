@@ -55,9 +55,9 @@
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
       <Name>VoxeliqEngine.Windows.XNA</Name>
     </ProjectReference>
-    <ProjectReference Include="..\game\SampleGame.Windows.XNA.csproj">
+    <ProjectReference Include="..\Game\VoxeliqGame.Windows.XNA.csproj">
       <Project>{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}</Project>
-      <Name>SampleGame.Windows.XNA</Name>
+      <Name>VoxeliqGame.Windows.XNA</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

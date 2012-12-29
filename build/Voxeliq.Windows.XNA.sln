@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleGame.Windows.XNA", "..\src\game\SampleGame.Windows.XNA.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqGame.Windows.XNA", "..\src\Game\VoxeliqGame.Windows.XNA.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqEngine.Windows.XNA", "..\src\Engine\VoxeliqEngine.Windows.XNA.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
 EndProject

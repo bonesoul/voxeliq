@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
 
-namespace Voxeliq.Game
+namespace VoxeliqGame
 {
     public static class Program
     {
@@ -47,7 +47,7 @@ namespace Voxeliq.Game
             Logger.Trace("Can not determine underlying framework.");
             #endif  
 
-            using (var game = new SampleGame()) // startup the game.
+            using (var game = new Game()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
                 game.Run();
