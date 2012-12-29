@@ -1,13 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleGame.Windows.XNA", "..\src\Game\SampleGame.Windows.XNA.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqGame.Windows.XNA", "..\src\Game\VoxeliqGame.Windows.XNA.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqEngine.Windows.XNA", "..\src\Engine\VoxeliqEngine.Windows.XNA.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "..\src\Content\Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3175F7A7-F164-4B87-ADBF-E1C2E0BFDE75}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		Voxeliq.Windows.XNA.vsmdi = Voxeliq.Windows.XNA.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "..\src\Tests\EngineTests.csproj", "{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}"
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Voxeliq.Windows.XNA.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -43,6 +55,16 @@ Global
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Release|Any CPU.ActiveCfg = Release|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}.Release|x86.ActiveCfg = Release|x86
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

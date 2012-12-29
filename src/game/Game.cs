@@ -21,12 +21,12 @@ using VoxeliqEngine.Input;
 using VoxeliqEngine.Interface;
 using VoxeliqEngine.Universe;
 
-namespace SampleGame
+namespace VoxeliqGame
 {
     /// <summary>
     /// The game client.
     /// </summary>
-    public class SampleGame : Game
+    public class Game : Microsoft.Xna.Framework.Game
     {
         /// <summary>
         /// Graphics device manager.
@@ -48,9 +48,9 @@ namespace SampleGame
         private static readonly Logger Logger = LogManager.CreateLogger();
 
         /// <summary>
-        /// Creates a new VoxlrClient.
+        /// Creates a new game instance.
         /// </summary>
-        public SampleGame()
+        public Game()
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);

@@ -10,6 +10,10 @@ using System.Collections.Concurrent;
 
 namespace VoxeliqEngine.Common
 {
+    /// <summary>
+    /// A dictionary objects that accepts dual keys for indexing.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class DoubleIndexedDictionary<T> : ConcurrentDictionary<long, T>
     {
         private const long RowSize = Int32.MaxValue;

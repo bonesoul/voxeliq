@@ -75,6 +75,8 @@
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockStorage.cs" />
+    <Compile Include="Blocks\BlockVertex.cs" />
+    <Compile Include="Blocks\PositionedBlock.cs" />
     <Compile Include="Chunks\Chunk.cs" />
     <Compile Include="Chunks\ChunkCache.cs" />
     <Compile Include="Chunks\ChunkState.cs" />
@@ -150,9 +152,7 @@
     <Compile Include="Shovel.cs" />
     <Compile Include="Texture\DualTextured.cs" />
     <Compile Include="Texture\TextureHelper.cs" />
-    <Compile Include="Universe\BlockVertex.cs" />
     <Compile Include="Universe\Fogger.cs" />
-    <Compile Include="Universe\PositionedBlock.cs" />
     <Compile Include="Universe\Sky.cs" />
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
