@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
 
-namespace VoxeliqEngine.Effects.PostProcessing.Bloom
+namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 {
     public interface IBloomService
     {

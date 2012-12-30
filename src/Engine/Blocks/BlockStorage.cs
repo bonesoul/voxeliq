@@ -93,6 +93,30 @@ namespace VoxeliqEngine.Blocks
         /// <summary>
         /// Gets a block by given world position.
         /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block BlockAt(Vector3 position)
+        {
+            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block BlockAt(Vector3Int position)
+        {
+            return BlockAt(position.X, position.Y, position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
@@ -123,26 +147,7 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(Vector3 position)
-        {
-            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(Vector3Int position)
-        {
-            return BlockAt(position.X, position.Y, position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
         /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public static Block FastBlockAt(Vector3 position)
         {
@@ -154,7 +159,7 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public static Block FastBlockAt(Vector3Int position)
         {
             return FastBlockAt(position.X, position.Y, position.Z);

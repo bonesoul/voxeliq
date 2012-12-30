@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Common.Vector;
-using VoxeliqEngine.Texture;
+using VoxeliqEngine.Graphics.Texture;
 using VoxeliqEngine.Universe;
 
 // TODO: Document this file!

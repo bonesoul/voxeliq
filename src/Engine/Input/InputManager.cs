@@ -10,8 +10,8 @@ using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Graphics;
+using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqEngine.Input

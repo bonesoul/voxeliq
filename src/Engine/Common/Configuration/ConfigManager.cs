@@ -7,8 +7,8 @@
 
 using System;
 using Nini.Config;
+using VoxeliqEngine.Common.Helpers.IO;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.IO;
 
 namespace VoxeliqEngine.Common.Configuration
 {

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Universe;
 
 namespace VoxeliqGame
 {
@@ -37,7 +38,7 @@ namespace VoxeliqGame
             // print version information.
             var frameworkVersion = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
 
-            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (VoxeliqEngine.Player)).GetName().Version);            
+            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);            
 
             #if XNA
             Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));

@@ -13,9 +13,8 @@ using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine
+namespace VoxeliqEngine.Universe
 {
     /// <summary>
     /// Interface for controlling player.

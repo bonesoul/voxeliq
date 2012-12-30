@@ -11,7 +11,7 @@ using VoxeliqEngine.Blocks;
 
 // TODO: Document this file!
 
-namespace VoxeliqEngine.Texture
+namespace VoxeliqEngine.Graphics.Texture
 {
     /// <summary>
     /// Provides texture-helper methods like uv-mappings for blocks.

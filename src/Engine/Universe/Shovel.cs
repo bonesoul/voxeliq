@@ -11,9 +11,8 @@ using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine
+namespace VoxeliqEngine.Universe
 {
     public class Shovel : Weapon
     {

@@ -122,46 +122,6 @@ namespace VoxeliqEngine.Chunks
         /// </summary>
         public bool Disposed = false;
 
-        public Chunk North
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk South
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; }
-        }
-
-        public Chunk West
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; }
-        }
-
-        public Chunk East
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; }
-        }
-
-        public Chunk NorthWest
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk NorthEast
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk SouthWest
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; }
-        }
-
-        public Chunk SouthEast
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; }
-        }
-
         /// <summary>
         /// Creates a new chunk instance.
         /// </summary>
@@ -200,37 +160,39 @@ namespace VoxeliqEngine.Chunks
         }
 
         /// <summary>
-        /// Returns the block at given wolrd coordinate.
+        /// Gets a block by given world position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
         public Block BlockAt(int x, int y, int z)
         {
             return BlockStorage.BlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
         /// <summary>
-        /// Returns the block at given wolrd coordinate.
+        /// Gets a block by given world position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public Block FastBlockAt(int x, int y, int z)
         {
             return BlockStorage.FastBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
-
         /// <summary>
-        /// Sets block at given relative position.
+        /// Sets a block by given relative position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="block"></param>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <param name="block">Block to set.</param>        
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
         public void FastSetBlockAt(byte x, byte y, byte z, Block block)
         {
             switch (block.Exists)
@@ -256,8 +218,14 @@ namespace VoxeliqEngine.Chunks
 
         #region ingame debugger
 
-        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch,
-                                          SpriteFont spriteFont)
+        /// <summary>
+        /// Draws ingame chunk debugger.
+        /// </summary>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="camera"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="spriteFont"></param>
+        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
@@ -287,8 +255,7 @@ namespace VoxeliqEngine.Chunks
         {
             if (this.Disposed) return; // if already disposed, just return
 
-            if (disposing)
-                // only dispose managed resources if we're called from directly or in-directly from user code.
+            if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
                 this.IndexList.Clear();
                 this.IndexList = null;
@@ -305,12 +272,7 @@ namespace VoxeliqEngine.Chunks
             Disposed = true;
         }
 
-        ~Chunk()
-        {
-            Dispose(false);
-        }
-
-        // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones.    
+        ~Chunk() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones. 
 
         #endregion
     }

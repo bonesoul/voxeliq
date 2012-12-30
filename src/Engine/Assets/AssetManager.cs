@@ -68,14 +68,16 @@ namespace VoxeliqEngine.Assets
 
         public SpriteFont Verdana { get; private set; }
 
+        // MonoGame requires specially compiled shaders with mgfxo extension. 
 #if MONOGAME
-        private const string EffectShaderExtension = ".mgfxo";
+        private const string EffectShaderExtension = ".mgfxo"; 
 #else 
         private const string EffectShaderExtension = ""; 
 #endif
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
 
+        //Creates a new asset manager instance.
         public AssetManager(Game game)
             : base(game)
         {
@@ -83,12 +85,18 @@ namespace VoxeliqEngine.Assets
             _instance = this;
         }
 
+        /// <summary>
+        /// Initializes the asset manager.
+        /// </summary>
         public override void Initialize()
         {
             this.LoadContent();
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads required assets.
+        /// </summary>
         public void LoadContent()
         {
             try
@@ -123,13 +131,22 @@ namespace VoxeliqEngine.Assets
             }
         }
 
+        /// <summary>
+        /// Loads an effect shared file.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private Effect LoadEffectShader(string path)
         {
+            // Note that monogame requires special compiled shaders with mgfxo extension.
             return this.Game.Content.Load<Effect>(path + EffectShaderExtension);
         }
 
         private static AssetManager _instance; // the instance.
 
+        /// <summary>
+        /// Returns the memory instance of AssetManager.
+        /// </summary>
         public static AssetManager Instance
         {
             get { return _instance; }
