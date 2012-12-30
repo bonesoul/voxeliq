@@ -74,24 +74,26 @@ namespace VoxeliqEngine.Chunks
     }
 
     /// <summary>
-    /// The chunk cache & manager.
+    /// The chunk cache that consists of two seperate caches, one for chunks in view range, one for chunks in cache range.
     /// </summary>
     public class ChunkCache : DrawableGameComponent, IChunkCache
     {
         /// <summary>
-        /// Range of viewable chunks.
+        /// Range of viewable chunks by the player.
+        /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public const byte ViewRange = 10;
+        public const byte ViewRange = 1;
+
+        /// <summary>
+        /// Range of cached chunk which can be greater than the view range. 
+        /// Chunks in cache range will be only generated and lightened.
+        /// </summary>
+        public const byte CacheRange = 2;
 
         /// <summary>
         /// Bounding box for view range.
         /// </summary>
         public BoundingBox ViewRangeBoundingBox { get; set; }
-
-        /// <summary>
-        /// Chunk range cache.
-        /// </summary>
-        public const byte CacheRange = 10;
 
         /// <summary>
         /// Bounding box for cache range.
@@ -134,7 +136,6 @@ namespace VoxeliqEngine.Chunks
 
         public Dictionary<ChunkState, int> StateStatistics { get; private set; }
 
-        // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public ChunkCache(Game game)
@@ -142,9 +143,12 @@ namespace VoxeliqEngine.Chunks
         {
             this.Game.Services.AddService(typeof (IChunkCache), this); // export service.
 
+            if (ViewRange > CacheRange) // check if cache range is big enough to include view-range.
+                throw new ChunkCacheException(); 
+
             this.CacheThreadStarted = false;
 
-            this.StateStatistics = new Dictionary<ChunkState, int>
+            this.StateStatistics = new Dictionary<ChunkState, int> // init. the debug stastics.
                                        {
                                            {ChunkState.AwaitingGenerate, 0},
                                            {ChunkState.Generating, 0},
@@ -303,12 +307,19 @@ namespace VoxeliqEngine.Chunks
                                 (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
 
+        /// <summary>
+        /// Processes chunks in cache range and generates or lightens them.
+        /// </summary>
+        /// <param name="chunk"><see cref="Chunk"/></param>
+        /// <remarks>Note that chunks in cache range only gets generated or lightened. They are built once they get in view-range.</remarks>
         private void ProcessChunkInCacheRange(Chunk chunk)
         {
-            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState != ChunkState.AwaitingGenerate)
-                return;
+            if (chunk.ChunkState != ChunkState.AwaitingGenerate && chunk.ChunkState != ChunkState.AwaitingLighting)
+                return; // only generate or lighten the chunks.
 
-            switch (chunk.ChunkState) // switch on the chunk state.
+            // note: we don't care about chunks that await re-lighting because re-lightig only occurs a chunk gets modified.       
+
+            switch (chunk.ChunkState)
             {
                 case ChunkState.AwaitingGenerate:
                     Generator.Generate(chunk);
@@ -448,5 +459,11 @@ namespace VoxeliqEngine.Chunks
 
             return true;
         }
+    }
+
+    public class ChunkCacheException : Exception
+    {
+        public ChunkCacheException() : base("View range can not be larger than cache range!")
+        { }
     }
 }
