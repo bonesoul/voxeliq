@@ -82,13 +82,16 @@ namespace VoxeliqEngine.Chunks
         /// </summary>
         public ChunkState ChunkState { get; set; }
 
+        // note: we keep track of highset solid blocks offset and lowest empty block offset
+        // so that we can only generate the mesh for those blocks.
+
         /// <summary>
-        /// Highest solid blocks offset.
+        /// Highest solid block's offset in chunk.
         /// </summary>
         public byte HighestSolidBlockOffset;
 
         /// <summary>
-        /// Lowest empty block offset.
+        /// Lowest empty block's offset in chunk.
         /// </summary>
         public byte LowestEmptyBlockOffset = HeightInBlocks;
 
@@ -211,9 +214,14 @@ namespace VoxeliqEngine.Chunks
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 
+        /// <summary>
+        /// Returns a string that represents chunks relative position and state.
+        /// </summary>      
+        /// <returns><see cref="String"/></returns>
+        /// <remarks>Used by the Visual Studio debugger.</remarks>
         public override string ToString()
         {
-            return RelativePosition.ToString();
+            return string.Format("{0} {1}", RelativePosition, ChunkState);
         }
 
         #region ingame debugger

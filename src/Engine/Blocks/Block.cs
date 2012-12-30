@@ -131,6 +131,16 @@ namespace VoxeliqEngine.Blocks
                     return BlockTexture.Rock;
             }
         }
+
+        /// <summary>
+        /// Returns a string that represents block's type.
+        /// </summary>      
+        /// <returns><see cref="string"/></returns>
+        /// <remarks>Used by the Visual Studio debugger.</remarks>
+        public override string ToString()
+        {
+            return this.Type.ToString();
+        }
     }
 
     /// <summary>

@@ -186,11 +186,21 @@ namespace VoxeliqEngine.Chunks
             this._crackTextureAtlas = AssetManager.Instance.CrackTextureAtlas;
         }
 
+        /// <summary>
+        /// Returns a boolean stating if chunk is current in view range.
+        /// </summary>
+        /// <param name="chunk">Chunk to check.</param>
+        /// <returns><see cref="bool"/></returns>
         public bool IsChunkInViewRange(Chunk chunk)
         {
             return ViewRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
         }
 
+        /// <summary>
+        /// Returns a boolean stating if chunk is current in cache range.
+        /// </summary>
+        /// <param name="chunk">Chunk to check.</param>
+        /// <returns><see cref="bool"/></returns>
         public bool IsChunkInCacheRange(Chunk chunk)
         {
             return CacheRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
@@ -251,12 +261,11 @@ namespace VoxeliqEngine.Chunks
 
             Profiler.Start("chunk-cache-loop");
             //this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
+
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
-                {
                     this.ProcessChunkInViewRange(chunk);
-                }
                 else
                 {
                     if (this.IsChunkInCacheRange(chunk))
@@ -271,6 +280,7 @@ namespace VoxeliqEngine.Chunks
 
                 this.StateStatistics[chunk.ChunkState]++;
             }
+
             //this._timeRuler.EndMark(1, "Chunk Cache");
             Profiler.Stop("chunk-cache-loop");
 

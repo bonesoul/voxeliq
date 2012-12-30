@@ -82,7 +82,9 @@ namespace VoxeliqEngine.Debugging
 
             foreach (Chunk chunk in this._chunkStorage.Values)
             {
-                if (!chunk.BoundingBox.Intersects(viewFrustrum)) continue;
+                if (!chunk.BoundingBox.Intersects(viewFrustrum)) 
+                    continue;
+
                 chunk.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
             }
 
