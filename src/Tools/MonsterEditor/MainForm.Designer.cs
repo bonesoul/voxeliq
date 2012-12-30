@@ -33,6 +33,9 @@
             // 
             // xnaHost1
             // 
+            this.xnaHost1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.xnaHost1.Location = new System.Drawing.Point(-3, -2);
             this.xnaHost1.Name = "xnaHost1";
             this.xnaHost1.Size = new System.Drawing.Size(644, 321);

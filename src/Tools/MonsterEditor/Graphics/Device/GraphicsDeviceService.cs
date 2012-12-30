@@ -57,9 +57,7 @@ namespace Voxeliq.MonsterEditor.Rendering.GraphicsDevice
             parameters.PresentationInterval = PresentInterval.Immediate;
             parameters.IsFullScreen = false;
 
-            graphicsDevice = new Microsoft.Xna.Framework.Graphics.GraphicsDevice(GraphicsAdapter.DefaultAdapter,
-                                                GraphicsProfile.Reach,
-                                                parameters);
+            graphicsDevice = new Microsoft.Xna.Framework.Graphics.GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile.HiDef, parameters);
         }
 
 
