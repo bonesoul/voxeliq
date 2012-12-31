@@ -25,10 +25,10 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
             if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
                 chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
 
-            //bool plantTree = _treePlanter.Next(1000) == 1;
+            bool plantTree = _treePlanter.Next(1000) == 1;
 
             //if (plantTree)
-            //    this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
+                //this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
         }
 
         private void PlantTree(Chunk chunk, int grassLevel, int grassOffset, int worldPositionX, int worldPositionZ)

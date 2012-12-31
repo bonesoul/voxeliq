@@ -74,7 +74,7 @@ namespace VoxeliqEngine.Universe
             //this.Game.Components.Add(this.ChunkBuilder);
 
             this._cameraController.LookAt(Vector3.Down);
-            this._player.SpawnPlayer(new Vector2Int(1000, 1000));
+            this._player.SpawnPlayer(new Vector2Int(0, 0));
 
             base.Initialize();
         }

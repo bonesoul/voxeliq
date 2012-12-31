@@ -233,10 +233,6 @@ namespace VoxeliqEngine.Blocks
         /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
         public static void FastSetBlockAt(int x, int y, int z, Block block)
         {
-            // make sure given coordinates are in chunk cache's bounds.
-            if (!ChunkCache.IsInBounds(x, y, z))
-                return; // if it's out of bounds, just return;
-
             // wrap x coordinate.
             var wrapX = x % CacheWidthInBlocks;
             if (wrapX < 0)

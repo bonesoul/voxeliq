@@ -196,8 +196,13 @@ namespace VoxeliqEngine.Chunks
         /// <param name="z">Block's z world position.</param>
         /// <param name="block">Block to set.</param>        
         /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
-        public void FastSetBlockAt(byte x, byte y, byte z, Block block)
+        public void FastSetBlockAt(sbyte x, sbyte y, sbyte z, Block block)
         {
+            if (x < 0)
+                x += (sbyte)Chunk.WidthInBlocks;
+            if (z < 0)
+                z += (sbyte) Chunk.LenghtInBlocks;
+
             switch (block.Exists)
             {
                 case false:

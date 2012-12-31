@@ -82,13 +82,13 @@ namespace VoxeliqEngine.Chunks
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public const byte CacheRange = 15;
+        public const byte CacheRange = 1;
 
         /// <summary>
         /// Range of viewable chunks by the player.
         /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public const byte ViewRange = 10;
+        public const byte ViewRange = 1;
 
         /// <summary>
         /// Bounding box for view range.
@@ -434,6 +434,12 @@ namespace VoxeliqEngine.Chunks
         // Returns the chunk in given x-z position.
         public Chunk GetChunk(int x, int z)
         {
+            if (x < 0)
+                x -= Chunk.WidthInBlocks;
+
+            if (z < 0)
+                z -= Chunk.LenghtInBlocks;
+
             return !this._chunkStorage.ContainsKey(x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks) ? null : this._chunkStorage[x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks];
         }
 
@@ -450,7 +456,7 @@ namespace VoxeliqEngine.Chunks
             if (chunk == null)
                 return;
 
-            chunk.FastSetBlockAt((byte) (x%Chunk.WidthInBlocks), (byte) y, (byte) (z%Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
+            chunk.FastSetBlockAt((sbyte)(x % Chunk.WidthInBlocks), (sbyte)y, (sbyte)(z % Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
         }
 
         /// <summary>
