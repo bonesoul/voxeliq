@@ -25,15 +25,17 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         public static Block[] Blocks;
 
-        /// <summary>
-        /// View cache width in blocks.
-        /// </summary>
-        public static int CacheWidthInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.WidthInBlocks;
+        // note: below values should be calculated according to cache-range, using view-range will be buggy.
 
         /// <summary>
-        /// View cache lenght in blocks.
+        /// Cache width in blocks.
         /// </summary>
-        public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.LenghtInBlocks;
+        public static int CacheWidthInBlocks = ((ChunkCache.CacheRange*2) + 1)*Chunk.WidthInBlocks;
+
+        /// <summary>
+        /// Cache lenght in blocks.
+        /// </summary>
+        public static int CacheLenghtInBlocks = ((ChunkCache.CacheRange * 2) + 1) * Chunk.LenghtInBlocks;
 
         /// <summary>
         /// Flatten offset x step to advance next block in x direction.

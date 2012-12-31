@@ -9,9 +9,6 @@ using System;
 
 namespace VoxeliqEngine.Common.Randomization.Procedural
 {
-    namespace ImageTools.Core
-    {
-
     /* Perlin noise class.  ( by Tom Nuydens (tom@delphi3d.net) )
      * Converted to C# by Mattias Fagerlund, Mattias.Fagerlund@cortego.se
 
@@ -160,5 +157,4 @@ namespace VoxeliqEngine.Common.Randomization.Procedural
                 return x * x * (3 - 2 * x);
             }
         }
-    }   
 }

@@ -79,16 +79,16 @@ namespace VoxeliqEngine.Chunks
     public class ChunkCache : DrawableGameComponent, IChunkCache
     {
         /// <summary>
-        /// Range of viewable chunks by the player.
-        /// Chunks in view range will be always generated, lightend and built.
-        /// </summary>
-        public const byte ViewRange = 1;
-
-        /// <summary>
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public const byte CacheRange = 2;
+        public const byte CacheRange = 15;
+
+        /// <summary>
+        /// Range of viewable chunks by the player.
+        /// Chunks in view range will be always generated, lightend and built.
+        /// </summary>
+        public const byte ViewRange = 10;
 
         /// <summary>
         /// Bounding box for view range.

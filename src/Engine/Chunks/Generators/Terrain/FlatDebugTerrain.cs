@@ -17,7 +17,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
     {
         private const byte DirtHeight = 1;
 
-        public FlatDebugTerrain(BiomeGenerator biomeGenerator) 
+        public FlatDebugTerrain(BiomeGenerator biomeGenerator)
             : base(biomeGenerator)
         { }
 
@@ -38,6 +38,6 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
 
             // apply the biome generator on x-z column.
             this.BiomeGenerator.ApplyBiome(chunk, DirtHeight - 1, offset + DirtHeight - 1, worldPositionX + this.Seed, worldPositionZ);
-        }     
+        }
     }
 }

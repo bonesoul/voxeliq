@@ -90,6 +90,7 @@
     <Compile Include="Common\Extensions\ListExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
+    <Compile Include="Common\Randomization\Procedural\PerlinNoise.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Common\Configuration\Config.cs" />
     <Compile Include="Common\Configuration\ConfigManager.cs" />
@@ -144,7 +145,6 @@
     <Compile Include="Common\Extensions\NumberExtensions.cs" />
     <Compile Include="Common\Randomization\FastRandom.cs" />
     <Compile Include="Common\Math\MathHelper.cs" />
-    <Compile Include="Common\Randomization\Procedural\PerlinNoise.cs" />
     <Compile Include="Common\Randomization\Procedural\SimplexNoise.cs" />
     <Compile Include="Common\SparseMatrix.cs" />
     <Compile Include="Common\Vector\Vector2Int.cs" />
