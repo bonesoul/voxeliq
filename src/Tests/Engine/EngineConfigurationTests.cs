@@ -1,5 +1,12 @@
-﻿using NUnit.Framework;
-using VoxeliqEngine.Engine;
+﻿/*
+ * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
+
+using NUnit.Framework;
+using VoxeliqEngine.Core;
 
 namespace EngineTests.Engine
 {
@@ -77,7 +84,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid chunk configuration where WidthInBlocks value is set to invalid value of zero.")]
-        [ExpectedException(typeof (EngineConfiguration.ChunkConfig.ChunkConfigException),
+        [ExpectedException(typeof (ChunkConfigurationException),
             ExpectedMessage = "Chunk width in blocks can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidWidthInBlocksValue()
         {
@@ -87,7 +94,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid chunk configuration where HeightInBlocks value is set to invalid value of zero.")]
-        [ExpectedException(typeof(EngineConfiguration.ChunkConfig.ChunkConfigException),
+        [ExpectedException(typeof(ChunkConfigurationException),
             ExpectedMessage = "Chunk height in blocks can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidHeightInBlocksValue()
         {
@@ -97,7 +104,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid chunk configuration where LenghtInBlocks value is set to invalid value of zero.")]
-        [ExpectedException(typeof(EngineConfiguration.ChunkConfig.ChunkConfigException),
+        [ExpectedException(typeof(ChunkConfigurationException),
             ExpectedMessage = "Chunk lenght in blocks can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidLenghtInBlocksValue()
         {
@@ -107,7 +114,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid cache configuration where view-range value is set to invalid value of zero.")]
-        [ExpectedException(typeof(EngineConfiguration.CacheConfig.CacheConfigException),
+        [ExpectedException(typeof(CacheConfigurationException),
             ExpectedMessage = "View range can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidViewRangeValue()
         {
@@ -117,7 +124,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid cache configuration where cache-range value is set to invalid value of zero.")]
-        [ExpectedException(typeof(EngineConfiguration.CacheConfig.CacheConfigException),
+        [ExpectedException(typeof(CacheConfigurationException),
             ExpectedMessage = "Cache range can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidCacheRangeValue()
         {
@@ -127,7 +134,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid cache configuration where view-range is set greater than cache-range.")]
-        [ExpectedException(typeof(EngineConfiguration.CacheConfig.CacheConfigException),
+        [ExpectedException(typeof(CacheConfigurationException),
             ExpectedMessage = "View range can not be larger than cache range!", MatchType = MessageMatch.Exact)]
         public void TestInvalidViewRangeGreaterThanCacheRange()
         {
@@ -137,7 +144,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid cache configuration where CacheExtraChunks is off and view-range is not equal to cache-range.")]
-        [ExpectedException(typeof(EngineConfiguration.CacheConfig.CacheConfigException),
+        [ExpectedException(typeof(CacheConfigurationException),
             ExpectedMessage = "Cache range can not be different than view range when CacheExtraChunk option is set to false.", MatchType = MessageMatch.Exact)]
         public void TestInvalidViewRangeNotEqualToCacheRangeWhenCacheExtraChunksIsOff()
         {
@@ -147,7 +154,7 @@ namespace EngineTests.Engine
 
         [Test]
         [Description("Tests invalid cache configuration where CacheExtraChunks is off and view-range is not equal to cache-range.")]
-        [ExpectedException(typeof(EngineConfiguration.CacheConfig.CacheConfigException),
+        [ExpectedException(typeof(CacheConfigurationException),
             ExpectedMessage = "Cache range must be greater view range when CacheExtraChunk option is set to true.", MatchType = MessageMatch.Exact)]
         public void TestInvalidCacheRangeNotGreaterThanViewRangeWhenCacheExtraChunksIsOn()
         {

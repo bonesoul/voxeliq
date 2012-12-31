@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
@@ -156,7 +157,7 @@ namespace VoxeliqEngine.Input
 
             // debug keys.
             if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                Engine.Settings.World.ToggleInfinitiveWorld();
+                Settings.World.ToggleInfinitiveWorld();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
                 this._player.ToggleFlyForm();
@@ -177,7 +178,7 @@ namespace VoxeliqEngine.Input
                 this._bloomService.ToogleSettings();
 
             if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                Engine.Settings.Debugging.ToggleDebugGraphs();
+                Settings.Debugging.ToggleDebugGraphs();
 
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();

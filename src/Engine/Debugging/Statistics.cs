@@ -14,7 +14,7 @@ using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Extensions;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Engine;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqEngine.Debugging
@@ -154,7 +154,7 @@ namespace VoxeliqEngine.Debugging
 
             if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
             else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
-            else _totalBlocks = Chunk.Volume.ToString(CultureInfo.InvariantCulture);
+            else _totalBlocks = Engine.Instance.Configuration.ChunkConfiguration.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 

@@ -110,10 +110,11 @@
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Debugging\StringBuilderExtensions.cs" />
     <Compile Include="Debugging\TimeRuler.cs" />
-    <Compile Include="Engine\EngineConfiguration.cs" />
+    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\EngineConfiguration.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
-    <Compile Include="Engine\Settings.cs" />
+    <Compile Include="Core\Settings.cs" />
     <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Graphics\Drawing\BasicShapes.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Common.Vector;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
@@ -30,37 +31,22 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Chunk width in blocks.
         /// </summary>
-        public static byte WidthInBlocks = 16;
-
-        /// <summary>
-        /// Maximum width index in blocks for chunk.
-        /// </summary>
-        public static byte MaxWidthIndexInBlocks = 15;
+        public static byte WidthInBlocks = Engine.Instance.Configuration.ChunkConfiguration.WidthInBlocks;
 
         /// <summary>
         /// Chunk lenght in blocks
         /// </summary>
-        public static byte LenghtInBlocks = 16;
-
-        /// <summary>
-        /// Maximum lenght index in blocks for chunk.
-        /// </summary>
-        public static byte MaxLenghtIndexInBlocks = 15;
+        public static byte LenghtInBlocks = Engine.Instance.Configuration.ChunkConfiguration.LenghtInBlocks;
 
         /// <summary>
         /// Chunk height in blocks.
         /// </summary>
-        public static byte HeightInBlocks = 128;
+        public static byte HeightInBlocks = Engine.Instance.Configuration.ChunkConfiguration.HeightInBlocks;
 
         /// <summary>
         /// Maximum height index in blocks for chunk.
         /// </summary>
-        public static byte MaxHeightIndexInBlocks = 127;
-
-        /// <summary>
-        /// Chunk volume in blocks.
-        /// </summary>
-        public static readonly int Volume = WidthInBlocks*HeightInBlocks*LenghtInBlocks;
+        public static byte MaxHeightIndexInBlocks = Engine.Instance.Configuration.ChunkConfiguration.MaxHeightInBlocks;
 
         /// <summary>
         /// The chunks world position.

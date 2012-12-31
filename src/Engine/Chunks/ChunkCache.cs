@@ -17,9 +17,9 @@ using VoxeliqEngine.Chunks.Generators.Terrain;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Vector;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Profiling;
-using VoxeliqEngine.Engine;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
 
@@ -82,13 +82,13 @@ namespace VoxeliqEngine.Chunks
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public const byte CacheRange = 1;
+        public static byte CacheRange = Engine.Instance.Configuration.CacheConfiguration.CacheRange;
 
         /// <summary>
         /// Range of viewable chunks by the player.
         /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public const byte ViewRange = 1;
+        public static byte ViewRange = Engine.Instance.Configuration.CacheConfiguration.ViewRange;
 
         /// <summary>
         /// Bounding box for view range.

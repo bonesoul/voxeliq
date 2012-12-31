@@ -7,12 +7,12 @@
 
 using System.Reflection;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Graphics;
@@ -61,10 +61,13 @@ namespace VoxeliqGame
         /// </summary>
         protected override void Initialize()
         {
-            Logger.Trace("init()");
-            this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
+            Logger.Trace("init()"); // log the init.
+            this.Window.Title = "Voxeliq Sample Game"; // set the window title.
 
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
+
+            var config = new EngineConfiguration(); // create a new EngineConfiguration instance.
+            var engine = new Engine(this, config);
 
             this.AddComponents(); // add the game compontents.
 

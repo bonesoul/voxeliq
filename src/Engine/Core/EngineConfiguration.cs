@@ -1,9 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
 
-namespace VoxeliqEngine.Engine
+using System;
+
+namespace VoxeliqEngine.Core
 {
     /// <summary>
     /// Holds the configuration parameters to be used by the engine.
@@ -128,22 +132,15 @@ namespace VoxeliqEngine.Engine
                 this.Setup(); // setup automatically calculated values.
 
                 if (WidthInBlocks == 0)
-                    throw new ChunkConfigException("Chunk width in blocks can not be set to zero!");
+                    throw new ChunkConfigurationException("Chunk width in blocks can not be set to zero!");
 
                 if (HeightInBlocks == 0)
-                    throw new ChunkConfigException("Chunk height in blocks can not be set to zero!");
+                    throw new ChunkConfigurationException("Chunk height in blocks can not be set to zero!");
 
                 if (LenghtInBlocks == 0)
-                    throw new ChunkConfigException("Chunk lenght in blocks can not be set to zero!");
+                    throw new ChunkConfigurationException("Chunk lenght in blocks can not be set to zero!");
 
                 return true;
-            }
-
-            public class ChunkConfigException : Exception
-            {
-                public ChunkConfigException(string message)
-                    : base(message)
-                { }
             }
         }
 
@@ -210,29 +207,42 @@ namespace VoxeliqEngine.Engine
                 this.Setup(); // setup automatically calculated values.
 
                 if (ViewRange == 0)
-                    throw new CacheConfigException("View range can not be set to zero!");
+                    throw new CacheConfigurationException("View range can not be set to zero!");
 
                 if (CacheRange == 0)
-                    throw new CacheConfigException("Cache range can not be set to zero!");
+                    throw new CacheConfigurationException("Cache range can not be set to zero!");
 
                 if (ViewRange > CacheRange)
-                    throw new CacheConfigException("View range can not be larger than cache range!");
+                    throw new CacheConfigurationException("View range can not be larger than cache range!");
 
                 if (!CacheExtraChunks && CacheRange != ViewRange)
-                    throw new CacheConfigException("Cache range can not be different than view range when CacheExtraChunk option is set to false.");
+                    throw new CacheConfigurationException("Cache range can not be different than view range when CacheExtraChunk option is set to false.");
 
                 if (CacheExtraChunks && CacheRange <= ViewRange)
-                    throw new CacheConfigException("Cache range must be greater view range when CacheExtraChunk option is set to true.");
+                    throw new CacheConfigurationException("Cache range must be greater view range when CacheExtraChunk option is set to true.");
 
                 return true;
             }
-
-            public class CacheConfigException : Exception
-            {
-                public CacheConfigException(string message)
-                    : base(message)
-                { }
-            }
         }
+    }
+
+    /// <summary>
+    /// Chunk configuration exception.
+    /// </summary>
+    public class ChunkConfigurationException : Exception
+    {
+        public ChunkConfigurationException(string message)
+            : base(message)
+        { }
+    }
+
+    /// <summary>
+    /// Cache configuration exception.
+    /// </summary>
+    public class CacheConfigurationException : Exception
+    {
+        public CacheConfigurationException(string message)
+            : base(message)
+        { }
     }
 }
