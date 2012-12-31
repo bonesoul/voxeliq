@@ -26,11 +26,16 @@ This program is free software; you can redistribute it and/or modify it under th
 - [voxeliq@youtube](http://www.youtube.com/voxeliq)
 - [voxeliq@facebook](https://www.facebook.com/VoxeliqStudios)
 
-# Whats New?
+# What's new?
 - CI server is up and running! - http://voxeliq-ci.cloudapp.net
 - Implemented more debug graphs;
-
 ![Screenshot](http://i.imgur.com/OtQy4.jpg)
+
+# From the web
+- [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
+- [reddit](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
+- [indiedb](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
+
 
 # DevLog Videos
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
