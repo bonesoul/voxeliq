@@ -42,3 +42,5 @@ using VoxeliqEngine.Common.Versions;
 
 // Set the assembly version from VersionInfo.cs file.
 [assembly: AssemblyVersion(VersionInfo.Assembly.Version)]
+
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("EngineTests")] // let internals be visible to EngineTests project.

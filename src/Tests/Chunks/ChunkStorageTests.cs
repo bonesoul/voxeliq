@@ -3,7 +3,7 @@ using VoxeliqGame;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Vector;
 
-namespace Tests.Chunks
+namespace EngineTests.Chunks
 {
     [TestFixture]
     public class ChunkStorageTests

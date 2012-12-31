@@ -110,6 +110,7 @@
     <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Debugging\StringBuilderExtensions.cs" />
     <Compile Include="Debugging\TimeRuler.cs" />
+    <Compile Include="Engine\EngineConfiguration.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Engine\Settings.cs" />
