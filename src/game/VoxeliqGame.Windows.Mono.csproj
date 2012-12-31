@@ -67,11 +67,11 @@
     <StartupObject>VoxeliqGame.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network.Windows">
-      <HintPath>..\..\dep\monogame\windows\Lidgren.Network.Windows.dll</HintPath>
+    <Reference Include="Lidgren.Network">
+      <HintPath>..\..\dep\monogame\WindowsGL\Lidgren.Network.dll</HintPath>
     </Reference>
-    <Reference Include="MonoGame.Framework.Windows">
-      <HintPath>..\..\dep\monogame\windows\MonoGame.Framework.Windows.dll</HintPath>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\dep\monogame\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
