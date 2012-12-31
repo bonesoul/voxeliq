@@ -33,8 +33,8 @@ This program is free software; you can redistribute it and/or modify it under th
 
 # From the web
 - [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
-- [reddit](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
-- [indiedb](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
+- [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
+- [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
 
 # DevLog Videos
 
