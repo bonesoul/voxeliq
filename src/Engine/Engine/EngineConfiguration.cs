@@ -23,8 +23,9 @@ namespace VoxeliqEngine.Engine
         /// <summary>
         /// Creates a new instance of engine configuration.
         /// </summary>
-        private EngineConfiguration()
+        public EngineConfiguration()
         {
+            _instance = this;
             this.ChunkConfiguration = new ChunkConfig();
             this.CacheConfiguration = new CacheConfig();
         }
@@ -44,15 +45,10 @@ namespace VoxeliqEngine.Engine
             return true;
         }
 
-        private static EngineConfiguration _instance = new EngineConfiguration(); // the EngineConfiguration instance.
-
         /// <summary>
         /// Returns the memory instance of EngineConfiguration.
         /// </summary>
-        public static EngineConfiguration Instance
-        {
-            get { return _instance; }
-        }
+        internal static EngineConfiguration _instance { get; set; }
 
         /// <summary>
         /// Contains configuration parameters for chunks.
@@ -200,9 +196,9 @@ namespace VoxeliqEngine.Engine
             /// </summary>
             private void Setup()
             {
-                this.CacheWidthInBlocks = (this.CacheRange*2 + 1)* Instance.ChunkConfiguration.WidthInBlocks;
-                this.CacheHeightInBlocks = EngineConfiguration.Instance.ChunkConfiguration.HeightInBlocks;
-                this.CacheLenghtInBlocks = (this.CacheRange * 2 + 1) * Instance.ChunkConfiguration.LenghtInBlocks;
+                this.CacheWidthInBlocks = (this.CacheRange*2 + 1)* _instance.ChunkConfiguration.WidthInBlocks;
+                this.CacheHeightInBlocks = EngineConfiguration._instance.ChunkConfiguration.HeightInBlocks;
+                this.CacheLenghtInBlocks = (this.CacheRange * 2 + 1) * _instance.ChunkConfiguration.LenghtInBlocks;
             }
 
             /// <summary>
