@@ -26,7 +26,6 @@ namespace VoxeliqGame
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler; // Watch for any unhandled exceptions.
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Use invariant culture - we have to set it explicitly for every thread we create to prevent any mpq-reading problems (mostly because of number formats).
             
-
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
