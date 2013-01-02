@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using VoxeliqEngine.Blocks;
 
-namespace Tests.Blocks
+namespace EngineTests.Blocks
 {
     [TestFixture]
     public class BlockTests

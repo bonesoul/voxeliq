@@ -14,7 +14,7 @@ using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Extensions;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Engine;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqEngine.Debugging
@@ -39,6 +39,7 @@ namespace VoxeliqEngine.Debugging
         int LightenQueue { get; }
         int BuildQueue { get; }
         int ReadyQueue { get; }
+        int RemovalQueue { get; }
     }
 
     public sealed class Statistics : DrawableGameComponent, IStatistics
@@ -81,6 +82,7 @@ namespace VoxeliqEngine.Debugging
         public int LightenQueue { get; private set; }
         public int BuildQueue { get; private set; }
         public int ReadyQueue { get; private set; }
+        public int RemovalQueue { get; private set; }
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loging-facility
@@ -154,7 +156,7 @@ namespace VoxeliqEngine.Debugging
 
             if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
             else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
-            else _totalBlocks = Chunk.Volume.ToString(CultureInfo.InvariantCulture);
+            else _totalBlocks = Engine.Instance.Configuration.ChunkConfiguration.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
@@ -215,30 +217,37 @@ namespace VoxeliqEngine.Debugging
             this.LightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
             this.BuildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
             this.ReadyQueue = this._chunkCache.StateStatistics[ChunkState.Ready];
+            this.RemovalQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingRemoval];
 
-            // generation
+            // chunk generation queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("GenerateQ:");
             _stringBuilder.AppendNumber(this.GenerateQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 65), Color.White);
 
-            // lighten
+            // chunk lighting queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("LightenQ:");
             _stringBuilder.AppendNumber(this.LightenQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 80), Color.White);
 
-            // build
+            // chunk build queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("BuildQ:");
             _stringBuilder.AppendNumber(this.BuildQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 95), Color.White);
 
-            // ready
+            // ready chunks queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("Ready:");
             _stringBuilder.AppendNumber(this.ReadyQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
+
+            // chunk removal queue
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("Removal:");
+            _stringBuilder.AppendNumber(this.RemovalQueue);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 125), Color.White);
 
             _spriteBatch.End();
         }

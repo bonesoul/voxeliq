@@ -5,21 +5,13 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using System.Reflection;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Audio;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Graphs;
+using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
-using VoxeliqEngine.Input;
-using VoxeliqEngine.Interface;
-using VoxeliqEngine.Universe;
 
 namespace VoxeliqGame
 {
@@ -38,9 +30,9 @@ namespace VoxeliqGame
         /// </summary>
         public GraphicsManager ScreenManager { get; private set; }
 
-        BloomComponent bloom;
-
         private TimeRuler _timeRuler;
+
+        private BloomComponent _bloomComponent;
 
         /// <summary>
         /// Logging facility.
@@ -61,65 +53,45 @@ namespace VoxeliqGame
         /// </summary>
         protected override void Initialize()
         {
-            Logger.Trace("init()");
-            this.Window.Title = "Voxeliq Client " + Assembly.GetExecutingAssembly().GetName().Version;
+            Logger.Trace("init()"); // log the init.
+            this.Window.Title = "Voxeliq Sample Game"; // set the window title.
 
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
-            this.AddComponents(); // add the game compontents.
+            // create a new EngineConfiguration instance.
+            var config = new EngineConfiguration
+            {
+                ChunkConfiguration =
+                {
+                    WidthInBlocks = 16,
+                    HeightInBlocks = 128,
+                    LenghtInBlocks = 16,
+                },
+                CacheConfiguration =
+                {
+                    CacheExtraChunks = true,
+                    ViewRange = 8,
+                    CacheRange = 12,
+                }
+            };
+
+            var engine = new Engine(this, config);
+            engine.EngineStart += OnEngineStart;
+
+            engine.Run();
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// Adds game-components.
-        /// </summary>
-        private void AddComponents()
+        private void OnEngineStart(object sender, System.EventArgs e)
         {
-            this.Components.Add(new InputManager(this));
-
-            this.Components.Add(new AssetManager(this));
-
-            #if XNA
-            this.Components.Add(new Sky(this));
-            #endif
-
-            this.Components.Add(new Fogger(this));
-
-            var chunkStorage = new ChunkStorage(this);
-            this.Components.Add(chunkStorage);
-
-            var vertexBuilder = new VertexBuilder(this);
-            this.Components.Add(vertexBuilder);
-
-            var chunkCache = new ChunkCache(this);
-            this.Components.Add(chunkCache);
-
-            var world = new World(this, chunkStorage, chunkCache);
-            this.Components.Add(world);
-
-            this.Components.Add(new Player(this, world));
-
-            #if XNA
-            bloom = new BloomComponent(this);
-            this.Components.Add(bloom);
-            #endif
-
-            this.Components.Add(new Camera(this));
-            this.Components.Add(new UserInterface(this));
-
-            this.Components.Add(new InGameDebugger(this));
-            this.Components.Add(new Statistics(this));
-            this.Components.Add(new GraphManager(this));
-
-            #if XNA
-            this.Components.Add(new AudioManager(this));
-            #endif
-
-            this._timeRuler = new TimeRuler(this);
-            this._timeRuler.Visible = true;
-            this._timeRuler.ShowLog = true;
+            this._timeRuler = new TimeRuler(this) { Visible = true, ShowLog = true };
             this.Components.Add(this._timeRuler);
+
+#if XNA
+            this._bloomComponent = new BloomComponent(this);
+            this.Components.Add(this._bloomComponent);
+#endif
         }
 
         /// <summary>
@@ -148,9 +120,9 @@ namespace VoxeliqGame
         {
             this._timeRuler.BeginMark("Draw", Color.Yellow);
 
-            #if XNA
-            bloom.BeginDraw();
-            #endif
+#if XNA
+            this._bloomComponent.BeginDraw();
+#endif
 
             this.GraphicsDevice.Clear(Color.Black);
 

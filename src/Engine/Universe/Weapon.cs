@@ -8,6 +8,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 
 namespace VoxeliqEngine.Universe

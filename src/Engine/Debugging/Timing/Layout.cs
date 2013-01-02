@@ -9,7 +9,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqEngine.Debugging
+namespace VoxeliqEngine.Debugging.Timing
 {
     /// <summary>
     /// Alignment for layout.
