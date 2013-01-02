@@ -13,7 +13,7 @@ using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Debugging
+namespace VoxeliqEngine.Debugging.Ingame
 {
     public interface IInGameDebuggerService
     {

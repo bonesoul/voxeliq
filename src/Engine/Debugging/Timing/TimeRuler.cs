@@ -13,8 +13,9 @@ using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
+using VoxeliqEngine.Common.Extensions;
 
-namespace VoxeliqEngine.Debugging
+namespace VoxeliqEngine.Debugging.Timing
 {
     /// <summary>
     /// Realtime CPU measuring tool

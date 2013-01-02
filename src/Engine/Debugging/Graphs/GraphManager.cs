@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Chunks;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging.Graphs.Implementations;
 using VoxeliqEngine.Debugging.Graphs.Implementations.ChunkGraphs;
 using VoxeliqEngine.Graphics;
@@ -48,6 +49,7 @@ namespace VoxeliqEngine.Debugging.Graphs
             this._graphs.Add(new LightenQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 175, 270, 35)));
             this._graphs.Add(new BuildQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 230, 270, 35)));
             this._graphs.Add(new ReadyQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 285, 270, 35)));
+            this._graphs.Add(new RemoveQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 340, 270, 35)));
 
             base.Initialize();
         }
@@ -72,7 +74,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Draw(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
                 return;
 
             // backup  the raster and depth-stencil states.
@@ -110,7 +112,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Update(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
                 return;
 
             foreach (var graph in this._graphs)
