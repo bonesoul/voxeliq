@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
 
@@ -57,7 +58,23 @@ namespace VoxeliqGame
 
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
-            var config = new EngineConfiguration(); // create a new EngineConfiguration instance.
+            // create a new EngineConfiguration instance.
+            var config = new EngineConfiguration
+            {
+                ChunkConfiguration =
+                {
+                    WidthInBlocks = 16,
+                    HeightInBlocks = 128,
+                    LenghtInBlocks = 16,
+                },
+                CacheConfiguration =
+                {
+                    CacheExtraChunks = true,
+                    ViewRange = 8,
+                    CacheRange = 12,
+                }
+            };
+
             var engine = new Engine(this, config);
             engine.EngineStart += OnEngineStart;
 

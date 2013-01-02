@@ -13,6 +13,7 @@ using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
 

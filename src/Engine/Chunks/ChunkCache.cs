@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,7 @@ using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Profiling;
+using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
 
@@ -247,19 +249,7 @@ namespace VoxeliqEngine.Chunks
 
         protected void Process()
         {
-            this.StateStatistics[ChunkState.AwaitingGenerate] = 0;
-            this.StateStatistics[ChunkState.Generating] = 0;
-            this.StateStatistics[ChunkState.AwaitingLighting] = 0;
-            this.StateStatistics[ChunkState.Lighting] = 0;
-            this.StateStatistics[ChunkState.AwaitingBuild] = 0;
-            this.StateStatistics[ChunkState.Building] = 0;
-            this.StateStatistics[ChunkState.Ready] = 0;
-            this.StateStatistics[ChunkState.AwaitingRelighting] = 0;
-            this.StateStatistics[ChunkState.AwaitingRebuild] = 0;
-            this.StateStatistics[ChunkState.AwaitingRemoval] = 0;
-
-
-            Profiler.Start("chunk-cache-loop");
+            //Profiler.Start("chunk-cache-loop");
             //this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
 
             foreach (var chunk in this._chunkStorage.Values)
@@ -277,12 +267,10 @@ namespace VoxeliqEngine.Chunks
                         chunk.Dispose();
                     }
                 }
-
-                this.StateStatistics[chunk.ChunkState]++;
             }
 
             //this._timeRuler.EndMark(1, "Chunk Cache");
-            Profiler.Stop("chunk-cache-loop");
+            //Profiler.Stop("chunk-cache-loop");
 
             //if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
                 //Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
@@ -429,6 +417,17 @@ namespace VoxeliqEngine.Chunks
                     this.ChunksDrawn++;
                 }
             }
+
+            this.StateStatistics[ChunkState.AwaitingGenerate] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingGenerate);
+            this.StateStatistics[ChunkState.Generating] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Generating);
+            this.StateStatistics[ChunkState.AwaitingLighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingLighting);
+            this.StateStatistics[ChunkState.Lighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Lighting);
+            this.StateStatistics[ChunkState.AwaitingRelighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRelighting);
+            this.StateStatistics[ChunkState.AwaitingBuild] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingBuild);
+            this.StateStatistics[ChunkState.Building] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Building);
+            this.StateStatistics[ChunkState.AwaitingRebuild] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRebuild);
+            this.StateStatistics[ChunkState.Ready] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Ready);
+            this.StateStatistics[ChunkState.AwaitingRemoval] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRemoval);
         }
 
         // Returns the chunk in given x-z position.

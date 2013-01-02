@@ -9,7 +9,7 @@ using System;
 using System.Globalization;
 using System.Text;
 
-namespace VoxeliqEngine.Debugging
+namespace VoxeliqEngine.Common.Extensions
 {
     /// <summary>
     /// Options for StringBuilder extension methods.
@@ -125,7 +125,7 @@ namespace VoxeliqEngine.Debugging
             else
             {
                 int intNumber =
-                        (int)(number * (float)Math.Pow(10, decimalCount) + 0.5f);
+                        (int)(number * (float)System.Math.Pow(10, decimalCount) + 0.5f);
 
                 AppendNumbernternal(builder, intNumber, decimalCount, options);
             }
@@ -151,7 +151,7 @@ namespace VoxeliqEngine.Debugging
             bool showPositiveSign = (options & AppendNumberOptions.PositiveSign) != 0;
 
             bool isNegative = number < 0;
-            number = Math.Abs(number);
+            number = System.Math.Abs(number);
 
             // Converting from smallest digit.
             do

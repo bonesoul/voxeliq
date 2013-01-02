@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Universe;

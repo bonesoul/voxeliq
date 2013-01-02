@@ -39,6 +39,7 @@ namespace VoxeliqEngine.Debugging
         int LightenQueue { get; }
         int BuildQueue { get; }
         int ReadyQueue { get; }
+        int RemovalQueue { get; }
     }
 
     public sealed class Statistics : DrawableGameComponent, IStatistics
@@ -81,6 +82,7 @@ namespace VoxeliqEngine.Debugging
         public int LightenQueue { get; private set; }
         public int BuildQueue { get; private set; }
         public int ReadyQueue { get; private set; }
+        public int RemovalQueue { get; private set; }
 
         // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // loging-facility
@@ -215,30 +217,37 @@ namespace VoxeliqEngine.Debugging
             this.LightenQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingLighting] + this._chunkCache.StateStatistics[ChunkState.Lighting] + this._chunkCache.StateStatistics[ChunkState.AwaitingRelighting];
             this.BuildQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingBuild] + this._chunkCache.StateStatistics[ChunkState.Building] + this._chunkCache.StateStatistics[ChunkState.AwaitingRebuild];
             this.ReadyQueue = this._chunkCache.StateStatistics[ChunkState.Ready];
+            this.RemovalQueue = this._chunkCache.StateStatistics[ChunkState.AwaitingRemoval];
 
-            // generation
+            // chunk generation queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("GenerateQ:");
             _stringBuilder.AppendNumber(this.GenerateQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 65), Color.White);
 
-            // lighten
+            // chunk lighting queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("LightenQ:");
             _stringBuilder.AppendNumber(this.LightenQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 80), Color.White);
 
-            // build
+            // chunk build queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("BuildQ:");
             _stringBuilder.AppendNumber(this.BuildQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 95), Color.White);
 
-            // ready
+            // ready chunks queue
             _stringBuilder.Length = 0;
             _stringBuilder.Append("Ready:");
             _stringBuilder.AppendNumber(this.ReadyQueue);
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 110), Color.White);
+
+            // chunk removal queue
+            _stringBuilder.Length = 0;
+            _stringBuilder.Append("Removal:");
+            _stringBuilder.AppendNumber(this.RemovalQueue);
+            _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 125), Color.White);
 
             _spriteBatch.End();
         }
