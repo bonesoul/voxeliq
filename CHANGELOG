@@ -1,1 +1,11 @@
-changelog placeholder
+v0.1 [28.12.2012]
+* Synced with monogame's develop3d branch. (#345cddf0c1 as of 24/12/2012).
+* MonoGame version now also uses threaded chunk processors.
+* The console will now show underlying framework's version.
+* Added asset-manager.
+* Added sample build scripts.
+* Improved debugging graphs and added more of them (mem grap and chunk related ones).
+* Fixed statistics & hints font.
+* Disabled bloom by default.
+* Fixed post build events for monogame project. Should be now automatically copying Content\ and other required deps.
+* Moved engine sources to \Engine folder.

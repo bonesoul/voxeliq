@@ -16,17 +16,28 @@ This program is free software; you can redistribute it and/or modify it under th
  
 # More info
 
-- [Voxeliq website](http://www.voxeliq.org/games/voxeliq/)
-- [IndieDB](http://www.indiedb.com/engines/voxeliq)
-- [Steam Greenlight](http://steamcommunity.com/sharedfiles/filedetails/?id=110290631)
-- [voxeliq@github](https://github.com/raistlinthewiz/voxeliq)
-- [voxeliq@codeplex](https://voxeliq.codeplex.com/)
-- [voxeliq@reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
-- [voxeliq@twitter](https://twitter.com/voxeliq)
-- [voxeliq@youtube](http://www.youtube.com/voxeliq)
-- [voxeliq@facebook](https://www.facebook.com/VoxeliqStudios)
+- [http://www.voxeliq.org](http://www.voxeliq.org/games/voxeliq/)
+
+<a href='https://github.com/raistlinthewiz/voxeliq' target='_blank' title='Voxeliq@Github'><img src='https://github.com/favicon.ico' width='16' height='16'></a>
+<a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
+<a href='http://steamcommunity.com/sharedfiles/filedetails/?id=110290631' target='_blank' title='Voxeliq@Steam-Greenlight'><img src='http://www.steampowered.com/favicon.ico' width='16' height='16'></a>
+<a href='https://twitter.com/voxeliq' target='_blank' title='Voxeliq@Twitter'><img src='http://www.twitter.com/favicon.ico' width='16' height='16'></a>
+<a href='https://www.facebook.com/VoxeliqStudios' target='_blank' title='Voxeliq@Facebook'><img src='https://www.facebook.com/favicon.ico' width='16' height='16'></a>
+<a href='http://www.youtube.com/voxeliq' target='_blank' title='Voxeliq@Youtube'><img src='http://www.youtube.com/favicon.ico' width='16' height='16'></a>
+<a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
+
+# What's new?
+- CI server is up and running! - http://voxeliq-ci.cloudapp.net
+- Implemented more debug graphs;
+![Screenshot](http://i.imgur.com/OtQy4.jpg)
+
+# From the web
+- [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
+- [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
+- [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
 
 # DevLog Videos
+
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
 - [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
 - [Devlog-VII - Bloom Effect](http://www.youtube.com/watch?v=xTvzKK2TqmQ)
