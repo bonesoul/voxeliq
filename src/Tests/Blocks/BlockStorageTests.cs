@@ -103,6 +103,10 @@ namespace EngineTests.Blocks
                 }
             }            
         }
+
+        // TODO: add landscape generated tests.
+        // TODO: add positive, middle and negative seeded tests.
+        // TODO: add SetBlock tests.
     }
 
     public static class BlockTestExtensions
