@@ -91,7 +91,6 @@
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
     <Compile Include="Common\Noise\PerlinNoise.cs" />
-    <Compile Include="Common\Noise\PerlinNoise2D.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Common\Configuration\Config.cs" />
     <Compile Include="Common\Configuration\ConfigManager.cs" />
