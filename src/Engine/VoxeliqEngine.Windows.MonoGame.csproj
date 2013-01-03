@@ -111,9 +111,9 @@
     <Compile Include="Common\Logging\LogRouter.cs" />
     <Compile Include="Common\Logging\LogTarget.cs" />
     <Compile Include="Common\Math\MathHelper.cs" />
+    <Compile Include="Common\Noise\PerlinNoise.cs" />
+    <Compile Include="Common\Noise\SimplexNoise.cs" />
     <Compile Include="Common\Randomization\FastRandom.cs" />
-    <Compile Include="Common\Randomization\Procedural\PerlinNoise.cs" />
-    <Compile Include="Common\Randomization\Procedural\SimplexNoise.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Common\SparseMatrix.cs" />
     <Compile Include="Common\Vector\Vector2Int.cs" />

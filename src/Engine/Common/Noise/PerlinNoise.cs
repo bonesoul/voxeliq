@@ -7,7 +7,7 @@
 
 using System;
 
-namespace VoxeliqEngine.Common.Randomization.Procedural
+namespace VoxeliqEngine.Common.Noise
 {
     /* Perlin noise class.  ( by Tom Nuydens (tom@delphi3d.net) )
      * Converted to C# by Mattias Fagerlund, Mattias.Fagerlund@cortego.se

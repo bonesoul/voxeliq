@@ -90,7 +90,8 @@
     <Compile Include="Common\Extensions\ListExtensions.cs" />
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
-    <Compile Include="Common\Randomization\Procedural\PerlinNoise.cs" />
+    <Compile Include="Common\Noise\PerlinNoise.cs" />
+    <Compile Include="Common\Noise\PerlinNoise2D.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Common\Configuration\Config.cs" />
     <Compile Include="Common\Configuration\ConfigManager.cs" />
@@ -148,7 +149,7 @@
     <Compile Include="Common\Extensions\NumberExtensions.cs" />
     <Compile Include="Common\Randomization\FastRandom.cs" />
     <Compile Include="Common\Math\MathHelper.cs" />
-    <Compile Include="Common\Randomization\Procedural\SimplexNoise.cs" />
+    <Compile Include="Common\Noise\SimplexNoise.cs" />
     <Compile Include="Common\SparseMatrix.cs" />
     <Compile Include="Common\Vector\Vector2Int.cs" />
     <Compile Include="Common\Vector\Vector3Int.cs" />
@@ -161,6 +162,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

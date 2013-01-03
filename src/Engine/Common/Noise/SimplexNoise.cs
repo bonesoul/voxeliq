@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Common.Randomization.Procedural
+namespace VoxeliqEngine.Common.Noise
 {
     public static class SimplexNoise
     {

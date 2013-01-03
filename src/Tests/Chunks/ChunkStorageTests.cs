@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using VoxeliqEngine.Core;
 using VoxeliqGame;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Vector;
@@ -9,6 +10,8 @@ namespace EngineTests.Chunks
     public class ChunkStorageTests
     {
         private Game _game;
+        private EngineConfiguration _config;
+        private VoxeliqEngine.Core.Engine _engine;
         private ChunkStorage _chunkStorage;
         private Chunk _chunk;
 
@@ -16,8 +19,10 @@ namespace EngineTests.Chunks
         public void Init()
         {
             _game = new Game();
-            _chunkStorage = new ChunkStorage(_game);
-            _chunk = new Chunk(new Vector2Int(0, 0));
+            this._config = new EngineConfiguration();
+            this._engine = new VoxeliqEngine.Core.Engine(this._game, this._config);
+            this._chunkStorage = new ChunkStorage(_game);
+            this._chunk = new Chunk(new Vector2Int(0, 0));
         }
 
         [Test]
