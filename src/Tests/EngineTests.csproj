@@ -55,6 +55,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blocks\BlockStorageTests.cs" />
     <Compile Include="Blocks\BlockTests.cs" />
     <Compile Include="Engine\EngineConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
