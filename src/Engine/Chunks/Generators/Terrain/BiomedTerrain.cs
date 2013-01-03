@@ -78,9 +78,9 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         {
             blockX += this.Seed;
 
-            float octave1 = SimplexNoise.noise((blockX + 100) * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
-            float octave2 = SimplexNoise.noise((blockX + 100) * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
-            float octave3 = SimplexNoise.noise((blockX + 100) * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
+            float octave1 = SimplexNoise.noise(blockX * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
+            float octave2 = SimplexNoise.noise(blockX * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
+            float octave3 = SimplexNoise.noise(blockX * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
             return (int)(octaveSum * (Chunk.HeightInBlocks / 8)) + (int)(rockHeight);
