@@ -12,92 +12,81 @@ using VoxeliqGame;
 namespace EngineTests.Blocks
 {
     [TestFixture]
-    public class BlockStorageTests
+    public class SimpleBlockStorageTest
     {
         private Game _game;
         private EngineConfiguration _config;
         private VoxeliqEngine.Core.Engine _engine;
 
-        /// <summary>
-        /// Flatten offset x step to advance next block in x direction.
-        /// </summary>
-        private int _xStep;
+        private int _cacheXStartIndex;
+        private int _cacheXEndIndex;
+        private int _cacheZStartIndex;
+        private int _cacheZEndIndex;
 
-        /// <summary>
-        /// Flatten offset z step to advance next block in z direction.
-        /// </summary>
-        private int _zStep;
-
-        private Dictionary<int, BlockType> _validationDictionary;
-
-        private Random _random;
-        private int _seedX;
-        private int _seedZ;
+        private Dictionary<int, BlockType> _directlyIndexedValidationDictionary;
 
         [SetUp]
         public void Init()
         {
             _game = new Game();
             this._config = new EngineConfiguration();
-            this._config.CacheConfiguration.CacheRange = 12;
-            this._config.CacheConfiguration.ViewRange = 8;
             this._engine = new VoxeliqEngine.Core.Engine(this._game, this._config);
 
+            var cacheWidthInBlocks = ((_config.CacheConfiguration.CacheRange * 2) + 1) * _config.ChunkConfiguration.WidthInBlocks;
             var cacheLenghtInBlocks = ((_config.CacheConfiguration.CacheRange*2) + 1) * _config.ChunkConfiguration.LenghtInBlocks;
-            this._xStep =  cacheLenghtInBlocks *_config.ChunkConfiguration.HeightInBlocks;
-            this._zStep = _config.ChunkConfiguration.HeightInBlocks;
 
-            this._validationDictionary = new Dictionary<int, BlockType>();
+            this._cacheXStartIndex = -cacheWidthInBlocks/2;
+            this._cacheXEndIndex = cacheWidthInBlocks / 2;
 
-            this._random=new Random();
-            this._seedX = this._random.Next(120);
-            this._seedZ = this._random.Next(120);
+            this._cacheZStartIndex = -cacheLenghtInBlocks / 2;
+            this._cacheZEndIndex = cacheLenghtInBlocks / 2;
+
+            this._directlyIndexedValidationDictionary = new Dictionary<int, BlockType>();
 
             // set the initial values.
-            for (var x = 0; x < _config.ChunkConfiguration.WidthInBlocks; x++)
+            for (var x = this._cacheXStartIndex; x < this._cacheXEndIndex; x++)
             {
-                for (var z = 0; z < _config.ChunkConfiguration.LenghtInBlocks; z++)
+                for (var z = this._cacheZStartIndex; z < this._cacheZEndIndex; z++)
                 {
-                    var seededX = x - _seedX;
-                    var seededZ = z - _seedZ;
-                    var offset = BlockStorage.BlockIndexByWorldPosition(seededX, seededZ);
+                    var offset = BlockStorage.BlockIndexByWorldPosition(x, z);
 
                     for (var y = 0; y < _config.ChunkConfiguration.HeightInBlocks; y++)
                     {
                         var index = offset + y;
                         var block = new Block().RandomizeType();
 
-                        this._validationDictionary.Add(index, block.Type);
+                        this._directlyIndexedValidationDictionary.Add(index, block.Type);
 
                         BlockStorage.Blocks[index] = block;
                     }
                 }
             }
+
+            // check if validationDictionaries item count is equal to CacheRange's volume.
+            Assert.AreEqual(this._directlyIndexedValidationDictionary.Values.Count, _config.CacheConfiguration.CacheRangeVolume);
         }
 
         [Test]
         [Description("Tests BlockStorage.")]
-        public void BlockReadTests()
+        public void TestAllBlocksInCacheRange()
         {
             // read them back
-            for (var x = 0; x < _config.ChunkConfiguration.WidthInBlocks; x++)
+            for (var x = this._cacheXStartIndex; x < this._cacheXEndIndex; x++)
             {
-                for (var z = 0; z < _config.ChunkConfiguration.LenghtInBlocks; z++)
+                for (var z = this._cacheZStartIndex; z < this._cacheZEndIndex; z++)
                 {
-                    var seededX = x - _seedX;
-                    var seededZ = z - _seedZ;
-                    var offset = BlockStorage.BlockIndexByWorldPosition(seededX, seededZ);
+                    var offset = BlockStorage.BlockIndexByWorldPosition(x, z);
 
                     for (var y = 0; y < _config.ChunkConfiguration.HeightInBlocks; y++)
                     {
                         var index = offset + y;
 
-                        var expectedType = this._validationDictionary[index];
+                        var expectedType = this._directlyIndexedValidationDictionary[index];
 
                         var blockIndexed = BlockStorage.Blocks[index];
                         Assert.AreEqual(expectedType, blockIndexed.Type);
 
-                        var blockFastAt = BlockStorage.FastBlockAt(seededX, y, seededZ);
+                        var blockFastAt = BlockStorage.FastBlockAt(x, y, z);
                         Assert.AreEqual(expectedType, blockFastAt.Type);
                     }
                 }
@@ -105,7 +94,6 @@ namespace EngineTests.Blocks
         }
 
         // TODO: add landscape generated tests.
-        // TODO: add positive, middle and negative seeded tests.
         // TODO: add SetBlock tests.
     }
 

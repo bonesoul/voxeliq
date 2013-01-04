@@ -66,12 +66,8 @@ namespace VoxeliqEngine.Universe
             Logger.Trace("init()");
 
             // import required services.
-            this._cameraController =
-                (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
+            this._cameraController = (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
-
-            //this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
-            //this.Game.Components.Add(this.ChunkBuilder);
 
             this._cameraController.LookAt(Vector3.Down);
             this._player.SpawnPlayer(new Vector2Int(0, 0));

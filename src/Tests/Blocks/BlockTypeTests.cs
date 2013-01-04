@@ -4,7 +4,7 @@ using VoxeliqEngine.Blocks;
 namespace EngineTests.Blocks
 {
     [TestFixture]
-    public class BlockTests
+    public class BlockTypeTests
     {
         private Block _emptyBlock;
 
@@ -16,7 +16,7 @@ namespace EngineTests.Blocks
 
         [Test]
         [Description("Tests blocks.")]
-        public void TestChunkStorage()
+        public void TestEmptyBlock()
         {
             Assert.AreEqual(_emptyBlock.Type, BlockType.None); // check if we correctly get the empty block.
             Assert.IsFalse(_emptyBlock.Exists); // check if exists works.

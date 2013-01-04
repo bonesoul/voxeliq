@@ -75,7 +75,7 @@ namespace VoxeliqEngine.Universe
         void ToggleFlyForm();
     }
 
-    public sealed class Player : DrawableGameComponent, IPlayer
+    public class Player : DrawableGameComponent, IPlayer
     {
         public bool FlyingEnabled { get; private set; }
         public Vector3 Position { get; private set; }
