@@ -19,7 +19,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         /// <summary>
         /// Sets or gets assigned biome generator.
         /// </summary>
-        protected BiomeGenerator BiomeGenerator { get; private set; }
+        public BiomeGenerator BiomeGenerator { get; private set; }
 
         /// <summary>
         /// Creates a new biomed terrain instance with given biome generator.

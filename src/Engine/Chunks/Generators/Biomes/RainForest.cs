@@ -14,7 +14,7 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
     /// <summary>
     /// Rain forest generator.
     /// </summary>
-    public sealed class RainForest : BiomeGenerator
+    public class RainForest : BiomeGenerator
     {
         private readonly Random _treePlanter = new Random(TerrainGenerator.DefaultSeed);
 

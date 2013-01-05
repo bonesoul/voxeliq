@@ -120,7 +120,7 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// The terrain generator.
         /// </summary>
-        protected TerrainGenerator Generator { get; set; }
+        public TerrainGenerator Generator { get; set; }
 
         /// <summary>
         /// The chunk vertex builder.
