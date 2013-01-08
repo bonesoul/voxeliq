@@ -63,15 +63,15 @@ namespace VoxeliqGame
             {
                 ChunkConfiguration =
                 {
-                    WidthInBlocks = 16,
-                    HeightInBlocks = 128,
-                    LenghtInBlocks = 16,
+                    WidthInBlocks = 3,
+                    HeightInBlocks = 3,
+                    LenghtInBlocks = 3,
                 },
                 CacheConfiguration =
                 {
-                    CacheExtraChunks = true,
-                    ViewRange = 8,
-                    CacheRange = 12,
+                    CacheExtraChunks = false,
+                    ViewRange = 1,
+                    CacheRange = 1,
                 }
             };
 

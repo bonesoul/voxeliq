@@ -108,6 +108,40 @@ namespace EngineTests.Blocks
             }     
         }
 
+        [Test]
+        public void RandomTests()
+        {
+            var random = new Random();
+            var worldX = random.Next(this._config.CacheConfiguration.CacheRangeWidthInBlocks);
+            var worldZ = random.Next(this._config.CacheConfiguration.CacheRangeLenghtInBlocks);
+            var worldY = random.Next(this._config.CacheConfiguration.CacheRangeHeightInBlocks);
+
+            var delta = 3;
+            
+            for (int x = -delta; x <= delta; x++)
+            {
+                for (int z = -delta; z <= delta; z++)
+                {
+                    var actualX = worldX + x;
+                    var actualZ = worldZ + z;
+
+                    var offset = BlockStorage.BlockIndexByWorldPosition(actualX, actualZ);
+                    for (int y = worldY - delta; y <= worldY + delta; y++)
+                    {
+                        var index = offset + y;
+
+                        var expectedType = this._blockValidationDictionary[index];
+
+                        var blockIndexed = BlockStorage.Blocks[index];
+                        Assert.AreEqual(expectedType, blockIndexed.Type);
+
+                        var blockFastAt = BlockStorage.FastBlockAt(actualX, y, actualZ);
+                        Assert.AreEqual(expectedType, blockFastAt.Type);
+                    }
+                }
+            }
+        }
+
         private void InitValidationDictionary()
         {
             this._chunkValidationDictionary = new Dictionary<Tuple<int, int>, Chunk>();

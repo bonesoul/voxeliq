@@ -15,7 +15,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         /// <summary>
         /// A default seed for terrain generator if no seed is assigned.
         /// </summary>
-        public const int DefaultSeed = 12323;
+        public const int DefaultSeed = 0;
 
         /// <summary>
         /// Gets or sets the current seed.

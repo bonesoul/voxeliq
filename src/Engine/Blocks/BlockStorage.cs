@@ -197,7 +197,7 @@ namespace VoxeliqEngine.Blocks
             // calculate the flatten index.
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
 
-            // sett the block
+            // set the block
             Blocks[flattenIndex] = block;
         }
 

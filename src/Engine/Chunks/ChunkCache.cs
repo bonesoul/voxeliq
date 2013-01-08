@@ -177,7 +177,7 @@ namespace VoxeliqEngine.Chunks
             this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
 
-            this.Generator = new BiomedTerrain(new RainForest());
+            this.Generator = new FlatDebugTerrain(new RainForest());
             base.Initialize();
         }
 
