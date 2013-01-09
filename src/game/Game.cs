@@ -63,9 +63,9 @@ namespace VoxeliqGame
             {
                 ChunkConfiguration =
                 {
-                    WidthInBlocks = 3,
-                    HeightInBlocks = 3,
-                    LenghtInBlocks = 3,
+                    WidthInBlocks = 16,
+                    HeightInBlocks = 128,
+                    LenghtInBlocks = 16,
                 },
                 CacheConfiguration =
                 {

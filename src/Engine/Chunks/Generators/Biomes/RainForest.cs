@@ -58,11 +58,28 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
                 }
             }
 
-
-            BlockStorage.SetBlockAt(4, 1, 4, new Block(BlockType.Gravel));
-            BlockStorage.SetBlockAt(4, 1, 6, new Block(BlockType.Gravel));
-            BlockStorage.SetBlockAt(6, 1, 4, new Block(BlockType.Gravel));
-            BlockStorage.SetBlockAt(6,1, 6, new Block(BlockType.Gravel));
+            BlockStorage.SetBlockAt(5, 1, 0, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 1, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 2, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 3, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 4, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 5, new Block(BlockType.Brick));
+            Console.WriteLine("5,1,5:{0}", BlockStorage.BlockIndexByWorldPosition(5, 1, 5));
+            BlockStorage.SetBlockAt(5, 1, 6, new Block(BlockType.Brick));
+            Console.WriteLine("5,1,6:{0}", BlockStorage.BlockIndexByWorldPosition(5, 1, 6));
+            BlockStorage.SetBlockAt(5, 1, 7, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 8, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 9, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 10, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 11, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 12, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 13, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 14, new Block(BlockType.Brick));
+            BlockStorage.SetBlockAt(5, 1, 15, new Block(BlockType.Brick));
+            //BlockStorage.SetBlockAt(6, 1, 6, new Block(BlockType.Leaves));
+            //BlockStorage.SetBlockAt(5, 1, 5, new Block(BlockType.Gold));
+            //BlockStorage.SetBlockAt(4, 1, 4, new Block(BlockType.Gravel));
+            //BlockStorage.SetBlockAt(4, 1, 6, new Block(BlockType.Gravel));
 
             if (grassLevel + trunkHeight > chunk.HighestSolidBlockOffset)
                 chunk.HighestSolidBlockOffset = 127;
