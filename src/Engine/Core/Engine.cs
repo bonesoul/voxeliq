@@ -15,6 +15,7 @@ using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Console;
 using VoxeliqEngine.Debugging.Console.Commands;
+using VoxeliqEngine.Debugging.Console.NextGen;
 using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;

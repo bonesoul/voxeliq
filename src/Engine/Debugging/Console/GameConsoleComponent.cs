@@ -35,7 +35,6 @@ namespace VoxeliqEngine.Debugging.Console
             this.console = console;
             EventInput.Initialize(game.Window);
             this.spriteBatch = spriteBatch;
-            AddPresetCommands();
             inputProcesser = new InputProcessor(new CommandProcesser());
             inputProcesser.Open += (s, e) => renderer.Open();
             inputProcesser.Close += (s, e) => renderer.Close();
@@ -70,40 +69,6 @@ namespace VoxeliqEngine.Debugging.Console
         public void WriteLine(string text)
         {
             inputProcesser.AddToOutput(text);
-        }
-
-        void AddPresetCommands()
-        {
-            //var inbuiltCommands = new[] {new Command("exit", a =>
-            //                                     {
-            //                                         Game.Exit();
-            //                                         return "Existing game";
-            //                                     }, "Forcefully exist the game"),
-            //                                     new Command("help", a =>
-            //                                     {
-            //                                         if (a.Length >= 1)
-            //                                         {
-            //                                             var command = GameConsoleOptions.Commands.Where(c => c.Name == a[0]).FirstOrDefault();
-            //                                             if (command != null)
-            //                                             {
-            //                                                 return String.Format("{0}: {1}\n", command.Name, command.Description);
-            //                                             }
-            //                                             return "ERROR: Invalid command '" + a[0] + "'";
-            //                                         }
-            //                                         var help = new StringBuilder();
-            //                                         GameConsoleOptions.Commands.Sort();
-            //                                         foreach (var command in GameConsoleOptions.Commands)
-            //                                         {
-            //                                             help.Append(String.Format("{0}: {1}\n", command.Name, command.Description));
-            //                                         }
-            //                                         return help.ToString();
-            //                                     }, "Show all commands and their description"), 
-            //                                     new Command("clear", a =>
-            //                                                         {
-            //                                                             inputProcesser.Out.Clear();
-            //                                                             return "";
-            //                                                         }, "Clear the console")};
-            //GameConsoleOptions.Commands.AddRange(inbuiltCommands);
         }
     }
 }

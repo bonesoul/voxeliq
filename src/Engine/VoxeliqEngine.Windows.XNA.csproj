@@ -113,6 +113,10 @@
     <Compile Include="Debugging\Console\KeyboardCapture\CharacterEventArgs.cs" />
     <Compile Include="Debugging\Console\KeyboardCapture\EventInput.cs" />
     <Compile Include="Debugging\Console\KeyboardCapture\KeyEventArgs.cs" />
+    <Compile Include="Debugging\Console\NextGen\CommandAttribute.cs" />
+    <Compile Include="Debugging\Console\NextGen\CommandGroup.cs" />
+    <Compile Include="Debugging\Console\NextGen\CommandManager.cs" />
+    <Compile Include="Debugging\Console\NextGen\TestCommands.cs" />
     <Compile Include="Debugging\Console\OutputLine.cs" />
     <Compile Include="Debugging\Console\Renderer.cs" />
     <Compile Include="Debugging\Ingame\BoundingBoxRenderer.cs" />

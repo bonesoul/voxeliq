@@ -30,7 +30,7 @@ namespace VoxeliqEngine.Debugging.Console.Commands
         public string Execute(string[] arguments)
         {
             if (arguments.Length == 0)
-                return "Missing argument rasterizer mode.";
+                return "Invalid arguments. Type 'help rasterizer' to get help.";
             else if (arguments[0]=="wireframed")
                 Rasterizer.Instance.ActivateWireframedMode();
             else if(arguments[0]=="normal")

@@ -9,6 +9,7 @@
 
 using System;
 using System.Linq;
+using VoxeliqEngine.Debugging.Console.NextGen;
 
 namespace VoxeliqEngine.Debugging.Console
 {
@@ -16,6 +17,9 @@ namespace VoxeliqEngine.Debugging.Console
     {
         public string Process(string buffer)
         {
+            var output = CommandManager.Parse(buffer);
+            return output;
+
             string commandName = GetCommandName(buffer);
             IConsoleCommand command = GameConsoleOptions.Commands.Where(c => c.Name == commandName).FirstOrDefault();
             var arguments = GetArguments(buffer);
