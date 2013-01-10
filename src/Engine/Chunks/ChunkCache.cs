@@ -120,7 +120,7 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// The terrain generator.
         /// </summary>
-        protected TerrainGenerator Generator { get; set; }
+        public TerrainGenerator Generator { get; set; }
 
         /// <summary>
         /// The chunk vertex builder.
@@ -210,30 +210,33 @@ namespace VoxeliqEngine.Chunks
 
         public override void Update(GameTime gameTime)
         {
+            this.UpdateBoundingBoxes();
+
+            if (this.CacheThreadStarted) 
+                return;
+
+            var cacheThread = new Thread(CacheThread) {IsBackground = true};
+            cacheThread.Start();
+
+            this.CacheThreadStarted = true;
+        }
+
+        protected void UpdateBoundingBoxes()
+        {
             this.ViewRangeBoundingBox = new BoundingBox(
-                new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (ViewRange*Chunk.LenghtInBlocks)),
-                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1)*Chunk.WidthInBlocks),
-                            Chunk.HeightInBlocks,
-                            this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1)*Chunk.LenghtInBlocks))
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1)*Chunk.WidthInBlocks),
+                            Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1)*Chunk.LenghtInBlocks))
                 );
 
             this.CacheRangeBoundingBox = new BoundingBox(
-                new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (CacheRange*Chunk.LenghtInBlocks)),
-                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
                             Chunk.HeightInBlocks,
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
-
-                if (!this.CacheThreadStarted)
-                {
-                    var cacheThread = new Thread(CacheThread) {IsBackground = true};
-                    cacheThread.Start();
-
-                    this.CacheThreadStarted = true;
-                }
-
         }
 
         private void CacheThread()

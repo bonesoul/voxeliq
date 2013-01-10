@@ -67,9 +67,9 @@ namespace EngineTests.Engine
             var expectedCacheLenghtInBlocks = (config.CacheConfiguration.CacheRange * 2 + 1) *
                                               config.ChunkConfiguration.LenghtInBlocks;
 
-            Assert.AreEqual(config.CacheConfiguration.CacheWidthInBlocks, expectedCacheWidthInBlocks);
-            Assert.AreEqual(config.CacheConfiguration.CacheHeightInBlocks, expectedCacheHeightInBlocks);
-            Assert.AreEqual(config.CacheConfiguration.CacheLenghtInBlocks, expectedCacheLenghtInBlocks);
+            Assert.AreEqual(config.CacheConfiguration.CacheRangeWidthInBlocks, expectedCacheWidthInBlocks);
+            Assert.AreEqual(config.CacheConfiguration.CacheRangeHeightInBlocks, expectedCacheHeightInBlocks);
+            Assert.AreEqual(config.CacheConfiguration.CacheRangeLenghtInBlocks, expectedCacheLenghtInBlocks);
 
             // if by default, cache-extra-chunks option is set to true, make sure that default cache-range > default view-range.
             if (config.CacheConfiguration.CacheExtraChunks)

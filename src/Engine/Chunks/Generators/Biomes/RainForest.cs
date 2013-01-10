@@ -6,15 +6,18 @@
  */
 
 using System;
+using System.Diagnostics;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Chunks.Generators.Terrain;
+using VoxeliqEngine.Chunks.Populators;
+using VoxeliqEngine.Common.Noise;
 
 namespace VoxeliqEngine.Chunks.Generators.Biomes
 {
     /// <summary>
     /// Rain forest generator.
     /// </summary>
-    public sealed class RainForest : BiomeGenerator
+    public class RainForest : BiomeGenerator
     {
         private readonly Random _treePlanter = new Random(TerrainGenerator.DefaultSeed);
 
@@ -25,43 +28,17 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
             if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
                 chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
 
-            bool plantTree = _treePlanter.Next(1000) == 1;
-
-            //if (plantTree)
-                //this.PlantTree(chunk, groundLevel + 1, groundOffset + 1, worldPositionX, worldPositionZ);
+            //var test = GetRockHeight(worldPositionX, worldPositionZ);
+            //if (Math.Abs(test - groundLevel) < 1)
+            //{
+            //    TreePopulator.PopulateTree(chunk.WorldPosition.X + 8, chunk.WorldPosition.Z + 8, 1);
+            //    chunk.HighestSolidBlockOffset += 11;
+            //}
         }
 
-        private void PlantTree(Chunk chunk, int grassLevel, int grassOffset, int worldPositionX, int worldPositionZ)
+        protected virtual double GetRockHeight(int blockX, int blockZ)
         {
-            // based on: http://techcraft.codeplex.com/SourceControl/changeset/view/5c1888588e5d#TechCraft%2fNewTake%2fNewTake%2fmodel%2fterrain%2fSimpleTerrain.cs
-
-            var trunkHeight = (byte) (10 + (byte) _treePlanter.Next(15));
-
-            var offset2 = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
-
-            // trunk
-            for (byte y = 1; y <= trunkHeight; y++)
-            {
-                BlockStorage.Blocks[grassOffset + y].Type = BlockType.Tree;
-            }
-
-            var foliage = 3;
-            Console.WriteLine("pos:{0}-{1}|foliage:{2}-{3}", worldPositionX, worldPositionZ, worldPositionX - foliage, worldPositionX + foliage);
-            for (int x = -foliage; x <=  foliage; x++)
-            {                
-                for (int z = -foliage; z <= foliage; z++)
-                {
-                    var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX + x, worldPositionZ + z);
-                    for (int y = grassLevel; y < grassLevel + trunkHeight; y++ )
-                    {
-                        BlockStorage.Blocks[offset + y].Type = BlockType.Leaves;
-                    }
-                }
-            }
-
-
-            if (grassLevel + trunkHeight > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte) (grassLevel + trunkHeight + 1);
+            return SimplexNoise.noise(blockX * 0.02f, blockZ * 0.02f) * 100;
         }
     }
 }
