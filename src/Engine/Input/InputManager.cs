@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
@@ -55,7 +56,7 @@ namespace VoxeliqEngine.Input
         private IFogger _fogger;
         private ISkyService _skyService;
         private IChunkCache _chunkCache;
-        private IBloomService _bloomService;
+        private IBloomService _bloomService;        
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -139,6 +140,9 @@ namespace VoxeliqEngine.Input
         /// <param name="gameTime"></param>
         private void ProcessKeyboard(GameTime gameTime)
         {
+            if (Engine.Instance.Console.Opened)
+                return;
+
             var currentState = Keyboard.GetState();
 
             if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
@@ -189,11 +193,8 @@ namespace VoxeliqEngine.Input
                 this._graphicsManager.ToggleVerticalSync();
             }
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F12) && currentState.IsKeyDown(Keys.F12)) // toggles rasterizer.
-                Rasterizer.Instance.ToggleRasterMode();
-
             this._previousKeyboardState = currentState;
-        }
+        }      
 
         /// <summary>
         /// Centers cursor on screen.

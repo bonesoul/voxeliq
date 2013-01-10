@@ -35,12 +35,14 @@ namespace VoxeliqEngine.Graphics
             this.Wireframed = false;
         }
 
-        /// <summary>
-        /// Toggle's rasterizer's mode.
-        /// </summary>
-        public void ToggleRasterMode()
+        public void ActivateWireframedMode()
         {
-            this.Wireframed = !this.Wireframed;
+            this.Wireframed = true;
+        }
+
+        public void ActivateNormalMode()
+        {
+            this.Wireframed = false;
         }
 
         /// <summary>
