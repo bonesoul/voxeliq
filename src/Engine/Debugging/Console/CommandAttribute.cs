@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace VoxeliqEngine.Debugging.Console.NextGen
+namespace VoxeliqEngine.Debugging.Console
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class CommandGroupAttribute : Attribute

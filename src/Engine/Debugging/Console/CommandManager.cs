@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 
-namespace VoxeliqEngine.Debugging.Console.NextGen
+namespace VoxeliqEngine.Debugging.Console
 {
     public static class CommandManager
     {
@@ -69,7 +69,7 @@ namespace VoxeliqEngine.Debugging.Console.NextGen
             }
 
             if (found == false)
-                output = string.Format("Unknown command: {0} {1}", command, parameters);
+                output = "ERROR: command not found.";
 
             if (output != string.Empty)
                 Logger.Info(output);
@@ -77,38 +77,10 @@ namespace VoxeliqEngine.Debugging.Console.NextGen
             return output;
         }
 
-
-        /// <summary>
-        /// Tries to parse given line as a server command.
-        /// </summary>
-        /// <param name="line">The line to be parsed.</param>
-        /// <param name="invokerClient">The invoker client if any.</param>
-        /// <returns><see cref="bool"/></returns>
-        public static bool TryParse(string line)
+        public static CommandGroup GetMatchingCommand(string command)
         {
-            string output = string.Empty;
-            string command;
-            string parameters;
-            var found = false;
-
-            if (!ExtractCommandAndParameters(line, out command, out parameters))
-                return false;
-
-            foreach (var pair in CommandGroups)
-            {
-                if (pair.Key.Name != command) continue;
-                output = pair.Value.Handle(parameters);
-                found = true;
-                break;
-            }
-
-            if (found == false)
-                output = string.Format("Unknown command: {0} {1}", command, parameters);
-
-            if (output == string.Empty)
-                return true;
-
-            return true;
+            var matchingCommands = CommandGroups.Values.Where(c => c.Attributes.Name.StartsWith(command));
+            return matchingCommands.FirstOrDefault();
         }
 
         public static bool ExtractCommandAndParameters(string line, out string command, out string parameters)
@@ -178,6 +150,28 @@ namespace VoxeliqEngine.Debugging.Console.NextGen
                     output = string.Format("Unknown command: {0} {1}", group, command);
 
                 return output;
+            }
+        }
+
+        [CommandGroup("clear", "Clears the console output.")]
+        public class ClearCommand : CommandGroup
+        {
+            [DefaultCommand]
+            public string Default(string[] @params)
+            {
+                return "not_implemented!";
+                // processor.Out.Clear();
+            }
+        }
+
+        [CommandGroup("exit", "Forcefully exists the game.")]
+        public class ExitCommand : CommandGroup
+        {
+            [DefaultCommand]
+            public string Default(string[] @params)
+            {
+                Engine.Instance.Game.Exit();
+                return "Exiting the game..";
             }
         }
     }

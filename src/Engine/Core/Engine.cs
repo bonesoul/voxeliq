@@ -14,8 +14,6 @@ using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Console;
-using VoxeliqEngine.Debugging.Console.Commands;
-using VoxeliqEngine.Debugging.Console.NextGen;
 using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
@@ -107,12 +105,7 @@ namespace VoxeliqEngine.Core
 #endif
 
             var spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
-            var commands = new IConsoleCommand[]
-                               {
-                                   new RenderCommand(),
-                                   new RasterizerCommand(), 
-                               };
-            Console = new GameConsole(this.Game, spriteBatch, commands, new GameConsoleOptions
+            Console = new GameConsole(this.Game, spriteBatch,  new GameConsoleOptions
                                                              {
                                                                  Font = Game.Content.Load<SpriteFont>(@"Fonts/Verdana"),
                                                                  FontColor = Color.LawnGreen,

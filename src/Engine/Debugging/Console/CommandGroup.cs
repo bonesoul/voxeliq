@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqEngine.Debugging.Console.NextGen
+namespace VoxeliqEngine.Debugging.Console
 {
     public class CommandGroup
     {

@@ -6,6 +6,7 @@
  */
 
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Debugging.Console;
 
 namespace VoxeliqEngine.Graphics
 {
@@ -45,6 +46,11 @@ namespace VoxeliqEngine.Graphics
             this.Wireframed = false;
         }
 
+        public void ToggleMode()
+        {
+            this.Wireframed = !this. Wireframed;
+        }
+
         /// <summary>
         /// Wire-framed rasterizer.
         /// </summary>
@@ -74,6 +80,37 @@ namespace VoxeliqEngine.Graphics
         public static Rasterizer Instance
         {
             get { return _instance; }
+        }
+    }
+
+    [CommandGroup("rasterizer", "Sets rasterizer mode.\nusage: rasterizer [wireframed|normal|toggle]")]
+    public class RasterizerCommands : CommandGroup
+    {
+        [DefaultCommand]
+        public string Default(string[] @params)
+        {
+            return "Invalid argument.\nusage: rasterizer [wireframed|normal|toggle]";
+        }
+        
+        [Command("wireframed","Sets rasterizer mode to wireframed.")]
+        public string Wireframed(string[] @params)
+        {
+            Rasterizer.Instance.ActivateWireframedMode();
+            return "Rasterizer mode set to wireframed.";
+        }
+
+        [Command("normal", "Sets rasterizer mode to normal.")]
+        public string Normal(string[] @params)
+        {
+            Rasterizer.Instance.ActivateNormalMode();
+            return "Rasterizer mode set to normal mode.";
+        }
+
+        [Command("toggle", "Toggles rasterizer mode.")]
+        public string Toggle(string[] @params)
+        {
+            Rasterizer.Instance.ToggleMode();
+            return Rasterizer.Instance.Wireframed ? "Rasterizer mode set to wireframed." : "Rasterizer mode set to normal.";
         }
     }
 }

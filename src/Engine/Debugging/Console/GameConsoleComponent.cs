@@ -10,7 +10,6 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Debugging.Console.Commands;
 using VoxeliqEngine.Debugging.Console.KeyboardCapture;
 
 namespace VoxeliqEngine.Debugging.Console
@@ -40,8 +39,6 @@ namespace VoxeliqEngine.Debugging.Console
             inputProcesser.Close += (s, e) => renderer.Close();
 
             renderer = new Renderer(game, spriteBatch, inputProcesser);
-            var inbuiltCommands = new IConsoleCommand[] {new ClearScreenCommand(inputProcesser),new ExitCommand(game),new HelpCommand()};
-            GameConsoleOptions.Commands.AddRange(inbuiltCommands);
         }
 
         public override void Draw(GameTime gameTime)

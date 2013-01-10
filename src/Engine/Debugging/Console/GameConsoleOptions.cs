@@ -43,7 +43,6 @@ namespace VoxeliqEngine.Debugging.Console
         internal Texture2D RoundedCorner { get; set; }
 
         internal static GameConsoleOptions Options { get; set; }
-        internal static List<IConsoleCommand> Commands { get; set; }
 
         public GameConsoleOptions()
         {

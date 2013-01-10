@@ -153,21 +153,14 @@ namespace VoxeliqEngine.Debugging.Console
         {
             var lastSpacePosition = Buffer.Output.LastIndexOf(' ');
             var textToMatch = lastSpacePosition < 0 ? Buffer.Output : Buffer.Output.Substring(lastSpacePosition + 1, Buffer.Output.Length - lastSpacePosition - 1);
-            var match = GetMatchingCommand(textToMatch);
+            var match = CommandManager.GetMatchingCommand(textToMatch);
             if (match == null)
             {
                 return;
             }
-            var restOfTheCommand = match.Name.Substring(textToMatch.Length);
+            var restOfTheCommand = match.Attributes.Name.Substring(textToMatch.Length);
             Buffer.Output += restOfTheCommand + " ";
         }
-
-        static IConsoleCommand GetMatchingCommand(string command)
-        {
-            var matchingCommands = GameConsoleOptions.Commands.Where(c => c.Name != null && c.Name.StartsWith(command));
-            return matchingCommands.FirstOrDefault();
-        }
-
 
         static bool IsPrintable(char letter)
         {
