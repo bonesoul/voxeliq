@@ -69,9 +69,9 @@ namespace VoxeliqGame
                 },
                 CacheConfiguration =
                 {
-                    CacheExtraChunks = false,
-                    ViewRange = 1,
-                    CacheRange = 1,
+                    CacheExtraChunks = true,
+                    ViewRange = 8,
+                    CacheRange = 12,
                 }
             };
 

@@ -81,6 +81,7 @@
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Chunks\Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\ValleyTerrain.cs" />
+    <Compile Include="Chunks\Populators\TreePopulator.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
     <Compile Include="Common\Extensions\ArrayExtensions.cs" />
