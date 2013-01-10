@@ -19,7 +19,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         /// <summary>
         /// Sets or gets assigned biome generator.
         /// </summary>
-        protected BiomeGenerator BiomeGenerator { get; private set; }       
+        public BiomeGenerator BiomeGenerator { get; private set; }
 
         /// <summary>
         /// Creates a new biomed terrain instance with given biome generator.
@@ -78,9 +78,9 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         {
             blockX += this.Seed;
 
-            float octave1 = SimplexNoise.noise((blockX + 100) * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
-            float octave2 = SimplexNoise.noise((blockX + 100) * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
-            float octave3 = SimplexNoise.noise((blockX + 100) * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
+            float octave1 = SimplexNoise.noise(blockX * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
+            float octave2 = SimplexNoise.noise(blockX * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
+            float octave3 = SimplexNoise.noise(blockX * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
             return (int)(octaveSum * (Chunk.HeightInBlocks / 8)) + (int)(rockHeight);
@@ -90,15 +90,15 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         {
             blockX += this.Seed;
 
-            int minimumGroundheight = Chunk.HeightInBlocks/2;
-            int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.4f);
+            int minimumGroundheight = Chunk.HeightInBlocks / 2;
+            int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
 
-            float octave1 = SimplexNoise.noise(blockX * 0.0001f, this.Seed, blockZ * 0.0001f) * 0.5f;
-            float octave2 = SimplexNoise.noise(blockX * 0.0005f, this.Seed, blockZ * 0.0005f) * 0.35f;
+            float octave1 = SimplexNoise.noise(blockX * 0.004f, this.Seed, blockZ * 0.004f) * 0.5f;
+            float octave2 = SimplexNoise.noise(blockX * 0.003f, this.Seed, blockZ * 0.003f) * 0.25f;
             float octave3 = SimplexNoise.noise(blockX * 0.02f, this.Seed, blockZ * 0.02f) * 0.15f;
             float lowerGroundHeight = octave1 + octave2 + octave3;
 
-            lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;
+            lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
 
             return lowerGroundHeight;
         }

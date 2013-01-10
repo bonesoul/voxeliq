@@ -172,9 +172,16 @@ namespace VoxeliqEngine.Core
 
             #region automatically calculated parameters
 
-            public int CacheWidthInBlocks { get; private set; }
-            public int CacheHeightInBlocks { get; private set; }
-            public int CacheLenghtInBlocks { get; private set; }
+            public int CacheRangeWidthInBlocks { get; private set; }
+            public int CacheRangeHeightInBlocks { get; private set; }
+            public int CacheRangeLenghtInBlocks { get; private set; }
+            public int ViewRangeWidthInBlocks { get; private set; }
+            public int ViewRangeHeightInBlocks { get; private set; }
+            public int ViewRangeLenghtInBlocks { get; private set; }
+            public int ChunksInCacheRange { get; private set; }
+            public int ChunksInViewRange { get; private set; }
+            public int CacheRangeVolume { get; private set; }
+            public int ViewRangeVolume { get; private set; }
 
             #endregion
 
@@ -193,9 +200,18 @@ namespace VoxeliqEngine.Core
             /// </summary>
             private void Setup()
             {
-                this.CacheWidthInBlocks = (this.CacheRange*2 + 1)* _instance.ChunkConfiguration.WidthInBlocks;
-                this.CacheHeightInBlocks = EngineConfiguration._instance.ChunkConfiguration.HeightInBlocks;
-                this.CacheLenghtInBlocks = (this.CacheRange * 2 + 1) * _instance.ChunkConfiguration.LenghtInBlocks;
+                this.ChunksInCacheRange = (this.CacheRange * 2 + 1) * (this.CacheRange * 2 + 1);
+                this.ChunksInViewRange = (this.ViewRange * 2 + 1) * (this.ViewRange * 2 + 1);
+
+                this.CacheRangeWidthInBlocks = (this.CacheRange*2 + 1)* _instance.ChunkConfiguration.WidthInBlocks;
+                this.CacheRangeHeightInBlocks = EngineConfiguration._instance.ChunkConfiguration.HeightInBlocks;
+                this.CacheRangeLenghtInBlocks = (this.CacheRange * 2 + 1) * _instance.ChunkConfiguration.LenghtInBlocks;
+                this.CacheRangeVolume = this.CacheRangeWidthInBlocks*this.CacheRangeHeightInBlocks*this.CacheRangeLenghtInBlocks;
+
+                this.ViewRangeWidthInBlocks = (this.ViewRange * 2 + 1) * _instance.ChunkConfiguration.WidthInBlocks;
+                this.ViewRangeHeightInBlocks = EngineConfiguration._instance.ChunkConfiguration.HeightInBlocks;
+                this.ViewRangeLenghtInBlocks = (this.ViewRange * 2 + 1) * _instance.ChunkConfiguration.LenghtInBlocks;
+                this.ViewRangeVolume = this.ViewRangeWidthInBlocks * this.ViewRangeHeightInBlocks * this.ViewRangeLenghtInBlocks;
             }
 
             /// <summary>
