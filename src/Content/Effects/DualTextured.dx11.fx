@@ -1,3 +1,6 @@
+// note: in order to get monogame-dx working, SV_POSITION has to be used instead of POSITION0
+// which discussed here: http://monogame.codeplex.com/discussions/402753
+
 float4x4 World; // world matrix.
 float4x4 View; // the camera-view matrix.
 float4x4 Projection; // the camera-projection.
@@ -34,7 +37,7 @@ sampler CrackTextureAtlasSampler = sampler_state
 
 struct VertexShaderInput
 {
-    float4 Position : POSITION0;	
+    float4 Position : SV_POSITION;	
 	float2 blockTextureCoord : TEXCOORD0;  // block texture uv-mapping coordinates.
 	float2 crackTextureCoord : TEXCOORD1;  // crack texture uv-mapping coordinates.
 	float ambientOcclusionWeight : COLOR0; // ambient occlusion weight.
@@ -42,7 +45,7 @@ struct VertexShaderInput
 
 struct VertexShaderOutput
 {
-    float4 Position : POSITION0;
+    float4 Position : SV_POSITION;
     float2 blockTextureCoord : TEXCOORD0;
 	float2 crackTextureCoord : TEXCOORD1;
     float3 CameraView : TEXCOORD2;
