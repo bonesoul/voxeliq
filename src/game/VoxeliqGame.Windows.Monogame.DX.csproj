@@ -145,8 +145,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)Content
-xcopy $(TargetDir)..\xna\Content $(TargetDir)Content /Y /E /D
-xcopy $(TargetDir)..\xna\Content\Effects $(TargetDir)Content\Effects /Y /E /D
+xcopy $(TargetDir)..\..\xna\Content $(TargetDir)Content /Y /E /D
 CD /D $(SolutionDir)
 Call build-effects.bat</PostBuildEvent>
   </PropertyGroup>

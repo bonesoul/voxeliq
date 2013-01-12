@@ -39,7 +39,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\windows\monogame\</OutputPath>
+    <OutputPath>..\..\bin\debug\windows\monogame\opengl\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -138,17 +138,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.csproj">
+    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.GL.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>VoxeliqEngine.Windows.MonoGame</Name>
+      <Name>VoxeliqEngine.Windows.MonoGame.GL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)Content
-xcopy $(TargetDir)..\xna\Content $(TargetDir)Content /Y /E /D
-xcopy $(TargetDir)..\xna\Content\Effects $(TargetDir)Content\Effects /Y /E /D
+xcopy $(TargetDir)..\..\xna\Content $(TargetDir)Content /Y /E /D
 CD /D $(SolutionDir)
 Call build-effects.bat</PostBuildEvent>
   </PropertyGroup>

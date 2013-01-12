@@ -370,11 +370,7 @@ namespace VoxeliqEngine.Chunks
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
 
             // texture parameters
-#if XNA
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
-#elif MONOGAME
-            _blockEffect.Parameters["BlockTextureAtlasSampler"].SetValue(_blockTextureAtlas);
-#endif
 
             // atmospheric settings
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);

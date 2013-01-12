@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "..\src\Content\Content.contentproj", "{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqEngine.Windows.MonoGame.DX", "..\src\Engine\VoxeliqEngine.Windows.MonoGame.DX.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqEngine.Windows.MonoGame.GL", "..\src\Engine\VoxeliqEngine.Windows.MonoGame.GL.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqGame.Windows.Monogame.DX", "..\src\game\VoxeliqGame.Windows.Monogame.DX.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoxeliqGame.Windows.MonoGame.GL", "..\src\game\VoxeliqGame.Windows.MonoGame.GL.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

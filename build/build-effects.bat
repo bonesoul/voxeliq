@@ -33,3 +33,4 @@ copy ..\src\Content\Effects\PostProcessing\Bloom\BloomExtract.dx11.mgfxo ..\bin\
 copy ..\src\Content\Effects\PostProcessing\Bloom\GaussianBlur.dx9.mgfxo ..\bin\debug\windows\monogame\opengl\Content\Effects\PostProcessing\Bloom\GaussianBlur.mgfxo
 copy ..\src\Content\Effects\PostProcessing\Bloom\GaussianBlur.dx11.mgfxo ..\bin\debug\windows\monogame\directx\Content\Effects\PostProcessing\Bloom\GaussianBlur.mgfxo
 
+exit 0
