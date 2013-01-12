@@ -105,8 +105,8 @@
     <Compile Include="Debugging\Console\KeyboardCapture\CharacterEventArgs.cs" />
     <Compile Include="Debugging\Console\KeyboardCapture\EventInput.cs" />
     <Compile Include="Debugging\Console\KeyboardCapture\KeyEventArgs.cs" />
-    <Compile Include="Debugging\Console\CommandAttribute.cs" />
-    <Compile Include="Debugging\Console\CommandGroup.cs" />
+    <Compile Include="Debugging\Console\CommandAttributes.cs" />
+    <Compile Include="Debugging\Console\Command.cs" />
     <Compile Include="Debugging\Console\CommandManager.cs" />
     <Compile Include="Debugging\Console\OutputLine.cs" />
     <Compile Include="Debugging\Console\Renderer.cs" />

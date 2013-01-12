@@ -10,7 +10,7 @@ namespace VoxeliqEngine.Debugging.Console
     public static class CommandManager
     {
         private static readonly Logger Logger = LogManager.CreateLogger();
-        private static readonly Dictionary<CommandGroupAttribute, CommandGroup> CommandGroups = new Dictionary<CommandGroupAttribute, CommandGroup>();
+        private static readonly Dictionary<CommandAttribute, Command> CommandGroups = new Dictionary<CommandAttribute, Command>();
 
         static CommandManager()
         {
@@ -21,16 +21,16 @@ namespace VoxeliqEngine.Debugging.Console
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {
-                if (!type.IsSubclassOf(typeof(CommandGroup))) continue;
+                if (!type.IsSubclassOf(typeof(Command))) continue;
 
-                var attributes = (CommandGroupAttribute[])type.GetCustomAttributes(typeof(CommandGroupAttribute), true);
+                var attributes = (CommandAttribute[])type.GetCustomAttributes(typeof(CommandAttribute), true);
                 if (attributes.Length == 0) continue;
 
                 var groupAttribute = attributes[0];
                 if (CommandGroups.ContainsKey(groupAttribute))
                     Logger.Warn("There exists an already registered command group named '{0}'.", groupAttribute.Name);
 
-                var commandGroup = (CommandGroup)Activator.CreateInstance(type);
+                var commandGroup = (Command)Activator.CreateInstance(type);
                 commandGroup.Register(groupAttribute);
                 CommandGroups.Add(groupAttribute, commandGroup);
             }
@@ -77,7 +77,7 @@ namespace VoxeliqEngine.Debugging.Console
             return output;
         }
 
-        public static CommandGroup GetMatchingCommand(string command)
+        public static Command GetMatchingCommand(string command)
         {
             var matchingCommands = CommandGroups.Values.Where(c => c.Attributes.Name.StartsWith(command));
             return matchingCommands.FirstOrDefault();
@@ -99,8 +99,8 @@ namespace VoxeliqEngine.Debugging.Console
             return true;
         }
 
-        [CommandGroup("commands", "Lists available commands for your user-level.")]
-        public class CommandsCommandGroup : CommandGroup
+        [Command("commands", "Lists available commands for your user-level.")]
+        public class CommandsCommandGroup : Command
         {
             public override string Fallback(string[] parameters = null)
             {
@@ -115,8 +115,8 @@ namespace VoxeliqEngine.Debugging.Console
             }
         }
 
-        [CommandGroup("help", "Oh no, we forgot to add a help to text to help command itself!")]
-        public class HelpCommandGroup : CommandGroup
+        [Command("help", "Oh no, we forgot to add a help to text to help command itself!")]
+        public class HelpCommandGroup : Command
         {
             public override string Fallback(string[] parameters = null)
             {
@@ -153,8 +153,8 @@ namespace VoxeliqEngine.Debugging.Console
             }
         }
 
-        [CommandGroup("clear", "Clears the console output.")]
-        public class ClearCommand : CommandGroup
+        [Command("clear", "Clears the console output.")]
+        public class ClearCommand : Command
         {
             [DefaultCommand]
             public string Default(string[] @params)
@@ -164,8 +164,8 @@ namespace VoxeliqEngine.Debugging.Console
             }
         }
 
-        [CommandGroup("exit", "Forcefully exists the game.")]
-        public class ExitCommand : CommandGroup
+        [Command("exit", "Forcefully exists the game.")]
+        public class ExitCommand : Command
         {
             [DefaultCommand]
             public string Default(string[] @params)

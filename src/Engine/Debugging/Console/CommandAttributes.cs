@@ -3,7 +3,7 @@
 namespace VoxeliqEngine.Debugging.Console
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class CommandGroupAttribute : Attribute
+    public class CommandAttribute : Attribute
     {
         /// <summary>
         /// Command group's name.
@@ -15,7 +15,7 @@ namespace VoxeliqEngine.Debugging.Console
         /// </summary>
         public string Help { get; private set; }
 
-        public CommandGroupAttribute(string name, string help)
+        public CommandAttribute(string name, string help)
         {
             this.Name = name.ToLower();
             this.Help = help;
@@ -23,7 +23,7 @@ namespace VoxeliqEngine.Debugging.Console
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class CommandAttribute : Attribute
+    public class SubcommandAttribute : Attribute
     {
         /// <summary>
         /// Command's name.
@@ -35,7 +35,7 @@ namespace VoxeliqEngine.Debugging.Console
         /// </summary>
         public string Help { get; private set; }
 
-        public CommandAttribute(string command, string help)
+        public SubcommandAttribute(string command, string help)
         {
             this.Name = command.ToLower();
             this.Help = help;
@@ -43,7 +43,7 @@ namespace VoxeliqEngine.Debugging.Console
     }
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class DefaultCommand : CommandAttribute
+    public class DefaultCommand : SubcommandAttribute
     {
         public DefaultCommand()
             : base("", "")

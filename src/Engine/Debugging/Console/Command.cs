@@ -5,16 +5,16 @@ using VoxeliqEngine.Common.Logging;
 
 namespace VoxeliqEngine.Debugging.Console
 {
-    public class CommandGroup
+    public class Command
     {
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        public CommandGroupAttribute Attributes { get; private set; }
+        public CommandAttribute Attributes { get; private set; }
 
-        private readonly Dictionary<CommandAttribute, MethodInfo> _commands =
-            new Dictionary<CommandAttribute, MethodInfo>();
+        private readonly Dictionary<SubcommandAttribute, MethodInfo> _commands =
+            new Dictionary<SubcommandAttribute, MethodInfo>();
 
-        public void Register(CommandGroupAttribute attributes)
+        public void Register(CommandAttribute attributes)
         {
             this.Attributes = attributes;
             this.RegisterDefaultCommand();
@@ -25,10 +25,10 @@ namespace VoxeliqEngine.Debugging.Console
         {
             foreach (var method in this.GetType().GetMethods())
             {
-                object[] attributes = method.GetCustomAttributes(typeof(CommandAttribute), true);
+                object[] attributes = method.GetCustomAttributes(typeof(SubcommandAttribute), true);
                 if (attributes.Length == 0) continue;
 
-                var attribute = (CommandAttribute)attributes[0];
+                var attribute = (SubcommandAttribute)attributes[0];
                 if (attribute is DefaultCommand) continue;
 
                 if (!this._commands.ContainsKey(attribute))
@@ -57,7 +57,7 @@ namespace VoxeliqEngine.Debugging.Console
         public virtual string Handle(string parameters)
         {
             string[] @params = null;
-            CommandAttribute target = null;
+            SubcommandAttribute target = null;
 
             if (parameters == string.Empty)
                 target = this.GetDefaultSubcommand();
@@ -100,12 +100,12 @@ namespace VoxeliqEngine.Debugging.Console
             return output.Substring(0, output.Length - 2) + ".";
         }
 
-        protected CommandAttribute GetDefaultSubcommand()
+        protected SubcommandAttribute GetDefaultSubcommand()
         {
             return this._commands.Keys.First();
         }
 
-        protected CommandAttribute GetSubcommand(string name)
+        protected SubcommandAttribute GetSubcommand(string name)
         {
             return this._commands.Keys.FirstOrDefault(command => command.Name == name);
         }
