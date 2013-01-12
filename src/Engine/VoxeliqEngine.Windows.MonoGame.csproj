@@ -124,8 +124,8 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\EngineConfiguration.cs" />
     <Compile Include="Core\Settings.cs" />
-    <Compile Include="Debugging\Console\CommandAttribute.cs" />
-    <Compile Include="Debugging\Console\CommandGroup.cs" />
+    <Compile Include="Debugging\Console\Command.cs" />
+    <Compile Include="Debugging\Console\CommandAttributes.cs" />
     <Compile Include="Debugging\Console\CommandHistory.cs" />
     <Compile Include="Debugging\Console\CommandManager.cs" />
     <Compile Include="Debugging\Console\CommandProcesser.cs" />
