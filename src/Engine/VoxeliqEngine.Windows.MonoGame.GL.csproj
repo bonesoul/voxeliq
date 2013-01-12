@@ -133,9 +133,7 @@
     <Compile Include="Debugging\Console\GameConsoleComponent.cs" />
     <Compile Include="Debugging\Console\GameConsoleOptions.cs" />
     <Compile Include="Debugging\Console\InputProcessor.cs" />
-    <Compile Include="Debugging\Console\KeyboardCapture\CharacterEventArgs.cs" />
-    <Compile Include="Debugging\Console\KeyboardCapture\EventInput.cs" />
-    <Compile Include="Debugging\Console\KeyboardCapture\KeyEventArgs.cs" />
+    <Compile Include="Debugging\Console\KeyEventArgs.cs" />
     <Compile Include="Debugging\Console\OutputLine.cs" />
     <Compile Include="Debugging\Console\Renderer.cs" />
     <Compile Include="Debugging\Graphs\DebugGraph.cs" />

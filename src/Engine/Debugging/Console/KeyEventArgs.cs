@@ -10,9 +10,9 @@
 using System;
 using Microsoft.Xna.Framework.Input;
 
-namespace VoxeliqEngine.Debugging.Console.KeyboardCapture
+namespace VoxeliqEngine.Debugging.Console
 {
-    class KeyEventArgs : EventArgs
+    public class KeyEventArgs : EventArgs
     {
         public KeyEventArgs( Keys keyCode )
         {

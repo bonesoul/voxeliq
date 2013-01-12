@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using VoxeliqEngine.Debugging.Console.KeyboardCapture;
+using VoxeliqEngine.Input;
 
 namespace VoxeliqEngine.Debugging.Console
 {
@@ -40,8 +40,7 @@ namespace VoxeliqEngine.Debugging.Console
             CommandHistory = new CommandHistory();
             Out = new List<OutputLine>();
             Buffer = new OutputLine("", OutputLineType.Command);
-            EventInput.CharEntered += EventInput_CharEntered; //Handles the typable characters
-            EventInput.KeyDown += EventInput_KeyDown; //Handles the non-typable characters
+            InputManager.Instance.KeyDown += new InputManager.KeyEventHandler(OnKeyDown);
         }
 
         public void AddToBuffer(string text)
@@ -70,29 +69,6 @@ namespace VoxeliqEngine.Debugging.Console
             }
         }
 
-        void EventInput_KeyDown(object sender, KeyEventArgs e)
-        {
-            //if (Keyboard.GetState().IsKeyDown(Keys.V) && Keyboard.GetState().IsKeyDown(Keys.LeftControl)) // CTRL + V
-            //{
-            //    if (Thread.CurrentThread.GetApartmentState() == ApartmentState.STA) //Thread Apartment must be in Single-Threaded for the Clipboard to work
-            //    {
-            //        AddToBuffer(Clipboard.GetText());
-            //    }
-            //}
-
-            if (e.KeyCode == GameConsoleOptions.Options.ToggleKey)
-            {
-                ToggleConsole();
-                isHandled = true;
-            }
-
-            switch (e.KeyCode)
-            {
-                case Keys.Up: Buffer.Output = CommandHistory.Previous(); break;
-                case Keys.Down: Buffer.Output = CommandHistory.Next(); break;
-            }
-        }
-
         void ToggleConsole()
         {
             isActive = !isActive;
@@ -106,31 +82,68 @@ namespace VoxeliqEngine.Debugging.Console
             }
         }
 
-        void EventInput_CharEntered(object sender, CharacterEventArgs e)
+        void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (isHandled)
+            if (e.KeyCode == GameConsoleOptions.Options.ToggleKey)
             {
-                isHandled = false;
-                return;
+                ToggleConsole();
+                isHandled = true;
             }
-            CommandHistory.Reset();
-            switch ((int)e.Character)
+
+            switch (e.KeyCode)
             {
-                case ENTER: ExecuteBuffer(); break;
-                case BACKSPACE:
+                case Keys.Enter:
+                    ExecuteBuffer();
+                    break;
+                case Keys.Back:
                     if (Buffer.Output.Length > 0)
-                    {
                         Buffer.Output = Buffer.Output.Substring(0, Buffer.Output.Length - 1);
-                    }
                     break;
-                case TAB: AutoComplete(); break;
+                case Keys.Tab:
+                    AutoComplete();
+                    break;
+                case Keys.Up: 
+                    Buffer.Output = CommandHistory.Previous(); 
+                    break;
+                case Keys.Down: Buffer.Output = CommandHistory.Next(); 
+                    break;
                 default:
-                    if (IsPrintable(e.Character))
+                    var @char = TranslateChar(e.KeyCode);
+                    if (IsPrintable(@char))
                     {
-                        Buffer.Output += e.Character;
+                        Buffer.Output += @char;
                     }
                     break;
             }
+        }
+
+        /// <summary>
+        /// Translates alphanumeric XNA key code to character value.
+        /// </summary>
+        /// <param name="sfKey">XNA key code.</param>
+        /// <returns>Translated character.</returns>
+        private static char TranslateChar(global::Microsoft.Xna.Framework.Input.Keys xnaKey)
+        {
+            if (xnaKey >= global::Microsoft.Xna.Framework.Input.Keys.A && xnaKey <= global::Microsoft.Xna.Framework.Input.Keys.Z)
+                if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) || Keyboard.GetState().IsKeyDown(Keys.RightShift))
+                {
+                    return (char)('A' + ((int)xnaKey - (int)global::Microsoft.Xna.Framework.Input.Keys.A));
+                }
+                else
+                {
+                    return (char)('a' + ((int)xnaKey - (int)global::Microsoft.Xna.Framework.Input.Keys.A));
+                }
+
+            if (xnaKey >= global::Microsoft.Xna.Framework.Input.Keys.NumPad0 && xnaKey <= global::Microsoft.Xna.Framework.Input.Keys.NumPad9)
+                return (char)('0' + ((int)xnaKey - (int)global::Microsoft.Xna.Framework.Input.Keys.NumPad0));
+
+            if (xnaKey >= global::Microsoft.Xna.Framework.Input.Keys.D0 && xnaKey <= global::Microsoft.Xna.Framework.Input.Keys.D9)
+                return (char)('0' + ((int)xnaKey - (int)global::Microsoft.Xna.Framework.Input.Keys.D0));
+
+            if (xnaKey == Keys.OemPeriod)
+                return '.';
+
+            return ' ';
         }
 
         void ExecuteBuffer()

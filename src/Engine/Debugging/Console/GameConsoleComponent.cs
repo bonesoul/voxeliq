@@ -10,7 +10,6 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Debugging.Console.KeyboardCapture;
 
 namespace VoxeliqEngine.Debugging.Console
 {
@@ -32,7 +31,6 @@ namespace VoxeliqEngine.Debugging.Console
             : base(game)
         {
             this.console = console;
-            EventInput.Initialize(game.Window);
             this.spriteBatch = spriteBatch;
             inputProcesser = new InputProcessor(new CommandProcesser());
             inputProcesser.Open += (s, e) => renderer.Open();

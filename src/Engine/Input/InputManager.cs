@@ -5,11 +5,13 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Core;
+using VoxeliqEngine.Debugging.Console;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
@@ -68,6 +70,7 @@ namespace VoxeliqEngine.Input
             : base(game)
         {
             this.Game.Services.AddService(typeof (IInputManager), this); // export service.
+            _instance = this;
 
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = true; // center the mouse by default.        
@@ -105,7 +108,11 @@ namespace VoxeliqEngine.Input
         public override void Update(GameTime gameTime)
         {
             this.ProcessMouse();
-            this.ProcessKeyboard(gameTime);
+
+            if (Engine.Instance.Console.Opened)
+                this.ProcessKonsoleKeys(gameTime);
+            else
+                this.ProcessIngameKeys(gameTime);
         }
 
         /// <summary>
@@ -134,19 +141,34 @@ namespace VoxeliqEngine.Input
             this.CenterCursor();
         }
 
+        private void ProcessKonsoleKeys(GameTime gameTime)
+        {
+            var currentState = Keyboard.GetState();
+
+            // console chars.
+            foreach (var @key in Enum.GetValues(typeof (Keys)))
+            {
+                if (_previousKeyboardState.IsKeyUp((Keys) @key) && currentState.IsKeyDown((Keys) @key))
+                    KeyDown(null, new KeyEventArgs((Keys) @key));
+            }
+
+            this._previousKeyboardState = currentState;
+        }
+
+
         /// <summary>
         /// Processes keyboard input by user.
         /// </summary>
         /// <param name="gameTime"></param>
-        private void ProcessKeyboard(GameTime gameTime)
+        private void ProcessIngameKeys(GameTime gameTime)
         {
-            if (Engine.Instance.Console.Opened)
-                return;
-
             var currentState = Keyboard.GetState();
 
             if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
                 this.Game.Exit();
+
+            if (_previousKeyboardState.IsKeyUp(Keys.OemTilde) && currentState.IsKeyDown(Keys.OemTilde)) // tilda
+                KeyDown(null, new KeyEventArgs(Keys.OemTilde));
 
             // movement keys.
             if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
@@ -202,6 +224,20 @@ namespace VoxeliqEngine.Input
         private void CenterCursor()
         {
             Mouse.SetPosition(Game.Window.ClientBounds.Width/2, Game.Window.ClientBounds.Height/2);
+        }
+
+        public delegate void KeyEventHandler(object sender, KeyEventArgs e);
+
+        public event KeyEventHandler KeyDown;
+
+        private static InputManager _instance; // the instance.
+
+        /// <summary>
+        /// Returns the memory instance of AssetManager.
+        /// </summary>
+        public static InputManager Instance
+        {
+            get { return _instance; }
         }
     }
 }
