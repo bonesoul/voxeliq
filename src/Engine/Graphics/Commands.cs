@@ -29,14 +29,14 @@ namespace VoxeliqEngine.Graphics
         [Subcommand("on", "Sets vsync on.")]
         public string On(string[] @params)
         {
-            this._graphicsManager.VerticalSyncEnabled = true;
+            this._graphicsManager.EnableVerticalSync(true);
             return "VSync on.";
         }
 
         [Subcommand("off", "Sets vsync off.")]
         public string Off(string[] @params)
         {
-            this._graphicsManager.VerticalSyncEnabled = false;
+            this._graphicsManager.EnableVerticalSync(false);
             return "VSync off.";
         }
     }
@@ -63,14 +63,14 @@ namespace VoxeliqEngine.Graphics
         [Subcommand("on", "Sets fullscreen on.")]
         public string On(string[] @params)
         {
-            this._graphicsManager.FullScreenEnabled = true;
+            this._graphicsManager.EnableFullScreen(true);
             return "Fullscreen on.";
         }
 
         [Subcommand("off", "Sets fullscreen off.")]
         public string Off(string[] @params)
         {
-            this._graphicsManager.FullScreenEnabled = false;
+            this._graphicsManager.EnableFullScreen(false);
             return "Fullscreen off.";
         }
     }
