@@ -16,7 +16,6 @@ using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Universe;
-using Settings = VoxeliqEngine.Core.Settings;
 
 namespace VoxeliqEngine.Input
 {

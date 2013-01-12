@@ -7,7 +7,6 @@
  * Code based on: http://code.google.com/p/xnagameconsole/
  */
 
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

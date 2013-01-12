@@ -30,14 +30,14 @@ namespace VoxeliqEngine.Universe
         public string On(string[] @params)
         {
             this._player.FlyingEnabled = true;
-            return "Fullscreen on.";
+            return "Fly mode on.";
         }
 
         [Subcommand("off", "Sets flying off.")]
         public string Off(string[] @params)
         {
             this._player.FlyingEnabled = false;
-            return "Fullscreen off.";
+            return "Fly mode off.";
         }
     }
 

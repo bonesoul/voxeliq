@@ -7,7 +7,6 @@
  * Code based on: http://code.google.com/p/xnagameconsole/
  */
 
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

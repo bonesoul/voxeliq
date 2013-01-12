@@ -7,7 +7,6 @@
  * Code based on: http://code.google.com/p/xnagameconsole/
  */
 
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
