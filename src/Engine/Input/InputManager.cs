@@ -165,9 +165,6 @@ namespace VoxeliqEngine.Input
 
                 // debug keys.
 
-                if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3))
-                    this._fogger.ToggleFog();
-
                 if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
                     this._skyService.ToggleDynamicClouds();
 

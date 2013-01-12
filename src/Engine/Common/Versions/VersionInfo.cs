@@ -27,19 +27,34 @@ namespace VoxeliqEngine.Common.Versions
             OpenGL
         }
 
+        public enum Platforms
+        {
+            Windows,
+            Linux,
+            MacOS,
+            Android,
+            IOS,
+            PSP,
+            Ouya,
+        }
+
         public static GameFrameworks GameFramework;
 
-        public static GraphicsAPI GraphicsApi; 
+        public static GraphicsAPI GraphicsApi;
+
+        public static Platforms Platform;
 
         static VersionInfo()
         {
+            Platform = Platforms.Windows;
+
             #if XNA
-                GameFramework=GameFrameworks.XNA;
+                GameFramework = GameFrameworks.XNA;
                 GraphicsApi = GraphicsAPI.DirectX9;
             #elif MONOGAME
-                GameFramework=GameFrameworks.MonoGame;
+                GameFramework = GameFrameworks.MonoGame;
                 #if DIRECTX11
-                    GraphicsApi=GraphicsAPI.DirectX11;
+                    GraphicsApi = GraphicsAPI.DirectX11;
                 #elif OPENGL
                     GraphicsApi = GraphicsAPI.OpenGL;
                 #endif

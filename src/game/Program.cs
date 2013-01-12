@@ -33,7 +33,7 @@ namespace VoxeliqGame
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
-            PrintKeys();
+            PrintDebugKeys();
             Console.ResetColor();
 
             InitLoggers(); // init logging facility.
@@ -132,21 +132,15 @@ namespace VoxeliqGame
             Console.WriteLine();
         }
 
-        private static void PrintKeys()
+        private static void PrintDebugKeys()
         {
             Console.WriteLine("Debug keys:");
             Console.WriteLine("-----------------------------");
-            Console.WriteLine("F1: Infinitive-world: On/Off.");
-            Console.WriteLine("F2: Fly-mode: On/Off.");
-            Console.WriteLine("F3: Fog-mode: None/Near/Far.");
             Console.WriteLine("F4: Dynamic Clouds: On/Off.");
             Console.WriteLine("F5: Capture Mouse: On/Off.");
             Console.WriteLine("F6: Bloom: On/Off.");
             Console.WriteLine("F7: Bloom State: Default/Soft/Desaturated/Saturated/Blurry/Subtle");
-            Console.WriteLine("F9: Debug Graphs: On/Off.");
             Console.WriteLine("F10: In-game Debugger: On/Off.");
-            Console.WriteLine("F11: Frame-limiter: On/Off.");
-            Console.WriteLine("F12: Wireframe mode: On/Off.");
             Console.WriteLine("-----------------------------");
         }
 
