@@ -124,6 +124,7 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\EngineConfiguration.cs" />
     <Compile Include="Core\Settings.cs" />
+    <Compile Include="Debugging\Commands.cs" />
     <Compile Include="Debugging\Console\Command.cs" />
     <Compile Include="Debugging\Console\CommandAttributes.cs" />
     <Compile Include="Debugging\Console\CommandHistory.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Debugging\Timing\Layout.cs" />
     <Compile Include="Debugging\Timing\TimeRuler.cs" />
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\Commands.cs" />
     <Compile Include="Graphics\Drawing\BasicShapes.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\UserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Universe\Commands.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Universe\Player.cs" />
     <Compile Include="Universe\Shovel.cs" />

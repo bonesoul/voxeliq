@@ -100,7 +100,7 @@ namespace VoxeliqEngine.Debugging.Console
         }
 
         [Command("commands", "Lists available commands for your user-level.")]
-        public class CommandsCommandGroup : Command
+        public class CommandsList : Command
         {
             public override string Fallback(string[] parameters = null)
             {
@@ -116,7 +116,7 @@ namespace VoxeliqEngine.Debugging.Console
         }
 
         [Command("help", "Oh no, we forgot to add a help to text to help command itself!")]
-        public class HelpCommandGroup : Command
+        public class HelpCommand : Command
         {
             public override string Fallback(string[] parameters = null)
             {

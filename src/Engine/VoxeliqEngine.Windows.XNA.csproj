@@ -147,6 +147,7 @@
     <Compile Include="Common\Logging\LogManager.cs" />
     <Compile Include="Common\Logging\LogRouter.cs" />
     <Compile Include="Common\Logging\LogTarget.cs" />
+    <Compile Include="Universe\Commands.cs" />
     <Compile Include="Universe\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Universe\Shovel.cs" />

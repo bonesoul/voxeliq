@@ -58,7 +58,7 @@ namespace VoxeliqEngine.Input
         private IFogger _fogger;
         private ISkyService _skyService;
         private IChunkCache _chunkCache;
-        private IBloomService _bloomService;        
+        private IBloomService _bloomService;
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
@@ -108,11 +108,7 @@ namespace VoxeliqEngine.Input
         public override void Update(GameTime gameTime)
         {
             this.ProcessMouse();
-
-            if (Engine.Instance.Console.Opened)
-                this.ProcessKonsoleKeys(gameTime);
-            else
-                this.ProcessIngameKeys(gameTime);
+            this.ProcessKeyboard(gameTime);
         }
 
         /// <summary>
@@ -141,70 +137,62 @@ namespace VoxeliqEngine.Input
             this.CenterCursor();
         }
 
-        private void ProcessKonsoleKeys(GameTime gameTime)
-        {
-            var currentState = Keyboard.GetState();
-
-            // console chars.
-            foreach (var @key in Enum.GetValues(typeof (Keys)))
-            {
-                if (_previousKeyboardState.IsKeyUp((Keys) @key) && currentState.IsKeyDown((Keys) @key))
-                    KeyDown(null, new KeyEventArgs((Keys) @key));
-            }
-
-            this._previousKeyboardState = currentState;
-        }
-
-
         /// <summary>
         /// Processes keyboard input by user.
         /// </summary>
         /// <param name="gameTime"></param>
-        private void ProcessIngameKeys(GameTime gameTime)
+        private void ProcessKeyboard(GameTime gameTime)
         {
             var currentState = Keyboard.GetState();
 
             if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
                 this.Game.Exit();
 
-            if (_previousKeyboardState.IsKeyUp(Keys.OemTilde) && currentState.IsKeyDown(Keys.OemTilde)) // tilda
-                KeyDown(null, new KeyEventArgs(Keys.OemTilde));
+            if (!Engine.Instance.Console.Opened)
+            {
+                if (_previousKeyboardState.IsKeyUp(Keys.OemTilde) && currentState.IsKeyDown(Keys.OemTilde)) // tilda
+                    KeyDown(null, new KeyEventArgs(Keys.OemTilde));
 
-            // movement keys.
-            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
-                _player.Move(gameTime, MoveDirection.Forward);
-            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S))
-                _player.Move(gameTime, MoveDirection.Backward);
-            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A))
-                _player.Move(gameTime, MoveDirection.Left);
-            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D))
-                _player.Move(gameTime, MoveDirection.Right);
-            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
+                // movement keys.
+                if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
+                    _player.Move(gameTime, MoveDirection.Forward);
+                if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S))
+                    _player.Move(gameTime, MoveDirection.Backward);
+                if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A))
+                    _player.Move(gameTime, MoveDirection.Left);
+                if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D))
+                    _player.Move(gameTime, MoveDirection.Right);
+                if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
 
-            // debug keys.
-            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                Settings.World.ToggleInfinitiveWorld();
+                // debug keys.
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
-                this._player.ToggleFlyForm();
+                if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3))
+                    this._fogger.ToggleFog();
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) 
-                this._fogger.ToggleFog();
+                if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
+                    this._skyService.ToggleDynamicClouds();
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
-                this._skyService.ToggleDynamicClouds();
+                if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
+                    this.CaptureMouse = !this.CaptureMouse;
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
-                this.CaptureMouse = !this.CaptureMouse;
+                if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
+                    this._bloomService.ToggleBloom();
 
-            if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
-                this._bloomService.ToggleBloom();
+                if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
+                    this._bloomService.ToogleSettings();
 
-            if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
-                this._bloomService.ToogleSettings();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
-                this._ingameDebuggerService.ToggleInGameDebugger();
+                if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
+                    this._ingameDebuggerService.ToggleInGameDebugger();
+            }
+            else
+            {
+                // console chars.
+                foreach (var @key in Enum.GetValues(typeof(Keys)))
+                {
+                    if (_previousKeyboardState.IsKeyUp((Keys)@key) && currentState.IsKeyDown((Keys)@key))
+                        KeyDown(null, new KeyEventArgs((Keys)@key));
+                }
+            }
 
             this._previousKeyboardState = currentState;
         }      
