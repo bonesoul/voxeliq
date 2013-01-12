@@ -7,6 +7,7 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Common.Versions;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Timing;
@@ -54,7 +55,7 @@ namespace VoxeliqGame
         protected override void Initialize()
         {
             Logger.Trace("init()"); // log the init.
-            this.Window.Title = "Voxeliq Sample Game"; // set the window title.
+            this.Window.Title = string.Format("Voxeliq [{0}/{1}]", VersionInfo.GameFramework, VersionInfo.GraphicsApi); // set the window title.
 
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Common.Versions;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqGame
@@ -40,19 +41,8 @@ namespace VoxeliqGame
             // print version information.
             var frameworkVersion = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
 
-            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);            
-
-            #if XNA
-            Logger.Trace(string.Format("Using XNA [DirectX9] (v{0}) as the framework.", frameworkVersion));
-            #elif MONOGAME
-                #if DIRECTX11
-                    Logger.Trace(String.Format("Using MonoGame [DirectX11] (v{0}) as the framework.", frameworkVersion));
-                #elif OPENGL
-                    Logger.Trace(String.Format("Using MonoGame [OpenGL] (v{0}) as the framework.", frameworkVersion));
-                #endif
-            #else
-            Logger.Trace("Can not determine underlying framework.");
-            #endif  
+            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
+            Logger.Info(string.Format("Using framework {0} over {1}.", VersionInfo.GameFramework, VersionInfo.GraphicsApi));            
 
             using (var game = new Game()) // startup the game.
             {

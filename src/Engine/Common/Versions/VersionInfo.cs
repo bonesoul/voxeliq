@@ -14,6 +14,38 @@ namespace VoxeliqEngine.Common.Versions
 {
     public static class VersionInfo
     {
+        public enum GameFrameworks
+        {
+            XNA,
+            MonoGame
+        }
+
+        public enum GraphicsAPI
+        {
+            DirectX9,
+            DirectX11,
+            OpenGL
+        }
+
+        public static GameFrameworks GameFramework;
+
+        public static GraphicsAPI GraphicsApi; 
+
+        static VersionInfo()
+        {
+            #if XNA
+                GameFramework=GameFrameworks.XNA;
+                GraphicsApi = GraphicsAPI.DirectX9;
+            #elif MONOGAME
+                GameFramework=GameFrameworks.MonoGame;
+                #if DIRECTX11
+                    GraphicsApi=GraphicsAPI.DirectX11;
+                #elif OPENGL
+                    GraphicsApi = GraphicsAPI.OpenGL;
+                #endif
+            #endif
+        }
+
         /// <summary>
         /// Main assembly version info.
         /// </summary>
