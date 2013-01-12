@@ -96,6 +96,7 @@
     <Compile Include="Common\Configuration\Config.cs" />
     <Compile Include="Common\Configuration\ConfigManager.cs" />
     <Compile Include="Common\Versions\VersionInfo.cs" />
+    <Compile Include="Debugging\Commands.cs" />
     <Compile Include="Debugging\Console\CommandHistory.cs" />
     <Compile Include="Debugging\Console\CommandProcesser.cs" />
     <Compile Include="Debugging\Console\GameConsole.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Debugging\Timing\TimeRuler.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\EngineConfiguration.cs" />
+    <Compile Include="Graphics\Commands.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Core\Settings.cs" />

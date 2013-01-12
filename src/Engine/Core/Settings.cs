@@ -50,14 +50,6 @@ namespace VoxeliqEngine.Core
             public static bool DebugGraphsEnabled { get; set; }
 
             /// <summary>
-            /// Toggles fps-graph on or off.
-            /// </summary>
-            public static void ToggleDebugGraphs()
-            {
-                DebugGraphsEnabled = !DebugGraphsEnabled;
-            }
-
-            /// <summary>
             /// Static Debugging constructor.
             /// </summary>
             static Debugging()

@@ -203,17 +203,8 @@ namespace VoxeliqEngine.Input
             if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
                 this._bloomService.ToogleSettings();
 
-            if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                Settings.Debugging.ToggleDebugGraphs();
-
             if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                 this._ingameDebuggerService.ToggleInGameDebugger();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F11) && currentState.IsKeyDown(Keys.F11)) // toggles frame-limiter.
-            {
-                this._graphicsManager.ToggleFixedTimeSteps();
-                this._graphicsManager.ToggleVerticalSync();
-            }
 
             this._previousKeyboardState = currentState;
         }      

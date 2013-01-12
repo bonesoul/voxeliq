@@ -18,15 +18,16 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// Returns true when rasterizer is in wire-framed mode.
         /// </summary>
-        public bool Wireframed { get; private set; }
+        public bool Wireframed
+        {
+            get { return this.State == WireframedRaster; }
+            set { this.State = value == true ? WireframedRaster : NormalRaster; }
+        }
 
         /// <summary>
         /// Returns the current mode of the rasterizer.
         /// </summary>
-        public RasterizerState State
-        {
-            get { return !this.Wireframed ? NormalRaster : WireframedRaster; }
-        }
+        public RasterizerState State { get; private set; }
 
         /// <summary>
         /// Creates a new rasterizer.
@@ -34,21 +35,6 @@ namespace VoxeliqEngine.Graphics
         private Rasterizer()
         {
             this.Wireframed = false;
-        }
-
-        public void ActivateWireframedMode()
-        {
-            this.Wireframed = true;
-        }
-
-        public void ActivateNormalMode()
-        {
-            this.Wireframed = false;
-        }
-
-        public void ToggleMode()
-        {
-            this.Wireframed = !this. Wireframed;
         }
 
         /// <summary>
@@ -83,40 +69,30 @@ namespace VoxeliqEngine.Graphics
         }
     }
 
-    [Command("rasterizer", "Sets rasterizer mode.\nusage: rasterizer [wireframed|normal|toggle|mode]")]
+    [Command("rasterizer", "Sets rasterizer mode.\nusage: rasterizer [wireframed|normal]")]
     public class RasterizerCommand : Command
     {
         [DefaultCommand]
         public string Default(string[] @params)
         {
-            return "Invalid argument.\nusage: rasterizer [wireframed|normal|toggle|mode]";
+            return string.Format("Rasterizer is currently set to {0} mode.\nusage: rasterizer [wireframed|normal].",
+                                 Rasterizer.Instance.Wireframed
+                                     ? "wireframed"
+                                     : "normal");
         }
         
         [Subcommand("wireframed","Sets rasterizer mode to wireframed.")]
         public string Wireframed(string[] @params)
         {
-            Rasterizer.Instance.ActivateWireframedMode();
+            Rasterizer.Instance.Wireframed = true;
             return "Rasterizer mode set to wireframed.";
         }
 
         [Subcommand("normal", "Sets rasterizer mode to normal.")]
         public string Normal(string[] @params)
         {
-            Rasterizer.Instance.ActivateNormalMode();
+            Rasterizer.Instance.Wireframed = false;
             return "Rasterizer mode set to normal mode.";
-        }
-
-        [Subcommand("toggle", "Toggles rasterizer mode.")]
-        public string Toggle(string[] @params)
-        {
-            Rasterizer.Instance.ToggleMode();
-            return Rasterizer.Instance.Wireframed ? "Rasterizer mode set to wireframed." : "Rasterizer mode set to normal.";
-        }
-
-        [Subcommand("mode","Shows the current mode of rasterizer.")]
-        public string Mode(string[] @params)
-        {
-            return Rasterizer.Instance.Wireframed ? "Rasterizer mode: wireframed." : "Rasterizer mode: normal.";
         }
     }
 }
