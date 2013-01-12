@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug\windows\monogame\opengl\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, OPENGL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>

@@ -43,9 +43,13 @@ namespace VoxeliqGame
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);            
 
             #if XNA
-            Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));
+            Logger.Trace(string.Format("Using XNA [DirectX9] (v{0}) as the framework.", frameworkVersion));
             #elif MONOGAME
-            Logger.Trace(String.Format("Using MonoGame (v{0}) as the framework.", frameworkVersion));
+                #if DIRECTX11
+                    Logger.Trace(String.Format("Using MonoGame [DirectX11] (v{0}) as the framework.", frameworkVersion));
+                #elif OPENGL
+                    Logger.Trace(String.Format("Using MonoGame [OpenGL] (v{0}) as the framework.", frameworkVersion));
+                #endif
             #else
             Logger.Trace("Can not determine underlying framework.");
             #endif  

@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug\windows\monogame\directx\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
