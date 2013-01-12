@@ -65,7 +65,7 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = line
  {
      pass Pass0
      {
-         VertexShader = compile vs_3_0 PerlinVS();
-         PixelShader = compile ps_3_0 PerlinPS();
+         VertexShader = compile vs_4_0 PerlinVS();
+         PixelShader = compile ps_4_0 PerlinPS();
      }
  }

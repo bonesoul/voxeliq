@@ -140,8 +140,8 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = line
  {
      pass Pass0
      {
-         VertexShader = compile vs_3_0 SkyDomeVS();
-         PixelShader = compile ps_3_0 SkyDomePS();
+         VertexShader = compile vs_4_0 SkyDomeVS();
+         PixelShader = compile ps_4_0 SkyDomePS();
      }
  }
 
@@ -149,7 +149,7 @@ sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = line
  {
      pass Pass0
      {
-         VertexShader = compile vs_3_0 SkyStarDomeVS();
-         PixelShader = compile ps_3_0 SkyStarDomePS();
+         VertexShader = compile vs_4_0 SkyStarDomeVS();
+         PixelShader = compile ps_4_0 SkyStarDomePS();
      }
  }
