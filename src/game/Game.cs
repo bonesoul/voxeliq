@@ -57,6 +57,7 @@ namespace VoxeliqGame
             Logger.Trace("init()"); // log the init.
             this.Window.Title = string.Format("Voxeliq [{0}/{1}]", VersionInfo.GameFramework, VersionInfo.GraphicsApi); // set the window title.
 
+            this.IsMouseVisible = false;
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
             // create a new EngineConfiguration instance.

@@ -117,8 +117,7 @@ namespace VoxeliqEngine.Input
         {
             var currentState = Mouse.GetState();
 
-            if (currentState == this._previousMouseState || !this.CaptureMouse)
-                // if there's no mouse-state change or if it's not captured, just return.
+            if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
             float rotation = currentState.X - GraphicsConfig.Instance.Width/2;
@@ -169,7 +168,10 @@ namespace VoxeliqEngine.Input
                     this._skyService.ToggleDynamicClouds();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
+                {
                     this.CaptureMouse = !this.CaptureMouse;
+                    this.Game.IsMouseVisible = !this.CaptureMouse;
+                }
 
                 if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
                     this._bloomService.ToggleBloom();
