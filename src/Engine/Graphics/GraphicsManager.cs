@@ -36,9 +36,16 @@ namespace VoxeliqEngine.Graphics
         void ToggleFixedTimeSteps();
 
         /// <summary>
-        /// Toggles vertical sync.
+        /// Sets vertical sync on or off.
         /// </summary>
-        void ToggleVerticalSync();
+        /// <param name="enabled"></param>
+        void EnableVerticalSync(bool enabled);
+
+        /// <summary>
+        /// Sets full screen on or off.
+        /// </summary>
+        /// <param name="enabled"></param>
+        void EnableFullScreen(bool enabled);
     }
 
     /// <summary>
@@ -64,7 +71,7 @@ namespace VoxeliqEngine.Graphics
 
             this._game = game;
             this._graphicsDeviceManager = graphicsDeviceManager;
-            this._game.Services.AddService(typeof (IGraphicsManager), this); // export service.
+            this._game.Services.AddService(typeof(IGraphicsManager), this); // export service.
 
             this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = GraphicsConfig.Instance.FullScreenEnabled;
             this._graphicsDeviceManager.PreferredBackBufferWidth = GraphicsConfig.Instance.Width;
@@ -84,12 +91,9 @@ namespace VoxeliqEngine.Graphics
             this._graphicsDeviceManager.ApplyChanges();
         }
 
-        /// <summary>
-        /// Toggles vertical syncs.
-        /// </summary>
-        public void ToggleVerticalSync()
+        public void EnableVerticalSync(bool enabled)
         {
-            this.VerticalSyncEnabled = !this.VerticalSyncEnabled;
+            this.VerticalSyncEnabled = enabled;
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = this.VerticalSyncEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }

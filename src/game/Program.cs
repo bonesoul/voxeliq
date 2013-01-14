@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Common.Versions;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqGame
@@ -23,13 +24,16 @@ namespace VoxeliqGame
         /// </summary>
         private static void Main(string[] args)
         {
+            #if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler; // Watch for any unhandled exceptions.
+            #endif
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Use invariant culture - we have to set it explicitly for every thread we create to prevent any mpq-reading problems (mostly because of number formats).
             
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
-            PrintKeys();
+            PrintDebugKeys();
             Console.ResetColor();
 
             InitLoggers(); // init logging facility.
@@ -37,15 +41,8 @@ namespace VoxeliqGame
             // print version information.
             var frameworkVersion = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
 
-            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);            
-
-            #if XNA
-            Logger.Trace(string.Format("Using XNA (v{0}) as the framework.", frameworkVersion));
-            #elif MONOGAME
-            Logger.Trace(String.Format("Using MonoGame (v{0}) as the framework.", frameworkVersion));
-            #else
-            Logger.Trace("Can not determine underlying framework.");
-            #endif  
+            Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
+            Logger.Info(string.Format("Using framework {0} over {1}.", VersionInfo.GameFramework, VersionInfo.GraphicsApi));            
 
             using (var game = new Game()) // startup the game.
             {
@@ -135,21 +132,15 @@ namespace VoxeliqGame
             Console.WriteLine();
         }
 
-        private static void PrintKeys()
+        private static void PrintDebugKeys()
         {
             Console.WriteLine("Debug keys:");
             Console.WriteLine("-----------------------------");
-            Console.WriteLine("F1: Infinitive-world: On/Off.");
-            Console.WriteLine("F2: Fly-mode: On/Off.");
-            Console.WriteLine("F3: Fog-mode: None/Near/Far.");
             Console.WriteLine("F4: Dynamic Clouds: On/Off.");
             Console.WriteLine("F5: Capture Mouse: On/Off.");
             Console.WriteLine("F6: Bloom: On/Off.");
             Console.WriteLine("F7: Bloom State: Default/Soft/Desaturated/Saturated/Blurry/Subtle");
-            Console.WriteLine("F9: Debug Graphs: On/Off.");
             Console.WriteLine("F10: In-game Debugger: On/Off.");
-            Console.WriteLine("F11: Frame-limiter: On/Off.");
-            Console.WriteLine("F12: Wireframe mode: On/Off.");
             Console.WriteLine("-----------------------------");
         }
 

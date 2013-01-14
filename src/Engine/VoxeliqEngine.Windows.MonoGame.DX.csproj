@@ -21,8 +21,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\x86\Debug\windows\monogame\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
+    <OutputPath>bin\x86\Debug\windows\monogame\directx\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -33,8 +33,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <OutputPath>bin\x86\Release\windows\monogame\directx\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS, MONOGAME</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -46,11 +46,9 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\..\dep\monogame\WindowsGL\Lidgren.Network.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\dep\monogame\WindowsGL\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\windowsDX\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="Nini">
@@ -88,6 +86,7 @@
     <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
     <Compile Include="Chunks\Generators\Terrain\TerrainGenerator.cs" />
     <Compile Include="Chunks\Generators\Terrain\ValleyTerrain.cs" />
+    <Compile Include="Chunks\Populators\TreePopulator.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
     <Compile Include="Common\Configuration\Config.cs" />
@@ -123,6 +122,19 @@
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\EngineConfiguration.cs" />
     <Compile Include="Core\Settings.cs" />
+    <Compile Include="Debugging\Commands.cs" />
+    <Compile Include="Debugging\Console\Command.cs" />
+    <Compile Include="Debugging\Console\CommandAttributes.cs" />
+    <Compile Include="Debugging\Console\CommandHistory.cs" />
+    <Compile Include="Debugging\Console\CommandManager.cs" />
+    <Compile Include="Debugging\Console\CommandProcesser.cs" />
+    <Compile Include="Debugging\Console\GameConsole.cs" />
+    <Compile Include="Debugging\Console\GameConsoleComponent.cs" />
+    <Compile Include="Debugging\Console\GameConsoleOptions.cs" />
+    <Compile Include="Debugging\Console\InputProcessor.cs" />
+    <Compile Include="Debugging\Console\KeyEventArgs.cs" />
+    <Compile Include="Debugging\Console\OutputLine.cs" />
+    <Compile Include="Debugging\Console\Renderer.cs" />
     <Compile Include="Debugging\Graphs\DebugGraph.cs" />
     <Compile Include="Debugging\Graphs\GraphManager.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\BuildQ.cs" />
@@ -139,6 +151,7 @@
     <Compile Include="Debugging\Timing\Layout.cs" />
     <Compile Include="Debugging\Timing\TimeRuler.cs" />
     <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\Commands.cs" />
     <Compile Include="Graphics\Drawing\BasicShapes.cs" />
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
@@ -151,6 +164,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\UserInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Universe\Commands.cs" />
     <Compile Include="Universe\Fogger.cs" />
     <Compile Include="Universe\Player.cs" />
     <Compile Include="Universe\Shovel.cs" />

@@ -15,7 +15,7 @@ float timeOfDay;
 //------- Texture Samplers --------
 Texture xTexture;
 
-sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = LINEAR; minfilter = LINEAR; mipfilter=LINEAR; AddressU = mirror; AddressV = mirror;};Texture xTexture0;
+sampler TextureSampler = sampler_state { texture = <xTexture> ; magfilter = linear; minfilter = linear; mipfilter=linear; AddressU = mirror; AddressV = mirror;};Texture xTexture0;
 
 //------- Technique: SkyDome --------
  struct SDVertexToPixel

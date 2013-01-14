@@ -8,6 +8,8 @@
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
+using VoxeliqEngine.Debugging.Console;
 
 namespace VoxeliqEngine.Universe
 {
@@ -16,22 +18,17 @@ namespace VoxeliqEngine.Universe
         /// <summary>
         /// Fog state.
         /// </summary>
-        FogState State { get; }
+        FogState State { get; set; }
 
         /// <summary>
         /// Fog vector value for current fog-state.
         /// </summary>
         Vector2 FogVector { get; }
-
-        /// <summary>
-        /// Fog vectors.
-        /// </summary>
-        void ToggleFog();
     }
 
     public class Fogger : GameComponent, IFogger
     {
-        public FogState State { get; private set; }
+        public FogState State { get; set; }
 
         public Vector2 FogVector
         {
@@ -55,25 +52,6 @@ namespace VoxeliqEngine.Universe
             this.State = FogState.None;
             this.Game.Services.AddService(typeof (IFogger), this);
         }
-
-        /// <summary>
-        /// Toggles fog to near, far and none.
-        /// </summary>
-        public void ToggleFog()
-        {
-            switch (this.State)
-            {
-                case FogState.None:
-                    this.State = FogState.Near;
-                    break;
-                case FogState.Near:
-                    this.State = FogState.Far;
-                    break;
-                case FogState.Far:
-                    this.State = FogState.None;
-                    break;
-            }
-        }
     }
 
     /// <summary>
@@ -84,5 +62,44 @@ namespace VoxeliqEngine.Universe
         None,
         Near,
         Far
+    }
+
+    [Command("fog", "Sets fog mode.\nusage: fog [off|near|far]")]
+    public class FoggerCommand : Command
+    {
+        private IFogger _fogger;
+
+        public FoggerCommand()
+        {
+            this._fogger = (IFogger)Engine.Instance.Game.Services.GetService(typeof(IFogger));
+        }
+
+        [DefaultCommand]
+        public string Default(string[] @params)
+        {
+            return string.Format("Fog is currently set to {0} mode.\nusage: fog [off|near|far]",
+                                 this._fogger.State.ToString().ToLower());
+        }
+
+        [Subcommand("off", "Sets fog to off.")]
+        public string Off(string[] @params)
+        {
+            this._fogger.State = FogState.None;
+            return "Fog is off.";
+        }
+
+        [Subcommand("near", "Sets fog to near.")]
+        public string Near(string[] @params)
+        {
+            this._fogger.State = FogState.Near;
+            return "Fog is near.";
+        }
+
+        [Subcommand("far", "Sets fog to far.")]
+        public string Far(string[] @params)
+        {
+            this._fogger.State = FogState.Far;
+            return "Fog is far.";
+        }
     }
 }

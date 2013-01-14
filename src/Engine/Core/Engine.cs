@@ -7,11 +7,13 @@
 
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Debugging.Console;
 using VoxeliqEngine.Debugging.Graphs;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
@@ -37,6 +39,8 @@ namespace VoxeliqEngine.Core
         public event EngineStartHandler EngineStart;
 
         private static Engine _instance; // the memory instance.
+
+        public GameConsole Console { get; private set; }
 
         public Engine(Game game, EngineConfiguration config)
         {
@@ -99,6 +103,19 @@ namespace VoxeliqEngine.Core
 #if XNA
             this.Game.Components.Add(new AudioManager(this.Game));
 #endif
+
+            var spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
+            Console = new GameConsole(this.Game, spriteBatch,  new GameConsoleOptions
+                                                             {
+                                                                 Font = Game.Content.Load<SpriteFont>(@"Fonts/Verdana"),
+                                                                 FontColor = Color.LawnGreen,
+                                                                 Prompt = ">",
+                                                                 PromptColor = Color.Crimson,
+                                                                 CursorColor = Color.OrangeRed,
+                                                                 BackgroundColor = Color.Black*0.8f,
+                                                                 PastCommandOutputColor = Color.Aqua,
+                                                                 BufferColor = Color.Gold
+                                                             });
         }
 
         /// <summary>

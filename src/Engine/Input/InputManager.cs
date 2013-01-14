@@ -5,15 +5,17 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
+using VoxeliqEngine.Debugging.Console;
 using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
 using VoxeliqEngine.Universe;
-using Settings = VoxeliqEngine.Core.Settings;
 
 namespace VoxeliqEngine.Input
 {
@@ -67,6 +69,7 @@ namespace VoxeliqEngine.Input
             : base(game)
         {
             this.Game.Services.AddService(typeof (IInputManager), this); // export service.
+            _instance = this;
 
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = true; // center the mouse by default.        
@@ -114,8 +117,7 @@ namespace VoxeliqEngine.Input
         {
             var currentState = Mouse.GetState();
 
-            if (currentState == this._previousMouseState || !this.CaptureMouse)
-                // if there's no mouse-state change or if it's not captured, just return.
+            if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
             float rotation = currentState.X - GraphicsConfig.Instance.Width/2;
@@ -144,56 +146,54 @@ namespace VoxeliqEngine.Input
             if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
                 this.Game.Exit();
 
-            // movement keys.
-            if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
-                _player.Move(gameTime, MoveDirection.Forward);
-            if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S))
-                _player.Move(gameTime, MoveDirection.Backward);
-            if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A))
-                _player.Move(gameTime, MoveDirection.Left);
-            if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D))
-                _player.Move(gameTime, MoveDirection.Right);
-            if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
-
-            // debug keys.
-            if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                Settings.World.ToggleInfinitiveWorld();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
-                this._player.ToggleFlyForm();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F3) && currentState.IsKeyDown(Keys.F3)) 
-                this._fogger.ToggleFog();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
-                this._skyService.ToggleDynamicClouds();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
-                this.CaptureMouse = !this.CaptureMouse;
-
-            if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
-                this._bloomService.ToggleBloom();
-
-            if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
-                this._bloomService.ToogleSettings();
-
-            if (currentState.IsKeyDown(Keys.F9) && _previousKeyboardState.IsKeyUp(Keys.F9))
-                Settings.Debugging.ToggleDebugGraphs();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
-                this._ingameDebuggerService.ToggleInGameDebugger();
-
-            if (_previousKeyboardState.IsKeyUp(Keys.F11) && currentState.IsKeyDown(Keys.F11)) // toggles frame-limiter.
+            if (!Engine.Instance.Console.Opened)
             {
-                this._graphicsManager.ToggleFixedTimeSteps();
-                this._graphicsManager.ToggleVerticalSync();
+                if (_previousKeyboardState.IsKeyUp(Keys.OemTilde) && currentState.IsKeyDown(Keys.OemTilde)) // tilda
+                    KeyDown(null, new KeyEventArgs(Keys.OemTilde));
+
+                // movement keys.
+                if (currentState.IsKeyDown(Keys.Up) || currentState.IsKeyDown(Keys.W))
+                    _player.Move(gameTime, MoveDirection.Forward);
+                if (currentState.IsKeyDown(Keys.Down) || currentState.IsKeyDown(Keys.S))
+                    _player.Move(gameTime, MoveDirection.Backward);
+                if (currentState.IsKeyDown(Keys.Left) || currentState.IsKeyDown(Keys.A))
+                    _player.Move(gameTime, MoveDirection.Left);
+                if (currentState.IsKeyDown(Keys.Right) || currentState.IsKeyDown(Keys.D))
+                    _player.Move(gameTime, MoveDirection.Right);
+                if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
+
+                // debug keys.
+
+                if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
+                    this._skyService.ToggleDynamicClouds();
+
+                if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
+                {
+                    this.CaptureMouse = !this.CaptureMouse;
+                    this.Game.IsMouseVisible = !this.CaptureMouse;
+                }
+
+                if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
+                    this._bloomService.ToggleBloom();
+
+                if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
+                    this._bloomService.ToogleSettings();
+
+                if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
+                    this._ingameDebuggerService.ToggleInGameDebugger();
+            }
+            else
+            {
+                // console chars.
+                foreach (var @key in Enum.GetValues(typeof(Keys)))
+                {
+                    if (_previousKeyboardState.IsKeyUp((Keys)@key) && currentState.IsKeyDown((Keys)@key))
+                        KeyDown(null, new KeyEventArgs((Keys)@key));
+                }
             }
 
-            if (_previousKeyboardState.IsKeyUp(Keys.F12) && currentState.IsKeyDown(Keys.F12)) // toggles rasterizer.
-                Rasterizer.Instance.ToggleRasterMode();
-
             this._previousKeyboardState = currentState;
-        }
+        }      
 
         /// <summary>
         /// Centers cursor on screen.
@@ -201,6 +201,20 @@ namespace VoxeliqEngine.Input
         private void CenterCursor()
         {
             Mouse.SetPosition(Game.Window.ClientBounds.Width/2, Game.Window.ClientBounds.Height/2);
+        }
+
+        public delegate void KeyEventHandler(object sender, KeyEventArgs e);
+
+        public event KeyEventHandler KeyDown;
+
+        private static InputManager _instance; // the instance.
+
+        /// <summary>
+        /// Returns the memory instance of AssetManager.
+        /// </summary>
+        public static InputManager Instance
+        {
+            get { return _instance; }
         }
     }
 }

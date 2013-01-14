@@ -85,9 +85,11 @@ namespace VoxeliqEngine.Audio
             if (!AudioConfig.Instance.Enabled)
                 return;
 
+#if !MONOGAME
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(this._backgroundSong);
             MediaPlayer.Volume = 0.3f;
+#endif
         }
 
         private void PlayRandomAmbientMusic()
