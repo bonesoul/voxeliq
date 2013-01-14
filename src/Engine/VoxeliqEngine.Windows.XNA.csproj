@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug\windows\xna\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, XNA</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, XNA, DIRECTX9</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -96,6 +96,19 @@
     <Compile Include="Common\Configuration\Config.cs" />
     <Compile Include="Common\Configuration\ConfigManager.cs" />
     <Compile Include="Common\Versions\VersionInfo.cs" />
+    <Compile Include="Debugging\Commands.cs" />
+    <Compile Include="Debugging\Console\CommandHistory.cs" />
+    <Compile Include="Debugging\Console\CommandProcesser.cs" />
+    <Compile Include="Debugging\Console\GameConsole.cs" />
+    <Compile Include="Debugging\Console\GameConsoleComponent.cs" />
+    <Compile Include="Debugging\Console\GameConsoleOptions.cs" />
+    <Compile Include="Debugging\Console\InputProcessor.cs" />
+    <Compile Include="Debugging\Console\CommandAttributes.cs" />
+    <Compile Include="Debugging\Console\Command.cs" />
+    <Compile Include="Debugging\Console\CommandManager.cs" />
+    <Compile Include="Debugging\Console\KeyEventArgs.cs" />
+    <Compile Include="Debugging\Console\OutputLine.cs" />
+    <Compile Include="Debugging\Console\Renderer.cs" />
     <Compile Include="Debugging\Ingame\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Graphs\DebugGraph.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\RemoveQ.cs" />
@@ -114,6 +127,7 @@
     <Compile Include="Debugging\Timing\TimeRuler.cs" />
     <Compile Include="Core\Engine.cs" />
     <Compile Include="Core\EngineConfiguration.cs" />
+    <Compile Include="Graphics\Commands.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
     <Compile Include="Core\Settings.cs" />
@@ -133,6 +147,7 @@
     <Compile Include="Common\Logging\LogManager.cs" />
     <Compile Include="Common\Logging\LogRouter.cs" />
     <Compile Include="Common\Logging\LogTarget.cs" />
+    <Compile Include="Universe\Commands.cs" />
     <Compile Include="Universe\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Universe\Shovel.cs" />

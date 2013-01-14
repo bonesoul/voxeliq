@@ -23,14 +23,6 @@ namespace VoxeliqEngine.Core
             public static bool IsInfinitive { get; set; }
 
             /// <summary>
-            /// Toggles infinitive world on or off.
-            /// </summary>
-            public static void ToggleInfinitiveWorld()
-            {
-                IsInfinitive = !IsInfinitive;
-            }
-
-            /// <summary>
             /// Static world constructor.
             /// </summary>
             static World()
@@ -48,14 +40,6 @@ namespace VoxeliqEngine.Core
             /// Gets or sets if fps-graph is enabled.
             /// </summary>
             public static bool DebugGraphsEnabled { get; set; }
-
-            /// <summary>
-            /// Toggles fps-graph on or off.
-            /// </summary>
-            public static void ToggleDebugGraphs()
-            {
-                DebugGraphsEnabled = !DebugGraphsEnabled;
-            }
 
             /// <summary>
             /// Static Debugging constructor.

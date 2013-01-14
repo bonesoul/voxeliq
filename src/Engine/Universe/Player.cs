@@ -67,17 +67,12 @@ namespace VoxeliqEngine.Universe
         /// Is flying enabled?
         /// </summary>
         /// <returns></returns>
-        bool FlyingEnabled { get; }
-
-        /// <summary>
-        /// Toggles fly form.
-        /// </summary>
-        void ToggleFlyForm();
+        bool FlyingEnabled { get; set; }
     }
 
     public class Player : DrawableGameComponent, IPlayer
     {
-        public bool FlyingEnabled { get; private set; }
+        public bool FlyingEnabled { get; set; }
         public Vector3 Position { get; private set; }
         public Vector2Int RelativePosition { get; private set; }
 
@@ -242,11 +237,6 @@ namespace VoxeliqEngine.Universe
             this.Position = new Vector3(relativePosition.X*Chunk.WidthInBlocks, 150,
                                         relativePosition.Z*Chunk.LenghtInBlocks);
             this._world.SpawnPlayer(relativePosition);
-        }
-
-        public void ToggleFlyForm()
-        {
-            this.FlyingEnabled = !this.FlyingEnabled;
         }
 
         private void FindAimedBlock()

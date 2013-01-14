@@ -39,8 +39,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\windows\monogame\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME</DefineConstants>
+    <OutputPath>..\..\bin\debug\windows\monogame\directx\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -67,11 +67,9 @@
     <StartupObject>VoxeliqGame.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Lidgren.Network">
-      <HintPath>..\..\dep\monogame\WindowsGL\Lidgren.Network.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>..\..\dep\monogame\WindowsGL\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\windowsDX\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
@@ -138,17 +136,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.csproj">
+    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.DX.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>VoxeliqEngine.Windows.MonoGame</Name>
+      <Name>VoxeliqEngine.Windows.MonoGame.DX</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)Content
-xcopy $(TargetDir)..\xna\Content $(TargetDir)Content /Y /E /D
-xcopy $(TargetDir)..\xna\Content\Effects $(TargetDir)Content\Effects /Y /E /D
+xcopy $(TargetDir)..\..\xna\Content $(TargetDir)Content /Y /E /D
 CD /D $(SolutionDir)
 Call build-effects.bat</PostBuildEvent>
   </PropertyGroup>

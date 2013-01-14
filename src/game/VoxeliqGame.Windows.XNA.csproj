@@ -40,7 +40,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug\windows\xna\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, XNA</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, XNA, DIRECTX9</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
