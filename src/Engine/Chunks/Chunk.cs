@@ -32,22 +32,22 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Chunk width in blocks.
         /// </summary>
-        public static byte WidthInBlocks = Engine.Instance.Configuration.ChunkConfiguration.WidthInBlocks;
+        public static byte WidthInBlocks = Engine.Instance.Configuration.Chunk.WidthInBlocks;
 
         /// <summary>
         /// Chunk lenght in blocks
         /// </summary>
-        public static byte LenghtInBlocks = Engine.Instance.Configuration.ChunkConfiguration.LenghtInBlocks;
+        public static byte LenghtInBlocks = Engine.Instance.Configuration.Chunk.LenghtInBlocks;
 
         /// <summary>
         /// Chunk height in blocks.
         /// </summary>
-        public static byte HeightInBlocks = Engine.Instance.Configuration.ChunkConfiguration.HeightInBlocks;
+        public static byte HeightInBlocks = Engine.Instance.Configuration.Chunk.HeightInBlocks;
 
         /// <summary>
         /// Maximum height index in blocks for chunk.
         /// </summary>
-        public static byte MaxHeightIndexInBlocks = Engine.Instance.Configuration.ChunkConfiguration.MaxHeightInBlocks;
+        public static byte MaxHeightIndexInBlocks = Engine.Instance.Configuration.Chunk.MaxHeightInBlocks;
 
         /// <summary>
         /// The chunks world position.
@@ -106,11 +106,6 @@ namespace VoxeliqEngine.Chunks
         /// TODO: fix comment.
         /// </summary>
         public short Index;
-
-        /// <summary>
-        /// Is the region disposed already?
-        /// </summary>
-        public bool Disposed = false;
 
         /// <summary>
         /// Creates a new chunk instance.
@@ -244,16 +239,15 @@ namespace VoxeliqEngine.Chunks
 
         // IDisposable pattern: http://msdn.microsoft.com/en-us/library/fs2xkftw(v=VS.100).aspx
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-                // Take object out the finalization queue to prevent finalization code for it from executing a second time.
-        }
+        /// <summary>
+        /// Is the region disposed already?
+        /// </summary>
+        public bool Disposed = false;
 
         private void Dispose(bool disposing)
         {
-            if (this.Disposed) return; // if already disposed, just return
+            if (this.Disposed) 
+                return; // if already disposed, just return
 
             if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
@@ -270,6 +264,12 @@ namespace VoxeliqEngine.Chunks
             }
 
             Disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true); // Object being disposed by the code itself, dispose both managed and unmanaged objects.
+            GC.SuppressFinalize(this); // Take object out the finalization queue to prevent finalization code for it from executing a second time.
         }
 
         ~Chunk() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones. 

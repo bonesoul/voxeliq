@@ -12,6 +12,7 @@ using System.Threading;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Versions;
 using VoxeliqEngine.Universe;
+using VoxeliqGame.Settings.Readers;
 
 namespace VoxeliqGame
 {
@@ -44,7 +45,7 @@ namespace VoxeliqGame
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
             Logger.Info(string.Format("Using framework {0} over {1}.", VersionInfo.GameFramework, VersionInfo.GraphicsApi));            
 
-            using (var game = new Game()) // startup the game.
+            using (var game = new SampleGame()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
                 game.Run();
@@ -57,7 +58,7 @@ namespace VoxeliqGame
         {
             LogManager.Enabled = true; // enable logger by default.
 
-            foreach (var targetConfig in LogConfig.Instance.Targets)
+            foreach (var targetConfig in LogSettings.Instance.Targets)
             {
                 if (!targetConfig.Enabled)
                     continue;

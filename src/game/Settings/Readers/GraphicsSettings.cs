@@ -5,11 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Common.Configuration;
-
-namespace VoxeliqEngine.Graphics
+namespace VoxeliqGame.Settings.Readers
 {
-    public sealed class GraphicsConfig : Config
+    public sealed class GraphicsSettings : Config
     {
         /// <summary>
         /// Sets the screen width.
@@ -59,12 +57,12 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// The memory instance of ScreenConfig.
         /// </summary>
-        private static readonly GraphicsConfig _instance = new GraphicsConfig();
+        private static readonly GraphicsSettings _instance = new GraphicsSettings();
 
         /// <summary>
         /// The memory instance of ScreenConfig.
         /// </summary>
-        public static GraphicsConfig Instance
+        public static GraphicsSettings Instance
         {
             get { return _instance; }
         }
@@ -72,7 +70,7 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// Creates a new ScreenConfig instance.
         /// </summary>
-        private GraphicsConfig()
+        private GraphicsSettings()
             : base("Graphics")
         {
         }

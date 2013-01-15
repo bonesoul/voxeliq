@@ -156,7 +156,7 @@ namespace VoxeliqEngine.Debugging
 
             if (this._chunkStorage.Count > 31) _totalBlocks = (this._chunkStorage.Count / 31f).ToString("F2") + "M";
             else if (this._chunkStorage.Count > 1) _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
-            else _totalBlocks = Engine.Instance.Configuration.ChunkConfiguration.Volume.ToString(CultureInfo.InvariantCulture);
+            else _totalBlocks = Engine.Instance.Configuration.Chunk.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 

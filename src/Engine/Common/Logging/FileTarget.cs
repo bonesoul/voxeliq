@@ -30,14 +30,16 @@ namespace VoxeliqEngine.Common.Logging
         /// <param name="reset">Reset log file on application startup?</param>
         public FileTarget(string fileName, Logger.Level minLevel, Logger.Level maxLevel, bool includeTimeStamps, bool reset = false)
         {
+            var logRoot = "logs";
+
             this.MinimumLevel = minLevel;
             this.MaximumLevel = maxLevel;
             this.IncludeTimeStamps = includeTimeStamps;
             this._fileName = fileName;
-            this._filePath = string.Format("{0}/{1}", LogConfig.Instance.LoggingRoot, _fileName); // construct the full path using LoggingRoot defined in config.ini
+            this._filePath = string.Format("{0}/{1}", logRoot, _fileName); // construct the full path using LoggingRoot defined in config.ini
 
-            if (!Directory.Exists(LogConfig.Instance.LoggingRoot)) // create logging directory if it does not exist yet.
-                Directory.CreateDirectory(LogConfig.Instance.LoggingRoot);
+            if (!Directory.Exists(logRoot)) // create logging directory if it does not exist yet.
+                Directory.CreateDirectory(logRoot);
 
             this._fileStream = new FileStream(_filePath, reset ? FileMode.Create : FileMode.Append, FileAccess.Write, FileShare.Read); // init the file stream.
             this._logStream = new StreamWriter(this._fileStream) { AutoFlush = true }; // init the stream writer.

@@ -9,17 +9,18 @@ using Microsoft.Xna.Framework;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Versions;
 using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging;
+using VoxeliqEngine.Core.Config;
 using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
+using VoxeliqGame.Settings.Readers;
 
 namespace VoxeliqGame
 {
     /// <summary>
     /// The game client.
     /// </summary>
-    public class Game : Microsoft.Xna.Framework.Game
+    public class SampleGame : Microsoft.Xna.Framework.Game
     {
         /// <summary>
         /// Graphics device manager.
@@ -43,7 +44,7 @@ namespace VoxeliqGame
         /// <summary>
         /// Creates a new game instance.
         /// </summary>
-        public Game()
+        public SampleGame()
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -58,26 +59,39 @@ namespace VoxeliqGame
             this.Window.Title = string.Format("Voxeliq [{0}/{1}]", VersionInfo.GameFramework, VersionInfo.GraphicsApi); // set the window title.
 
             this.IsMouseVisible = false;
-            this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
             // create a new EngineConfiguration instance.
-            var config = new EngineConfiguration
+            var config = new EngineConfig
             {
-                ChunkConfiguration =
+                Chunk =
                 {
                     WidthInBlocks = 16,
                     HeightInBlocks = 128,
                     LenghtInBlocks = 16,
                 },
-                CacheConfiguration =
+                Cache =
                 {
                     CacheExtraChunks = true,
                     ViewRange = 8,
                     CacheRange = 12,
+                },
+                Graphics =
+                {
+                    Width = GraphicsSettings.Instance.Width,
+                    Height = GraphicsSettings.Instance.Height,
+                    FullScreenEnabled = GraphicsSettings.Instance.FullScreenEnabled,
+                    VerticalSyncEnabled = GraphicsSettings.Instance.VerticalSyncEnabled,
+                    FixedTimeStepsEnabled = GraphicsSettings.Instance.FixedTimeStepsEnabled,
+                },
+                Audio =
+                {
+                    Enabled = AudioSettings.Instance.Enabled,
                 }
             };
 
             var engine = new Engine(this, config);
+            this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
+
             engine.EngineStart += OnEngineStart;
 
             engine.Run();

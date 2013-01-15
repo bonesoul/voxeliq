@@ -7,7 +7,7 @@
 
 using Nini.Config;
 
-namespace VoxeliqEngine.Common.Configuration
+namespace VoxeliqGame.Settings
 {
     public class Config
     {

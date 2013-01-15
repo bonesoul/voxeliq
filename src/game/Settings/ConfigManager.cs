@@ -10,7 +10,7 @@ using Nini.Config;
 using VoxeliqEngine.Common.Helpers.IO;
 using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqEngine.Common.Configuration
+namespace VoxeliqGame.Settings
 {
     public sealed class ConfigManager
     {

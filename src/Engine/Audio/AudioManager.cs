@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Core;
 
 namespace VoxeliqEngine.Audio
 {
@@ -65,10 +66,10 @@ namespace VoxeliqEngine.Audio
 
         private void AmbientMusicLoop()
         {
-            if (!AudioConfig.Instance.Enabled)
+            if (!Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
-            while(true)
+            while (true)
             {
                 if (this._currentAmbientMusic == null || this._currentAmbientMusic.IsDisposed || this._currentAmbientMusic.State == SoundState.Playing)
                 {
@@ -82,14 +83,14 @@ namespace VoxeliqEngine.Audio
 
         private void PlayBackroundSong()
         {
-            if (!AudioConfig.Instance.Enabled)
+            if (!Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
-#if !MONOGAME
+            #if !MONOGAME
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(this._backgroundSong);
             MediaPlayer.Volume = 0.3f;
-#endif
+            #endif
         }
 
         private void PlayRandomAmbientMusic()

@@ -84,13 +84,13 @@ namespace VoxeliqEngine.Chunks
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public static byte CacheRange = Engine.Instance.Configuration.CacheConfiguration.CacheRange;
+        public static byte CacheRange = Engine.Instance.Configuration.Cache.CacheRange;
 
         /// <summary>
         /// Range of viewable chunks by the player.
         /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public static byte ViewRange = Engine.Instance.Configuration.CacheConfiguration.ViewRange;
+        public static byte ViewRange = Engine.Instance.Configuration.Cache.ViewRange;
 
         /// <summary>
         /// Bounding box for view range.
