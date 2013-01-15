@@ -60,6 +60,10 @@ namespace VoxeliqGame
 
             this.IsMouseVisible = false;
 
+            // read settings.
+            var audioSettings = new AudioSettings();
+            var graphicsSettings = new GraphicsSettings();
+
             // create a new EngineConfiguration instance.
             var config = new EngineConfig
             {
@@ -77,15 +81,15 @@ namespace VoxeliqGame
                 },
                 Graphics =
                 {
-                    Width = GraphicsSettings.Instance.Width,
-                    Height = GraphicsSettings.Instance.Height,
-                    FullScreenEnabled = GraphicsSettings.Instance.FullScreenEnabled,
-                    VerticalSyncEnabled = GraphicsSettings.Instance.VerticalSyncEnabled,
-                    FixedTimeStepsEnabled = GraphicsSettings.Instance.FixedTimeStepsEnabled,
+                    Width = graphicsSettings.Width,
+                    Height = graphicsSettings.Height,
+                    FullScreenEnabled = graphicsSettings.FullScreenEnabled,
+                    VerticalSyncEnabled = graphicsSettings.VerticalSyncEnabled,
+                    FixedTimeStepsEnabled = graphicsSettings.FixedTimeStepsEnabled,
                 },
                 Audio =
                 {
-                    Enabled = AudioSettings.Instance.Enabled,
+                    Enabled = audioSettings.Enabled,
                 }
             };
 

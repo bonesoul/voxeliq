@@ -26,19 +26,9 @@ namespace VoxeliqGame.Settings.Readers
         /// <summary>
         /// Creates a new log config.
         /// </summary>
-        private LogSettings() :
+        internal LogSettings() :
             base("Logging") // Call the base ctor with section name 'Logging'.
         { }
-
-        /// <summary>
-        /// Singleton instance.
-        /// </summary>
-        public static LogSettings Instance { get { return _instance; } }
-
-        /// <summary>
-        /// The internal instance pointer.
-        /// </summary>
-        private static readonly LogSettings _instance = new LogSettings();
     }
 
     /// <summary>

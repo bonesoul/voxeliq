@@ -19,24 +19,10 @@ namespace VoxeliqGame.Settings.Readers
         }
 
         /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        private static readonly AudioSettings _instance = new AudioSettings();
-
-        /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        public static AudioSettings Instance
-        {
-            get { return _instance; }
-        }
-
-        /// <summary>
         /// Creates a new ScreenConfig instance.
         /// </summary>
-        private AudioSettings()
+        internal AudioSettings()
             : base("Audio")
-        {
-        }
+        { }
     }
 }

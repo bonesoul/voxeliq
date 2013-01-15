@@ -53,9 +53,11 @@ namespace VoxeliqGame
 
         private static void InitLoggers()
         {
+            var logSettings = new LogSettings();
+
             LogManager.Enabled = true; // enable logger by default.
 
-            foreach (var targetConfig in LogSettings.Instance.Targets)
+            foreach (var targetConfig in logSettings.Targets)
             {
                 if (!targetConfig.Enabled)
                     continue;

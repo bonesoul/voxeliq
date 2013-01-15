@@ -55,24 +55,10 @@ namespace VoxeliqGame.Settings.Readers
         }
 
         /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        private static readonly GraphicsSettings _instance = new GraphicsSettings();
-
-        /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        public static GraphicsSettings Instance
-        {
-            get { return _instance; }
-        }
-
-        /// <summary>
         /// Creates a new ScreenConfig instance.
         /// </summary>
-        private GraphicsSettings()
+        internal GraphicsSettings()
             : base("Graphics")
-        {
-        }
+        { }
     }
 }
