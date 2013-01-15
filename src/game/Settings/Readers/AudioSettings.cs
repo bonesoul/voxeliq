@@ -7,7 +7,7 @@
 
 namespace VoxeliqGame.Settings.Readers
 {
-    public sealed class AudioSettings : Config
+    public sealed class AudioSettings : SettingsReader
     {
         /// <summary>
         /// Is audio enabled?

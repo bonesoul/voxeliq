@@ -51,6 +51,7 @@ namespace VoxeliqEngine.Core.Config
         /// <returns></returns>
         internal bool Validate()
         {
+            // valide all the subconfigurations. 
             if (!this.Chunk.Validate())
                 return false;
 

@@ -119,8 +119,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Settings\Readers\AudioSettings.cs" />
-    <Compile Include="Settings\Config.cs" />
-    <Compile Include="Settings\ConfigManager.cs" />
+    <Compile Include="Settings\SettingsReader.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\Readers\GraphicsSettings.cs" />
     <Compile Include="Settings\Readers\LogSettings.cs" />
     <Compile Include="SampleGame.cs" />

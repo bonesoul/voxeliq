@@ -12,17 +12,8 @@ namespace VoxeliqGame.Settings.Readers
     /// <summary>
     /// Holds configuration info for log manager.
     /// </summary>
-    public sealed class LogSettings : Config
+    public sealed class LogSettings : SettingsReader
     {
-        /// <summary>
-        /// Gets or sets the logging root.
-        /// </summary>
-        public string LoggingRoot
-        {
-            get { return this.GetString("Root", @"logs"); }
-            set { this.Set("Root", value); }
-        }
-
         /// <summary>
         /// Available log target configs.
         /// </summary>
@@ -53,7 +44,7 @@ namespace VoxeliqGame.Settings.Readers
     /// <summary>
     /// Holds configuration of a log target.
     /// </summary>
-    public class LogTargetConfig : Config
+    public class LogTargetConfig : SettingsReader
     {
         /// <summary>
         /// Is enabled?

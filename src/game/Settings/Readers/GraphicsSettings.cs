@@ -7,7 +7,7 @@
 
 namespace VoxeliqGame.Settings.Readers
 {
-    public sealed class GraphicsSettings : Config
+    public sealed class GraphicsSettings : SettingsReader
     {
         /// <summary>
         /// Sets the screen width.

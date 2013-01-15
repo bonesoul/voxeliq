@@ -39,9 +39,6 @@ namespace VoxeliqGame
 
             InitLoggers(); // init logging facility.
 
-            // print version information.
-            var frameworkVersion = Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
-
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
             Logger.Info(string.Format("Using framework {0} over {1}.", VersionInfo.GameFramework, VersionInfo.GraphicsApi));            
 
