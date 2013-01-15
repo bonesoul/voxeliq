@@ -20,7 +20,7 @@ namespace VoxeliqGame
     /// <summary>
     /// The game client.
     /// </summary>
-    public class SampleGame : Microsoft.Xna.Framework.Game
+    public class SampleGame : Game
     {
         /// <summary>
         /// Graphics device manager.
