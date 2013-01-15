@@ -33,6 +33,8 @@ namespace VoxeliqEngine.Input
         /// Should the mouse cursor centered on screen?
         /// </summary>
         bool CursorCentered { get; }
+
+        event InputManager.KeyEventHandler KeyDown;
     }
 
     /// <summary>
@@ -69,7 +71,6 @@ namespace VoxeliqEngine.Input
             : base(game)
         {
             this.Game.Services.AddService(typeof (IInputManager), this); // export service.
-            _instance = this;
 
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = true; // center the mouse by default.        
@@ -206,15 +207,5 @@ namespace VoxeliqEngine.Input
         public delegate void KeyEventHandler(object sender, KeyEventArgs e);
 
         public event KeyEventHandler KeyDown;
-
-        private static InputManager _instance; // the instance.
-
-        /// <summary>
-        /// Returns the memory instance of AssetManager.
-        /// </summary>
-        public static InputManager Instance
-        {
-            get { return _instance; }
-        }
     }
 }
