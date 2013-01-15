@@ -19,8 +19,6 @@ using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Profiling;
 using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;

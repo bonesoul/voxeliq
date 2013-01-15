@@ -96,7 +96,12 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="SampleGame.cs" />
+    <Compile Include="Settings\Readers\AudioSettings.cs" />
+    <Compile Include="Settings\Readers\GraphicsSettings.cs" />
+    <Compile Include="Settings\Readers\LogSettings.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Settings\SettingsReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -1,15 +1,18 @@
-﻿using System;
+﻿/*
+ * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
-using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging.Graphs.Implementations;
 using VoxeliqEngine.Debugging.Graphs.Implementations.ChunkGraphs;
-using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Drawing;
 
 namespace VoxeliqEngine.Debugging.Graphs

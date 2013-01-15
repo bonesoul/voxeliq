@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetManager.cs" />
-    <Compile Include="Audio\AudioConfig.cs" />
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\BlockStorage.cs" />
@@ -89,8 +88,6 @@
     <Compile Include="Chunks\Populators\TreePopulator.cs" />
     <Compile Include="Chunks\Processors\Lightning.cs" />
     <Compile Include="Chunks\Processors\VertexBuilder.cs" />
-    <Compile Include="Common\Configuration\Config.cs" />
-    <Compile Include="Common\Configuration\ConfigManager.cs" />
     <Compile Include="Common\DoubleIndexedDictionary.cs" />
     <Compile Include="Common\Extensions\ArrayExtensions.cs" />
     <Compile Include="Common\Extensions\BigIntegerExtensions.cs" />
@@ -104,7 +101,6 @@
     <Compile Include="Common\Helpers\IO\FileHelper.cs" />
     <Compile Include="Common\Logging\ConsoleTarget.cs" />
     <Compile Include="Common\Logging\FileTarget.cs" />
-    <Compile Include="Common\Logging\LogConfig.cs" />
     <Compile Include="Common\Logging\Logger.cs" />
     <Compile Include="Common\Logging\LogManager.cs" />
     <Compile Include="Common\Logging\LogRouter.cs" />
@@ -119,8 +115,12 @@
     <Compile Include="Common\Vector\Vector3Int.cs" />
     <Compile Include="Common\Vector\Vector4Byte.cs" />
     <Compile Include="Common\Versions\VersionInfo.cs" />
+    <Compile Include="Core\Config\AudioConfig.cs" />
+    <Compile Include="Core\Config\CacheConfig.cs" />
+    <Compile Include="Core\Config\ChunkConfig.cs" />
+    <Compile Include="Core\Config\EngineConfig.cs" />
+    <Compile Include="Core\Config\GraphicsConfig.cs" />
     <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\EngineConfiguration.cs" />
     <Compile Include="Core\Settings.cs" />
     <Compile Include="Debugging\Commands.cs" />
     <Compile Include="Debugging\Console\Command.cs" />
@@ -156,7 +156,6 @@
     <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
     <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
-    <Compile Include="Graphics\GraphicsConfig.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\Rasterizer.cs" />
     <Compile Include="Graphics\Texture\DualTextured.cs" />
