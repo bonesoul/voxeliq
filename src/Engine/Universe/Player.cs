@@ -5,6 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
@@ -99,6 +100,7 @@ namespace VoxeliqEngine.Universe
         // required services.
         private ICamera _camera;
         private IChunkCache _chunkCache;
+        private IAssetManager _assetManager;
 
         // misc
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
@@ -116,22 +118,26 @@ namespace VoxeliqEngine.Universe
 
             this.FlyingEnabled = true;
             this.Weapon = new Shovel(Game);
-            this.LoadContent();
 
             // import required services.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
+            this.LoadContent();
 
             this.Weapon.Initialize();
         }
 
         protected override void LoadContent()
         {
-            this._aimedBlockModel = AssetManager.Instance.AimedBlockModel;
-            this._aimedBlockEffect = AssetManager.Instance.AimedBlockEffect;
-            this._aimedBlockTexture = AssetManager.Instance.AimedBlockTexture;
-
-            this._sampleModel = AssetManager.Instance.SampleModel;
+            this._aimedBlockModel = this._assetManager.AimedBlockModel;
+            this._aimedBlockEffect = this._assetManager.AimedBlockEffect;
+            this._aimedBlockTexture = this._assetManager.AimedBlockTexture;
+            this._sampleModel = this._assetManager.SampleModel;
         }
 
         public override void Update(GameTime gameTime)

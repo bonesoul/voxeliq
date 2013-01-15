@@ -5,6 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
@@ -18,30 +19,40 @@ namespace VoxeliqEngine.Interface
         private Texture2D _crosshairNormalTexture;
         private Texture2D _crosshairShovelTexture;
         private SpriteBatch _spriteBatch;
+        
         private IPlayer _player;
+        private IAssetManager _assetManager;
 
         /// <summary>
         /// Logging facility.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        public UserInterface(Game game) : base(game)
-        {
-        }
+        public UserInterface(Game game)
+            : base(game)
+        { }
 
         public override void Initialize()
         {
             Logger.Trace("init()");
 
+            // import required services.
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
+            if (this._player == null)
+                throw new NullReferenceException("Can not find player component.");
+
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
             _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             this.LoadContent();
         }
 
         protected override void LoadContent()
         {
-            this._crosshairNormalTexture = AssetManager.Instance.CrossHairNormalTexture;
-            this._crosshairShovelTexture = AssetManager.Instance.CrossHairShovelTexture;
+            this._crosshairNormalTexture = this._assetManager.CrossHairNormalTexture;
+            this._crosshairShovelTexture = this._assetManager.CrossHairShovelTexture;
         }
 
         public override void Draw(GameTime gameTime)

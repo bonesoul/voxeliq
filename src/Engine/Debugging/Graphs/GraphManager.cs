@@ -32,6 +32,8 @@ namespace VoxeliqEngine.Debugging.Graphs
         private Matrix _localProjection;
         private Matrix _localView;
 
+        private IAssetManager _assetManager;
+
         private readonly List<DebugGraph> _graphs=new List<DebugGraph>(); // the current graphs list.
 
         public GraphManager(Game game)
@@ -51,6 +53,11 @@ namespace VoxeliqEngine.Debugging.Graphs
             this._graphs.Add(new ReadyQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 285, 270, 35)));
             this._graphs.Add(new RemoveQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 340, 270, 35)));
 
+            // import required services.
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
             base.Initialize();
         }
 
@@ -59,7 +66,7 @@ namespace VoxeliqEngine.Debugging.Graphs
             // init the drawing related objects.
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = AssetManager.Instance.Verdana;
+            _spriteFont = this._assetManager.Verdana;
             _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;           
             

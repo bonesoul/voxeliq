@@ -77,6 +77,7 @@ namespace VoxeliqEngine.Debugging
         private IFogger _fogger;
         private IChunkStorage _chunkStorage;
         private IChunkCache _chunkCache;
+        private IAssetManager _assetManager;
 
         public int GenerateQueue { get; private set; }
         public int LightenQueue { get; private set; }
@@ -111,6 +112,10 @@ namespace VoxeliqEngine.Debugging
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
 
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
             base.Initialize();
         }
 
@@ -120,7 +125,7 @@ namespace VoxeliqEngine.Debugging
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = AssetManager.Instance.Verdana;
+            _spriteFont = this._assetManager.Verdana;
         }
 
         /// <summary>

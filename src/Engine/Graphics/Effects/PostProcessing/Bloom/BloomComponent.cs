@@ -20,6 +20,8 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
     public class BloomComponent:DrawableGameComponent, IBloomService
     {
+        private IAssetManager _assetManager;
+
         private static byte CurrentBloomSettingIndex = 3;
 
         SpriteBatch spriteBatch;
@@ -67,13 +69,23 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
             this.Game.Services.AddService(typeof(IBloomService), this); // export the service.
         }
 
+        public override void Initialize()
+        {
+            // import required services;
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
+            base.Initialize();
+        }
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            bloomExtractEffect = AssetManager.Instance.BloomExtractEffect;
-            bloomCombineEffect = AssetManager.Instance.BloomCombineEffect;
-            gaussianBlurEffect = AssetManager.Instance.GaussianBlurEffect;
+            bloomExtractEffect = this._assetManager.BloomExtractEffect;
+            bloomCombineEffect = this._assetManager.BloomCombineEffect;
+            gaussianBlurEffect = this._assetManager.GaussianBlurEffect;
 
             // Look up the resolution and format of our main backbuffer.
             PresentationParameters pp = GraphicsDevice.PresentationParameters;

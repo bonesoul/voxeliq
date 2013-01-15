@@ -61,6 +61,8 @@ namespace VoxeliqEngine.Debugging.Timing
         public Texture2D texture;
         public SpriteFont debugFont;
 
+        private IAssetManager _assetManager;
+
         #region Constants
 
         /// <summary>
@@ -265,11 +267,15 @@ namespace VoxeliqEngine.Debugging.Timing
         public override void Initialize()
         {
 #if TRACE
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
             this.spriteBatch = new SpriteBatch(this.Game.GraphicsDevice);
             this.texture = new Texture2D(this.Game.GraphicsDevice, 1, 1);
             Color[] whitePixels = new Color[] { Color.White };
             texture.SetData<Color>(whitePixels);
-            this.debugFont = AssetManager.Instance.Verdana;
+            this.debugFont = this._assetManager.Verdana;
 
             // Initialize Parameters.
             logs = new FrameLog[2];
