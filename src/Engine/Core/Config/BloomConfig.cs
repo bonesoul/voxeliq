@@ -5,27 +5,32 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
+
 namespace VoxeliqEngine.Core.Config
 {
-    public class WorldConfig
+    public class BloomConfig
     {
         #region configurable parameters
 
         /// <summary>
-        /// Is the world infinitive?
+        /// Is bloom enabled?
         /// </summary>
-        public bool IsInfinitive { get; set; }
+        public bool Enabled { get; set; }
+
+        public BloomState State { get; set; }
 
         #endregion
 
         #region togglers
 
         /// <summary>
-        /// Toggles infinitive world on or off.
+        /// Sets bloom mode.
         /// </summary>
-        public void ToggleInfinitiveWorld()
+        /// <param name="state"><see cref="BloomState"/></param>
+        public void SetMode(BloomState state)
         {
-            IsInfinitive = !IsInfinitive;
+            this.State = state;
         }
 
         #endregion
@@ -33,10 +38,11 @@ namespace VoxeliqEngine.Core.Config
         /// <summary>
         /// Creates a new instance of audio config.
         /// </summary>
-        internal WorldConfig()
+        internal BloomConfig()
         {
             // set the defaults.
-            this.IsInfinitive = true;
+            this.Enabled = false;
+            this.State = BloomState.Default;
         }
 
         /// <summary>

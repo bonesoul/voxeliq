@@ -84,7 +84,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Draw(GameTime gameTime)
         {
-            if (!Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Engine.Instance.Configuration.Debugging.GraphsEnabled) // check if graphs are enabled.
                 return;
 
             // backup  the raster and depth-stencil states.
@@ -122,7 +122,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Update(GameTime gameTime)
         {
-            if (!Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Engine.Instance.Configuration.Debugging.GraphsEnabled) // check if graphs are enabled.
                 return;
 
             foreach (var graph in this._graphs)

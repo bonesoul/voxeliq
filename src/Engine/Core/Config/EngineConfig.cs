@@ -38,6 +38,16 @@ namespace VoxeliqEngine.Core.Config
         public WorldConfig World { get; private set; }
 
         /// <summary>
+        /// Holds the debugging related configuration parameters.
+        /// </summary>
+        public DebugConfig Debugging { get; private set; }
+
+        /// <summary>
+        /// Holds the bloom related configuration parameters.
+        /// </summary>
+        public BloomConfig Bloom { get; private set; }
+
+        /// <summary>
         /// Creates a new instance of engine configuration.
         /// </summary>
         public EngineConfig()
@@ -47,6 +57,8 @@ namespace VoxeliqEngine.Core.Config
             this.Graphics = new GraphicsConfig();
             this.Audio = new AudioConfig();
             this.World = new WorldConfig();
+            this.Debugging = new DebugConfig();
+            this.Bloom = new BloomConfig();
         }
 
         /// <summary>
@@ -69,6 +81,12 @@ namespace VoxeliqEngine.Core.Config
                 return false;
 
             if (!this.World.Validate())
+                return false;
+
+            if (!this.Debugging.Validate())
+                return false;
+
+            if (!this.Bloom.Validate())
                 return false;
 
             return true;

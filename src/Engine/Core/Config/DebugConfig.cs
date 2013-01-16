@@ -7,36 +7,24 @@
 
 namespace VoxeliqEngine.Core.Config
 {
-    public class WorldConfig
+    public class DebugConfig
     {
         #region configurable parameters
 
         /// <summary>
-        /// Is the world infinitive?
+        /// Gets or sets if debug graphs are enabled.
         /// </summary>
-        public bool IsInfinitive { get; set; }
-
-        #endregion
-
-        #region togglers
-
-        /// <summary>
-        /// Toggles infinitive world on or off.
-        /// </summary>
-        public void ToggleInfinitiveWorld()
-        {
-            IsInfinitive = !IsInfinitive;
-        }
+        public bool GraphsEnabled { get; set; }
 
         #endregion
 
         /// <summary>
         /// Creates a new instance of audio config.
         /// </summary>
-        internal WorldConfig()
+        internal DebugConfig()
         {
             // set the defaults.
-            this.IsInfinitive = true;
+            this.GraphsEnabled = true;
         }
 
         /// <summary>
