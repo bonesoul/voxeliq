@@ -118,12 +118,14 @@
     <Compile Include="Common\Vector\Vector4Byte.cs" />
     <Compile Include="Common\Versions\VersionInfo.cs" />
     <Compile Include="Core\Config\AudioConfig.cs" />
+    <Compile Include="Core\Config\BloomConfig.cs" />
     <Compile Include="Core\Config\CacheConfig.cs" />
     <Compile Include="Core\Config\ChunkConfig.cs" />
+    <Compile Include="Core\Config\DebugConfig.cs" />
     <Compile Include="Core\Config\EngineConfig.cs" />
     <Compile Include="Core\Config\GraphicsConfig.cs" />
+    <Compile Include="Core\Config\WorldConfig.cs" />
     <Compile Include="Core\Engine.cs" />
-    <Compile Include="Core\Settings.cs" />
     <Compile Include="Debugging\Commands.cs" />
     <Compile Include="Debugging\Console\Command.cs" />
     <Compile Include="Debugging\Console\CommandAttributes.cs" />

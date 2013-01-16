@@ -38,15 +38,24 @@ namespace VoxeliqEngine.Common.Versions
             Ouya,
         }
 
-        public static GameFrameworks GameFramework;
+        public static Platforms Platform { get; private set; }
 
-        public static GraphicsAPI GraphicsApi;
+        public static string DotNetFramework { get; private set; }
 
-        public static Platforms Platform;
+        public static Version DotNetFrameworkVersion { get; private set; }
+
+        public static GameFrameworks GameFramework { get; private set; }
+
+        public static Version GameFrameworkVersion { get; private set; }
+
+        public static GraphicsAPI GraphicsApi { get; private set; }
 
         static VersionInfo()
         {
             Platform = Platforms.Windows;
+            DotNetFramework = IsRunningOnMono() ? "Mono" : ".Net";
+            DotNetFrameworkVersion = Environment.Version;
+            GameFrameworkVersion = System.Reflection.Assembly.GetAssembly(typeof(Microsoft.Xna.Framework.Game)).GetName().Version;
 
             #if XNA
                 GameFramework = GameFrameworks.XNA;
@@ -59,6 +68,11 @@ namespace VoxeliqEngine.Common.Versions
                     GraphicsApi = GraphicsAPI.OpenGL;
                 #endif
             #endif
+        }
+
+        public static bool IsRunningOnMono()
+        {
+            return Type.GetType("Mono.Runtime") != null;
         }
 
         /// <summary>

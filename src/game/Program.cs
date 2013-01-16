@@ -40,7 +40,8 @@ namespace VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
-            Logger.Info(string.Format("Using framework {0} over {1}.", VersionInfo.GameFramework, VersionInfo.GraphicsApi));            
+            Logger.Info(string.Format("Running over {0} {1}.",VersionInfo.DotNetFramework,VersionInfo.DotNetFrameworkVersion));
+            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", VersionInfo.GameFramework, VersionInfo.GameFrameworkVersion, VersionInfo.GraphicsApi));            
 
             using (var game = new SampleGame()) // startup the game.
             {
