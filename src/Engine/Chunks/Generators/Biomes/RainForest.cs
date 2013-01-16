@@ -25,9 +25,6 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
         {
             BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Grass;
 
-            if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
-
             //var test = GetRockHeight(worldPositionX, worldPositionZ);
             //if (Math.Abs(test - groundLevel) < 1)
             //{

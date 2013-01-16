@@ -183,20 +183,36 @@ namespace VoxeliqEngine.Chunks
             if (z < 0)
                 z += (sbyte) Chunk.LenghtInBlocks;
 
-            switch (block.Exists)
-            {
-                case false:
-                    if (this.LowestEmptyBlockOffset > y && y > 0)
-                        this.LowestEmptyBlockOffset = (byte) (y - 1);
-                    break;
-                case true:
-                    if (y > this.HighestSolidBlockOffset && y < MaxHeightIndexInBlocks)
-                        this.HighestSolidBlockOffset = (byte) (y + 1);
-                    break;
-            }
-
             BlockStorage.FastSetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
             this.ChunkState = ChunkState.AwaitingRelighting;
+        }
+
+        public void CalculateHeightIndexes()
+        {
+            for (byte x = 0; x < Chunk.WidthInBlocks; x++)
+            {
+                var worldPositionX = this.WorldPosition.X + x;
+
+                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                {
+                    int worldPositionZ = this.WorldPosition.Z + z;
+
+                    var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
+                    for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
+                    {
+                        if ((y > this.HighestSolidBlockOffset) && (BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.HighestSolidBlockOffset = (byte)y;
+                        }
+                        else if ((this.LowestEmptyBlockOffset > y) && (!BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.LowestEmptyBlockOffset = (byte)y;
+                        }
+                    }
+                }
+            }
+
+            this.LowestEmptyBlockOffset--;
         }
 
         /// <summary>

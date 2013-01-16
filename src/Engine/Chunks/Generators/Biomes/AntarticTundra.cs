@@ -22,9 +22,6 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
             {
                 BlockStorage.Blocks[groundOffset + y].Type = BlockType.Snow;
             }
-
-            if (groundLevel + SnowDepth > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte)(groundLevel + SnowDepth);
         }
     }
 }
