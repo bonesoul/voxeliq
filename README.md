@@ -27,6 +27,7 @@ This program is free software; you can redistribute it and/or modify it under th
 <a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
 
 # What's new?
+- Improved mesh optimizations: http://www.voxeliq.org/2013/01/16/improved-mesh-optimization/
 - CI server is up and running! - http://voxeliq-ci.cloudapp.net
 - Implemented more debug graphs;
 ![Screenshot](http://i.imgur.com/OtQy4.jpg)
