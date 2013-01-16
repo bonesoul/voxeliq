@@ -199,6 +199,38 @@ namespace VoxeliqEngine.Chunks
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 
+        public void CalculateHeightIndexes()
+        {
+            this.HighestSolidBlockOffset = 0;
+            this.LowestEmptyBlockOffset = Chunk.HeightInBlocks;
+
+            for (byte x = 0; x < Chunk.WidthInBlocks; x++)
+            {
+                var worldPositionX = this.WorldPosition.X + x;
+
+                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                {
+                    int worldPositionZ = this.WorldPosition.Z + z;
+
+                    var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
+                    for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
+                    {
+                        if ((y > this.HighestSolidBlockOffset) && (BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.HighestSolidBlockOffset = (byte)y;
+                        }
+                        else if ((this.LowestEmptyBlockOffset > y) && (!BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.LowestEmptyBlockOffset = (byte)y;
+                        }
+                    }
+                }
+            }
+
+            this.HighestSolidBlockOffset++;
+            this.LowestEmptyBlockOffset--;
+        }
+
         /// <summary>
         /// Returns a string that represents chunks relative position and state.
         /// </summary>      

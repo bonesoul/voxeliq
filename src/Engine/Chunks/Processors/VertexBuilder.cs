@@ -50,6 +50,8 @@ namespace VoxeliqEngine.Chunks.Processors
 
             chunk.ChunkState = ChunkState.Building; // set chunk state to building.
 
+            chunk.CalculateHeightIndexes();
+
             if (chunk.HighestSolidBlockOffset < Chunk.MaxHeightIndexInBlocks)
                 chunk.HighestSolidBlockOffset++;
 
