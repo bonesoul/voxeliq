@@ -6,6 +6,7 @@
  */
 
 using Microsoft.Xna.Framework.Graphics;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Debugging.Console;
 
 namespace VoxeliqEngine.Graphics
@@ -32,7 +33,7 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// Creates a new rasterizer.
         /// </summary>
-        private Rasterizer()
+        public Rasterizer()
         {
             this.Wireframed = false;
         }
@@ -41,32 +42,19 @@ namespace VoxeliqEngine.Graphics
         /// Wire-framed rasterizer.
         /// </summary>
         private static readonly RasterizerState WireframedRaster = new RasterizerState()
-                                                                       {
-                                                                           CullMode = CullMode.CullCounterClockwiseFace,
-                                                                           FillMode = FillMode.WireFrame
-                                                                       };
+        {
+            CullMode = CullMode.CullCounterClockwiseFace,
+            FillMode = FillMode.WireFrame
+        };
 
         /// <summary>
         /// Normal rasterizer.
         /// </summary>
         private static readonly RasterizerState NormalRaster = new RasterizerState()
-                                                                   {
-                                                                       CullMode = CullMode.CullCounterClockwiseFace,
-                                                                       FillMode = FillMode.Solid
-                                                                   };
-
-        /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        private static readonly Rasterizer _instance = new Rasterizer();
-
-        /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        public static Rasterizer Instance
         {
-            get { return _instance; }
-        }
+            CullMode = CullMode.CullCounterClockwiseFace,
+            FillMode = FillMode.Solid
+        };
     }
 
     [Command("rasterizer", "Sets rasterizer mode.\nusage: rasterizer [wireframed|normal]")]
@@ -76,7 +64,7 @@ namespace VoxeliqEngine.Graphics
         public string Default(string[] @params)
         {
             return string.Format("Rasterizer is currently set to {0} mode.\nusage: rasterizer [wireframed|normal].",
-                                 Rasterizer.Instance.Wireframed
+                                 Engine.Instance.Rasterizer.Wireframed
                                      ? "wireframed"
                                      : "normal");
         }
@@ -84,14 +72,14 @@ namespace VoxeliqEngine.Graphics
         [Subcommand("wireframed","Sets rasterizer mode to wireframed.")]
         public string Wireframed(string[] @params)
         {
-            Rasterizer.Instance.Wireframed = true;
+            Engine.Instance.Rasterizer.Wireframed = true;
             return "Rasterizer mode set to wireframed.";
         }
 
         [Subcommand("normal", "Sets rasterizer mode to normal.")]
         public string Normal(string[] @params)
         {
-            Rasterizer.Instance.Wireframed = false;
+            Engine.Instance.Rasterizer.Wireframed = false;
             return "Rasterizer mode set to normal mode.";
         }
     }

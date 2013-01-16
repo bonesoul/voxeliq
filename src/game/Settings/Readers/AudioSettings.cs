@@ -5,11 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Common.Configuration;
-
-namespace VoxeliqEngine.Audio
+namespace VoxeliqGame.Settings.Readers
 {
-    public sealed class AudioConfig : Config
+    public sealed class AudioSettings : SettingsReader
     {
         /// <summary>
         /// Is audio enabled?
@@ -21,24 +19,10 @@ namespace VoxeliqEngine.Audio
         }
 
         /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        private static readonly AudioConfig _instance = new AudioConfig();
-
-        /// <summary>
-        /// The memory instance of ScreenConfig.
-        /// </summary>
-        public static AudioConfig Instance
-        {
-            get { return _instance; }
-        }
-
-        /// <summary>
         /// Creates a new ScreenConfig instance.
         /// </summary>
-        private AudioConfig()
+        internal AudioSettings()
             : base("Audio")
-        {
-        }
+        { }
     }
 }

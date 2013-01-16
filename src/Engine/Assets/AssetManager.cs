@@ -82,7 +82,6 @@ namespace VoxeliqEngine.Assets
             : base(game)
         {
             this.Game.Services.AddService(typeof(IAssetManager), this); // export service.   
-            _instance = this;
         }
 
         /// <summary>
@@ -140,16 +139,6 @@ namespace VoxeliqEngine.Assets
         {
             // Note that monogame requires special compiled shaders with mgfxo extension.
             return this.Game.Content.Load<Effect>(path + EffectShaderExtension);
-        }
-
-        private static AssetManager _instance; // the instance.
-
-        /// <summary>
-        /// Returns the memory instance of AssetManager.
-        /// </summary>
-        public static AssetManager Instance
-        {
-            get { return _instance; }
         }
     }
 }

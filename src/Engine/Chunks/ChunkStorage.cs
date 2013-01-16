@@ -76,7 +76,6 @@ namespace VoxeliqEngine.Chunks
         public ChunkStorage(Game game)
             : base(game)
         {
-            _instance = this;
             this.Game.Services.AddService(typeof (IChunkStorage), this); // export service.
         }
 
@@ -128,16 +127,6 @@ namespace VoxeliqEngine.Chunks
         public IEnumerable<Chunk> Values
         {
             get { return this._dictionary.Values; }
-        }
-
-        private static ChunkStorage _instance; // The memory instance of ChunkStorage.
-
-        /// <summary>
-        /// The memory instance of ChunkStorage.
-        /// </summary>
-        public static ChunkStorage Instance
-        {
-            get { return _instance; }
         }
     }
 }

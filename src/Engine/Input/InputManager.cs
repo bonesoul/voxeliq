@@ -33,6 +33,8 @@ namespace VoxeliqEngine.Input
         /// Should the mouse cursor centered on screen?
         /// </summary>
         bool CursorCentered { get; }
+
+        event InputManager.KeyEventHandler KeyDown;
     }
 
     /// <summary>
@@ -69,7 +71,6 @@ namespace VoxeliqEngine.Input
             : base(game)
         {
             this.Game.Services.AddService(typeof (IInputManager), this); // export service.
-            _instance = this;
 
             this.CaptureMouse = true; // capture the mouse by default.
             this.CursorCentered = true; // center the mouse by default.        
@@ -120,10 +121,10 @@ namespace VoxeliqEngine.Input
             if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
-            float rotation = currentState.X - GraphicsConfig.Instance.Width/2;
+            float rotation = currentState.X - Engine.Instance.Configuration.Graphics.Width / 2;
             if (rotation != 0) _cameraController.RotateCamera(rotation);
 
-            float elevation = currentState.Y - GraphicsConfig.Instance.Height/2;
+            float elevation = currentState.Y - Engine.Instance.Configuration.Graphics.Height / 2;
             if (elevation != 0) _cameraController.ElevateCamera(elevation);
 
             if (currentState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
@@ -206,15 +207,5 @@ namespace VoxeliqEngine.Input
         public delegate void KeyEventHandler(object sender, KeyEventArgs e);
 
         public event KeyEventHandler KeyDown;
-
-        private static InputManager _instance; // the instance.
-
-        /// <summary>
-        /// Returns the memory instance of AssetManager.
-        /// </summary>
-        public static InputManager Instance
-        {
-            get { return _instance; }
-        }
     }
 }

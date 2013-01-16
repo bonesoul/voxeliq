@@ -19,8 +19,6 @@ using VoxeliqEngine.Chunks.Processors;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Vector;
 using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Profiling;
 using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Universe;
@@ -84,13 +82,13 @@ namespace VoxeliqEngine.Chunks
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public static byte CacheRange = Engine.Instance.Configuration.CacheConfiguration.CacheRange;
+        public static byte CacheRange = Engine.Instance.Configuration.Cache.CacheRange;
 
         /// <summary>
         /// Range of viewable chunks by the player.
         /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public static byte ViewRange = Engine.Instance.Configuration.CacheConfiguration.ViewRange;
+        public static byte ViewRange = Engine.Instance.Configuration.Cache.ViewRange;
 
         /// <summary>
         /// Bounding box for view range.
@@ -132,6 +130,7 @@ namespace VoxeliqEngine.Chunks
         private ICamera _camera;
         private IPlayer _player;
         private IFogger _fogger;
+        private IAssetManager _assetManager;
         private TimeRuler _timeRuler;
 
         public bool CacheThreadStarted { get; private set; }
@@ -174,8 +173,12 @@ namespace VoxeliqEngine.Chunks
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
-            this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
+            this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));            
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
+
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
 
             this.Generator = new BiomedTerrain(new RainForest());
             base.Initialize();
@@ -183,9 +186,9 @@ namespace VoxeliqEngine.Chunks
 
         protected override void LoadContent()
         {
-            this._blockEffect = AssetManager.Instance.BlockEffect;
-            this._blockTextureAtlas = AssetManager.Instance.BlockTextureAtlas;
-            this._crackTextureAtlas = AssetManager.Instance.CrackTextureAtlas;
+            this._blockEffect = this._assetManager.BlockEffect;
+            this._blockTextureAtlas = this._assetManager.BlockTextureAtlas;
+            this._crackTextureAtlas = this._assetManager.CrackTextureAtlas;
         }
 
         /// <summary>

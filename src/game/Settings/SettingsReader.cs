@@ -7,20 +7,20 @@
 
 using Nini.Config;
 
-namespace VoxeliqEngine.Common.Configuration
+namespace VoxeliqGame.Settings
 {
-    public class Config
+    public class SettingsReader
     {
         private readonly IConfig _section;
 
-        public Config(string sectionName)
+        public SettingsReader(string sectionName)
         {
-            this._section = ConfigManager.Section(sectionName) ?? ConfigManager.AddSection(sectionName);
+            this._section = SettingsManager.Section(sectionName) ?? SettingsManager.AddSection(sectionName);
         }
 
         public void Save()
         {
-            ConfigManager.Save();
+            SettingsManager.Save();
         }
 
         protected bool GetBoolean(string key, bool defaultValue) { return this._section.GetBoolean(key, defaultValue); }

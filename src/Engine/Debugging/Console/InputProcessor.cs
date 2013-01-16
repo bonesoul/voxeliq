@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using VoxeliqEngine.Core;
 using VoxeliqEngine.Input;
 
 namespace VoxeliqEngine.Debugging.Console
@@ -39,7 +40,9 @@ namespace VoxeliqEngine.Debugging.Console
             CommandHistory = new CommandHistory();
             Out = new List<OutputLine>();
             Buffer = new OutputLine("", OutputLineType.Command);
-            InputManager.Instance.KeyDown += new InputManager.KeyEventHandler(OnKeyDown);
+
+            var inputManager = (IInputManager)Engine.Instance.Game.Services.GetService(typeof(IInputManager));
+            inputManager.KeyDown += new InputManager.KeyEventHandler(OnKeyDown);
         }
 
         public void AddToBuffer(string text)
