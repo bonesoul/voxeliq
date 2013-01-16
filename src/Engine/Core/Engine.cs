@@ -41,6 +41,8 @@ namespace VoxeliqEngine.Core
 
         public GameConsole Console { get; private set; }
 
+        public Rasterizer Rasterizer { get; private set; }
+
         public Engine(Game game, EngineConfig config)
         {
             if (_instance != null)
@@ -72,6 +74,8 @@ namespace VoxeliqEngine.Core
         /// </summary>
         private void AddComponents()
         {
+            this.Rasterizer = new Rasterizer();
+
             this.Game.Components.Add(new InputManager(this.Game));
 
             this.Game.Components.Add(new AssetManager(this.Game));

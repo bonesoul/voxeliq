@@ -146,7 +146,7 @@ namespace VoxeliqGame
 
             this.GraphicsDevice.Clear(Color.Black);
 
-            this.GraphicsDevice.RasterizerState = Rasterizer.Instance.State;
+            this.GraphicsDevice.RasterizerState = Engine.Instance.Rasterizer.State;
 
             base.Draw(gameTime);
 
