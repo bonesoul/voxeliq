@@ -5,12 +5,14 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System.Collections.Generic;
+
 namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 {
     public class BloomSettings
     {
         // Name of a preset bloom setting, for display to the user.
-        public readonly string Name;
+        public readonly BloomState Name;
 
         // Controls how bright a pixel needs to be before it will bloom.
         // Zero makes everything bloom equally, while higher values select
@@ -35,7 +37,7 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
         /// <summary>
         /// Constructs a new bloom settings descriptor.
         /// </summary>
-        public BloomSettings(string name, float bloomThreshold, float blurAmount,
+        public BloomSettings(BloomState name, float bloomThreshold, float blurAmount,
                              float bloomIntensity, float baseIntensity,
                              float bloomSaturation, float baseSaturation)
         {
@@ -48,18 +50,28 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
             BaseSaturation = baseSaturation;
         }
 
+
         /// <summary>
         /// Table of preset bloom settings, used by the sample program.
         /// </summary>
-        public static BloomSettings[] PresetSettings =
+        public static Dictionary<BloomState, BloomSettings> PresetSettings = new Dictionary<BloomState, BloomSettings>()
         {
-            //                Name           Thresh  Blur Bloom  Base  BloomSat BaseSat
-            new BloomSettings("Default",     0.25f,  4,   1.25f, 1,    1,       1),
-            new BloomSettings("Soft",        0,      3,   1,     1,    1,       1),
-            new BloomSettings("Desaturated", 0.5f,   8,   2,     1,    0,       1),
-            new BloomSettings("Saturated",   0.25f,  4,   2,     1,    2,       0),
-            new BloomSettings("Blurry",      0,      2,   1,     0.1f, 1,       1),
-            new BloomSettings("Subtle",      0.5f,   2,   1,     1,    1,       1),
+            {BloomState.Default, new BloomSettings(BloomState.Default, 0.25f, 4, 1.25f, 1, 1, 1)},
+            {BloomState.Soft, new BloomSettings(BloomState.Soft, 0, 3, 1, 1, 1, 1)},
+            {BloomState.Desaturated, new BloomSettings(BloomState.Desaturated, 0.5f, 8, 2, 1, 0, 1)},
+            {BloomState.Saturated, new BloomSettings(BloomState.Saturated, 0.25f, 4, 2, 1, 2, 0)},
+            {BloomState.Blurry, new BloomSettings(BloomState.Blurry, 0, 2, 1, 0.1f, 1, 1)},
+            {BloomState.Subtle, new BloomSettings(BloomState.Subtle, 0.5f, 2, 1, 1, 1, 1)},
         };
+    }
+
+    public enum BloomState
+    {
+        Default,
+        Soft,
+        Desaturated,
+        Saturated,
+        Blurry,
+        Subtle
     }
 }

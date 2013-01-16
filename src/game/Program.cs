@@ -136,10 +136,9 @@ namespace VoxeliqGame
         {
             Console.WriteLine("Debug keys:");
             Console.WriteLine("-----------------------------");
-            Console.WriteLine("F4: Dynamic Clouds: On/Off.");
+            Console.WriteLine("F1: Infinitive-world: On/Off.");
+            Console.WriteLine("F2: Fly-mode: On/Off.");
             Console.WriteLine("F5: Capture Mouse: On/Off.");
-            Console.WriteLine("F6: Bloom: On/Off.");
-            Console.WriteLine("F7: Bloom State: Default/Soft/Desaturated/Saturated/Blurry/Subtle");
             Console.WriteLine("F10: In-game Debugger: On/Off.");
             Console.WriteLine("-----------------------------");
         }

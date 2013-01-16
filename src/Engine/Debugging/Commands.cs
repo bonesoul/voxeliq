@@ -17,7 +17,7 @@ namespace VoxeliqEngine.Debugging
         public string Default(string[] @params)
         {
             return string.Format("Debug-graphs are currently {0}.\nusage: debug-graphs [on|off].",
-                                 Settings.Debugging.DebugGraphsEnabled
+                                 Engine.Instance.Configuration.Debugging.GraphsEnabled
                                      ? "on"
                                      : "off");
         }
@@ -25,14 +25,14 @@ namespace VoxeliqEngine.Debugging
         [Subcommand("on", "Sets debug-graphs on.")]
         public string On(string[] @params)
         {
-            Settings.Debugging.DebugGraphsEnabled = true;
+            Engine.Instance.Configuration.Debugging.GraphsEnabled = true;
             return "Debug-graphs on.";
         }
 
         [Subcommand("off", "Sets debug-graphs off.")]
         public string Off(string[] @params)
         {
-            Settings.Debugging.DebugGraphsEnabled = false;
+            Engine.Instance.Configuration.Debugging.GraphsEnabled = false;
             return "Debug-graphs off.";
         }
     }

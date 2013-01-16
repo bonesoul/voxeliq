@@ -9,13 +9,12 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
+using VoxeliqEngine.Core;
 
 namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 {
     public interface IBloomService
     {
-        void ToggleBloom();
-        void ToogleSettings();
     }
 
     public class BloomComponent:DrawableGameComponent, IBloomService
@@ -33,15 +32,6 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
         RenderTarget2D sceneRenderTarget;
         RenderTarget2D renderTarget1;
         RenderTarget2D renderTarget2;
-
-        // Choose what display settings the bloom should use.
-        public BloomSettings Settings
-        {
-            get { return settings; }
-            set { settings = value; }
-        }
-
-        BloomSettings settings = BloomSettings.PresetSettings[CurrentBloomSettingIndex];
 
         // Optionally displays one of the intermediate buffers used
         // by the bloom postprocess, so you can see exactly what is
@@ -121,6 +111,11 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
             renderTarget2.Dispose();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            this.Visible = Engine.Instance.Configuration.Bloom.Enabled;
+        }
+
         /// <summary>
         /// This should be called at the very start of the scene rendering. The bloom
         /// component uses it to redirect drawing into its custom rendertarget, so it
@@ -145,8 +140,7 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
             // Pass 1: draw the scene into rendertarget 1, using a
             // shader that extracts only the brightest parts of the image.
-            bloomExtractEffect.Parameters["BloomThreshold"].SetValue(
-                Settings.BloomThreshold);
+            bloomExtractEffect.Parameters["BloomThreshold"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomThreshold);
 
             DrawFullscreenQuad(sceneRenderTarget, renderTarget1,
                                bloomExtractEffect,
@@ -175,10 +169,10 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
             EffectParameterCollection parameters = bloomCombineEffect.Parameters;
 
-            parameters["BloomIntensity"].SetValue(Settings.BloomIntensity);
-            parameters["BaseIntensity"].SetValue(Settings.BaseIntensity);
-            parameters["BloomSaturation"].SetValue(Settings.BloomSaturation);
-            parameters["BaseSaturation"].SetValue(Settings.BaseSaturation);
+            parameters["BloomIntensity"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomIntensity);
+            parameters["BaseIntensity"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BaseIntensity);
+            parameters["BloomSaturation"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomSaturation);
+            parameters["BaseSaturation"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BaseSaturation);
 
             GraphicsDevice.Textures[1] = sceneRenderTarget;
 
@@ -300,21 +294,10 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
         /// </summary>
         float ComputeGaussian(float n)
         {
-            float theta = Settings.BlurAmount;
+            float theta = BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BlurAmount;
 
             return (float)((1.0 / Math.Sqrt(2 * Math.PI * theta)) *
                            Math.Exp(-(n * n) / (2 * theta * theta)));
-        }
-
-        public void ToggleBloom()
-        {
-            this.Visible = !this.Visible;
-        }
-
-        public void ToogleSettings()
-        {
-            CurrentBloomSettingIndex = (byte) ((CurrentBloomSettingIndex + 1)%BloomSettings.PresetSettings.Length);
-            this.settings = BloomSettings.PresetSettings[CurrentBloomSettingIndex];
         }
     }
 }

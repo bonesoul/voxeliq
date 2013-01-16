@@ -202,7 +202,7 @@ namespace VoxeliqEngine.Debugging
             // infinitive world
             _stringBuilder.Length = 0;
             _stringBuilder.Append("inf:");
-            _stringBuilder.Append(Settings.World.IsInfinitive ? "On" : "Off");
+            _stringBuilder.Append(Engine.Instance.Configuration.World.IsInfinitive ? "On" : "Off");
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(5, 35), Color.White);
 
             // fly

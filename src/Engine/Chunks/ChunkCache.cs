@@ -281,7 +281,7 @@ namespace VoxeliqEngine.Chunks
             //if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
                 //Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
 
-            if (Settings.World.IsInfinitive)
+            if (Engine.Instance.Configuration.World.IsInfinitive)
                 this.RecacheChunks();
         }
 

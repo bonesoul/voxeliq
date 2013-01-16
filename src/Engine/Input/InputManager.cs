@@ -165,20 +165,17 @@ namespace VoxeliqEngine.Input
 
                 // debug keys.
 
-                if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
-                    this._skyService.ToggleDynamicClouds();
+                if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) // toggles infinitive world on or off.
+                    Engine.Instance.Configuration.World.ToggleInfinitiveWorld();
+
+                if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2)) // toggles flying on or off.
+                    this._player.ToggleFlyForm();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F5) && currentState.IsKeyDown(Keys.F5))
                 {
                     this.CaptureMouse = !this.CaptureMouse;
                     this.Game.IsMouseVisible = !this.CaptureMouse;
                 }
-
-                if (currentState.IsKeyDown(Keys.F6) && _previousKeyboardState.IsKeyUp(Keys.F6))
-                    this._bloomService.ToggleBloom();
-
-                if (currentState.IsKeyDown(Keys.F7) && _previousKeyboardState.IsKeyUp(Keys.F7))
-                    this._bloomService.ToogleSettings();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F10) && currentState.IsKeyDown(Keys.F10))
                     this._ingameDebuggerService.ToggleInGameDebugger();
