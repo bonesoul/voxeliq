@@ -165,7 +165,7 @@ namespace VoxeliqEngine.Input
 
                 // debug keys.
                 if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
-                    Settings.World.ToggleInfinitiveWorld();
+                    Engine.Instance.Configuration.World.ToggleInfinitiveWorld();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
                     this._player.ToggleFlyForm();

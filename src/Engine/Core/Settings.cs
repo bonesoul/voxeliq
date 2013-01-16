@@ -13,33 +13,6 @@ namespace VoxeliqEngine.Core
     public static class Settings
     {
         /// <summary>
-        /// World related setings.
-        /// </summary>
-        public static class World
-        {
-            /// <summary>
-            /// Is the world infinitive?
-            /// </summary>
-            public static bool IsInfinitive { get; set; }
-
-            /// <summary>
-            /// Toggles infinitive world on or off.
-            /// </summary>
-            public static void ToggleInfinitiveWorld()
-            {
-                IsInfinitive = !IsInfinitive;
-            }
-
-            /// <summary>
-            /// Static world constructor.
-            /// </summary>
-            static World()
-            {
-                IsInfinitive = true;
-            }
-        }
-
-        /// <summary>
         /// Debugging related settings.
         /// </summary>
         public static class Debugging

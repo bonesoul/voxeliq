@@ -94,6 +94,7 @@
     <Compile Include="Core\Config\CacheConfig.cs" />
     <Compile Include="Core\Config\ChunkConfig.cs" />
     <Compile Include="Core\Config\GraphicsConfig.cs" />
+    <Compile Include="Core\Config\WorldConfig.cs" />
     <Compile Include="Debugging\Commands.cs" />
     <Compile Include="Debugging\Console\CommandHistory.cs" />
     <Compile Include="Debugging\Console\CommandProcesser.cs" />

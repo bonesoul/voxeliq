@@ -33,6 +33,11 @@ namespace VoxeliqEngine.Core.Config
         public AudioConfig Audio { get; private set; }
 
         /// <summary>
+        /// Holds the world related configuration parameters.
+        /// </summary>
+        public WorldConfig World { get; private set; }
+
+        /// <summary>
         /// Creates a new instance of engine configuration.
         /// </summary>
         public EngineConfig()
@@ -41,6 +46,7 @@ namespace VoxeliqEngine.Core.Config
             this.Cache = new CacheConfig();
             this.Graphics = new GraphicsConfig();
             this.Audio = new AudioConfig();
+            this.World = new WorldConfig();
         }
 
         /// <summary>
@@ -60,6 +66,9 @@ namespace VoxeliqEngine.Core.Config
                 return false;
 
             if (!this.Audio.Validate())
+                return false;
+
+            if (!this.World.Validate())
                 return false;
 
             return true;
