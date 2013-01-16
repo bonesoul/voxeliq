@@ -52,12 +52,6 @@ namespace VoxeliqEngine.Chunks.Processors
 
             chunk.CalculateHeightIndexes();
 
-            if (chunk.HighestSolidBlockOffset < Chunk.MaxHeightIndexInBlocks)
-                chunk.HighestSolidBlockOffset++;
-
-            if (chunk.LowestEmptyBlockOffset > 0)
-                chunk.LowestEmptyBlockOffset--;
-
             chunk.BoundingBox = new BoundingBox(
                 new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), 
                 new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LenghtInBlocks));
@@ -91,7 +85,7 @@ namespace VoxeliqEngine.Chunks.Processors
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
-                    for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
+                    for (byte y = chunk.LowestEmptyBlockOffset; y <= chunk.HighestSolidBlockOffset; y++)
                     {
                         var blockIndex = offset + y;
 
