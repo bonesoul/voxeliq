@@ -14,9 +14,6 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
         public override void ApplyBiome(Chunk chunk, int groundLevel, int groundOffset, int worldPositionX, int worldPositionZ)
         {
             BlockStorage.Blocks[groundOffset + 1].Type = BlockType.Sand;
-
-            if (groundLevel + 1 > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte)(groundLevel + 1);
         }
     }
 }

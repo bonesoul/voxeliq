@@ -56,17 +56,14 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
                 if (y > dirtHeight) // air
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
-                    if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
                 }
                 else if (y > rockHeight) // dirt level
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
-                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
                 else // rock level
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
-                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
             }
 
