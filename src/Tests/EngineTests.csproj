@@ -55,10 +55,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blocks\SimpleBlockStorageTest.cs" />
+    <Compile Include="Blocks\BlockStorageTests.cs" />
     <Compile Include="Blocks\BlockTypeTests.cs" />
-    <Compile Include="Blocks\GeneratedBlockStorageTest.cs" />
-    <Compile Include="Engine\EngineConfigurationTests.cs" />
+    <Compile Include="Config\EngineConfigurationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Chunks\ChunkStorageTests.cs" />
   </ItemGroup>

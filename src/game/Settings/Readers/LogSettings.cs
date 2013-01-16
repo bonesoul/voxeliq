@@ -5,24 +5,15 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Common.Configuration;
+using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqEngine.Common.Logging
+namespace VoxeliqGame.Settings.Readers
 {
     /// <summary>
     /// Holds configuration info for log manager.
     /// </summary>
-    public sealed class LogConfig : Config
+    public sealed class LogSettings : SettingsReader
     {
-        /// <summary>
-        /// Gets or sets the logging root.
-        /// </summary>
-        public string LoggingRoot
-        {
-            get { return this.GetString("Root", @"logs"); }
-            set { this.Set("Root", value); }
-        }
-
         /// <summary>
         /// Available log target configs.
         /// </summary>
@@ -35,25 +26,15 @@ namespace VoxeliqEngine.Common.Logging
         /// <summary>
         /// Creates a new log config.
         /// </summary>
-        private LogConfig() :
+        internal LogSettings() :
             base("Logging") // Call the base ctor with section name 'Logging'.
         { }
-
-        /// <summary>
-        /// Singleton instance.
-        /// </summary>
-        public static LogConfig Instance { get { return _instance; } }
-
-        /// <summary>
-        /// The internal instance pointer.
-        /// </summary>
-        private static readonly LogConfig _instance = new LogConfig();
     }
 
     /// <summary>
     /// Holds configuration of a log target.
     /// </summary>
-    public class LogTargetConfig : Config
+    public class LogTargetConfig : SettingsReader
     {
         /// <summary>
         /// Is enabled?

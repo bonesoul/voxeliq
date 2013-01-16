@@ -12,6 +12,7 @@ using VoxeliqEngine.Assets;
 using VoxeliqEngine.Audio;
 using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Chunks.Processors;
+using VoxeliqEngine.Core.Config;
 using VoxeliqEngine.Debugging;
 using VoxeliqEngine.Debugging.Console;
 using VoxeliqEngine.Debugging.Graphs;
@@ -28,7 +29,7 @@ namespace VoxeliqEngine.Core
         /// <summary>
         /// The engine configuration.
         /// </summary>
-        public EngineConfiguration Configuration { get; private set; }
+        public EngineConfig Configuration { get; private set; }
 
         /// <summary>
         /// Attached game.
@@ -38,13 +39,17 @@ namespace VoxeliqEngine.Core
         public delegate void EngineStartHandler(object sender, EventArgs e);
         public event EngineStartHandler EngineStart;
 
-        private static Engine _instance; // the memory instance.
-
         public GameConsole Console { get; private set; }
 
-        public Engine(Game game, EngineConfiguration config)
+        public Rasterizer Rasterizer { get; private set; }
+
+        public Engine(Game game, EngineConfig config)
         {
+            if (_instance != null)
+                throw new Exception("You can not instantiate the Engine more than once.");
+
             _instance = this;
+
             this.Game = game;
             this.Configuration = config;
 
@@ -69,6 +74,8 @@ namespace VoxeliqEngine.Core
         /// </summary>
         private void AddComponents()
         {
+            this.Rasterizer = new Rasterizer();
+
             this.Game.Components.Add(new InputManager(this.Game));
 
             this.Game.Components.Add(new AssetManager(this.Game));
@@ -118,12 +125,46 @@ namespace VoxeliqEngine.Core
                                                              });
         }
 
+        private static Engine _instance; // the memory instance.
+
         /// <summary>
-        /// Returns the memory instance of AssetManager.
+        /// Returns the memory instance of Engine.
         /// </summary>
         public static Engine Instance
         {
             get { return _instance; }
         }
+
+        #region de-ctor
+
+        // IDisposable pattern: http://msdn.microsoft.com/en-us/library/fs2xkftw(v=VS.100).aspx
+
+        /// <summary>
+        /// Is the engine instance disposed already?
+        /// </summary>
+        public bool Disposed = false;
+
+        private void Dispose(bool disposing)
+        {
+            if (this.Disposed) 
+                return; // if already disposed, just return
+
+            if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
+            {
+                _instance = null;
+            }
+
+            Disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true); // Object being disposed by the code itself, dispose both managed and unmanaged objects.
+            GC.SuppressFinalize(this); // Take object out the finalization queue to prevent finalization code for it from executing a second time.
+        }
+
+        ~Engine() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones. 
+
+        #endregion
     }
 }

@@ -10,16 +10,16 @@ using Nini.Config;
 using VoxeliqEngine.Common.Helpers.IO;
 using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqEngine.Common.Configuration
+namespace VoxeliqGame.Settings
 {
-    public sealed class ConfigManager
+    public sealed class SettingsManager
     {
         private static readonly Logger Logger = LogManager.CreateLogger();
         private static readonly IniConfigSource Parser; // the ini parser.
         private static readonly string ConfigFile;
         private static bool _fileExists = false; // does the ini file exists?
 
-        static ConfigManager()
+        static SettingsManager()
         {
             try
             {

@@ -5,6 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VoxeliqEngine.Assets;
@@ -47,6 +48,7 @@ namespace VoxeliqEngine.Debugging.Ingame
         private IWorld _world;
         private IPlayer _player;
         private IChunkStorage _chunkStorage;
+        private IAssetManager _assetManager;
 
         /// <summary>
         /// Logging facility.
@@ -63,14 +65,18 @@ namespace VoxeliqEngine.Debugging.Ingame
         {
             Logger.Trace("init()");
 
-            _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            _spriteFont = AssetManager.Instance.Verdana;
-
             // import service.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
+
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
+            _spriteFont = this._assetManager.Verdana;
+            _spriteBatch = new SpriteBatch(Game.GraphicsDevice);
         }
 
         public override void Draw(GameTime gameTime)

@@ -15,6 +15,8 @@ namespace VoxeliqEngine.Common.Logging
     /// </summary>
     public class FileTarget : LogTarget, IDisposable
     {
+        private const string LogRoot = "logs";
+
         private readonly string _fileName; // log-file's filename.
         private readonly string _filePath; // log-file's full path.
         private FileStream _fileStream; // filestream pointing to logfile.
@@ -34,10 +36,10 @@ namespace VoxeliqEngine.Common.Logging
             this.MaximumLevel = maxLevel;
             this.IncludeTimeStamps = includeTimeStamps;
             this._fileName = fileName;
-            this._filePath = string.Format("{0}/{1}", LogConfig.Instance.LoggingRoot, _fileName); // construct the full path using LoggingRoot defined in config.ini
+            this._filePath = string.Format("{0}/{1}", LogRoot, _fileName); // construct the full path using LoggingRoot defined in config.ini
 
-            if (!Directory.Exists(LogConfig.Instance.LoggingRoot)) // create logging directory if it does not exist yet.
-                Directory.CreateDirectory(LogConfig.Instance.LoggingRoot);
+            if (!Directory.Exists(LogRoot)) // create logging directory if it does not exist yet.
+                Directory.CreateDirectory(LogRoot);
 
             this._fileStream = new FileStream(_filePath, reset ? FileMode.Create : FileMode.Append, FileAccess.Write, FileShare.Read); // init the file stream.
             this._logStream = new StreamWriter(this._fileStream) { AutoFlush = true }; // init the stream writer.

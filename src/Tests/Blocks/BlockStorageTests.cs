@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Core;
+using VoxeliqEngine.Core.Config;
 using VoxeliqGame;
 
 namespace EngineTests.Blocks
 {
     [TestFixture]
-    public class SimpleBlockStorageTest
+    public class BlockStorageTests
     {
-        private Game _game;
-        private EngineConfiguration _config;
-        private VoxeliqEngine.Core.Engine _engine;
+        private SampleGame _game;
+        private EngineConfig _config;
+        private Engine _engine;
 
         private int _cacheXStartIndex;
         private int _cacheXEndIndex;
@@ -24,12 +25,12 @@ namespace EngineTests.Blocks
         [SetUp]
         public void Init()
         {
-            _game = new Game();
-            this._config = new EngineConfiguration();
-            this._engine = new VoxeliqEngine.Core.Engine(this._game, this._config);
+            _game = new SampleGame();
+            this._config = new EngineConfig();
+            this._engine = new Engine(this._game, this._config);
 
-            var cacheWidthInBlocks = ((_config.CacheConfiguration.CacheRange * 2) + 1) * _config.ChunkConfiguration.WidthInBlocks;
-            var cacheLenghtInBlocks = ((_config.CacheConfiguration.CacheRange*2) + 1) * _config.ChunkConfiguration.LenghtInBlocks;
+            var cacheWidthInBlocks = ((_config.Cache.CacheRange * 2) + 1) * _config.Chunk.WidthInBlocks;
+            var cacheLenghtInBlocks = ((_config.Cache.CacheRange*2) + 1) * _config.Chunk.LenghtInBlocks;
 
             this._cacheXStartIndex = -cacheWidthInBlocks/2;
             this._cacheXEndIndex = cacheWidthInBlocks / 2;
@@ -46,7 +47,7 @@ namespace EngineTests.Blocks
                 {
                     var offset = BlockStorage.BlockIndexByWorldPosition(x, z);
 
-                    for (var y = 0; y < _config.ChunkConfiguration.HeightInBlocks; y++)
+                    for (var y = 0; y < _config.Chunk.HeightInBlocks; y++)
                     {
                         var index = offset + y;
                         var block = new Block().RandomizeType();
@@ -59,7 +60,7 @@ namespace EngineTests.Blocks
             }
 
             // check if validationDictionaries item count is equal to CacheRange's volume.
-            Assert.AreEqual(this._directlyIndexedValidationDictionary.Values.Count, _config.CacheConfiguration.CacheRangeVolume);
+            Assert.AreEqual(this._directlyIndexedValidationDictionary.Values.Count, _config.Cache.CacheRangeVolume);
         }
 
         [Test]
@@ -73,7 +74,7 @@ namespace EngineTests.Blocks
                 {
                     var offset = BlockStorage.BlockIndexByWorldPosition(x, z);
 
-                    for (var y = 0; y < _config.ChunkConfiguration.HeightInBlocks; y++)
+                    for (var y = 0; y < _config.Chunk.HeightInBlocks; y++)
                     {
                         var index = offset + y;
 
