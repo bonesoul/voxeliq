@@ -23,6 +23,14 @@ namespace VoxeliqEngine.Core
             public static bool IsInfinitive { get; set; }
 
             /// <summary>
+            /// Toggles infinitive world on or off.
+            /// </summary>
+            public static void ToggleInfinitiveWorld()
+            {
+                IsInfinitive = !IsInfinitive;
+            }
+
+            /// <summary>
             /// Static world constructor.
             /// </summary>
             static World()

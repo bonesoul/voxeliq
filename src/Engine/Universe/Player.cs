@@ -69,6 +69,11 @@ namespace VoxeliqEngine.Universe
         /// </summary>
         /// <returns></returns>
         bool FlyingEnabled { get; set; }
+
+        /// <summary>
+        /// Toggles fly form.
+        /// </summary>
+        void ToggleFlyForm();
     }
 
     public class Player : DrawableGameComponent, IPlayer
@@ -324,6 +329,11 @@ namespace VoxeliqEngine.Universe
                                                               parts.StartIndex, parts.PrimitiveCount);
                 }
             }
+        }
+
+        public void ToggleFlyForm()
+        {
+            this.FlyingEnabled = !this.FlyingEnabled;
         }
     }
 

@@ -164,6 +164,11 @@ namespace VoxeliqEngine.Input
                 if (_previousKeyboardState.IsKeyUp(Keys.Space) && currentState.IsKeyDown(Keys.Space)) _player.Jump();
 
                 // debug keys.
+                if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1))
+                    Settings.World.ToggleInfinitiveWorld();
+
+                if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2))
+                    this._player.ToggleFlyForm();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F4) && currentState.IsKeyDown(Keys.F4))
                     this._skyService.ToggleDynamicClouds();
