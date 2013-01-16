@@ -51,7 +51,7 @@ namespace VoxeliqEngine.Universe
         public string Default(string[] @params)
         {
             return string.Format("Infinitive mode is currently {0}.\nusage: infinitive [on|off].",
-                                 Settings.World.IsInfinitive
+                                 Engine.Instance.Configuration.World.IsInfinitive
                                      ? "on"
                                      : "off");
         }
@@ -59,14 +59,14 @@ namespace VoxeliqEngine.Universe
         [Subcommand("on", "Sets infinitive mode on.")]
         public string On(string[] @params)
         {
-            Settings.World.IsInfinitive = true;
+            Engine.Instance.Configuration.World.IsInfinitive = true;
             return "Infinitive on.";
         }
 
         [Subcommand("off", "Sets infinitive off.")]
         public string Off(string[] @params)
         {
-            Settings.World.IsInfinitive = false;
+            Engine.Instance.Configuration.World.IsInfinitive = false;
             return "Infinitive off.";
         }
     }

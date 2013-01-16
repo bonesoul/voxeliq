@@ -64,7 +64,7 @@ namespace VoxeliqGame
             var audioSettings = new AudioSettings();
             var graphicsSettings = new GraphicsSettings();
 
-            // create a new EngineConfiguration instance.
+            // create a new engine configuration.
             var config = new EngineConfig
             {
                 Chunk =
@@ -86,6 +86,19 @@ namespace VoxeliqGame
                     FullScreenEnabled = graphicsSettings.FullScreenEnabled,
                     VerticalSyncEnabled = graphicsSettings.VerticalSyncEnabled,
                     FixedTimeStepsEnabled = graphicsSettings.FixedTimeStepsEnabled,
+                },
+                World =
+                {
+                    IsInfinitive = true,
+                },
+                Debugging =
+                {
+                    GraphsEnabled = true,
+                },
+                Bloom =
+                {
+                    Enabled = false,
+                    State = BloomState.Default,
                 },
                 Audio =
                 {
