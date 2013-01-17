@@ -97,7 +97,6 @@ namespace VoxeliqEngine.Core
 
             var chunkCache = new ChunkCache(this.Game);
             this.Game.Components.Add(chunkCache);
-            chunkCache.Enabled = false;
 
             var world = new World(this.Game, chunkStorage, chunkCache);
             this.Game.Components.Add(world);

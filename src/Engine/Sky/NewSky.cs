@@ -42,6 +42,8 @@ namespace VoxeliqEngine.Sky
         /// </summary>
         public IndexBuffer IndexBuffer { get; set; }
 
+        public short Index;
+
         private bool _meshBuilt = false;
 
         private Effect _blockEffect; // block effect.
@@ -58,6 +60,7 @@ namespace VoxeliqEngine.Sky
         {
             this.VertexList = new List<BlockVertex>();
             this.IndexList = new List<short>();
+            this.Index = 0;
 
             this.Game.Services.AddService(typeof(INewSky), this); // export service.
         }
@@ -73,14 +76,13 @@ namespace VoxeliqEngine.Sky
             if (this._assetManager == null)
                 throw new NullReferenceException("Can not find asset manager component.");
 
+            var random = new Random();
+
             for (int x = 0; x < 100; x++)
             {
                 for (int z = 0; z < 100; z++)
                 {
-                    if (x%2 == 0 && z%2 == 0)
-                        this.Clouds[x, z] = true;
-                    else
-                        this.Clouds[x, z] = false;
+                    this.Clouds[x, z] = random.Next(0, 2) == 1;
                 }
             }
 
@@ -160,6 +162,7 @@ namespace VoxeliqEngine.Sky
                         continue;
 
                     this.BuildBlockVertices(x, z);
+
                 }
             }
 
@@ -212,7 +215,7 @@ namespace VoxeliqEngine.Sky
 
         private void BuildFaceVertices(int x, int z, BlockFaceDirection faceDir)
         {
-            BlockTexture texture = Block.GetTexture(BlockType.Leaves, faceDir);
+            BlockTexture texture = Block.GetTexture(BlockType.Snow, faceDir);
             int faceIndex = 0;
 
             var textureUVMappings = TextureHelper.BlockTextureMappings[(int)texture * 6 + faceIndex];
@@ -290,17 +293,18 @@ namespace VoxeliqEngine.Sky
 
         private void AddVertex(int x, int z, Vector3 addition, HalfVector2 textureCoordinate)
         {
-            VertexList.Add(new BlockVertex(new Vector3(x, 128, z) + addition, textureCoordinate, 1));
+            VertexList.Add(new BlockVertex(new Vector3(x, 128, z) + addition, textureCoordinate, 0.95f));
         }
 
         private void AddIndex( short i1, short i2, short i3, short i4, short i5, short i6)
         {
-            IndexList.Add((short)(i1));
-            IndexList.Add((short)(i2));
-            IndexList.Add((short)(i3));
-            IndexList.Add((short)(i4));
-            IndexList.Add((short)(i5));
-            IndexList.Add((short)(i6));
+            IndexList.Add((short)(Index + i1));
+            IndexList.Add((short)(Index + i2));
+            IndexList.Add((short)(Index + i3));
+            IndexList.Add((short)(Index + i4));
+            IndexList.Add((short)(Index + i5));
+            IndexList.Add((short)(Index + i6));
+            Index += 4;
         }
     }
 }
