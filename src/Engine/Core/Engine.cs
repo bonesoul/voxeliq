@@ -20,6 +20,7 @@ using VoxeliqEngine.Debugging.Ingame;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Input;
 using VoxeliqEngine.Interface;
+using VoxeliqEngine.Sky;
 using VoxeliqEngine.Universe;
 
 namespace VoxeliqEngine.Core
@@ -81,19 +82,22 @@ namespace VoxeliqEngine.Core
             this.Game.Components.Add(new AssetManager(this.Game));
 
 #if XNA
-            this.Game.Components.Add(new Sky(this.Game));
+            //this.Game.Components.Add(new Sky(this.Game));
 #endif
+
+            this.Game.Components.Add(new NewSky(this.Game));
 
             this.Game.Components.Add(new Fogger(this.Game));
 
             var chunkStorage = new ChunkStorage(this.Game);
-            this.Game.Components.Add(chunkStorage);
+            this.Game.Components.Add(chunkStorage);            
 
             var vertexBuilder = new VertexBuilder(this.Game);
             this.Game.Components.Add(vertexBuilder);
 
             var chunkCache = new ChunkCache(this.Game);
             this.Game.Components.Add(chunkCache);
+            chunkCache.Enabled = false;
 
             var world = new World(this.Game, chunkStorage, chunkCache);
             this.Game.Components.Add(world);
