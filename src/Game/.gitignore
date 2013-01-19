@@ -1,0 +1,5 @@
+/*.csproj.user
+/bin/
+/obj/
+/*.csproj.Debug.cachefile
+/*.Windows.Monogame.DX.csproj.Release.cachefile
