@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Blocks;
 using VoxeliqEngine.Common.Logging;
+using VoxeliqEngine.Common.Noise;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Texture;
 using VoxeliqEngine.Universe;
@@ -53,6 +54,8 @@ namespace VoxeliqEngine.Sky
         private IAssetManager _assetManager;
         private IFogger _fogger;
 
+        private PerlinNoise _noise=new PerlinNoise(1000);
+
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public NewSky(Game game)
@@ -76,13 +79,18 @@ namespace VoxeliqEngine.Sky
             if (this._assetManager == null)
                 throw new NullReferenceException("Can not find asset manager component.");
 
-            var random = new Random();
-
             for (int x = 0; x < 100; x++)
             {
                 for (int z = 0; z < 100; z++)
                 {
-                    this.Clouds[x, z] = random.Next(0, 2) == 1;
+                    var octave1 = (_noise.Noise(2*x/100, -0.5, 2*z/100) + 1)/2*0.7;
+                    var octave2 = (_noise.Noise(4 * x / 100, 0, 4 * z / 100) + 1) / 2 * 0.2;
+                    var octave3 = (_noise.Noise(8 * x / 100, +0.5, 8 * z / 100) + 1) / 2 * 0.1;
+                    var noise = octave1 + octave2 + octave3;
+
+                    Console.WriteLine(octave3);
+
+                    this.Clouds[x, z] = noise> 0.42;
                 }
             }
 
