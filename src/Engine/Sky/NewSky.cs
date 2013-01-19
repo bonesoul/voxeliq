@@ -22,7 +22,9 @@ namespace VoxeliqEngine.Sky
 
     public class NewSky : DrawableGameComponent, INewSky
     {
-        private bool[,] Clouds = new bool[100,100];
+        private const int size = 150;
+
+        private bool[,] Clouds = new bool[size, size];
 
         /// <summary>
         /// The vertex list.
@@ -69,6 +71,19 @@ namespace VoxeliqEngine.Sky
             this.Game.Services.AddService(typeof(INewSky), this); // export service.
         }
 
+        private Color[,] TextureTo2DArray(Texture2D texture)
+        {
+            Color[] colors1D = new Color[texture.Width * texture.Height];
+            texture.GetData(colors1D);
+
+            Color[,] colors2D = new Color[texture.Width, texture.Height];
+            for (int x = 0; x < texture.Width; x++)
+                for (int y = 0; y < texture.Height; y++)
+                    colors2D[x, y] = colors1D[x + y * texture.Width];
+
+            return colors2D;
+        }
+
         public override void Initialize()
         {
             Logger.Trace("init()");
@@ -83,17 +98,20 @@ namespace VoxeliqEngine.Sky
             int minimumGroundheight = Chunk.HeightInBlocks / 2;
             int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
 
-            for (int x = 0; x < 100; x++)
-            {
-                for (int z = 0; z < 100; z++)
-                {
-                    float octave1 = SimplexNoise.noise(x * 0.004f, 1000, z * 0.004f) * 0.5f;
-                    float octave2 = SimplexNoise.noise(x * 0.003f, 1000, z * 0.003f) * 0.25f;
-                    float octave3 = SimplexNoise.noise(x * 0.02f, 100, z * 0.02f) * 0.15f;
-                    float lowerGroundHeight = octave1 + octave2 + octave3;
-                    lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
+            var colors = TextureTo2DArray(_assetManager.CloudTexture);
 
-                    this.Clouds[x, z] = (lowerGroundHeight > 100);
+            for (int x = 0; x < size; x++)
+            {
+                for (int z = 0; z < size; z++)
+                {
+                    this.Clouds[x, z] = colors[x, z] == Color.White;
+                    //float octave1 = SimplexNoise.noise(x * 0.004f, 1000, z * 0.004f) * 0.5f;
+                    //float octave2 = SimplexNoise.noise(x * 0.003f, 1000, z * 0.003f) * 0.25f;
+                    //float octave3 = SimplexNoise.noise(x * 0.02f, 100, z * 0.02f) * 0.15f;
+                    //float lowerGroundHeight = octave1 + octave2 + octave3;
+                    //lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
+
+                    //this.Clouds[x, z] = (lowerGroundHeight > 100);
                 }
             }
 
@@ -165,17 +183,14 @@ namespace VoxeliqEngine.Sky
             if (this._meshBuilt)
                 return;
 
-            for (int x = 0; x < 100; x++)
+            for (int x = 0; x < size; x++)
             {
-                for (int z = 0; z < 100; z++)
+                for (int z = 0; z < size; z++)
                 {
-                    //if (this.Clouds[x, z] == false)
-                        //continue;
+                    if (this.Clouds[x, z] == false)
+                        continue;
 
-                    if (this.Clouds[x, z] == true)
-                        this.BuildBlockVertices(x, z,BlockType.Snow);
-                    //else
-                        //this.BuildBlockVertices(x, z, BlockType.Leaves);
+                        this.BuildBlockVertices(x, z);
                 }
             }
 
@@ -194,41 +209,41 @@ namespace VoxeliqEngine.Sky
             this._meshBuilt = true;
         }
 
-        private void BuildBlockVertices(int x, int z, BlockType type)
+        private void BuildBlockVertices(int x, int z)
         {
-            var north = z != 99 && this.Clouds[x, z + 1];
+            var north = z != size-1 && this.Clouds[x, z + 1];
             var south = z != 0 && this.Clouds[x, z - 1];
-            var east = x != 99 && this.Clouds[x + 1, z];
+            var east = x != size-1 && this.Clouds[x + 1, z];
             var west = x != 0 && this.Clouds[x - 1, z];
             
             if (!west) // -xface (if block on west doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.XDecreasing, type);
+                BuildFaceVertices(x, z, BlockFaceDirection.XDecreasing);
             }
             if (!east) // +xface (if block on east doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.XIncreasing, type);
+                BuildFaceVertices(x, z, BlockFaceDirection.XIncreasing);
             }
             
             // -yface (as clouds are one block in height, nothing exists on bottom of them)
-            BuildFaceVertices(x, z, BlockFaceDirection.YDecreasing, type);
+            BuildFaceVertices(x, z, BlockFaceDirection.YDecreasing);
 
             // +yface (as clouds are on block in height, nothing exists on top of them).
-            BuildFaceVertices(x, z, BlockFaceDirection.YIncreasing, type);
+            BuildFaceVertices(x, z, BlockFaceDirection.YIncreasing);
 
             if (!south) // -zface (if block on south doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.ZDecreasing, type);
+                BuildFaceVertices(x, z, BlockFaceDirection.ZDecreasing);
             }
             if (!north) // +zface (if block on north doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.ZIncreasing, type);
+                BuildFaceVertices(x, z, BlockFaceDirection.ZIncreasing);
             }
         }
 
-        private void BuildFaceVertices(int x, int z, BlockFaceDirection faceDir, BlockType type)
+        private void BuildFaceVertices(int x, int z, BlockFaceDirection faceDir)
         {
-            BlockTexture texture = Block.GetTexture(type, faceDir);
+            BlockTexture texture = Block.GetTexture(BlockType.Snow, faceDir);
             int faceIndex = 0;
 
             var textureUVMappings = TextureHelper.BlockTextureMappings[(int)texture * 6 + faceIndex];
