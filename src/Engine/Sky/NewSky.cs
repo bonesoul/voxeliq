@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
 using VoxeliqEngine.Assets;
 using VoxeliqEngine.Blocks;
+using VoxeliqEngine.Chunks;
 using VoxeliqEngine.Common.Logging;
 using VoxeliqEngine.Common.Noise;
 using VoxeliqEngine.Graphics;
@@ -79,18 +80,20 @@ namespace VoxeliqEngine.Sky
             if (this._assetManager == null)
                 throw new NullReferenceException("Can not find asset manager component.");
 
+            int minimumGroundheight = Chunk.HeightInBlocks / 2;
+            int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
+
             for (int x = 0; x < 100; x++)
             {
                 for (int z = 0; z < 100; z++)
                 {
-                    var octave1 = (_noise.Noise(2*x/100, -0.5, 2*z/100) + 1)/2*0.7;
-                    var octave2 = (_noise.Noise(4 * x / 100, 0, 4 * z / 100) + 1) / 2 * 0.2;
-                    var octave3 = (_noise.Noise(8 * x / 100, +0.5, 8 * z / 100) + 1) / 2 * 0.1;
-                    var noise = octave1 + octave2 + octave3;
+                    float octave1 = SimplexNoise.noise(x * 0.004f, 1000, z * 0.004f) * 0.5f;
+                    float octave2 = SimplexNoise.noise(x * 0.003f, 1000, z * 0.003f) * 0.25f;
+                    float octave3 = SimplexNoise.noise(x * 0.02f, 100, z * 0.02f) * 0.15f;
+                    float lowerGroundHeight = octave1 + octave2 + octave3;
+                    lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
 
-                    Console.WriteLine(octave3);
-
-                    this.Clouds[x, z] = noise> 0.42;
+                    this.Clouds[x, z] = (lowerGroundHeight > 100);
                 }
             }
 
@@ -166,11 +169,13 @@ namespace VoxeliqEngine.Sky
             {
                 for (int z = 0; z < 100; z++)
                 {
-                    if (this.Clouds[x, z] == false)
-                        continue;
+                    //if (this.Clouds[x, z] == false)
+                        //continue;
 
-                    this.BuildBlockVertices(x, z);
-
+                    if (this.Clouds[x, z] == true)
+                        this.BuildBlockVertices(x, z,BlockType.Snow);
+                    //else
+                        //this.BuildBlockVertices(x, z, BlockType.Leaves);
                 }
             }
 
@@ -189,7 +194,7 @@ namespace VoxeliqEngine.Sky
             this._meshBuilt = true;
         }
 
-        private void BuildBlockVertices(int x, int z)
+        private void BuildBlockVertices(int x, int z, BlockType type)
         {
             var north = z != 99 && this.Clouds[x, z + 1];
             var south = z != 0 && this.Clouds[x, z - 1];
@@ -198,32 +203,32 @@ namespace VoxeliqEngine.Sky
             
             if (!west) // -xface (if block on west doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.XDecreasing);
+                BuildFaceVertices(x, z, BlockFaceDirection.XDecreasing, type);
             }
             if (!east) // +xface (if block on east doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.XIncreasing);
+                BuildFaceVertices(x, z, BlockFaceDirection.XIncreasing, type);
             }
             
             // -yface (as clouds are one block in height, nothing exists on bottom of them)
-            BuildFaceVertices(x, z, BlockFaceDirection.YDecreasing);
+            BuildFaceVertices(x, z, BlockFaceDirection.YDecreasing, type);
 
             // +yface (as clouds are on block in height, nothing exists on top of them).
-            BuildFaceVertices(x, z, BlockFaceDirection.YIncreasing);
+            BuildFaceVertices(x, z, BlockFaceDirection.YIncreasing, type);
 
             if (!south) // -zface (if block on south doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.ZDecreasing);
+                BuildFaceVertices(x, z, BlockFaceDirection.ZDecreasing, type);
             }
             if (!north) // +zface (if block on north doesn't exist.)
             {
-                BuildFaceVertices(x, z, BlockFaceDirection.ZIncreasing);
+                BuildFaceVertices(x, z, BlockFaceDirection.ZIncreasing, type);
             }
         }
 
-        private void BuildFaceVertices(int x, int z, BlockFaceDirection faceDir)
+        private void BuildFaceVertices(int x, int z, BlockFaceDirection faceDir, BlockType type)
         {
-            BlockTexture texture = Block.GetTexture(BlockType.Snow, faceDir);
+            BlockTexture texture = Block.GetTexture(type, faceDir);
             int faceIndex = 0;
 
             var textureUVMappings = TextureHelper.BlockTextureMappings[(int)texture * 6 + faceIndex];
@@ -301,7 +306,7 @@ namespace VoxeliqEngine.Sky
 
         private void AddVertex(int x, int z, Vector3 addition, HalfVector2 textureCoordinate)
         {
-            VertexList.Add(new BlockVertex(new Vector3(x, 128, z) + addition, textureCoordinate, 0.95f));
+            VertexList.Add(new BlockVertex(new Vector3(x, 128, z) + addition, textureCoordinate, 1f));
         }
 
         private void AddIndex( short i1, short i2, short i3, short i4, short i5, short i6)
