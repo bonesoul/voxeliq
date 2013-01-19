@@ -156,8 +156,9 @@ namespace VoxeliqGame
 #if XNA
             this._bloomComponent.BeginDraw();
 #endif
-
-            this.GraphicsDevice.Clear(Color.Black);
+ 
+			var skyColor = new Color(128, 173, 254);
+            this.GraphicsDevice.Clear(skyColor);
 
             this.GraphicsDevice.RasterizerState = Engine.Instance.Rasterizer.State;
 
