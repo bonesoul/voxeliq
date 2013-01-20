@@ -57,8 +57,6 @@ namespace VoxeliqEngine.Sky
         private IAssetManager _assetManager;
         private IFogger _fogger;
 
-        private PerlinNoise _noise=new PerlinNoise(1000);
-
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public NewSky(Game game)
@@ -95,9 +93,6 @@ namespace VoxeliqEngine.Sky
             if (this._assetManager == null)
                 throw new NullReferenceException("Can not find asset manager component.");
 
-            int minimumGroundheight = Chunk.HeightInBlocks / 2;
-            int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
-
             var colors = TextureTo2DArray(_assetManager.CloudTexture);
 
             for (int x = 0; x < size; x++)
@@ -105,13 +100,9 @@ namespace VoxeliqEngine.Sky
                 for (int z = 0; z < size; z++)
                 {
                     this.Clouds[x, z] = colors[x, z] == Color.White;
-                    //float octave1 = SimplexNoise.noise(x * 0.004f, 1000, z * 0.004f) * 0.5f;
-                    //float octave2 = SimplexNoise.noise(x * 0.003f, 1000, z * 0.003f) * 0.25f;
-                    //float octave3 = SimplexNoise.noise(x * 0.02f, 100, z * 0.02f) * 0.15f;
-                    //float lowerGroundHeight = octave1 + octave2 + octave3;
-                    //lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
 
-                    //this.Clouds[x, z] = (lowerGroundHeight > 100);
+                    //float cloudiness = SimplexNoise.noise(x*0.009f, 0, z*0.009f)*1f;
+                    //this.Clouds[x, z] = cloudiness > 0.5f;
                 }
             }
 
