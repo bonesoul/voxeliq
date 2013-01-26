@@ -49,13 +49,13 @@ namespace VoxeliqEngine.Debugging.Graphs
         public override void Initialize()
         {
             // create the graphs modules.
-            this._graphs.Add(new FPSGraph(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 10, 270, 35)));
-            this._graphs.Add(new MemGraph(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 65, 270, 35)));
-            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 120, 270, 35)));
-            this._graphs.Add(new LightenQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 175, 270, 35)));
-            this._graphs.Add(new BuildQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 230, 270, 35)));
-            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 285, 270, 35)));
-            this._graphs.Add(new RemoveQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 340, 270, 35)));
+            this._graphs.Add(new FPSGraph(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 50, 270, 35)));
+            this._graphs.Add(new MemGraph(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 105, 270, 35)));
+            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 160, 270, 35)));
+            this._graphs.Add(new LightenQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 215, 270, 35)));
+            this._graphs.Add(new BuildQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 270, 270, 35)));
+            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 325, 270, 35)));
+            this._graphs.Add(new RemoveQ(this.Game, new Rectangle(Engine.Instance.Configuration.Graphics.Width - 280, 380, 270, 35)));
 
             // import required services.
             this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
