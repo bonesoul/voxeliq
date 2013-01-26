@@ -110,6 +110,7 @@
     <Compile Include="Debugging\Console\KeyEventArgs.cs" />
     <Compile Include="Debugging\Console\OutputLine.cs" />
     <Compile Include="Debugging\Console\Renderer.cs" />
+    <Compile Include="Debugging\DebugBar.cs" />
     <Compile Include="Debugging\Ingame\BoundingBoxRenderer.cs" />
     <Compile Include="Debugging\Graphs\DebugGraph.cs" />
     <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\RemoveQ.cs" />
@@ -123,7 +124,6 @@
     <Compile Include="Debugging\Ingame\InGameDebugger.cs" />
     <Compile Include="Debugging\Timing\Layout.cs" />
     <Compile Include="Debugging\Profiling\Profiler.cs" />
-    <Compile Include="Debugging\Statistics.cs" />
     <Compile Include="Common\Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Debugging\Timing\TimeRuler.cs" />
     <Compile Include="Core\Engine.cs" />

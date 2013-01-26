@@ -108,7 +108,7 @@ namespace VoxeliqEngine.Core
             this.Game.Components.Add(new UserInterface(this.Game));
 
             this.Game.Components.Add(new InGameDebugger(this.Game));
-            this.Game.Components.Add(new Statistics(this.Game));
+            this.Game.Components.Add(new DebugBar(this.Game));
             this.Game.Components.Add(new GraphManager(this.Game));
 
 #if XNA
