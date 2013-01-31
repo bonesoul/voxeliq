@@ -141,7 +141,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.DX.csproj">
+    <ProjectReference Include="..\Engine\Voxeliq.Engine.MonoGame.Windows.DX11.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
       <Name>VoxeliqEngine.Windows.MonoGame.DX</Name>
     </ProjectReference>

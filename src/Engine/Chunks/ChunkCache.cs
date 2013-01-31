@@ -256,9 +256,6 @@ namespace VoxeliqEngine.Chunks
 
         protected void Process()
         {
-            //Profiler.Start("chunk-cache-loop");
-            //this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
-
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
@@ -275,12 +272,6 @@ namespace VoxeliqEngine.Chunks
                     }
                 }
             }
-
-            //this._timeRuler.EndMark(1, "Chunk Cache");
-            //Profiler.Stop("chunk-cache-loop");
-
-            //if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
-                //Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
 
             if (Engine.Instance.Configuration.World.IsInfinitive)
                 this.RecacheChunks();

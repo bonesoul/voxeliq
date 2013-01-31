@@ -49,7 +49,7 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         private static readonly VertexDeclaration VertexDeclaration = new VertexDeclaration(new[]
         {
-            new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage .Position, 0),
+            new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
             new VertexElement(sizeof (float)*3,VertexElementFormat.HalfVector2, VertexElementUsage.TextureCoordinate,0),
             new VertexElement(sizeof (float)*4,VertexElementFormat.Single,VertexElementUsage.Color, 0),
             //new VertexElement(sizeof (float)*5, VertexElementFormat.Vector3, VertexElementUsage.Color, 1)

@@ -143,9 +143,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.MonoGame.GL.csproj">
+    <ProjectReference Include="..\Engine\Voxeliq.Engine.MonoGame.Windows.GL.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>VoxeliqEngine.Windows.MonoGame.GL</Name>
+      <Name>Voxeliq.Engine.MonoGame.Windows.GL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

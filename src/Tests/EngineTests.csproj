@@ -62,16 +62,15 @@
     <Compile Include="Chunks\ChunkStorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\VoxeliqEngine.Windows.XNA.csproj">
+    <ProjectReference Include="..\Engine\Voxeliq.Engine.XNA.Windows.DX9.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>VoxeliqEngine.Windows.XNA</Name>
+      <Name>Voxeliq.Engine.XNA.Windows.DX9</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Game\VoxeliqGame.Windows.XNA.csproj">
+    <ProjectReference Include="..\game\Voxeliq.Game.XNA.Windows.DX9.csproj">
       <Project>{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}</Project>
-      <Name>VoxeliqGame.Windows.XNA</Name>
+      <Name>Voxeliq.Game.XNA.Windows.DX9</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
