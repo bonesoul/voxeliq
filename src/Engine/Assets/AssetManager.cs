@@ -38,6 +38,7 @@ namespace VoxeliqEngine.Assets
         Texture2D CrossHairShovelTexture { get; }
         Texture2D CloudMapTexture { get; }
         Texture2D StarMapTexture { get; }
+        Texture2D CloudTexture { get; }
 
         SpriteFont Verdana { get; }
     }
@@ -66,6 +67,7 @@ namespace VoxeliqEngine.Assets
         public Texture2D CrossHairShovelTexture { get; private set; }
         public Texture2D CloudMapTexture { get; private set; }
         public Texture2D StarMapTexture { get; private set; }
+        public Texture2D CloudTexture { get; private set; }
 
         public SpriteFont Verdana { get; private set; }
 
@@ -120,6 +122,7 @@ namespace VoxeliqEngine.Assets
                 this.CrossHairShovelTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Shovel");
                 this.CloudMapTexture = Game.Content.Load<Texture2D>(@"Textures/cloudmap");
                 this.StarMapTexture = Game.Content.Load<Texture2D>(@"Textures/starmap");
+                this.CloudTexture = Game.Content.Load<Texture2D>(@"Textures/cloud-texture");
 
                 this.Verdana = Game.Content.Load<SpriteFont>(@"Fonts/Verdana");
             }
