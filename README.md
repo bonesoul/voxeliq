@@ -22,8 +22,8 @@ This program is free software; you can redistribute it and/or modify it under th
 <a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
 <a href='http://steamcommunity.com/sharedfiles/filedetails/?id=110290631' target='_blank' title='Voxeliq@Steam-Greenlight'><img src='http://www.steampowered.com/favicon.ico' width='16' height='16'></a>
 <a href='https://twitter.com/voxeliq' target='_blank' title='Voxeliq@Twitter'><img src='http://www.twitter.com/favicon.ico' width='16' height='16'></a>
-<a href='https://www.facebook.com/VoxeliqStudios' target='_blank' title='Voxeliq@Facebook'><img src='https://www.facebook.com/favicon.ico' width='16' height='16'></a>
-<a href='http://www.youtube.com/voxeliq' target='_blank' title='Voxeliq@Youtube'><img src='http://www.youtube.com/favicon.ico' width='16' height='16'></a>
+<a href='https://www.facebook.com/Int6Studios' target='_blank' title='Voxeliq@Facebook'><img src='https://www.facebook.com/favicon.ico' width='16' height='16'></a>
+<a href='http://www.youtube.com/int6games' target='_blank' title='Voxeliq@Youtube'><img src='http://www.youtube.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
 
 # What's new?
