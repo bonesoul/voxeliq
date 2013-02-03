@@ -88,8 +88,9 @@
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
     <Compile Include="Common\Noise\PerlinNoise.cs" />
+    <Compile Include="Common\Platform\PlatformInfo.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
-    <Compile Include="Common\Versions\VersionInfo.cs" />
+    <Compile Include="Common\Platform\VersionInfo.cs" />
     <Compile Include="Core\Config\AudioConfig.cs" />
     <Compile Include="Core\Config\BloomConfig.cs" />
     <Compile Include="Core\Config\CacheConfig.cs" />

@@ -25,3 +25,6 @@
 /*.userprefs
 /Local.vsmdi
 /TestResults/
+/_ReSharper.Voxeliq.XNA.Windows.DX9/
+/_ReSharper.Voxeliq.MonoGame.Windows.DX11/
+/_ReSharper.Voxeliq.MonoGame.Windows.GL/

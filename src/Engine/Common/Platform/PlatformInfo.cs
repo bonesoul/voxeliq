@@ -7,13 +7,10 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace VoxeliqEngine.Common.Versions
+namespace VoxeliqEngine.Common.Platform
 {
-    public static class VersionInfo
+    public static class PlatformInfo
     {
         public enum GameFrameworks
         {
@@ -51,7 +48,7 @@ namespace VoxeliqEngine.Common.Versions
 
         public static GraphicsAPI GraphicsApi { get; private set; }
 
-        static VersionInfo()
+        static PlatformInfo()
         {
             Platform = Platforms.Windows;
             DotNetFramework = IsRunningOnMono() ? "Mono" : ".Net";
@@ -74,17 +71,6 @@ namespace VoxeliqEngine.Common.Versions
         public static bool IsRunningOnMono()
         {
             return Type.GetType("Mono.Runtime") != null;
-        }
-
-        /// <summary>
-        /// Main assembly version info.
-        /// </summary>
-        public static class Assembly
-        {
-            /// <summary>
-            /// Main assemblies version.
-            /// </summary>
-            public const string Version = "0.2.0.*";
         }
     }
 }
