@@ -88,8 +88,9 @@
     <Compile Include="Common\Extensions\StringExtensions.cs" />
     <Compile Include="Common\Helpers\ConcurrentList.cs" />
     <Compile Include="Common\Noise\PerlinNoise.cs" />
+    <Compile Include="Common\Platform\PlatformInfo.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
-    <Compile Include="Common\Versions\VersionInfo.cs" />
+    <Compile Include="Common\Platform\VersionInfo.cs" />
     <Compile Include="Core\Config\AudioConfig.cs" />
     <Compile Include="Core\Config\BloomConfig.cs" />
     <Compile Include="Core\Config\CacheConfig.cs" />
@@ -169,13 +170,6 @@
     <Compile Include="Common\Vector\Vector2Int.cs" />
     <Compile Include="Common\Vector\Vector3Int.cs" />
     <Compile Include="Common\Vector\Vector4Byte.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Content\Content.contentproj">
-      <Project>{9896E4F9-E78C-40A6-8C1B-6EF4A714E34B}</Project>
-      <Name>Content</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

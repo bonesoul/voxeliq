@@ -8,7 +8,7 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Versions;
+using VoxeliqEngine.Common.Platform;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Core.Config;
 using VoxeliqEngine.Debugging.Timing;
@@ -57,7 +57,7 @@ namespace VoxeliqGame
         protected override void Initialize()
         {
             Logger.Trace("init()"); // log the init.
-            this.Window.Title = string.Format("Voxeliq [{0}/{1}]", VersionInfo.GameFramework, VersionInfo.GraphicsApi); // set the window title.
+            this.Window.Title = string.Format("Voxeliq [{0}/{1}]", PlatformInfo.GameFramework, PlatformInfo.GraphicsApi); // set the window title.
 
             this.IsMouseVisible = false;
 

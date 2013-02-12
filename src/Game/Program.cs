@@ -11,7 +11,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Versions;
+using VoxeliqEngine.Common.Platform;
 using VoxeliqEngine.Universe;
 using VoxeliqGame.Settings.Readers;
 
@@ -41,8 +41,8 @@ namespace VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
-            Logger.Info(string.Format("Running over {0} {1}.",VersionInfo.DotNetFramework,VersionInfo.DotNetFrameworkVersion));
-            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", VersionInfo.GameFramework, VersionInfo.GameFrameworkVersion, VersionInfo.GraphicsApi));            
+            Logger.Info(string.Format("Running over {0} {1}.", PlatformInfo.DotNetFramework, PlatformInfo.DotNetFrameworkVersion));
+            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformInfo.GameFramework, PlatformInfo.GameFrameworkVersion, PlatformInfo.GraphicsApi));            
 
             using (var game = new SampleGame()) // startup the game.
             {
