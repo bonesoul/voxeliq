@@ -1,6 +1,6 @@
 # voxeliq engine
 
-![Screenshot](http://www.voxeliq.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
+![Screenshot](http://www.int6.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
 voxeliq is an open source block-based game engine implementation developed with C#. It uses XNA or the Monogame as the basis.
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
@@ -16,7 +16,7 @@ This program is free software; you can redistribute it and/or modify it under th
  
 # More info
 
-- [http://www.voxeliq.org](http://www.voxeliq.org/games/voxeliq/)
+- [http://www.int6.org](http://www.int6.org/games/voxeliq/)
 
 <a href='https://github.com/raistlinthewiz/voxeliq' target='_blank' title='Voxeliq@Github'><img src='https://github.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
@@ -27,8 +27,7 @@ This program is free software; you can redistribute it and/or modify it under th
 <a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
 
 # What's new?
-- Improved mesh optimizations: http://www.voxeliq.org/2013/01/16/improved-mesh-optimization/
-- CI server is up and running! - http://voxeliq-ci.cloudapp.net
+- Improved mesh optimizations: http://www.int6.org/2013/01/16/improved-mesh-optimization/
 - Implemented more debug graphs;
 ![Screenshot](http://i.imgur.com/OtQy4.jpg)
 
