@@ -48,5 +48,4 @@ This program is free software; you can redistribute it and/or modify it under th
 
 # Screenshots
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
-![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-12-91.jpg)
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-15-27-29.jpg)
