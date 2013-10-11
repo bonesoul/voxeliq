@@ -1,6 +1,6 @@
 # voxeliq engine
 
-![Screenshot](http://www.int6.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
+![Screenshot](http://www.int6.org/blog/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
 voxeliq is an open source block-based game engine implementation developed with C#. It uses XNA or the Monogame as the basis.
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
