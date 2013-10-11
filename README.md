@@ -16,7 +16,7 @@ This program is free software; you can redistribute it and/or modify it under th
  
 # More info
 
-- [http://www.int6.org](http://www.int6.org/games/voxeliq/)
+- [http://www.int6.org](http://www.int6.org/)
 
 <a href='https://github.com/raistlinthewiz/voxeliq' target='_blank' title='Voxeliq@Github'><img src='https://github.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
@@ -29,12 +29,10 @@ This program is free software; you can redistribute it and/or modify it under th
 # What's new?
 - Improved mesh optimizations: http://www.int6.org/blog/2013/01/16/improved-mesh-optimization/
 - Implemented more debug graphs.
-
 # From the web
 - [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
 - [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
 - [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
-
 # DevLog Videos
 
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
@@ -47,7 +45,6 @@ This program is free software; you can redistribute it and/or modify it under th
 - [Devlog-II](http://www.youtube.com/watch?v=6WQwXvebp2M)
 - [Devlog-I](http://www.youtube.com/watch?v=T200A6nqoj4)
 - [Bonus - Techno Visualizer](http://www.youtube.com/watch?v=oKy4cH7r5qE)
-
 # Screenshots
 
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
