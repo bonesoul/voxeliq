@@ -1,6 +1,6 @@
 # voxeliq engine
 
-![Screenshot](http://www.voxeliq.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
+![Screenshot](http://www.int6.org/blog/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
 voxeliq is an open source block-based game engine implementation developed with C#. It uses XNA or the Monogame as the basis.
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
@@ -16,8 +16,7 @@ This program is free software; you can redistribute it and/or modify it under th
  
 # More info
 
-- [http://www.voxeliq.org](http://www.voxeliq.org/games/voxeliq/)
-
+<a href='http://www.int6.org/blog' target='_blank' title='Development Blog'><img src='http://0.gravatar.com/blavatar/4e21d703d81809d215ceaabbf07efbc6?s=16' width='16' height='16'></a>
 <a href='https://github.com/raistlinthewiz/voxeliq' target='_blank' title='Voxeliq@Github'><img src='https://github.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
 <a href='http://steamcommunity.com/sharedfiles/filedetails/?id=110290631' target='_blank' title='Voxeliq@Steam-Greenlight'><img src='http://www.steampowered.com/favicon.ico' width='16' height='16'></a>
@@ -27,10 +26,8 @@ This program is free software; you can redistribute it and/or modify it under th
 <a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
 
 # What's new?
-- Improved mesh optimizations: http://www.voxeliq.org/2013/01/16/improved-mesh-optimization/
-- CI server is up and running! - http://voxeliq-ci.cloudapp.net
-- Implemented more debug graphs;
-![Screenshot](http://i.imgur.com/OtQy4.jpg)
+- Improved mesh optimizations: http://www.int6.org/blog/2013/01/16/improved-mesh-optimization/
+- Implemented more debug graphs.
 
 # From the web
 - [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
@@ -38,7 +35,6 @@ This program is free software; you can redistribute it and/or modify it under th
 - [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
 
 # DevLog Videos
-
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
 - [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
 - [Devlog-VII - Bloom Effect](http://www.youtube.com/watch?v=xTvzKK2TqmQ)
@@ -51,7 +47,5 @@ This program is free software; you can redistribute it and/or modify it under th
 - [Bonus - Techno Visualizer](http://www.youtube.com/watch?v=oKy4cH7r5qE)
 
 # Screenshots
-
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
-![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-12-91.jpg)
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-15-27-29.jpg)
