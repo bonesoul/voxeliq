@@ -117,7 +117,7 @@
         </member>
         <member name="P:SharpDX.Direct3D9.AdapterDetails.Certified">
             <summary>
-            Gets a value indicating whether the adapeter is WHQL certified.
+            Gets a value indicating whether the adapter is WHQL certified.
             </summary>
             <value>
               <c>true</c> if certified; otherwise, <c>false</c>.
@@ -279,7 +279,7 @@
             <summary>
             Sets a typed value.
             </summary>
-            <typeparam name="T">Type of the value to est</typeparam>
+            <typeparam name="T">Type of the value to set</typeparam>
             <param name="effectHandle">The effect handle.</param>
             <param name="value">The value.</param>
             <returns>
@@ -2236,7 +2236,7 @@
             <summary>
             Sets a typed value.
             </summary>
-            <typeparam name="T">Type of the value to est</typeparam>
+            <typeparam name="T">Type of the value to set</typeparam>
             <param name="device">The device.</param>
             <param name="effectHandle">The effect handle.</param>
             <param name="value">The value.</param>
@@ -3662,8 +3662,7 @@
             <param name="deviceType"> Member of the <see cref="T:SharpDX.Direct3D9.DeviceType"/> enumerated type that denotes the desired device type. If the desired device type is not available, the method will fail.  </param>
             <param name="hFocusWindow"> The focus window alerts Direct3D when an application switches from foreground mode to background mode. See Remarks. 	   For full-screen mode, the window specified must be a top-level window. For windowed mode, this parameter may be NULL only if the hDeviceWindow member of pPresentationParameters is set to a valid, non-NULL value.  </param>
             <param name="behaviorFlags"> Combination of one or more options that control device creation. For more information, see {{D3DCREATE}}. </param>
-            <param name="resentationParametersRef"> Pointer to a <see cref="T:SharpDX.Direct3D9.PresentParameters"/> structure, describing the presentation parameters for the device to be created. If BehaviorFlags specifies {{D3DCREATE_ADAPTERGROUP_DEVICE}}, pPresentationParameters is an array. Regardless of the number of heads that exist, only one depth/stencil surface is automatically created. For Windows 2000 and Windows XP, the full-screen device display refresh rate is set in the following order:   User-specified nonzero ForcedRefreshRate registry key, if supported by the device. Application-specified nonzero refresh rate value in the presentation parameter. Refresh rate of the latest desktop mode, if supported by the device. 75 hertz if supported by the device. 60 hertz if supported by the device. Device default.  An unsupported refresh rate will default to the closest supported refresh rate below it.  For example, if the application specifies 63 hertz, 60 hertz will be used. There are no supported refresh rates below 57 hertz. pPresentationParameters is both an input and an output parameter. Calling this method may change several members including:  If BackBufferCount, BackBufferWidth, and BackBufferHeight  are 0 before the method is called, they will be changed when the method returns. If BackBufferFormat equals <see cref="F:SharpDX.Direct3D9.Format.Unknown"/> before the method is called, it will be changed when the method returns.  </param>
-            <param name="returnedDeviceInterfaceRef"> Address of a pointer to the returned <see cref="T:SharpDX.Direct3D9.Device"/> interface, which represents the created device.  </param>
+            <param name="presentationParametersRef"> Pointer to a <see cref="T:SharpDX.Direct3D9.PresentParameters"/> structure, describing the presentation parameters for the device to be created. If BehaviorFlags specifies {{D3DCREATE_ADAPTERGROUP_DEVICE}}, pPresentationParameters is an array. Regardless of the number of heads that exist, only one depth/stencil surface is automatically created. For Windows 2000 and Windows XP, the full-screen device display refresh rate is set in the following order:   User-specified nonzero ForcedRefreshRate registry key, if supported by the device. Application-specified nonzero refresh rate value in the presentation parameter. Refresh rate of the latest desktop mode, if supported by the device. 75 hertz if supported by the device. 60 hertz if supported by the device. Device default.  An unsupported refresh rate will default to the closest supported refresh rate below it.  For example, if the application specifies 63 hertz, 60 hertz will be used. There are no supported refresh rates below 57 hertz. pPresentationParameters is both an input and an output parameter. Calling this method may change several members including:  If BackBufferCount, BackBufferWidth, and BackBufferHeight  are 0 before the method is called, they will be changed when the method returns. If BackBufferFormat equals <see cref="F:SharpDX.Direct3D9.Format.Unknown"/> before the method is called, it will be changed when the method returns.  </param>
             <returns>  <see cref="T:System.Int32"/>  If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_DEVICELOST, D3DERR_INVALIDCALL, D3DERR_NOTAVAILABLE, D3DERR_OUTOFVIDEOMEMORY. </returns>
             <unmanaged>HRESULT CreateDevice([None] UINT Adapter,[None] D3DDEVTYPE DeviceType,[None] HWND hFocusWindow,[None] int BehaviorFlags,[None] D3DPRESENT_PARAMETERS* pPresentationParameters,[None] IDirect3DDevice9** ppReturnedDeviceInterface)</unmanaged>
         </member>
@@ -3732,7 +3731,6 @@
             <param name="indexData">The index data.</param>
             <param name="indexDataFormat">The index data format.</param>
             <param name="vertexData">The vertex data.</param>
-            <param name="vertexStride">The vertex stride.</param>
             <returns>A <see cref="T:SharpDX.Result"/> object describing the result of the operation.</returns>
         </member>
         <member name="M:SharpDX.Direct3D9.Device.DrawIndexedUserPrimitives``2(SharpDX.Direct3D9.PrimitiveType,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,``0[],SharpDX.Direct3D9.Format,``1[])">
@@ -3750,7 +3748,6 @@
             <param name="indexData">The index data.</param>
             <param name="indexDataFormat">The index data format.</param>
             <param name="vertexData">The vertex data.</param>
-            <param name="vertexStride">The vertex stride.</param>
             <returns>A <see cref="T:SharpDX.Result"/> object describing the result of the operation.</returns>
         </member>
         <member name="M:SharpDX.Direct3D9.Device.DrawRectanglePatch(System.Int32,System.Single[])">
@@ -3896,7 +3893,7 @@
             <summary>
             Gets the state of the sampler.
             </summary>
-            <typeparam name="T">Type of the sampler statet value</typeparam>
+            <typeparam name="T">Type of the sampler state value</typeparam>
             <param name="sampler">The sampler.</param>
             <param name="state">The state.</param>
             <returns>
@@ -3954,7 +3951,7 @@
             <returns>An array of int constants</returns>
             <unmanaged>HRESULT IDirect3DDevice9::GetVertexShaderConstantI([In] unsigned int StartRegister,[Out] int* pConstantData,[In] unsigned int Vector4iCount)</unmanaged>	
         </member>
-        <member name="M:SharpDX.Direct3D9.Device.SetCursorPosition(SharpDX.DrawingPoint,System.Boolean)">
+        <member name="M:SharpDX.Direct3D9.Device.SetCursorPosition(SharpDX.Point,System.Boolean)">
             <summary>
             Sets the cursor position.
             </summary>
@@ -3971,7 +3968,7 @@
             <param name="flags">if set to <c>true</c> [flags].</param>
             <unmanaged>void IDirect3DDevice9::SetCursorPosition([In] int X,[In] int Y,[In] unsigned int Flags)</unmanaged>
         </member>
-        <member name="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.DrawingPoint,SharpDX.Direct3D9.Surface)">
+        <member name="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.Point,SharpDX.Direct3D9.Surface)">
             <summary>
             Sets the cursor properties.
             </summary>
@@ -4623,13 +4620,13 @@
             <param name="cursorBitmapRef"><dd>  <p>Pointer to an <strong><see cref="T:SharpDX.Direct3D9.Surface"/></strong> interface. This parameter must point to an 8888 ARGB surface (format <see cref="F:SharpDX.Direct3D9.Format.A8R8G8B8"/>). The contents of this surface will be copied and potentially format-converted into an internal buffer from which the cursor is displayed. The dimensions of this surface must be less than the dimensions of the display mode, and must be a power of two in each direction, although not necessarily the same power of two. The alpha channel must be either 0.0 or 1.0. </p> </dd></param>	
             <returns><p>If the method succeeds, the return value is <see cref="F:SharpDX.Direct3D9.ResultCode.Success"/>. If the method fails, the return value can be <see cref="F:SharpDX.Direct3D9.ResultCode.InvalidCall"/>. </p></returns>	
             <remarks>	
-            <p>An operating system cursor is created and used under either of these conditions:</p><ul> <li>The hardware has set <see cref="F:SharpDX.Direct3D9.CursorCaps.Color"/> (see <see cref="T:SharpDX.Direct3D9.CursorCaps"/>), and the cursor size is 32x32 (which is the cursor size in the operating system).</li> <li>The application is running in windowed mode.</li> </ul><p>Otherwise, DirectX uses an emulated cursor. An application uses <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorPosition(SharpDX.DrawingPoint,System.Boolean)"/></strong> to move an emulated cursor to follow mouse movement.</p><p>It is recommended for applications to always trap WM_MOUSEMOVE events and call DXSetCursorPosition.</p><p>Direct3D cursor functions use either GDI cursor or software emulation, depending on the hardware. Users typically want to respond to a WM_SETCURSOR message. For example, they might want to write the message handler as follows:</p><pre><code> case WM_SETCURSOR:	
+            <p>An operating system cursor is created and used under either of these conditions:</p><ul> <li>The hardware has set <see cref="F:SharpDX.Direct3D9.CursorCaps.Color"/> (see <see cref="T:SharpDX.Direct3D9.CursorCaps"/>), and the cursor size is 32x32 (which is the cursor size in the operating system).</li> <li>The application is running in windowed mode.</li> </ul><p>Otherwise, DirectX uses an emulated cursor. An application uses <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorPosition(SharpDX.Point,System.Boolean)"/></strong> to move an emulated cursor to follow mouse movement.</p><p>It is recommended for applications to always trap WM_MOUSEMOVE events and call DXSetCursorPosition.</p><p>Direct3D cursor functions use either GDI cursor or software emulation, depending on the hardware. Users typically want to respond to a WM_SETCURSOR message. For example, they might want to write the message handler as follows:</p><pre><code> case WM_SETCURSOR:	
             // Turn off window cursor. 	
             SetCursor( <c>null</c> );	
             m_pd3dDevice-&gt;ShowCursor( TRUE );	
             return TRUE; // Prevent Windows from setting cursor to window class cursor.	
             break;	
-            </code></pre><p>Or, users might want to call the <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.DrawingPoint,SharpDX.Direct3D9.Surface)"/></strong> method if they want to change the cursor. </p><p>The application can determine what hardware support is available for cursors by examining appropriate members of the <strong><see cref="T:SharpDX.Direct3D9.Capabilities"/></strong> structure. Typically, hardware supports only 32x32 cursors and, when windowed, the system might support only 32x32 cursors. In this case, <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.DrawingPoint,SharpDX.Direct3D9.Surface)"/></strong> still succeeds but the cursor might be reduced to that size. The hot spot is scaled appropriately.</p><p>The cursor does not survive when the device is lost. This method must be called after the device is reset.</p>	
+            </code></pre><p>Or, users might want to call the <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.Point,SharpDX.Direct3D9.Surface)"/></strong> method if they want to change the cursor. </p><p>The application can determine what hardware support is available for cursors by examining appropriate members of the <strong><see cref="T:SharpDX.Direct3D9.Capabilities"/></strong> structure. Typically, hardware supports only 32x32 cursors and, when windowed, the system might support only 32x32 cursors. In this case, <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.Point,SharpDX.Direct3D9.Surface)"/></strong> still succeeds but the cursor might be reduced to that size. The hot spot is scaled appropriately.</p><p>The cursor does not survive when the device is lost. This method must be called after the device is reset.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IDirect3DDevice9::SetCursorProperties']/*"/>	
             <msdn-id>bb174430</msdn-id>	
@@ -4659,7 +4656,7 @@
             <returns><p>Value indicating whether the cursor was previously visible. <strong>TRUE</strong> if the cursor was previously visible, or <strong><see cref="F:SharpDX.Result.False"/></strong> if the cursor was not previously visible.</p></returns>	
             <remarks>	
             <p>Direct3D cursor functions use either GDI cursor or software emulation, depending on the hardware. Users usually want to respond to a WM_SETCURSOR message. For example, the users might want to write the message handler like this:</p><pre><code> case WM_SETCURSOR: // Turn off window cursor  SetCursor( <c>null</c> ); m_pd3dDevice-&gt;ShowCursor( TRUE ); return TRUE; // prevent Windows from setting cursor to window class cursor break;	
-            </code></pre><p>Or users might want to call the <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.DrawingPoint,SharpDX.Direct3D9.Surface)"/></strong> method if they want to change the cursor. See the code in the DirectX Graphics C/C++ Samples for more detail.</p>	
+            </code></pre><p>Or users might want to call the <strong><see cref="M:SharpDX.Direct3D9.Device.SetCursorProperties(SharpDX.Point,SharpDX.Direct3D9.Surface)"/></strong> method if they want to change the cursor. See the code in the DirectX Graphics C/C++ Samples for more detail.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IDirect3DDevice9::ShowCursor']/*"/>	
             <msdn-id>bb174470</msdn-id>	
@@ -4940,7 +4937,7 @@
             <unmanaged>HRESULT IDirect3DDevice9::CreateDepthStencilSurface([In] unsigned int Width,[In] unsigned int Height,[In] D3DFORMAT Format,[In] D3DMULTISAMPLE_TYPE MultiSample,[In] unsigned int MultisampleQuality,[In] BOOL Discard,[Out] IDirect3DSurface9** ppSurface,[In] void** pSharedHandle)</unmanaged>	
             <unmanaged-short>IDirect3DDevice9::CreateDepthStencilSurface</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D9.Device.UpdateSurface(SharpDX.Direct3D9.Surface,System.Nullable{SharpDX.Rectangle},SharpDX.Direct3D9.Surface,System.Nullable{SharpDX.DrawingPoint})">
+        <member name="M:SharpDX.Direct3D9.Device.UpdateSurface(SharpDX.Direct3D9.Surface,System.Nullable{SharpDX.Rectangle},SharpDX.Direct3D9.Surface,System.Nullable{SharpDX.Point})">
             <summary>	
             <p>Copies rectangular subsets of pixels from one surface to another. </p>	
             </summary>	
@@ -7492,7 +7489,7 @@
             Creates an <see cref="T:SharpDX.Direct3D9.Direct3DEx"/> object and returns an interface to it.	
             </summary>	
             <remarks>	
-            The <see cref="T:SharpDX.Direct3D9.Direct3DEx"/> object is the first object that the application creates and the last object thta the application releases. Functions for enumerating and retrieving capabilities of a device are accessible through the IDirect3D9Ex object. This enables applications to select devices without creating them.   The <see cref="T:SharpDX.Direct3D9.Direct3DEx"/> interface supports enumeration of active display adapters and allows the creation of IDirect3D9Ex objects. If the user dynamically adds adapters (either by adding devices to the desktop, or by hot-docking a laptop), these devices are not included in the enumeration. Creating a new IDirect3D9Ex interface will expose the new devices.   Pass the D3D_SDK_VERSION flag to this function to ensure that header files used in the compiled application match the version of the installed runtime DLLs. D3D_SDK_VERSION is changed in the runtime only when a header or another code change would require rebuilding the application. If this function fails, it indicates that the versions of the header file and the runtime DLL do not match.  Note??Direct3DCreate9Ex is supported only in Windows Vista, Windows Server 2008, and Windows 7.   Earlier versions of the D3D9.dll library do not include Direct3D9Ex and Direct3DCreate9Ex.  	
+            The <see cref="T:SharpDX.Direct3D9.Direct3DEx"/> object is the first object that the application creates and the last object that the application releases. Functions for enumerating and retrieving capabilities of a device are accessible through the IDirect3D9Ex object. This enables applications to select devices without creating them.   The <see cref="T:SharpDX.Direct3D9.Direct3DEx"/> interface supports enumeration of active display adapters and allows the creation of IDirect3D9Ex objects. If the user dynamically adds adapters (either by adding devices to the desktop, or by hot-docking a laptop), these devices are not included in the enumeration. Creating a new IDirect3D9Ex interface will expose the new devices.   Pass the D3D_SDK_VERSION flag to this function to ensure that header files used in the compiled application match the version of the installed runtime DLLs. D3D_SDK_VERSION is changed in the runtime only when a header or another code change would require rebuilding the application. If this function fails, it indicates that the versions of the header file and the runtime DLL do not match.  Note??Direct3DCreate9Ex is supported only in Windows Vista, Windows Server 2008, and Windows 7.   Earlier versions of the D3D9.dll library do not include Direct3D9Ex and Direct3DCreate9Ex.  	
             </remarks>	
             <returns>D3DERR_NOTAVAILABLE if Direct3DEx features are not supported (no WDDM driver is installed) or if the SDKVersion does not match the version of the DLL.   D3DERR_OUTOFMEMORY if out-of-memory conditions are detected when creating the enumerator object.  S_OK if the creation of the enumerator object is successful.  </returns>
             <unmanaged>HRESULT Direct3DCreate9Ex([None] int SDKVersion,[None] IDirect3D9Ex** arg1)</unmanaged>
@@ -7577,7 +7574,7 @@
             <returns><p>This method returns <see cref="F:SharpDX.Result.Ok"/> when rendering device along with swapchain buffers are created successfully. <see cref="F:SharpDX.Direct3D9.ResultCode.DeviceLost"/> is returned when any error other than invalid caller input is encountered.</p></returns>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IDirect3D9Ex::CreateDeviceEx']/*"/>	
             <msdn-id>bb174302</msdn-id>	
-            <unmanaged>HRESULT IDirect3D9Ex::CreateDeviceEx([In] unsigned int Adapter,[In] D3DDEVTYPE DeviceType,[In] HWND hFocusWindow,[In] unsigned int BehaviorFlags,[In, Buffer] D3DPRESENT_PARAMETERS* pPresentationParameters,[In, Buffer] D3DDISPLAYMODEEX* pFullscreenDisplayMode,[Out, Fast] IDirect3DDevice9Ex** ppReturnedDeviceInterface)</unmanaged>	
+            <unmanaged>HRESULT IDirect3D9Ex::CreateDeviceEx([In] unsigned int Adapter,[In] D3DDEVTYPE DeviceType,[In] HWND hFocusWindow,[In] unsigned int BehaviorFlags,[In, Buffer] D3DPRESENT_PARAMETERS* pPresentationParameters,[In, Buffer, Optional] D3DDISPLAYMODEEX* pFullscreenDisplayMode,[Out, Fast] IDirect3DDevice9Ex** ppReturnedDeviceInterface)</unmanaged>	
             <unmanaged-short>IDirect3D9Ex::CreateDeviceEx</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.Direct3DEx.GetAdapterLuid(System.Int32)">
@@ -8571,7 +8568,7 @@
         </member>
         <member name="F:SharpDX.Direct3D9.EffectHandle.UseCacheStrings">
             <summary>
-            Defines the behaviour for caching strings. True by default.
+            Defines the behavior for caching strings. True by default.
             </summary>
         </member>
         <member name="F:SharpDX.Direct3D9.EffectHandle.AllocatedStrings">
@@ -8850,14 +8847,14 @@
             <unmanaged>HDC ID3DXFont::GetDC()</unmanaged>	
             <unmanaged-short>ID3DXFont::GetDC</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D9.Font.GetGlyphData(System.Int32,SharpDX.Direct3D9.Texture@,SharpDX.Rectangle@,SharpDX.DrawingPoint@)">
+        <member name="M:SharpDX.Direct3D9.Font.GetGlyphData(System.Int32,SharpDX.Direct3D9.Texture@,SharpDX.Rectangle@,SharpDX.Point@)">
             <summary>	
             <p>Returns information about the placement and orientation of a glyph in a character cell.</p>	
             </summary>	
             <param name="glyph"><dd>  <p>Glyph identifier.</p> </dd></param>	
             <param name="textureOut"><dd>  <p>Address of a reference to a <strong><see cref="T:SharpDX.Direct3D9.Texture"/></strong> object that contains the glyph.</p> </dd></param>	
             <param name="blackBoxRef"><dd>  <p>Pointer to the smallest rectangle object that completely encloses the glyph.</p> </dd></param>	
-            <param name="cellIncRef"><dd>  <p>Pointer to the two-dimensional vector that connects the origin of the current character cell to the origin of the next character cell. See <strong><see cref="T:SharpDX.DrawingPoint"/></strong>.</p> </dd></param>	
+            <param name="cellIncRef"><dd>  <p>Pointer to the two-dimensional vector that connects the origin of the current character cell to the origin of the next character cell. See <strong><see cref="T:SharpDX.Point"/></strong>.</p> </dd></param>	
             <returns><p>If the method succeeds, the return value is <see cref="F:SharpDX.Result.Ok"/>. If the method fails, the return value can be one of the following: <see cref="F:SharpDX.Direct3D9.ResultCode.InvalidCall"/>, D3DXERR_INVALIDDATA.</p></returns>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3DXFont::GetGlyphData']/*"/>	
             <msdn-id>bb173966</msdn-id>	
@@ -21526,27 +21523,6 @@
             <unmanaged>HRESULT D3DXComputeNormalMap([In] IDirect3DTexture9* pTexture,[In] IDirect3DTexture9* pSrcTexture,[Out, Buffer] const PALETTEENTRY* pSrcPalette,[In] unsigned int Flags,[In] unsigned int Channel,[In] float Amplitude)</unmanaged>	
             <unmanaged-short>D3DXComputeNormalMap</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D9.D3DX9.CheckVolumeTextureRequirements(SharpDX.Direct3D9.Device,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32,SharpDX.Direct3D9.Format@,SharpDX.Direct3D9.Pool)">
-            <summary>	
-            <p>Checks volume-texture-creation parameters.</p>	
-            </summary>	
-            <param name="deviceRef"><dd>  <p>Pointer to an <strong><see cref="T:SharpDX.Direct3D9.Device"/></strong> interface, representing the device to be associated with the volume texture.</p> </dd></param>	
-            <param name="widthRef"><dd>  <p>Pointer to the requested width in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
-            <param name="heightRef"><dd>  <p>Pointer to the requested height in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
-            <param name="depthRef"><dd>  <p>Pointer to the requested depth in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
-            <param name="numMipLevelsRef"><dd>  <p>Pointer to the number of requested mipmap levels, or <strong><c>null</c></strong>. Returns the corrected number of mipmap levels.</p> </dd></param>	
-            <param name="usage"><dd>  <p>Currently not used, set to 0.</p> </dd></param>	
-            <param name="formatRef"><dd>  <p>Pointer to a member of the <see cref="T:SharpDX.Direct3D9.Format"/> enumerated type. Specifies the desired pixel format, or <strong><c>null</c></strong>. Returns the corrected format.</p> </dd></param>	
-            <param name="pool"><dd>  <p>Member of the <strong><see cref="T:SharpDX.Direct3D9.Pool"/></strong> enumerated type, describing the memory class into which the volume texture should be placed.</p> </dd></param>	
-            <returns><p>If the function succeeds, the return value is <see cref="F:SharpDX.Direct3D9.ResultCode.Success"/>. If the function fails, the return value can be one of the following: <see cref="F:SharpDX.Direct3D9.ResultCode.NotAvailable"/>, <see cref="F:SharpDX.Direct3D9.ResultCode.InvalidCall"/>.</p></returns>	
-            <remarks>	
-            <p>If parameters to this function are invalid, this function returns corrected parameters.</p>	
-            </remarks>	
-            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='D3DXCheckVolumeTextureRequirements']/*"/>	
-            <msdn-id>bb172718</msdn-id>	
-            <unmanaged>HRESULT D3DXCheckVolumeTextureRequirements([In] IDirect3DDevice9* pDevice,[InOut] unsigned int* pWidth,[InOut] unsigned int* pHeight,[InOut] unsigned int* pDepth,[InOut] unsigned int* pNumMipLevels,[In] unsigned int Usage,[InOut] D3DFORMAT* pFormat,[In] D3DPOOL Pool)</unmanaged>	
-            <unmanaged-short>D3DXCheckVolumeTextureRequirements</unmanaged-short>	
-        </member>
         <member name="M:SharpDX.Direct3D9.D3DX9.LoadSurfaceFromFileInMemory(SharpDX.Direct3D9.Surface,SharpDX.Direct3D9.PaletteEntry[],System.IntPtr,System.IntPtr,System.Int32,System.IntPtr,SharpDX.Direct3D9.Filter,System.Int32,System.IntPtr)">
             <summary>	
             No documentation.	
@@ -21936,6 +21912,27 @@
             <msdn-id>bb172832</msdn-id>	
             <unmanaged>HRESULT D3DXFillCubeTextureTX([In] IDirect3DCubeTexture9* pCubeTexture,[In] ID3DXTextureShader* pTextureShader)</unmanaged>	
             <unmanaged-short>D3DXFillCubeTextureTX</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D9.D3DX9.CheckVolumeTextureRequirements(SharpDX.Direct3D9.Device,System.Int32@,System.Int32@,System.Int32@,System.Int32@,System.Int32,SharpDX.Direct3D9.Format@,SharpDX.Direct3D9.Pool)">
+            <summary>	
+            <p>Checks volume-texture-creation parameters.</p>	
+            </summary>	
+            <param name="deviceRef"><dd>  <p>Pointer to an <strong><see cref="T:SharpDX.Direct3D9.Device"/></strong> interface, representing the device to be associated with the volume texture.</p> </dd></param>	
+            <param name="widthRef"><dd>  <p>Pointer to the requested width in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
+            <param name="heightRef"><dd>  <p>Pointer to the requested height in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
+            <param name="depthRef"><dd>  <p>Pointer to the requested depth in pixels, or <strong><c>null</c></strong>. Returns the corrected size.</p> </dd></param>	
+            <param name="numMipLevelsRef"><dd>  <p>Pointer to the number of requested mipmap levels, or <strong><c>null</c></strong>. Returns the corrected number of mipmap levels.</p> </dd></param>	
+            <param name="usage"><dd>  <p>Currently not used, set to 0.</p> </dd></param>	
+            <param name="formatRef"><dd>  <p>Pointer to a member of the <see cref="T:SharpDX.Direct3D9.Format"/> enumerated type. Specifies the desired pixel format, or <strong><c>null</c></strong>. Returns the corrected format.</p> </dd></param>	
+            <param name="pool"><dd>  <p>Member of the <strong><see cref="T:SharpDX.Direct3D9.Pool"/></strong> enumerated type, describing the memory class into which the volume texture should be placed.</p> </dd></param>	
+            <returns><p>If the function succeeds, the return value is <see cref="F:SharpDX.Direct3D9.ResultCode.Success"/>. If the function fails, the return value can be one of the following: <see cref="F:SharpDX.Direct3D9.ResultCode.NotAvailable"/>, <see cref="F:SharpDX.Direct3D9.ResultCode.InvalidCall"/>.</p></returns>	
+            <remarks>	
+            <p>If parameters to this function are invalid, this function returns corrected parameters.</p>	
+            </remarks>	
+            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='D3DXCheckVolumeTextureRequirements']/*"/>	
+            <msdn-id>bb172718</msdn-id>	
+            <unmanaged>HRESULT D3DXCheckVolumeTextureRequirements([In] IDirect3DDevice9* pDevice,[InOut] unsigned int* pWidth,[InOut] unsigned int* pHeight,[InOut] unsigned int* pDepth,[InOut] unsigned int* pNumMipLevels,[In] unsigned int Usage,[InOut] D3DFORMAT* pFormat,[In] D3DPOOL Pool)</unmanaged>	
+            <unmanaged-short>D3DXCheckVolumeTextureRequirements</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.D3DX9.FillTexture(SharpDX.Direct3D9.Texture,SharpDX.FunctionCallback,System.IntPtr)">
             <summary>	
@@ -24308,7 +24305,9 @@
             <param name="usage">The usage.</param>
             <param name="pool">The pool.</param>
             <param name="sixteenBit">if set to <c>true</c> use 16bit index buffer, otherwise, use 32bit index buffer.</param>
-            <unmanaged>HRESULT IDirect3DDevice9::CreateIndexBuffer([In] unsigned int Length,[In] unsigned int Usage,[In] D3DFORMAT Format,[In] D3DPOOL Pool,[Out, Fast] IDirect3DIndexBuffer9** ppIndexBuffer,[In] void** pSharedHandle)</unmanaged>
+            <msdn-id>bb174357</msdn-id>	
+            <unmanaged>HRESULT IDirect3DDevice9::CreateIndexBuffer([In] unsigned int Length,[In] unsigned int Usage,[In] D3DFORMAT Format,[In] D3DPOOL Pool,[Out, Fast] IDirect3DIndexBuffer9** ppIndexBuffer,[In] void** pSharedHandle)</unmanaged>	
+            <unmanaged-short>IDirect3DDevice9::CreateIndexBuffer</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.IndexBuffer.#ctor(SharpDX.Direct3D9.Device,System.Int32,SharpDX.Direct3D9.Usage,SharpDX.Direct3D9.Pool,System.Boolean,System.IntPtr@)">
             <summary>
@@ -24320,7 +24319,9 @@
             <param name="pool">The pool.</param>
             <param name="sixteenBit">if set to <c>true</c> use 16bit index buffer, otherwise, use 32bit index buffer.</param>
             <param name="sharedHandle">The shared handle.</param>
-            <unmanaged>HRESULT IDirect3DDevice9::CreateIndexBuffer([In] unsigned int Length,[In] unsigned int Usage,[In] D3DFORMAT Format,[In] D3DPOOL Pool,[Out, Fast] IDirect3DIndexBuffer9** ppIndexBuffer,[In] void** pSharedHandle)</unmanaged>
+            <msdn-id>bb174357</msdn-id>	
+            <unmanaged>HRESULT IDirect3DDevice9::CreateIndexBuffer([In] unsigned int Length,[In] unsigned int Usage,[In] D3DFORMAT Format,[In] D3DPOOL Pool,[Out, Fast] IDirect3DIndexBuffer9** ppIndexBuffer,[In] void** pSharedHandle)</unmanaged>	
+            <unmanaged-short>IDirect3DDevice9::CreateIndexBuffer</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.IndexBuffer.Lock(System.Int32,System.Int32,SharpDX.Direct3D9.LockFlags)">
             <summary>
@@ -24330,7 +24331,21 @@
             <param name="sizeToLock">The size of the buffer to lock.</param>
             <param name="lockFlags">The lock flags.</param>
             <returns>A <see cref="T:SharpDX.DataStream"/> containing the locked index buffer.</returns>
-            <unmanaged>HRESULT IDirect3DIndexBuffer9::Lock([In] unsigned int OffsetToLock,[In] unsigned int SizeToLock,[In] void** ppbData,[In] unsigned int Flags)</unmanaged>
+            <msdn-id>bb205867</msdn-id>	
+            <unmanaged>HRESULT IDirect3DIndexBuffer9::Lock([In] unsigned int OffsetToLock,[In] unsigned int SizeToLock,[Out] void** ppbData,[In] D3DLOCK Flags)</unmanaged>	
+            <unmanaged-short>IDirect3DIndexBuffer9::Lock</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D9.IndexBuffer.LockToPointer(System.Int32,System.Int32,SharpDX.Direct3D9.LockFlags)">
+            <summary>
+            Locks the specified index buffer.
+            </summary>
+            <param name="offsetToLock">The offset in the buffer.</param>
+            <param name="sizeToLock">The size of the buffer to lock.</param>
+            <param name="lockFlags">The lock flags.</param>
+            <returns>A <see cref="T:SharpDX.DataStream"/> containing the locked index buffer.</returns>
+            <msdn-id>bb205867</msdn-id>	
+            <unmanaged>HRESULT IDirect3DIndexBuffer9::Lock([In] unsigned int OffsetToLock,[In] unsigned int SizeToLock,[Out] void** ppbData,[In] D3DLOCK Flags)</unmanaged>	
+            <unmanaged-short>IDirect3DIndexBuffer9::Lock</unmanaged-short>	
         </member>
         <member name="P:SharpDX.Direct3D9.IndexBuffer.Description">
             <summary>	
@@ -28925,7 +28940,8 @@
             </summary>
             <param name="device">The device.</param>
             <param name="buffer">The buffer.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -28945,7 +28961,8 @@
             </summary>
             <param name="device">The device.</param>
             <param name="buffer">The buffer.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -28988,7 +29005,8 @@
             </summary>
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29008,7 +29026,8 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29028,7 +29047,8 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29049,7 +29069,8 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29070,7 +29091,8 @@
             </summary>
             <param name="device">The device.</param>
             <param name="buffer">The buffer.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29092,7 +29114,8 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29112,7 +29135,8 @@
             <param name="device">The device.</param>
             <param name="pointer">The pointer.</param>
             <param name="sizeInBytes">The size in bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29133,7 +29157,8 @@
             </summary>
             <param name="device">The device.</param>
             <param name="fileName">Name of the file.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -29589,6 +29614,9 @@
             <param name="usage">The requested usage of the buffer.</param>
             <param name="format">The vertex format of the vertices in the buffer. If set to <see cref="T:SharpDX.Direct3D9.VertexFormat"/>.None, the buffer will be a non-FVF buffer.</param>
             <param name="pool">The memory class into which the resource will be placed.</param>
+            <msdn-id>bb174364</msdn-id>	
+            <unmanaged>HRESULT IDirect3DDevice9::CreateVertexBuffer([In] unsigned int Length,[In] D3DUSAGE Usage,[In] D3DFVF FVF,[In] D3DPOOL Pool,[Out, Fast] IDirect3DVertexBuffer9** ppVertexBuffer,[In] void** pSharedHandle)</unmanaged>	
+            <unmanaged-short>IDirect3DDevice9::CreateVertexBuffer</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.VertexBuffer.#ctor(SharpDX.Direct3D9.Device,System.Int32,SharpDX.Direct3D9.Usage,SharpDX.Direct3D9.VertexFormat,SharpDX.Direct3D9.Pool,System.IntPtr@)">
             <summary>
@@ -29601,6 +29629,9 @@
             <param name="pool">The memory class into which the resource will be placed.</param>
             <param name="sharedHandle">The variable that will receive the shared handle for this resource.</param>
             <remarks>This method is only available in Direct3D9 Ex.</remarks>
+            <msdn-id>bb174364</msdn-id>	
+            <unmanaged>HRESULT IDirect3DDevice9::CreateVertexBuffer([In] unsigned int Length,[In] D3DUSAGE Usage,[In] D3DFVF FVF,[In] D3DPOOL Pool,[Out, Fast] IDirect3DVertexBuffer9** ppVertexBuffer,[In] void** pSharedHandle)</unmanaged>	
+            <unmanaged-short>IDirect3DDevice9::CreateVertexBuffer</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D9.VertexBuffer.Lock(System.Int32,System.Int32,SharpDX.Direct3D9.LockFlags)">
             <summary>	
@@ -29613,7 +29644,24 @@
             <param name="sizeToLock"> Size of the vertex data to lock, in bytes. To lock the entire vertex buffer, specify 0 for both parameters, SizeToLock and OffsetToLock. </param>
             <param name="lockFlags"> Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are:    D3DLOCK_DISCARD D3DLOCK_NO_DIRTY_UPDATE D3DLOCK_NOSYSLOCK D3DLOCK_READONLY D3DLOCK_NOOVERWRITE   For a description of the flags, see <see cref="T:SharpDX.Direct3D9.LockFlags"/>.  </param>
             <returns>A <see cref="T:SharpDX.DataStream"/> if the method succeeds.</returns>
-            <unmanaged>HRESULT IDirect3DVertexBuffer9::Lock([None] UINT OffsetToLock,[None] UINT SizeToLock,[Out] void** ppbData,[None] int Flags)</unmanaged>
+            <msdn-id>bb205917</msdn-id>	
+            <unmanaged>HRESULT IDirect3DVertexBuffer9::Lock([In] unsigned int OffsetToLock,[In] unsigned int SizeToLock,[Out] void** ppbData,[In] D3DLOCK Flags)</unmanaged>	
+            <unmanaged-short>IDirect3DVertexBuffer9::Lock</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D9.VertexBuffer.LockToPointer(System.Int32,System.Int32,SharpDX.Direct3D9.LockFlags)">
+            <summary>	
+            Locks a range of vertex data and obtains a pointer to the vertex buffer memory.	
+            </summary>	
+            <remarks>	
+             As a general rule, do not hold a lock across more than one frame. When working with vertex buffers, you are allowed to make multiple lock calls; however, you must ensure that the number of lock calls match the number of unlock calls. DrawPrimitive calls will not succeed with any outstanding lock count on any currently set vertex buffer. The D3DLOCK_DISCARD and D3DLOCK_NOOVERWRITE flags are valid only on buffers created with D3DUSAGE_DYNAMIC. For information about using D3DLOCK_DISCARD or D3DLOCK_NOOVERWRITE with IDirect3DVertexBuffer9::Lock, see {{Using Dynamic Vertex and Index Buffers}}. 	
+            </remarks>	
+            <param name="offsetToLock"> Offset into the vertex data to lock, in bytes. To lock the entire vertex buffer, specify 0 for both parameters, SizeToLock and OffsetToLock. </param>
+            <param name="sizeToLock"> Size of the vertex data to lock, in bytes. To lock the entire vertex buffer, specify 0 for both parameters, SizeToLock and OffsetToLock. </param>
+            <param name="lockFlags"> Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are:    D3DLOCK_DISCARD D3DLOCK_NO_DIRTY_UPDATE D3DLOCK_NOSYSLOCK D3DLOCK_READONLY D3DLOCK_NOOVERWRITE   For a description of the flags, see <see cref="T:SharpDX.Direct3D9.LockFlags"/>.  </param>
+            <returns>A <see cref="T:System.IntPtr"/> if the method succeeds.</returns>
+            <msdn-id>bb205917</msdn-id>	
+            <unmanaged>HRESULT IDirect3DVertexBuffer9::Lock([In] unsigned int OffsetToLock,[In] unsigned int SizeToLock,[Out] void** ppbData,[In] D3DLOCK Flags)</unmanaged>	
+            <unmanaged-short>IDirect3DVertexBuffer9::Lock</unmanaged-short>	
         </member>
         <member name="P:SharpDX.Direct3D9.VertexBuffer.Description">
             <summary>	
@@ -29962,7 +30010,7 @@
             <param name="srcPaletteRef"><para>Pointer to a <see cref="T:SharpDX.Direct3D9.PaletteEntry"/> structure, the source palette of 256 colors or <c>null</c>.</para></param>	
             <param name="srcBox"><para>Pointer to a <see cref="T:SharpDX.Direct3D9.Box"/> structure. Specifies the source box. <c>null</c> is not a valid value for this parameter.</para></param>	
             <param name="filter"><para>A combination of one or more <see cref="T:SharpDX.Direct3D9.Filter"/> controlling how the image is filtered. Specifying D3DX_DEFAULT for this parameter is the equivalent of specifying <see cref="F:SharpDX.Direct3D9.Filter.Triangle"/> | <see cref="F:SharpDX.Direct3D9.Filter.Dither"/>.</para></param>	
-            <param name="colorKey"><para> <see cref="T:SharpDX.Color4"/> value to replace with transparent black, or 0 to disable the colorkey. This is always a 32-bit ARGB color, independent of the source image format. Alpha is significant and should usually be set to FF for opaque color keys. Thus, for opaque black, the value would be equal to 0xFF000000.</para></param>	
+            <param name="colorKey"><para> <see cref="T:SharpDX.Color4"/> value to replace with transparent black, or 0 to disable the color key. This is always a 32-bit ARGB color, independent of the source image format. Alpha is significant and should usually be set to FF for opaque color keys. Thus, for opaque black, the value would be equal to 0xFF000000.</para></param>	
             <returns>If the function succeeds, the return value is <see cref="F:SharpDX.Direct3D9.ResultCode.Success"/>. If the function fails, the return value can be one of the following values: <see cref="F:SharpDX.Direct3D9.ResultCode.InvalidCall"/>, D3DXERR_INVALIDDATA.</returns>	
             <remarks>	
             Writing to a non-level-zero surface of the volume texture will not cause the dirty rectangle to be updated. If <see cref="M:SharpDX.Direct3D9.D3DX9.LoadVolumeFromMemory(SharpDX.Direct3D9.Volume,SharpDX.Direct3D9.PaletteEntry[],System.IntPtr,System.IntPtr,SharpDX.Direct3D9.Format,System.Int32,System.Int32,SharpDX.Direct3D9.PaletteEntry[],System.IntPtr,SharpDX.Direct3D9.Filter,System.Int32)"/> is called and the texture was not already dirty (this is unlikely under normal usage scenarios), the application needs to explicitly call <see cref="M:SharpDX.Direct3D9.VolumeTexture.AddDirtyBox(System.IntPtr)"/> on the volume texture.	
@@ -30093,7 +30141,7 @@
         </member>
         <member name="M:SharpDX.Direct3D9.Volume.FromFileInStream(SharpDX.Direct3D9.Volume,System.IO.Stream,SharpDX.Direct3D9.Filter,System.Int32)">
             <summary>
-            Loads a volume from a file in a strean.
+            Loads a volume from a file in a stream.
             </summary>
             <param name="volume">The volume.</param>
             <param name="stream">The stream.</param>
@@ -30106,7 +30154,7 @@
         </member>
         <member name="M:SharpDX.Direct3D9.Volume.FromFileInStream(SharpDX.Direct3D9.Volume,System.IO.Stream,SharpDX.Direct3D9.Filter,System.Int32,SharpDX.Direct3D9.Box,SharpDX.Direct3D9.Box)">
             <summary>
-            Loads a volume from a file in a strean.
+            Loads a volume from a file in a stream.
             </summary>
             <param name="volume">The volume.</param>
             <param name="stream">The stream.</param>
@@ -30121,7 +30169,7 @@
         </member>
         <member name="M:SharpDX.Direct3D9.Volume.FromFileInStream(SharpDX.Direct3D9.Volume,System.IO.Stream,SharpDX.Direct3D9.Filter,System.Int32,SharpDX.Direct3D9.Box,SharpDX.Direct3D9.Box,SharpDX.Direct3D9.ImageInformation@)">
             <summary>
-            Loads a volume from a file in a strean.
+            Loads a volume from a file in a stream.
             </summary>
             <param name="volume">The volume.</param>
             <param name="stream">The stream.</param>
@@ -30137,7 +30185,7 @@
         </member>
         <member name="M:SharpDX.Direct3D9.Volume.FromFileInStream(SharpDX.Direct3D9.Volume,System.IO.Stream,SharpDX.Direct3D9.Filter,System.Int32,SharpDX.Direct3D9.Box,SharpDX.Direct3D9.Box,SharpDX.Direct3D9.PaletteEntry[],SharpDX.Direct3D9.ImageInformation@)">
             <summary>
-            Loads a volume from a file in a strean.
+            Loads a volume from a file in a stream.
             </summary>
             <param name="volume">The volume.</param>
             <param name="stream">The stream.</param>
@@ -30537,6 +30585,7 @@
             <param name="filename">The filename.</param>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30578,6 +30627,7 @@
             <param name="filename">The filename.</param>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30732,7 +30782,9 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30752,7 +30804,9 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30773,7 +30827,9 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30794,7 +30850,9 @@
             </summary>
             <param name="device">The device.</param>
             <param name="buffer">The buffer.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30816,7 +30874,9 @@
             <param name="device">The device.</param>
             <param name="stream">The stream.</param>
             <param name="sizeBytes">The size bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30836,7 +30896,9 @@
             <param name="device">The device.</param>
             <param name="pointer">The pointer.</param>
             <param name="sizeInBytes">The size in bytes.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -30857,7 +30919,9 @@
             </summary>
             <param name="device">The device.</param>
             <param name="fileName">Name of the file.</param>
-            <param name="size">The size.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="depth">The depth.</param>
             <param name="levelCount">The level count.</param>
             <param name="usage">The usage.</param>
             <param name="format">The format.</param>
@@ -33526,6 +33590,13 @@
             <unmanaged>D3DPRESENT_INTERVAL PresentationInterval</unmanaged>	
             <unmanaged-short>D3DPRESENT_INTERVAL PresentationInterval</unmanaged-short>	
         </member>
+        <member name="M:SharpDX.Direct3D9.PresentParameters.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.Direct3D9.PresentParameters"/> struct.
+            </summary>
+            <param name="backBufferWidth">Width of the back buffer.</param>
+            <param name="backBufferHeight">Height of the back buffer.</param>
+        </member>
         <member name="M:SharpDX.Direct3D9.PresentParameters.#ctor(System.Int32,System.Int32,SharpDX.Direct3D9.Format,System.Int32,SharpDX.Direct3D9.MultisampleType,System.Int32,SharpDX.Direct3D9.SwapEffect,System.IntPtr,System.Boolean,System.Boolean,SharpDX.Direct3D9.Format,SharpDX.Direct3D9.PresentFlags,System.Int32,SharpDX.Direct3D9.PresentInterval)">
             <summary>
             Initializes a new instance of the <see cref="T:SharpDX.Direct3D9.PresentParameters"/> struct.
@@ -33542,7 +33613,7 @@
             <param name="enableAutoDepthStencil">if set to <c>true</c> [enable auto depth stencil].</param>
             <param name="autoDepthStencilFormat">The auto depth stencil format.</param>
             <param name="presentFlags">The present flags.</param>
-            <param name="fullScreenRefreshRateInHz">The full screen refresh rate in hz.</param>
+            <param name="fullScreenRefreshRateInHz">The full screen refresh rate in Hz.</param>
             <param name="presentationInterval">The presentation interval.</param>
         </member>
         <member name="M:SharpDX.Direct3D9.PresentParameters.InitDefaults">
@@ -34854,7 +34925,7 @@
         </member>
         <member name="M:SharpDX.Direct3D9.IncludeShadow.ToIntPtr(SharpDX.Direct3D9.Include)">
             <summary>
-            Return a pointer to the unamanged version of this callback.
+            Return a pointer to the unmanaged version of this callback.
             </summary>
             <param name="callback">The callback.</param>
             <returns>A pointer to a shadow c++ callback</returns>
@@ -35269,13 +35340,13 @@
         </member>
         <member name="M:SharpDX.Direct3D9.ShaderBytecode.Save(System.IO.Stream)">
             <summary>
-            Saves this bycode to the specified stream.
+            Saves this bytecode to the specified stream.
             </summary>
             <param name="stream">The stream.</param>
         </member>
         <member name="M:SharpDX.Direct3D9.ShaderBytecode.FromPointer(System.IntPtr)">
             <summary>
-            Froms the pointer.
+            Create a ShaderBytecode from a pointer.
             </summary>
             <param name="pointer">The pointer.</param>
             <returns></returns>

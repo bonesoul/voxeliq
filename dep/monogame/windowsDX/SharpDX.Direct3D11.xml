@@ -241,7 +241,7 @@
             <p>A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data.</p>	
             </summary>	
             <remarks>	
-            <p>There are three types of buffers: vertex, index, or a shader-constant buffer. Create a buffer resource by calling <strong><see cref="M:SharpDX.Direct3D11.Device.CreateBuffer(SharpDX.Direct3D11.BufferDescription@,System.Nullable{SharpDX.DataBox},SharpDX.Direct3D11.Buffer)"/></strong>.</p><p>A buffer must be bound to the pipeline before it can be accessed. Buffers can be bound to the input-assembler stage by calls to <strong><see cref="M:SharpDX.Direct3D11.InputAssemblerStage.SetVertexBuffers(System.Int32,SharpDX.Direct3D11.VertexBufferBinding)"/></strong> and <strong><see cref="M:SharpDX.Direct3D11.InputAssemblerStage.SetIndexBuffer(SharpDX.Direct3D11.Buffer,SharpDX.DXGI.Format,System.Int32)"/></strong>, to the stream-output stage by a call to <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(SharpDX.Direct3D11.StreamOutputBufferBinding[])"/></strong>, and to a shader stage by calling the appropriate shader method (such as <strong><see cref="M:SharpDX.Direct3D11.VertexShaderStage.SetConstantBuffers(System.Int32,System.Int32,System.IntPtr)"/></strong> for example).</p><p>Buffers can be bound to multiple pipeline stages simultaneously for reading. A buffer can also be bound to a single pipeline stage for writing; however, the same buffer cannot be bound for reading and writing simultaneously.</p>	
+            <p>There are three types of buffers: vertex, index, or a shader-constant buffer. Create a buffer resource by calling <strong><see cref="M:SharpDX.Direct3D11.Device.CreateBuffer(SharpDX.Direct3D11.BufferDescription@,System.Nullable{SharpDX.DataBox},SharpDX.Direct3D11.Buffer)"/></strong>.</p><p>A buffer must be bound to the pipeline before it can be accessed. Buffers can be bound to the input-assembler stage by calls to <strong><see cref="M:SharpDX.Direct3D11.InputAssemblerStage.SetVertexBuffers(System.Int32,SharpDX.Direct3D11.VertexBufferBinding)"/></strong> and <strong><see cref="M:SharpDX.Direct3D11.InputAssemblerStage.SetIndexBuffer(SharpDX.Direct3D11.Buffer,SharpDX.DXGI.Format,System.Int32)"/></strong>, to the stream-output stage by a call to <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.Direct3D11.Buffer[],System.Int32[])"/></strong>, and to a shader stage by calling the appropriate shader method (such as <strong><see cref="M:SharpDX.Direct3D11.VertexShaderStage.SetConstantBuffers(System.Int32,System.Int32,System.IntPtr)"/></strong> for example).</p><p>Buffers can be bound to multiple pipeline stages simultaneously for reading. A buffer can also be bound to a single pipeline stage for writing; however, the same buffer cannot be bound for reading and writing simultaneously.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11Buffer']/*"/>	
             <msdn-id>ff476351</msdn-id>	
@@ -431,6 +431,23 @@
             <param name = "loadInfo">Specifies information used to load the texture.</param>
             <returns>The loaded texture object.</returns>
         </member>
+        <member name="M:SharpDX.Direct3D11.Resource.FromMemory``1(SharpDX.Direct3D11.Device,SharpDX.DataPointer,SharpDX.Direct3D11.ImageLoadInformation)">
+            <summary>
+              Loads a texture from an image in memory.
+            </summary>
+            <param name = "device">The device used to load the texture.</param>
+            <param name = "pointer">Pointer to unmanaged memory containing the image data to load.</param>
+            <param name = "loadInfo">Specifies information used to load the texture.</param>
+            <returns>The loaded texture object.</returns>
+        </member>
+        <member name="M:SharpDX.Direct3D11.Resource.FromMemory``1(SharpDX.Direct3D11.Device,SharpDX.DataPointer)">
+            <summary>
+              Loads a texture from an image in memory.
+            </summary>
+            <param name = "device">The device used to load the texture.</param>
+            <param name = "pointer">Pointer to unmanaged memory containing the image data to load.</param>
+            <returns>The loaded texture object.</returns>
+        </member>
         <member name="M:SharpDX.Direct3D11.Resource.FromMemory(SharpDX.Direct3D11.Device,System.Byte[])">
             <summary>
               Loads a texture from an image in memory.
@@ -446,6 +463,23 @@
             <param name = "device">The device used to load the texture.</param>
             <param name = "memory">Array of memory containing the image data to load.</param>
             <param name = "loadInfo">Specifies information used to load the texture.</param>
+            <returns>The loaded texture object.</returns>
+        </member>
+        <member name="M:SharpDX.Direct3D11.Resource.FromMemory(SharpDX.Direct3D11.Device,SharpDX.DataPointer,SharpDX.Direct3D11.ImageLoadInformation)">
+            <summary>
+              Loads a texture from an image in memory.
+            </summary>
+            <param name = "device">The device used to load the texture.</param>
+            <param name = "pointer">Pointer to unmanaged memory containing the image data to load.</param>
+            <param name = "loadInfo">Specifies information used to load the texture.</param>
+            <returns>The loaded texture object.</returns>
+        </member>
+        <member name="M:SharpDX.Direct3D11.Resource.FromMemory(SharpDX.Direct3D11.Device,SharpDX.DataPointer)">
+            <summary>
+              Loads a texture from an image in memory.
+            </summary>
+            <param name = "device">The device used to load the texture.</param>
+            <param name = "pointer">Pointer to unmanaged memory containing the image data to load.</param>
             <returns>The loaded texture object.</returns>
         </member>
         <member name="M:SharpDX.Direct3D11.Resource.FromStream``1(SharpDX.Direct3D11.Device,System.IO.Stream,System.Int32)">
@@ -736,7 +770,7 @@
             <param name="sizeInBytes">The size in bytes.</param>
             <param name="usage">The usage.</param>
             <param name="bindFlags">The bind flags.</param>
-            <param name="cpuAccessFlags">The cpu access flags.</param>
+            <param name="cpuAccessFlags">The CPU access flags.</param>
             <param name="optionFlags">The option flags.</param>
             <param name="structureByteStride">The structure byte stride.</param>
         </member>
@@ -1647,7 +1681,7 @@
             <p>A depth-stencil-view interface accesses a texture resource during depth-stencil testing.</p>	
             </summary>	
             <remarks>	
-            <p>To create a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateDepthStencilView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.DepthStencilViewDescription},SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p><p>To bind a depth-stencil view to the pipeline, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p>	
+            <p>To create a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateDepthStencilView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.DepthStencilViewDescription},SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p><p>To bind a depth-stencil view to the pipeline, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)"/></strong>.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DepthStencilView']/*"/>	
             <msdn-id>ff476377</msdn-id>	
@@ -1659,7 +1693,7 @@
             <p>A view interface specifies the parts of a resource the pipeline can access during rendering.</p>	
             </summary>	
             <remarks>	
-            <p>A view interface is the base interface for all views. There are four types of views; a depth-stencil view, a render-target view, a shader-resource view, and an unordered-access view.</p><ul> <li>To create a render-target view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateRenderTargetView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.RenderTargetViewDescription},SharpDX.Direct3D11.RenderTargetView)"/></strong>.</li> <li>To create a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateDepthStencilView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.DepthStencilViewDescription},SharpDX.Direct3D11.DepthStencilView)"/></strong>.</li> <li>To create a shader-resource view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/></strong>.</li> <li>To create an unordered-access view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateUnorderedAccessView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.UnorderedAccessViewDescription},SharpDX.Direct3D11.UnorderedAccessView)"/></strong>.</li> </ul><p>All resources must be bound to the pipeline before they can be accessed.</p><ul> <li>To bind a render-target view or a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView)"/></strong>.</li> <li>To bind a shader resource, call <strong><see cref="M:SharpDX.Direct3D11.VertexShaderStage.SetShaderResources(System.Int32,System.Int32,System.IntPtr)"/></strong>.</li> </ul>	
+            <p>A view interface is the base interface for all views. There are four types of views; a depth-stencil view, a render-target view, a shader-resource view, and an unordered-access view.</p><ul> <li>To create a render-target view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateRenderTargetView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.RenderTargetViewDescription},SharpDX.Direct3D11.RenderTargetView)"/></strong>.</li> <li>To create a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateDepthStencilView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.DepthStencilViewDescription},SharpDX.Direct3D11.DepthStencilView)"/></strong>.</li> <li>To create a shader-resource view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/></strong>.</li> <li>To create an unordered-access view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateUnorderedAccessView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.UnorderedAccessViewDescription},SharpDX.Direct3D11.UnorderedAccessView)"/></strong>.</li> </ul><p>All resources must be bound to the pipeline before they can be accessed.</p><ul> <li>To bind a render-target view or a depth-stencil view, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)"/></strong>.</li> <li>To bind a shader resource, call <strong><see cref="M:SharpDX.Direct3D11.VertexShaderStage.SetShaderResources(System.Int32,System.Int32,System.IntPtr)"/></strong>.</li> </ul>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11View']/*"/>	
             <msdn-id>ff476642</msdn-id>	
@@ -1961,6 +1995,21 @@
             A <see cref="T:SharpDX.Result"/> object describing the result of the operation.
             </returns>
         </member>
+        <member name="M:SharpDX.Direct3D11.Device.IsSupportedFeatureLevel(SharpDX.Direct3D.FeatureLevel)">
+            <summary>
+            Check if a feature level is supported by a primary adapter.
+            </summary>
+            <param name="featureLevel">The feature level.</param>
+            <returns><c>true</c> if the primary adapter is supporting this feature level; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:SharpDX.Direct3D11.Device.IsSupportedFeatureLevel(SharpDX.DXGI.Adapter,SharpDX.Direct3D.FeatureLevel)">
+            <summary>
+            Check if a feature level is supported by a particular adapter.
+            </summary>
+            <param name="adapter">The adapter.</param>
+            <param name="featureLevel">The feature level.</param>
+            <returns><c>true</c> if the specified adapter is supporting this feature level; otherwise, <c>false</c>.</returns>
+        </member>
         <member name="M:SharpDX.Direct3D11.Device.GetSupportedFeatureLevel">
             <summary>
             Gets the highest supported hardware feature level of the primary adapter.
@@ -2116,7 +2165,7 @@
             <param name="rTViewOut"><dd>  <p>Address of a reference to an <strong><see cref="T:SharpDX.Direct3D11.RenderTargetView"/></strong>. Set this parameter to <strong><c>null</c></strong> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).</p> </dd></param>	
             <returns><p>This method returns one of the Direct3D 11 Return Codes.</p></returns>	
             <remarks>	
-            <p>A render-target view can be bound to the output-merger stage by calling <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p><p>The Direct3D 11.1 runtime, which is available starting with Windows Developer Preview, allows you to use <strong>CreateRenderTargetView</strong> for the following new purpose. </p><p>You can create render-target views of video resources so that Direct3D shaders can process those render-target views. These video resources are either Texture2D or Texture2DArray. The value in the <strong>ViewDimension</strong> member of the <strong><see cref="T:SharpDX.Direct3D11.RenderTargetViewDescription"/></strong> structure for a created render-target view must match the type of video resource, <see cref="F:SharpDX.Direct3D11.RenderTargetViewDimension.Texture2D"/>          for Texture2D and <see cref="F:SharpDX.Direct3D11.RenderTargetViewDimension.Texture2DArray"/> for Texture2DArray. Additionally, the format of the underlying video resource restricts the formats that the view can use. The video resource format values on the <strong><see cref="T:SharpDX.DXGI.Format"/></strong> reference page specify the format values that views are restricted to.</p><p>The runtime read+write conflict prevention logic (which stops a resource from being bound as an SRV and RTV or UAV at the same time) treats views of different parts of the same video surface as conflicting for simplicity.  Therefore, the runtime does not allow an application to read from luma while the application simultaneously renders to chroma in the same surface even though the hardware might allow these simultaneous operations.</p>	
+            <p>A render-target view can be bound to the output-merger stage by calling <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)"/></strong>.</p><p>The Direct3D 11.1 runtime, which is available starting with Windows Developer Preview, allows you to use <strong>CreateRenderTargetView</strong> for the following new purpose. </p><p>You can create render-target views of video resources so that Direct3D shaders can process those render-target views. These video resources are either Texture2D or Texture2DArray. The value in the <strong>ViewDimension</strong> member of the <strong><see cref="T:SharpDX.Direct3D11.RenderTargetViewDescription"/></strong> structure for a created render-target view must match the type of video resource, <see cref="F:SharpDX.Direct3D11.RenderTargetViewDimension.Texture2D"/>          for Texture2D and <see cref="F:SharpDX.Direct3D11.RenderTargetViewDimension.Texture2DArray"/> for Texture2DArray. Additionally, the format of the underlying video resource restricts the formats that the view can use. The video resource format values on the <strong><see cref="T:SharpDX.DXGI.Format"/></strong> reference page specify the format values that views are restricted to.</p><p>The runtime read+write conflict prevention logic (which stops a resource from being bound as an SRV and RTV or UAV at the same time) treats views of different parts of the same video surface as conflicting for simplicity.  Therefore, the runtime does not allow an application to read from luma while the application simultaneously renders to chroma in the same surface even though the hardware might allow these simultaneous operations.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11Device::CreateRenderTargetView']/*"/>	
             <msdn-id>ff476517</msdn-id>	
@@ -2132,7 +2181,7 @@
             <param name="depthStencilViewOut"><dd>  <p>Address of a reference to an <strong><see cref="T:SharpDX.Direct3D11.DepthStencilView"/></strong>. Set this parameter to <strong><c>null</c></strong> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).</p> </dd></param>	
             <returns><p>This method returns one of the following Direct3D 11 Return Codes.</p></returns>	
             <remarks>	
-            <p>A depth-stencil view can be bound to the output-merger stage by calling <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p>	
+            <p>A depth-stencil view can be bound to the output-merger stage by calling <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)"/></strong>.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11Device::CreateDepthStencilView']/*"/>	
             <msdn-id>ff476507</msdn-id>	
@@ -2198,10 +2247,10 @@
             <param name="shaderBytecodeRef"><dd>  <p>A reference to the compiled geometry shader for a standard geometry shader plus stream output. For info on how to get this reference, see Getting a Pointer to a Compiled Shader.</p> <p>To create the stream output without using a geometry shader, pass a reference to the output signature for the prior stage. To obtain this output signature, call the <strong><see cref="!:SharpDX.D3DCompiler.D3D.GetOutputSignatureBlob"/></strong> compiler function. You can also pass a reference to the compiled shader for the prior stage (for example, the vertex-shader stage or domain-shader stage). This compiled shader provides the output signature for the data.</p> </dd></param>	
             <param name="bytecodeLength"><dd>  <p>Size of the compiled geometry shader.</p> </dd></param>	
             <param name="sODeclarationRef"><dd>  <p>Pointer to a <strong><see cref="T:SharpDX.Direct3D11.StreamOutputElement"/></strong> array. Cannot be <strong><c>null</c></strong> if NumEntries &gt; 0.</p> </dd></param>	
-            <param name="numEntries"><dd>  <p>The number of entries in the stream output declaration ( ranges from 0 to D3D11_SO_STREAM_COUNT * D3D11_SO_OUTPUT_COMPONENT_COUNT ).</p> </dd></param>	
+            <param name="numEntries"><dd>  <p>The number of entries in the stream output declaration ( ranges from 0 to <see cref="F:SharpDX.Direct3D11.GeometryShader.StreamOutputStreamCount"/> * <see cref="F:SharpDX.Direct3D11.GeometryShader.StreamOutputOutputComponentCount"/> ).</p> </dd></param>	
             <param name="bufferStridesRef"><dd>  <p>An array of buffer strides; each stride is the size of an element for that buffer.</p> </dd></param>	
-            <param name="numStrides"><dd>  <p>The number of strides (or buffers) in <em>pBufferStrides</em> (ranges from 0 to D3D11_SO_BUFFER_SLOT_COUNT).</p> </dd></param>	
-            <param name="rasterizedStream"><dd>  <p>The index number of the stream to be sent to the rasterizer stage (ranges from 0 to D3D11_SO_STREAM_COUNT - 1).  Set to D3D11_SO_NO_RASTERIZED_STREAM if no stream is to be rasterized.</p> </dd></param>	
+            <param name="numStrides"><dd>  <p>The number of strides (or buffers) in <em>pBufferStrides</em> (ranges from 0 to <see cref="F:SharpDX.Direct3D11.GeometryShader.StreamOutputBufferSlotCount"/>).</p> </dd></param>	
+            <param name="rasterizedStream"><dd>  <p>The index number of the stream to be sent to the rasterizer stage (ranges from 0 to <see cref="F:SharpDX.Direct3D11.GeometryShader.StreamOutputStreamCount"/> - 1).  Set to <see cref="F:SharpDX.Direct3D11.GeometryShader.StreamOutputNoRasterizedStream"/> if no stream is to be rasterized.</p> </dd></param>	
             <param name="classLinkageRef"><dd>  <p>A reference to a class linkage interface (see <strong><see cref="T:SharpDX.Direct3D11.ClassLinkage"/></strong>); the value can be <strong><c>null</c></strong>.</p> </dd></param>	
             <param name="geometryShaderOut"><dd>  <p>Address of a reference to an <strong><see cref="T:SharpDX.Direct3D11.GeometryShader"/></strong> interface, representing the geometry shader that was created.  Set this to <strong><c>null</c></strong> to validate the other parameters; if validation passes, the method will return S_FALSE instead of <see cref="F:SharpDX.Result.Ok"/>.</p> </dd></param>	
             <returns><p>This method returns one of the Direct3D 11 Return Codes.</p></returns>	
@@ -2701,15 +2750,42 @@
             <unmanaged>ID3D11DeviceContext</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext</unmanaged-short>	
         </member>
+        <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.Direct3D11.Buffer[],System.Int32[])">
+            <summary>	
+            <p>Set the target output buffers for the stream-output stage of the pipeline.</p>	
+            </summary>	
+            <param name="numBuffers"><dd>  <p>The number of buffer to bind to the device. A maximum of four output buffers can be set. If less than four are defined by the call, the remaining buffer slots are set to <strong><c>null</c></strong>. See Remarks.</p> </dd></param>	
+            <param name="sOTargetsOut"><dd>  <p>The array of output buffers (see <strong><see cref="T:SharpDX.Direct3D11.Buffer"/></strong>) to bind to the device. The buffers must have been created with the <strong><see cref="F:SharpDX.Direct3D11.BindFlags.StreamOutput"/></strong> flag.</p> </dd></param>	
+            <param name="offsetsRef"><dd>  <p>Array of offsets to the output buffers from <em>ppSOTargets</em>, one offset for each buffer. The offset values must be in bytes.</p> </dd></param>	
+            <remarks>	
+            <p>An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass.</p><p>Calling this method using a buffer that is currently bound for writing will effectively bind <strong><c>null</c></strong> instead because a buffer cannot be bound as both an input and an output at the same time.</p><p>The debug layer will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime.</p><p> The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10. </p>	
+            </remarks>	
+            <msdn-id>ff476484</msdn-id>	
+            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const ID3D11Buffer** ppSOTargets,[In, Buffer, Optional] const unsigned int* pOffsets)</unmanaged>	
+            <unmanaged-short>ID3D11DeviceContext::SOSetTargets</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTarget(SharpDX.Direct3D11.Buffer,System.Int32)">
+            <summary>
+            Sets the stream output targets bound to the StreamOutput stage.
+            </summary>
+            <param name="buffer">The buffer to bind on the first stream output slot.</param>
+            <param name="offsets">An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass.</param>
+            <msdn-id>ff476484</msdn-id>
+            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const ID3D11Buffer** ppSOTargets,[In, Buffer, Optional] const unsigned int* pOffsets)</unmanaged>
+            <unmanaged-short>ID3D11DeviceContext::SOSetTargets</unmanaged-short>
+        </member>
         <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(SharpDX.Direct3D11.StreamOutputBufferBinding[])">
             <summary>	
             Set the target output {{buffers}} for the {{StreamOutput}} stage, which enables/disables the pipeline to stream-out data.	
             </summary>	
             <remarks>	
-            Call ID3D10Device::SOSetTargets (before any draw calls) to stream data out; call SOSetTargets with NULL to stop streaming data out. For an example, see Exercise 01 from the GDC 2007 workshop, which sets the stream output rendertargets before calling draw methods in the RenderInstanceToStream function. An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass. Calling this method using a buffer that is currently bound for writing will effectively bind NULL instead because a buffer cannot be bound as both an input and an output at the same time. The {{DeviceDebug Layer}} will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime. The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device. 	
+            Call ID3D10Device::SOSetTargets (before any draw calls) to stream data out; call SOSetTargets with NULL to stop streaming data out. For an example, see Exercise 01 from the GDC 2007 workshop, which sets the stream output render targets before calling draw methods in the RenderInstanceToStream function. An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass. Calling this method using a buffer that is currently bound for writing will effectively bind NULL instead because a buffer cannot be bound as both an input and an output at the same time. The {{DeviceDebug Layer}} will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime. The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device. 	
             </remarks>	
             <param name="bufferBindings">an array of output buffers (see <see cref="T:SharpDX.Direct3D11.StreamOutputBufferBinding"/>) to bind to the device. The buffers must have been created with the <see cref="F:SharpDX.Direct3D11.BindFlags.StreamOutput"/> flag. </param>
             <unmanaged>void SOSetTargets([In] int NumBuffers,[In, Buffer, Optional] const ID3D10Buffer** ppSOTargets,[In, Buffer, Optional] const int* pOffsets)</unmanaged>
+            <msdn-id>ff476484</msdn-id>	
+            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const ID3D11Buffer** ppSOTargets,[In, Buffer, Optional] const unsigned int* pOffsets)</unmanaged>	
+            <unmanaged-short>ID3D11DeviceContext::SOSetTargets</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.StreamOutputStage.GetTargets(System.Int32)">
             <summary>	
@@ -2737,7 +2813,7 @@
             The result of the conversion.
             </returns>
         </member>
-        <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.Direct3D11.Buffer[],System.Int32[])">
+        <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,System.IntPtr,System.IntPtr)">
             <summary>	
             <p>Set the target output buffers for the stream-output stage of the pipeline.</p>	
             </summary>	
@@ -2749,22 +2825,7 @@
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::SOSetTargets']/*"/>	
             <msdn-id>ff476484</msdn-id>	
-            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const ID3D11Buffer** ppSOTargets,[In, Buffer, Optional] const unsigned int* pOffsets)</unmanaged>	
-            <unmanaged-short>ID3D11DeviceContext::SOSetTargets</unmanaged-short>	
-        </member>
-        <member name="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.ComArray{SharpDX.Direct3D11.Buffer},System.Int32[])">
-            <summary>	
-            <p>Set the target output buffers for the stream-output stage of the pipeline.</p>	
-            </summary>	
-            <param name="numBuffers"><dd>  <p>The number of buffer to bind to the device. A maximum of four output buffers can be set. If less than four are defined by the call, the remaining buffer slots are set to <strong><c>null</c></strong>. See Remarks.</p> </dd></param>	
-            <param name="sOTargetsOut"><dd>  <p>The array of output buffers (see <strong><see cref="T:SharpDX.Direct3D11.Buffer"/></strong>) to bind to the device. The buffers must have been created with the <strong><see cref="F:SharpDX.Direct3D11.BindFlags.StreamOutput"/></strong> flag.</p> </dd></param>	
-            <param name="offsetsRef"><dd>  <p>Array of offsets to the output buffers from <em>ppSOTargets</em>, one offset for each buffer. The offset values must be in bytes.</p> </dd></param>	
-            <remarks>	
-            <p>An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass.</p><p>Calling this method using a buffer that is currently bound for writing will effectively bind <strong><c>null</c></strong> instead because a buffer cannot be bound as both an input and an output at the same time.</p><p>The debug layer will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime.</p><p> The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10. </p>	
-            </remarks>	
-            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::SOSetTargets']/*"/>	
-            <msdn-id>ff476484</msdn-id>	
-            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const ID3D11Buffer** ppSOTargets,[In, Buffer, Optional] const unsigned int* pOffsets)</unmanaged>	
+            <unmanaged>void ID3D11DeviceContext::SOSetTargets([In] unsigned int NumBuffers,[In, Buffer, Optional] const void** ppSOTargets,[In, Buffer, Optional] const void* pOffsets)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::SOSetTargets</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.StreamOutputStage.GetTargets(System.Int32,SharpDX.Direct3D11.Buffer[])">
@@ -2774,7 +2835,7 @@
             <param name="numBuffers"><dd>  <p>Number of buffers to get.</p> </dd></param>	
             <param name="sOTargetsOut"><dd>  <p>An array of output buffers (see <strong><see cref="T:SharpDX.Direct3D11.Buffer"/></strong>) to be retrieved from the device.</p> </dd></param>	
             <remarks>	
-            <p>A maximum of four output buffers can be retrieved.</p><p>The offsets to the output buffers pointed to in the returned <em>ppSOTargets</em> array may be assumed to be -1 (append), as defined for use in <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(SharpDX.Direct3D11.StreamOutputBufferBinding[])"/></strong>.</p><p>Any returned interfaces will have their reference count incremented by one. Applications should call IUnknown::Release on the returned interfaces when they are no longer needed to avoid memory leaks.</p>	
+            <p>A maximum of four output buffers can be retrieved.</p><p>The offsets to the output buffers pointed to in the returned <em>ppSOTargets</em> array may be assumed to be -1 (append), as defined for use in <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.Direct3D11.Buffer[],System.Int32[])"/></strong>.</p><p>Any returned interfaces will have their reference count incremented by one. Applications should call IUnknown::Release on the returned interfaces when they are no longer needed to avoid memory leaks.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::SOGetTargets']/*"/>	
             <msdn-id>ff476483</msdn-id>	
@@ -2995,7 +3056,7 @@
         </member>
         <member name="M:SharpDX.Direct3D11.CommonShaderStage.SetSamplers(System.Int32,SharpDX.ComArray{SharpDX.Direct3D11.SamplerState})">
             <summary>
-              Sets an array of samplesr to be used by the shader stage.
+              Sets an array of samplers to be used by the shader stage.
             </summary>
             <param name = "slot">Index into the device's zero-based array to which  to set the array of sampler states.</param>
             <param name = "samplers">An array of sampler state to set</param>
@@ -3012,7 +3073,7 @@
               Bind an array of shader resources to the shader stage.
             </summary>
             <remarks>
-              If an overlapping resource view is already bound to an output slot, such as a rendertarget, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
+              If an overlapping resource view is already bound to an output slot, such as a render target, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
             </remarks>
             <param name="startSlot">Index into the device's zero-based array to begin setting shader resources to (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).</param>
             <param name="shaderResourceViews">Array of {{shader resource view}} interfaces to set to the device.</param>
@@ -3022,7 +3083,7 @@
               Bind an array of shader resources to the shader stage.
             </summary>
             <remarks>
-              If an overlapping resource view is already bound to an output slot, such as a rendertarget, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
+              If an overlapping resource view is already bound to an output slot, such as a render target, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
             </remarks>
             <param name="startSlot">Index into the device's zero-based array to begin setting shader resources to (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).</param>
             <param name="shaderResourceViews">Array of {{shader resource view}} interfaces to set to the device.</param>
@@ -3048,7 +3109,7 @@
             </remarks>
             <param name="startSlot">Index into a zero-based array to begin getting samplers from (ranges from 0 to D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - 1).</param>
             <param name="numSamplers">Number of samplers to get from a device context. Each pipeline stage has a total of 16 sampler slots available (ranges from 0 to D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT - StartSlot).</param>
-            <param name="samplersRef">Arry of sampler-state interface pointers (see <see cref="T:SharpDX.Direct3D11.SamplerState"/>) to be returned by the device.</param>
+            <param name="samplersRef">Array of sampler-state interface pointers (see <see cref="T:SharpDX.Direct3D11.SamplerState"/>) to be returned by the device.</param>
             <unmanaged>void PSGetSamplers([In] UINT StartSlot,[In] UINT NumSamplers,[Out, Buffer] ID3D11SamplerState** ppSamplers)</unmanaged>
         </member>
         <member name="M:SharpDX.Direct3D11.CommonShaderStage.GetConstantBuffers(System.Int32,System.Int32,SharpDX.Direct3D11.Buffer[])">
@@ -3068,7 +3129,7 @@
               Bind an array of shader resources to the shader stage.
             </summary>
             <remarks>
-              If an overlapping resource view is already bound to an output slot, such as a rendertarget, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
+              If an overlapping resource view is already bound to an output slot, such as a render target, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
             </remarks>
             <param name="startSlot">Index into the device's zero-based array to begin setting shader resources to (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).</param>
             <param name="numViews">Number of shader resources to set. Up to a maximum of 128 slots are available for shader resources (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - StartSlot).</param>
@@ -3080,7 +3141,7 @@
               Bind an array of shader resources to the shader stage.
             </summary>
             <remarks>
-              If an overlapping resource view is already bound to an output slot, such as a rendertarget, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
+              If an overlapping resource view is already bound to an output slot, such as a render target, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
             </remarks>
             <param name="startSlot">Index into the device's zero-based array to begin setting shader resources to (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).</param>
             <param name="numViews">Number of shader resources to set. Up to a maximum of 128 slots are available for shader resources (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - StartSlot).</param>
@@ -3092,7 +3153,7 @@
               Bind an array of shader resources to the shader stage.
             </summary>
             <remarks>
-              If an overlapping resource view is already bound to an output slot, such as a rendertarget, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
+              If an overlapping resource view is already bound to an output slot, such as a render target, then this API will fill the destination shader resource slot with NULL.For information about creating shader-resource views, see <see cref="M:SharpDX.Direct3D11.Device.CreateShaderResourceView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.ShaderResourceViewDescription},SharpDX.Direct3D11.ShaderResourceView)"/>. The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10.
             </remarks>
             <param name="startSlot">Index into the device's zero-based array to begin setting shader resources to (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - 1).</param>
             <param name="numViews">Number of shader resources to set. Up to a maximum of 128 slots are available for shader resources (ranges from 0 to D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT - StartSlot).</param>
@@ -3287,7 +3348,7 @@
             </remarks>	
             <param name="startSlot">Index of the first element in the zero-based array to begin setting. </param>
             <param name="unorderedAccessView">A reference to an <see cref="T:SharpDX.Direct3D11.UnorderedAccessView"/> references to be set by the method. </param>
-            <param name="uavInitialCount">An Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumeable UAV. uAVInitialCount is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
+            <param name="uavInitialCount">An Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumable UAV. uAVInitialCount is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
             <unmanaged>void CSSetUnorderedAccessViews([In] int StartSlot,[In] int NumUAVs,[In, Buffer] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer] const int* pUAVInitialCounts)</unmanaged>
         </member>
         <member name="M:SharpDX.Direct3D11.ComputeShaderStage.SetUnorderedAccessViews(System.Int32,SharpDX.Direct3D11.UnorderedAccessView[])">
@@ -3308,7 +3369,7 @@
             </remarks>	
             <param name="startSlot">Index of the first element in the zero-based array to begin setting. </param>
             <param name="unorderedAccessViews">A reference to an array of <see cref="T:SharpDX.Direct3D11.UnorderedAccessView"/> references to be set by the method. </param>
-            <param name="uavInitialCounts">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumeable UAV.  pUAVInitialCounts is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
+            <param name="uavInitialCounts">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumable UAV.  pUAVInitialCounts is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
             <unmanaged>void CSSetUnorderedAccessViews([In] int StartSlot,[In] int NumUAVs,[In, Buffer] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer] const int* pUAVInitialCounts)</unmanaged>
         </member>
         <member name="M:SharpDX.Direct3D11.ComputeShaderStage.#ctor(System.IntPtr)">
@@ -3342,7 +3403,7 @@
             <unmanaged>void ID3D11DeviceContext::CSSetShaderResources([In] unsigned int StartSlot,[In] unsigned int NumViews,[In, Buffer] const void** ppShaderResourceViews)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::CSSetShaderResources</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D11.ComputeShaderStage.SetUnorderedAccessViews(System.Int32,System.Int32,System.IntPtr,System.Int32[])">
+        <member name="M:SharpDX.Direct3D11.ComputeShaderStage.SetUnorderedAccessViews(System.Int32,System.Int32,System.IntPtr,System.IntPtr)">
             <summary>	
             <p>Sets an array of views for an unordered resource.</p>	
             </summary>	
@@ -3352,7 +3413,7 @@
             <param name="uAVInitialCountsRef"><dd>  <p>An array of append and consume buffer offsets. A value of -1 indicates to keep the current offset. Any other values set the hidden counter  for that appendable and consumable UAV. <em>pUAVInitialCounts</em> is only relevant for UAVs that were created with either  <strong><see cref="F:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags.Append"/></strong> or <strong><see cref="F:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags.Counter"/></strong> specified  when the UAV was created; otherwise, the argument is ignored.</p> </dd></param>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::CSSetUnorderedAccessViews']/*"/>	
             <msdn-id>ff476404</msdn-id>	
-            <unmanaged>void ID3D11DeviceContext::CSSetUnorderedAccessViews([In] unsigned int StartSlot,[In] unsigned int NumUAVs,[In, Buffer] const void** ppUnorderedAccessViews,[In, Buffer] const unsigned int* pUAVInitialCounts)</unmanaged>	
+            <unmanaged>void ID3D11DeviceContext::CSSetUnorderedAccessViews([In] unsigned int StartSlot,[In] unsigned int NumUAVs,[In, Buffer] const void** ppUnorderedAccessViews,[In, Buffer] const void* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::CSSetUnorderedAccessViews</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.ComputeShaderStage.SetShader(SharpDX.Direct3D11.ComputeShader,SharpDX.Direct3D11.ClassInstance[],System.Int32)">
@@ -3529,21 +3590,21 @@
         </member>
         <member name="M:SharpDX.Direct3D11.DeviceContext.IsDataAvailable(SharpDX.Direct3D11.Asynchronous)">
             <summary>
-            Determines whether asynhronous query data is available.
+            Determines whether asynchronous query data is available.
             </summary>
             <param name="data">The data.</param>
             <returns>
-              <c>true</c> if asynhronous query data is available; otherwise, <c>false</c>.
+              <c>true</c> if asynchronous query data is available; otherwise, <c>false</c>.
             </returns>
             <unmanaged>HRESULT ID3D11DeviceContext::GetData([In] ID3D11Asynchronous* pAsync,[Out, Buffer, Optional] void* pData,[In] unsigned int DataSize,[In] D3D11_ASYNC_GETDATA_FLAG GetDataFlags)</unmanaged>
         </member>
         <member name="M:SharpDX.Direct3D11.DeviceContext.IsDataAvailable(SharpDX.Direct3D11.Asynchronous,SharpDX.Direct3D11.AsynchronousFlags)">
             <summary>
-            Determines whether asynhronous query data is available.
+            Determines whether asynchronous query data is available.
             </summary>
             <param name="data">The data.</param>
             <returns>
-              <c>true</c> if asynhronous query data is available; otherwise, <c>false</c>.
+              <c>true</c> if asynchronous query data is available; otherwise, <c>false</c>.
             </returns>
             <unmanaged>HRESULT ID3D11DeviceContext::GetData([In] ID3D11Asynchronous* pAsync,[Out, Buffer, Optional] void* pData,[In] unsigned int DataSize,[In] D3D11_ASYNC_GETDATA_FLAG GetDataFlags)</unmanaged>
         </member>
@@ -3619,7 +3680,7 @@
             Copy a region from a source resource to a destination resource.	
             </summary>	
             <remarks>	
-            The source box must be within the size of the source resource. The destination offsets, (x, y, and z) allow the source box to be offset when writing into the destination resource; however, the dimensions of the source box and the offsets must be within the size of the resource. If the resources are buffers, all coordinates are in bytes; if the resources are textures, all coordinates are in texels. {{D3D11CalcSubresource}} is a helper function for calculating subresource indexes. CopySubresourceRegion performs the copy on the GPU (similar to a memcpy by the CPU). As a consequence, the source and destination resources:  Must be different subresources (although they can be from the same resource). Must be the same type. Must have compatible DXGI formats (identical or from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. May not be currently mapped.  CopySubresourceRegion only supports copy; it does not support any stretch, color key, blend, or format conversions. An application that needs to copy an entire resource should use <see cref="M:SharpDX.Direct3D11.DeviceContext.CopyResource_(SharpDX.Direct3D11.Resource,SharpDX.Direct3D11.Resource)"/> instead. CopySubresourceRegion is an asynchronous call which may be added to the command-buffer queue, this attempts to remove pipeline stalls that may occur when copying data. See performance considerations for more details. Note??If you use CopySubresourceRegion with a depth-stencil buffer or a multisampled resource, you must copy the whole subresource. In this situation, you must pass 0 to the DstX, DstY, and DstZ parameters and NULL to the pSrcBox parameter. In addition, source and destination resources, which are represented by the pSrcResource and pDstResource parameters, should have identical sample count values. Example The following code snippet copies a box (located at (120,100),(200,220)) from a source texture into a reqion (10,20),(90,140) in a destination texture. 	
+            The source box must be within the size of the source resource. The destination offsets, (x, y, and z) allow the source box to be offset when writing into the destination resource; however, the dimensions of the source box and the offsets must be within the size of the resource. If the resources are buffers, all coordinates are in bytes; if the resources are textures, all coordinates are in texels. {{D3D11CalcSubresource}} is a helper function for calculating subresource indexes. CopySubresourceRegion performs the copy on the GPU (similar to a memcpy by the CPU). As a consequence, the source and destination resources:  Must be different subresources (although they can be from the same resource). Must be the same type. Must have compatible DXGI formats (identical or from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. May not be currently mapped.  CopySubresourceRegion only supports copy; it does not support any stretch, color key, blend, or format conversions. An application that needs to copy an entire resource should use <see cref="M:SharpDX.Direct3D11.DeviceContext.CopyResource_(SharpDX.Direct3D11.Resource,SharpDX.Direct3D11.Resource)"/> instead. CopySubresourceRegion is an asynchronous call which may be added to the command-buffer queue, this attempts to remove pipeline stalls that may occur when copying data. See performance considerations for more details. Note??If you use CopySubresourceRegion with a depth-stencil buffer or a multisampled resource, you must copy the whole subresource. In this situation, you must pass 0 to the DstX, DstY, and DstZ parameters and NULL to the pSrcBox parameter. In addition, source and destination resources, which are represented by the pSrcResource and pDstResource parameters, should have identical sample count values. Example The following code snippet copies a box (located at (120,100),(200,220)) from a source texture into a region (10,20),(90,140) in a destination texture. 	
             <code> D3D11_BOX sourceRegion;	
             sourceRegion.left = 120;	
             sourceRegion.right = 200;	
@@ -3647,7 +3708,7 @@
             Copy a multisampled resource into a non-multisampled resource.	
             </summary>	
             <remarks>	
-            This API is most useful when re-using the resulting rendertarget of one render pass as an input to a second render pass. The source and destination resources must be the same resource type and have the same dimensions. In addition, they must have compatible formats. There are three scenarios for this:  ScenarioRequirements Source and destination are prestructured and typedBoth the source and destination must have identical formats and that format must be specified in the Format parameter. One resource is prestructured and typed and the other is prestructured and typelessThe typed resource must have a format that is compatible with the typeless resource (i.e. the typed resource is DXGI_FORMAT_R32_FLOAT and the typeless resource is DXGI_FORMAT_R32_TYPELESS). The format of the typed resource must be specified in the Format parameter. Source and destination are prestructured and typelessBoth the source and desintation must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT could be specified in the Format parameter). For example, given the DXGI_FORMAT_R16G16B16A16_TYPELESS format:  The source (or dest) format could be DXGI_FORMAT_R16G16B16A16_UNORM The dest (or source) format could be DXGI_FORMAT_R16G16B16A16_FLOAT    ? 	
+            This API is most useful when re-using the resulting render target of one render pass as an input to a second render pass. The source and destination resources must be the same resource type and have the same dimensions. In addition, they must have compatible formats. There are three scenarios for this:  ScenarioRequirements Source and destination are prestructured and typedBoth the source and destination must have identical formats and that format must be specified in the Format parameter. One resource is prestructured and typed and the other is prestructured and typelessThe typed resource must have a format that is compatible with the typeless resource (i.e. the typed resource is DXGI_FORMAT_R32_FLOAT and the typeless resource is DXGI_FORMAT_R32_TYPELESS). The format of the typed resource must be specified in the Format parameter. Source and destination are prestructured and typelessBoth the source and destination must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT could be specified in the Format parameter). For example, given the DXGI_FORMAT_R16G16B16A16_TYPELESS format:  The source (or dest) format could be DXGI_FORMAT_R16G16B16A16_UNORM The dest (or source) format could be DXGI_FORMAT_R16G16B16A16_FLOAT    ? 	
             </remarks>	
             <param name="source">Source resource. Must be multisampled. </param>
             <param name="sourceSubresource">&gt;The source subresource of the source resource. </param>
@@ -3752,7 +3813,7 @@
             <param name="rowPitch">The row pitch.</param>
             <param name="depthPitch">The depth pitch.</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <msdn-id>ff476486</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
@@ -3772,7 +3833,7 @@
             <msdn-id>ff476486</msdn-id>
               <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>
               <unmanaged-short>ID3D11DeviceContext::UpdateSubresource</unmanaged-short>
-            <remarks>This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.</remarks>
+            <remarks>This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.</remarks>
         </member>
         <member name="M:SharpDX.Direct3D11.DeviceContext.UpdateSubresource(SharpDX.DataBox,SharpDX.Direct3D11.Resource,System.Int32)">
             <summary>
@@ -3782,7 +3843,7 @@
             <param name = "resource">The destination resource.</param>
             <param name = "subresource">The destination subresource.</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
         </member>
@@ -3795,7 +3856,7 @@
             <param name = "subresource">The destination subresource.</param>
             <param name = "region">The destination region within the resource.</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
         </member>
@@ -3813,7 +3874,7 @@
             <param name="isCompressedResource">if set to <c>true</c> the resource is a block/compressed resource</param>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
         </member>
         <member name="M:SharpDX.Direct3D11.DeviceContext.UpdateSubresourceSafe``1(``0[],SharpDX.Direct3D11.Resource,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
@@ -3829,7 +3890,7 @@
             <param name="depthPitch">The depth pitch.</param>
             <param name="isCompressedResource">if set to <c>true</c> the resource is a block/compressed resource</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
         </member>
@@ -3843,7 +3904,7 @@
             <param name = "subresource">The destination subresource.</param>
             <param name="isCompressedResource">if set to <c>true</c> the resource is a block/compressed resource</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
         </member>
@@ -3858,7 +3919,7 @@
             <param name = "region">The destination region within the resource.</param>
             <param name="isCompressedResource">if set to <c>true</c> the resource is a block/compressed resource</param>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
             <unmanaged>void ID3D11DeviceContext::UpdateSubresource([In] ID3D11Resource* pDstResource,[In] unsigned int DstSubresource,[In, Optional] const D3D11_BOX* pDstBox,[In] const void* pSrcData,[In] unsigned int SrcRowPitch,[In] unsigned int SrcDepthPitch)</unmanaged>	
         </member>
@@ -3876,7 +3937,7 @@
             <param name="isCompressedResource">if set to <c>true</c> the resource is a block/compressed resource</param>
             <returns></returns>
             <remarks>
-            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for defered context</a>.
+            This method is implementing the <a href="http://blogs.msdn.com/b/chuckw/archive/2010/07/28/known-issue-direct3d-11-updatesubresource-and-deferred-contexts.aspx">workaround for deferred context</a>.
             </remarks>
         </member>
         <member name="M:SharpDX.Direct3D11.DeviceContext.#ctor(System.IntPtr)">
@@ -4734,6 +4795,10 @@
             <unmanaged>ID3D11DeviceContext</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext</unmanaged-short>	
         </member>
+        <member name="F:SharpDX.Direct3D11.OutputMergerStage.SimultaneousRenderTargetCount">
+            <summary>Constant SimultaneousRenderTargetCount.</summary>
+            <unmanaged>D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT</unmanaged>
+        </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.GetRenderTargets(SharpDX.Direct3D11.DepthStencilView@)">
             <summary>	
             Get references to the render targets that are available to the {{output-merger stage}}.	
@@ -4939,7 +5004,7 @@
             <param name = "startSlot">Index into a zero-based array to begin setting unordered access views.</param>
             <param name = "unorderedAccessViews">A set of unordered access views to bind.</param>
             <param name = "renderTargetView">A view of the render target to bind.</param>
-            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumeable UAV.</param>
+            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumable UAV.</param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
@@ -4951,7 +5016,7 @@
             <param name = "startSlot">Index into a zero-based array to begin setting unordered access views.</param>
             <param name = "unorderedAccessViews">A set of unordered access views to bind.</param>
             <param name = "renderTargetViews">A set of render target views to bind.</param>
-            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumeable UAV.</param>
+            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumable UAV.</param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
@@ -4964,7 +5029,7 @@
             <param name = "startSlot">Index into a zero-based array to begin setting unordered access views.</param>
             <param name = "unorderedAccessViews">A set of unordered access views to bind.</param>
             <param name = "renderTargetView">A view of the render target to bind.</param>
-            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumeable UAV.</param>
+            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumable UAV.</param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
@@ -4977,7 +5042,7 @@
             <param name = "startSlot">Index into a zero-based array to begin setting unordered access views.</param>
             <param name = "unorderedAccessViews">A set of unordered access views to bind.</param>
             <param name = "renderTargetViews">A set of render target views to bind.</param>
-            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumeable UAV.</param>
+            <param name = "initialLengths">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept. Any other values set the hidden counter for that Appendable/Consumable UAV.</param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
@@ -4985,9 +5050,38 @@
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,SharpDX.Direct3D11.RenderTargetView[],SharpDX.Direct3D11.DepthStencilView)">
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargets([In] unsigned int NumViews,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView)</unmanaged>	
         </member>
+        <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)">
+            <summary>
+              Binds a depth stencil view and a render target view to the output-merger stage keeping existing unordered access views bindings.
+            </summary>
+            <param name = "depthStencilView">A view of the depth-stencil buffer to bind.</param>
+            <param name = "renderTargetView">A view to a render target to bind.</param>
+            <msdn-id>ff476465</msdn-id>	
+            <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
+            <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.RenderTargetView)">
+            <summary>
+              Binds a render target view to the output-merger stage keeping existing unordered access views bindings.
+            </summary>
+            <param name = "renderTargetView">A view to a render target to bind.</param>
+            <msdn-id>ff476465</msdn-id>	
+            <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
+            <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView[])">
+            <summary>
+              Binds a depth stencil view and a render target view to the output-merger stage keeping existing unordered access views bindings.
+            </summary>
+            <param name = "depthStencilView">A view of the depth-stencil buffer to bind.</param>
+            <param name = "renderTargetViews">A set of render target views to bind.</param>
+            <msdn-id>ff476465</msdn-id>	
+            <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
+            <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
+        </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetUnorderedAccessView(System.Int32,SharpDX.Direct3D11.UnorderedAccessView)">
             <summary>	
-            Sets an array of views for an unordered resource.	
+            Sets an array of views for an unordered resource keeping existing render targets bindings.
             </summary>	
             <remarks>	
             </remarks>	
@@ -4999,20 +5093,20 @@
         </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetUnorderedAccessView(System.Int32,SharpDX.Direct3D11.UnorderedAccessView,System.Int32)">
             <summary>	
-            Sets an array of views for an unordered resource.	
+            Sets an array of views for an unordered resource keeping existing render targets bindings.
             </summary>	
             <remarks>	
             </remarks>	
             <param name="startSlot">Index of the first element in the zero-based array to begin setting. </param>
             <param name="unorderedAccessView">A reference to an <see cref="T:SharpDX.Direct3D11.UnorderedAccessView"/> references to be set by the method. </param>
-            <param name="uavInitialCount">An Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumeable UAV. uAVInitialCount is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
+            <param name="uavInitialCount">An Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumable UAV. uAVInitialCount is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetUnorderedAccessViews(System.Int32,SharpDX.Direct3D11.UnorderedAccessView[])">
             <summary>	
-            Sets an array of views for an unordered resource.	
+            Sets an array of views for an unordered resource keeping existing render targets bindings.
             </summary>	
             <remarks>	
             </remarks>	
@@ -5024,13 +5118,13 @@
         </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetUnorderedAccessViews(System.Int32,SharpDX.Direct3D11.UnorderedAccessView[],System.Int32[])">
             <summary>	
-            Sets an array of views for an unordered resource.	
+            Sets an array of views for an unordered resource  keeping existing render targets bindings.	
             </summary>	
             <remarks>	
             </remarks>	
             <param name="startSlot">Index of the first element in the zero-based array to begin setting. </param>
             <param name="unorderedAccessViews">A reference to an array of <see cref="T:SharpDX.Direct3D11.UnorderedAccessView"/> references to be set by the method. </param>
-            <param name="uavInitialCounts">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumeable UAV.  pUAVInitialCounts is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
+            <param name="uavInitialCounts">An array of Append/Consume buffer offsets. A value of -1 indicates the current offset should be kept.   Any other values set the hidden counter for that Appendable/Consumable UAV.  pUAVInitialCounts is only relevant for UAVs which have the <see cref="T:SharpDX.Direct3D11.UnorderedAccessViewBufferFlags"/> flag,  otherwise the argument is ignored. </param>
             <msdn-id>ff476465</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const ID3D11RenderTargetView** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const ID3D11UnorderedAccessView** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
@@ -5102,18 +5196,18 @@
             <summary>	
             <p>Bind one or more render targets atomically and the depth-stencil buffer to the output-merger stage.</p>	
             </summary>	
-            <param name="numViews"><dd>  <p>Number of render targets to bind (ranges between 0 and D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT).</p> </dd></param>	
+            <param name="numViews"><dd>  <p>Number of render targets to bind (ranges between 0 and <see cref="F:SharpDX.Direct3D11.OutputMergerStage.SimultaneousRenderTargetCount"/>).</p> </dd></param>	
             <param name="renderTargetViewsOut"><dd>  <p>Pointer to an array of render targets (see <strong><see cref="T:SharpDX.Direct3D11.RenderTargetView"/></strong>) to bind to the device.  If this parameter is <strong><c>null</c></strong>, no render targets are bound. See Remarks.</p> </dd></param>	
             <param name="depthStencilViewRef"><dd>  <p>Pointer to a depth-stencil view (see <strong><see cref="T:SharpDX.Direct3D11.DepthStencilView"/></strong>) to bind to the device.  If this parameter is <strong><c>null</c></strong>, the depth-stencil state is not bound.</p> </dd></param>	
             <remarks>	
-            <p>The maximum number of active render targets a device can have active at any given time is set by a #define in D3D11.h called  D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT. It is invalid to try to set the same subresource to multiple render target slots.  Any render targets not defined by this call are set to <strong><c>null</c></strong>.</p><p>If any subresources are also currently bound for reading in a different stage or writing (perhaps in a different part of the pipeline),  those bind points will be set to <strong><c>null</c></strong>, in order to prevent the same subresource from being read and written simultaneously in a single rendering operation.</p><p> The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10. </p><p>If the render-target views were created from an array resource type, then all of the render-target views must have the same array size.   This restriction also applies to the depth-stencil view, its array size must match that of the render-target views being bound.</p><p>The pixel shader must be able to simultaneously render to at least eight separate render targets. All of these render targets must access the same type of resource: Buffer, Texture1D, Texture1DArray, Texture2D, Texture2DArray, Texture3D, or TextureCube. All render targets must have the same size in all dimensions (width and height, and depth for 3D or array size for *Array types). If render targets use multisample anti-aliasing, all bound render targets and depth buffer must be the same form of multisample resource (that is, the sample counts must be the same). Each render target can have a different data format. These render target formats are not required to have identical bit-per-element counts.</p><p>Any combination of the eight slots for render targets can have a render target set or not set.</p><p>The same resource view cannot be bound to multiple render target slots simultaneously. However, you can set multiple non-overlapping resource views of a single resource as simultaneous multiple render targets.</p>	
+            <p>The maximum number of active render targets a device can have active at any given time is set by a #define in D3D11.h called  <see cref="F:SharpDX.Direct3D11.OutputMergerStage.SimultaneousRenderTargetCount"/>. It is invalid to try to set the same subresource to multiple render target slots.  Any render targets not defined by this call are set to <strong><c>null</c></strong>.</p><p>If any subresources are also currently bound for reading in a different stage or writing (perhaps in a different part of the pipeline),  those bind points will be set to <strong><c>null</c></strong>, in order to prevent the same subresource from being read and written simultaneously in a single rendering operation.</p><p> The method will hold a reference to the interfaces passed in. This differs from the device state behavior in Direct3D 10. </p><p>If the render-target views were created from an array resource type, then all of the render-target views must have the same array size.   This restriction also applies to the depth-stencil view, its array size must match that of the render-target views being bound.</p><p>The pixel shader must be able to simultaneously render to at least eight separate render targets. All of these render targets must access the same type of resource: Buffer, Texture1D, Texture1DArray, Texture2D, Texture2DArray, Texture3D, or TextureCube. All render targets must have the same size in all dimensions (width and height, and depth for 3D or array size for *Array types). If render targets use multisample anti-aliasing, all bound render targets and depth buffer must be the same form of multisample resource (that is, the sample counts must be the same). Each render target can have a different data format. These render target formats are not required to have identical bit-per-element counts.</p><p>Any combination of the eight slots for render targets can have a render target set or not set.</p><p>The same resource view cannot be bound to multiple render target slots simultaneously. However, you can set multiple non-overlapping resource views of a single resource as simultaneous multiple render targets.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::OMSetRenderTargets']/*"/>	
             <msdn-id>ff476464</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::OMSetRenderTargets([In] unsigned int NumViews,[In] const void** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargets</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargetsAndUnorderedAccessViews(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView,System.Int32,System.Int32,System.IntPtr,System.Int32[])">
+        <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargetsAndUnorderedAccessViews(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView,System.Int32,System.Int32,System.IntPtr,System.IntPtr)">
             <summary>	
             <p>Binds resources to the output-merger stage.</p>	
             </summary>	
@@ -5129,7 +5223,7 @@
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews']/*"/>	
             <msdn-id>ff476465</msdn-id>	
-            <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const void** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const void** ppUnorderedAccessViews,[In, Buffer, Optional] const unsigned int* pUAVInitialCounts)</unmanaged>	
+            <unmanaged>void ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews([In] unsigned int NumRTVs,[In, Buffer, Optional] const void** ppRenderTargetViews,[In, Optional] ID3D11DepthStencilView* pDepthStencilView,[In] unsigned int UAVStartSlot,[In] unsigned int NumUAVs,[In, Buffer, Optional] const void** ppUnorderedAccessViews,[In, Buffer, Optional] const void* pUAVInitialCounts)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::OMSetRenderTargetsAndUnorderedAccessViews</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.OutputMergerStage.SetBlendState(SharpDX.Direct3D11.BlendState,System.Nullable{SharpDX.Color4},System.Int32)">
@@ -5311,7 +5405,7 @@
             <param name="right">The right.</param>
             <param name="bottom">The bottom.</param>
             <remarks>	
-            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF)"/></strong>).</p>	
+            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF[],System.Int32)"/></strong>).</p>	
             </remarks>	
             <msdn-id>ff476478</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::RSSetScissorRects([In] unsigned int NumRects,[In, Buffer, Optional] const void* pRects)</unmanaged>	
@@ -5323,7 +5417,7 @@
             </summary>
             <param name="scissorRectangles">The set of scissor rectangles to bind.</param>
             <remarks>	
-            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF)"/></strong>).</p>	
+            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF[],System.Int32)"/></strong>).</p>	
             </remarks>	
             <msdn-id>ff476478</msdn-id>	
             <unmanaged>void ID3D11DeviceContext::RSSetScissorRects([In] unsigned int NumRects,[In, Buffer, Optional] const void* pRects)</unmanaged>	
@@ -5333,8 +5427,8 @@
             <summary>
             Binds a single viewport to the rasterizer stage.
             </summary>
-            <param name="x">The x coord of the viewport.</param>
-            <param name="y">The x coord of the viewport.</param>
+            <param name="x">The x coordinate of the viewport.</param>
+            <param name="y">The y coordinate of the viewport.</param>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
             <param name="minZ">The min Z.</param>
@@ -5346,7 +5440,7 @@
             <unmanaged>void ID3D11DeviceContext::RSSetViewports([In] unsigned int NumViewports,[In, Buffer, Optional] const void* pViewports)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::RSSetViewports</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF)">
+        <member name="M:SharpDX.Direct3D11.RasterizerStage.SetViewport(SharpDX.ViewportF)">
             <summary>
             Binds a single viewport to the rasterizer stage.
             </summary>
@@ -5358,17 +5452,16 @@
             <unmanaged>void ID3D11DeviceContext::RSSetViewports([In] unsigned int NumViewports,[In, Buffer, Optional] const void* pViewports)</unmanaged>	
             <unmanaged-short>ID3D11DeviceContext::RSSetViewports</unmanaged-short>	
         </member>
-        <member name="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF[])">
+        <member name="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF[],System.Int32)">
             <summary>
-              Binds a set of viewports to the rasterizer stage.
+            Binds a set of viewports to the rasterizer stage.
             </summary>
-            <param name = "viewports">The set of viewports to bind.</param>
-            <remarks>	
-            <p></p><p>All viewports must be set atomically as one operation. Any viewports not defined by the call are disabled.</p><p>Which viewport to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader; if a geometry shader does not specify the semantic, Direct3D will use the first viewport in the array.</p>	
-            </remarks>	
-            <msdn-id>ff476480</msdn-id>	
-            <unmanaged>void ID3D11DeviceContext::RSSetViewports([In] unsigned int NumViewports,[In, Buffer, Optional] const void* pViewports)</unmanaged>	
-            <unmanaged-short>ID3D11DeviceContext::RSSetViewports</unmanaged-short>	
+            <param name="viewports">The set of viewports to bind.</param>
+            <param name="count">The number of viewport to set.</param>
+            <msdn-id>ff476480</msdn-id>
+              <unmanaged>void ID3D11DeviceContext::RSSetViewports([In] unsigned int NumViewports,[In, Buffer, Optional] const void* pViewports)</unmanaged>
+              <unmanaged-short>ID3D11DeviceContext::RSSetViewports</unmanaged-short>
+            <remarks><p></p><p>All viewports must be set atomically as one operation. Any viewports not defined by the call are disabled.</p><p>Which viewport to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader; if a geometry shader does not specify the semantic, Direct3D will use the first viewport in the array.</p></remarks>
         </member>
         <member name="M:SharpDX.Direct3D11.RasterizerStage.#ctor(System.IntPtr)">
             <summary>
@@ -5419,7 +5512,7 @@
             <param name="numRects"><dd>  <p>Number of scissor rectangles to bind.</p> </dd></param>	
             <param name="rectsRef"><dd>  <p>An array of scissor rectangles (see <strong>D3D11_RECT</strong>).</p> </dd></param>	
             <remarks>	
-            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF)"/></strong>).</p>	
+            <p>All scissor rects must be set atomically as one operation. Any scissor rects not defined by the call are disabled.</p><p>The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <strong><see cref="T:SharpDX.Direct3D11.RasterizerStateDescription"/></strong>).</p><p>Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see shader semantic syntax). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.</p><p>Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <strong><see cref="M:SharpDX.Direct3D11.RasterizerStage.SetViewports(SharpDX.ViewportF[],System.Int32)"/></strong>).</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11DeviceContext::RSSetScissorRects']/*"/>	
             <msdn-id>ff476478</msdn-id>	
@@ -15803,6 +15896,22 @@
             <unmanaged>ID3D11GeometryShader</unmanaged>	
             <unmanaged-short>ID3D11GeometryShader</unmanaged-short>	
         </member>
+        <member name="F:SharpDX.Direct3D11.GeometryShader.StreamOutputNoRasterizedStream">
+            <summary>Constant StreamOutputNoRasterizedStream.</summary>
+            <unmanaged>D3D11_SO_NO_RASTERIZED_STREAM</unmanaged>
+        </member>
+        <member name="F:SharpDX.Direct3D11.GeometryShader.StreamOutputStreamCount">
+            <summary>Constant StreamOutputStreamCount.</summary>
+            <unmanaged>D3D11_SO_STREAM_COUNT</unmanaged>
+        </member>
+        <member name="F:SharpDX.Direct3D11.GeometryShader.StreamOutputOutputComponentCount">
+            <summary>Constant StreamOutputOutputComponentCount.</summary>
+            <unmanaged>D3D11_SO_OUTPUT_COMPONENT_COUNT</unmanaged>
+        </member>
+        <member name="F:SharpDX.Direct3D11.GeometryShader.StreamOutputBufferSlotCount">
+            <summary>Constant StreamOutputBufferSlotCount.</summary>
+            <unmanaged>D3D11_SO_BUFFER_SLOT_COUNT</unmanaged>
+        </member>
         <member name="M:SharpDX.Direct3D11.GeometryShader.#ctor(System.IntPtr)">
             <summary>
             Initializes a new instance of the <see cref="T:SharpDX.Direct3D11.GeometryShader"/> class.
@@ -17259,7 +17368,7 @@
             <p>A render-target-view interface identifies the render-target subresources that can be accessed during rendering.</p>	
             </summary>	
             <remarks>	
-            <p>To create a render-target view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateRenderTargetView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.RenderTargetViewDescription},SharpDX.Direct3D11.RenderTargetView)"/></strong>. To bind a render-target view to the pipeline, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(System.Int32,System.IntPtr,SharpDX.Direct3D11.DepthStencilView)"/></strong>.</p><p>A rendertarget is a resource that can be written by the output-merger stage at the end of a render pass. Each render-target should also have a corresponding depth-stencil view.</p>	
+            <p>To create a render-target view, call <strong><see cref="M:SharpDX.Direct3D11.Device.CreateRenderTargetView(SharpDX.Direct3D11.Resource,System.Nullable{SharpDX.Direct3D11.RenderTargetViewDescription},SharpDX.Direct3D11.RenderTargetView)"/></strong>. To bind a render-target view to the pipeline, call <strong><see cref="M:SharpDX.Direct3D11.OutputMergerStage.SetRenderTargets(SharpDX.Direct3D11.DepthStencilView,SharpDX.Direct3D11.RenderTargetView)"/></strong>.</p><p>A rendertarget is a resource that can be written by the output-merger stage at the end of a render pass. Each render-target should also have a corresponding depth-stencil view.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='ID3D11RenderTargetView']/*"/>	
             <msdn-id>ff476582</msdn-id>	
@@ -17359,17 +17468,6 @@
             <unmanaged-short>ID3D11SamplerState::GetDesc</unmanaged-short>	
         </member>
         <member name="M:SharpDX.Direct3D11.SamplerState.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D11.SamplerStateDescription)">
-            <summary>
-              Constructs a new <see cref = "T:SharpDX.Direct3D11.SamplerState" /> based on the specified description.
-            </summary>
-            <param name = "device">The device with which to associate the state object.</param>
-            <param name = "description">The state description.</param>
-            <returns>The newly created object.</returns>
-            <msdn-id>ff476518</msdn-id>	
-            <unmanaged>HRESULT ID3D11Device::CreateSamplerState([In] const D3D11_SAMPLER_DESC* pSamplerDesc,[Out, Fast] ID3D11SamplerState** ppSamplerState)</unmanaged>	
-            <unmanaged-short>ID3D11Device::CreateSamplerState</unmanaged-short>	
-        </member>
-        <member name="M:SharpDX.Direct3D11.SamplerState.#ctor(SharpDX.Direct3D11.Device,SharpDX.Direct3D11.SamplerStateDescription@)">
             <summary>
               Constructs a new <see cref = "T:SharpDX.Direct3D11.SamplerState" /> based on the specified description.
             </summary>
@@ -19426,7 +19524,7 @@
             <summary>
             Determines whether the specified <see cref="T:SharpDX.Direct3D11.InputElement"/> is equal to this instance.
             </summary>
-            <param name="obj">The <see cref="T:SharpDX.Direct3D11.InputElement"/> to compare with this instance.</param>
+            <param name="other">The <see cref="T:SharpDX.Direct3D11.InputElement"/> to compare with this instance.</param>
             <returns>
               <c>true</c> if the specified <see cref="T:SharpDX.Direct3D11.InputElement"/> is equal to this instance; otherwise, <c>false</c>.
             </returns>
@@ -20201,13 +20299,13 @@
         </member>
         <member name="M:SharpDX.Direct3D11.ResourceRegion.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
-            Initiailize a new instance of <see cref="T:SharpDX.Direct3D11.ResourceRegion"/> struct.
+            Initialize a new instance of <see cref="T:SharpDX.Direct3D11.ResourceRegion"/> struct.
             </summary>
             <param name="left">Left coordinates (inclusive)</param>
             <param name="top">Top coordinates (inclusive)</param>
             <param name="front">Front coordinates (inclusive)</param>
             <param name="right">Right coordinates (exclusive)</param>
-            <param name="bottom">Botoom coordinates (exclusive)</param>
+            <param name="bottom">Bottom coordinates (exclusive)</param>
             <param name="back">Back coordinates (exclusive)</param>
             <remarks>
             <ul>
@@ -20914,12 +21012,23 @@
         </member>
         <member name="F:SharpDX.Direct3D11.StreamOutputElement.OutputSlot">
             <summary>	
-            <dd> <p>The associated stream output buffer that is bound to the pipeline  (see <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(SharpDX.Direct3D11.StreamOutputBufferBinding[])"/></strong>).  The valid range for <em>OutputSlot</em> is 0 to 3.</p> </dd>	
+            <dd> <p>The associated stream output buffer that is bound to the pipeline  (see <strong><see cref="M:SharpDX.Direct3D11.StreamOutputStage.SetTargets(System.Int32,SharpDX.Direct3D11.Buffer[],System.Int32[])"/></strong>).  The valid range for <em>OutputSlot</em> is 0 to 3.</p> </dd>	
             </summary>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='D3D11_SO_DECLARATION_ENTRY::OutputSlot']/*"/>	
             <msdn-id>ff476216</msdn-id>	
             <unmanaged>unsigned char OutputSlot</unmanaged>	
             <unmanaged-short>unsigned char OutputSlot</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.Direct3D11.StreamOutputElement.#ctor(System.Int32,System.String,System.Int32,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.Direct3D11.StreamOutputElement"/> struct.
+            </summary>
+            <param name="streamIndex">Zero-based, stream number</param>
+            <param name="semanticName">Name of the semantic.</param>
+            <param name="semanticIndex">Index of the semantic.</param>
+            <param name="startComponent">The start component.</param>
+            <param name="componentCount">The component count.</param>
+            <param name="outputSlot">The output slot.</param>
         </member>
         <member name="T:SharpDX.Direct3D11.StreamOutputStatistics">
             <summary>	

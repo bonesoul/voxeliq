@@ -174,7 +174,7 @@
         </member>
         <member name="P:SharpDX.XAudio2.AudioBuffer.Stream">
             <summary>
-            Gets or sets the datastream associated to this audio buffer
+            Gets or sets the data stream associated to this audio buffer
             </summary>
             <value>The stream.</value>
         </member>
@@ -212,12 +212,12 @@
         </member>
         <member name="T:SharpDX.XAudio2.EngineShadow">
             <summary>
-            Internal EngineCallback Callback Impl
+            Internal EngineCallback Callback Implementation
             </summary>
         </member>
         <member name="M:SharpDX.XAudio2.EngineShadow.ToIntPtr(SharpDX.XAudio2.EngineCallback)">
             <summary>
-            Return a pointer to the unamanged version of this callback.
+            Return a pointer to the unmanaged version of this callback.
             </summary>
             <param name="callback">The callback.</param>
             <returns>A pointer to a shadow c++ callback</returns>
@@ -884,6 +884,28 @@
             <unmanaged>None</unmanaged>	
             <unmanaged-short>None</unmanaged-short>	
         </member>
+        <member name="T:SharpDX.XAudio2.ResultCode">
+            <summary>	
+            Functions	
+            </summary>	
+            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAudio2.ResultCode']/*"/>	
+        </member>
+        <member name="F:SharpDX.XAudio2.ResultCode.InvalidCall">
+            <summary>Constant InvalidCall.</summary>
+            <unmanaged>XAUDIO2_E_INVALID_CALL</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAudio2.ResultCode.XapoCreationFailed">
+            <summary>Constant XapoCreationFailed.</summary>
+            <unmanaged>XAUDIO2_E_XAPO_CREATION_FAILED</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAudio2.ResultCode.XmaDecoderError">
+            <summary>Constant XmaDecoderError.</summary>
+            <unmanaged>XAUDIO2_E_XMA_DECODER_ERROR</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAudio2.ResultCode.DeviceInvalidated">
+            <summary>Constant DeviceInvalidated.</summary>
+            <unmanaged>XAUDIO2_E_DEVICE_INVALIDATED</unmanaged>
+        </member>
         <member name="T:SharpDX.XAudio2.XAudio2Functions">
             <summary>	
             Functions	
@@ -1269,7 +1291,7 @@
             Sets the volume level of each channel of the final output for the voice. These channels are mapped to the input channels of a specified destination voice.	
             </summary>	
             <remarks>	
-            <p>This method is valid only for source and submix voices, because mastering voices write directly to the device with no matrix mixing.</p> <p>Volume levels are expressed as floating-point amplitude multipliers between -<see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> and <see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> (-224 to 224), with a maximum gain of 144.5 dB. A volume level of 1.0 means there is no attenuation or gain and 0 means silence. Negative levels can be used to invert the audio's phase. See XAudio2 Volume and Pitch Control for additional information on volume control.</p> <p></p> <p>The X3DAudio function <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> can produce an output matrix for use with <strong>SetOutputMatrix</strong> based on a sound's position and a listener's position.</p> <table><tr><th>Note </th></tr><tr><td><see cref="M:SharpDX.XAudio2.Voice.GetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[])"/> always returns the levels most recently set by <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>. However, they may not actually be in effect yet: they only take effect the next time the audio engine runs after the <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> call (or after the corresponding <see cref="M:SharpDX.XAudio2.XAudio2.CommitChanges(System.Int32)"/> call, if <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> was called with a deferred operation ID).</td></tr></table>	
+            <p>This method is valid only for source and submix voices, because mastering voices write directly to the device with no matrix mixing.</p> <p>Volume levels are expressed as floating-point amplitude multipliers between -<see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> and <see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> (-224 to 224), with a maximum gain of 144.5 dB. A volume level of 1.0 means there is no attenuation or gain and 0 means silence. Negative levels can be used to invert the audio's phase. See XAudio2 Volume and Pitch Control for additional information on volume control.</p> <p></p> <p>The X3DAudio function <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> can produce an output matrix for use with <strong>SetOutputMatrix</strong> based on a sound's position and a listener's position.</p> <table><tr><th>Note </th></tr><tr><td><see cref="M:SharpDX.XAudio2.Voice.GetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[])"/> always returns the levels most recently set by <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>. However, they may not actually be in effect yet: they only take effect the next time the audio engine runs after the <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> call (or after the corresponding <see cref="M:SharpDX.XAudio2.XAudio2.CommitChanges(System.Int32)"/> call, if <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> was called with a deferred operation ID).</td></tr></table>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice']/*"/>	
             <msdn-id>ee418598</msdn-id>	
@@ -1308,7 +1330,7 @@
             <param name="sendListRef"><dd>[in]  Array of <see cref="T:SharpDX.XAudio2.VoiceSendDescriptors"/> structure references to destination voices. If <em>pSendList</em> is <c>null</c>, the voice will send its output to the current mastering voice. To set the voice to not send its output anywhere set the <strong>OutputCount</strong> member of <see cref="T:SharpDX.XAudio2.VoiceSendDescriptors"/> to 0. All of the voices in a send list must have the same input sample rate, see XAudio2 Sample Rate Conversions for additional information. </dd></param>	
             <returns><p>Returns <see cref="F:SharpDX.Result.Ok"/> if successful, an error code otherwise. See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>This method is only valid for source and submix voices. Mastering voices can not send audio to another voice.</p> <p>After calling <strong>SetOutputVoices</strong> a voice's current send levels will be replaced by a default send matrix. The <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> method must be called to set a custom matrix for the new sendlist.</p> <p>It is illegal to call <strong>SetOutputVoices</strong> from within a callback. If <strong>SetOutputVoices</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p> <table><tr><th>Note </th></tr><tr><td>Calling <strong>SetOutputVoices</strong> invalidates any send matrices previously set with <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>.</td></tr></table>	
+            <p>This method is only valid for source and submix voices. Mastering voices can not send audio to another voice.</p> <p>After calling <strong>SetOutputVoices</strong> a voice's current send levels will be replaced by a default send matrix. The <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> method must be called to set a custom matrix for the new sendlist.</p> <p>It is illegal to call <strong>SetOutputVoices</strong> from within a callback. If <strong>SetOutputVoices</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p> <table><tr><th>Note </th></tr><tr><td>Calling <strong>SetOutputVoices</strong> invalidates any send matrices previously set with <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>.</td></tr></table>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice::SetOutputVoices']/*"/>	
             <msdn-id>ee418599</msdn-id>	
@@ -1322,7 +1344,7 @@
             <param name="effectChainRef"><dd>[in, optional]  Pointer to an <see cref="T:SharpDX.XAudio2.EffectChain"/> structure that describes the new effect chain to use. If <c>null</c> is passed, the current effect chain is removed. <table><tr><th>Note </th></tr><tr><td>If <em>pEffectChain</em> is non-<c>null</c>, the <see cref="T:SharpDX.XAudio2.EffectChain"/> structure that it points to must specify at least one effect.</td></tr></table> </dd></param>	
             <returns><p> Returns <see cref="F:SharpDX.Result.Ok"/> if successful; otherwise, an error code. </p> <p> See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>The number of output channels allowed for a voice's effect chain is locked at creation of the voice.  If you create the voice with an effect chain, any new effect chain passed to <strong>SetEffectChain</strong> must have  the same number of input and output channels as the original effect chain.  If you create the voice without an effect chain, the number of output channels  allowed for the effect chain will default to the number of input channels for the voice.   If any part of effect chain creation fails, none of it is applied.</p> <p>After you attach an effect to an XAudio2 voice, XAudio2 takes control of the effect, and the client should not make any further calls to it. The simplest way to ensure this  is to release all references to the effect.</p> <p>It is illegal to call <strong>SetEffectChain</strong> from within a callback. If you call <strong>SetEffectChain</strong> within a callback, XAUDIO2_E_INVALID_CALL is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>SetEffectChain</strong> successfully completes,  and may be deleted immediately after <strong>SetEffectChain</strong> is called.</p>	
+            <p>The number of output channels allowed for a voice's effect chain is locked at creation of the voice.  If you create the voice with an effect chain, any new effect chain passed to <strong>SetEffectChain</strong> must have  the same number of input and output channels as the original effect chain.  If you create the voice without an effect chain, the number of output channels  allowed for the effect chain will default to the number of input channels for the voice.   If any part of effect chain creation fails, none of it is applied.</p> <p>After you attach an effect to an XAudio2 voice, XAudio2 takes control of the effect, and the client should not make any further calls to it. The simplest way to ensure this  is to release all references to the effect.</p> <p>It is illegal to call <strong>SetEffectChain</strong> from within a callback. If you call <strong>SetEffectChain</strong> within a callback, <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>SetEffectChain</strong> successfully completes,  and may be deleted immediately after <strong>SetEffectChain</strong> is called.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice::SetEffectChain']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2voice.ixaudio2voice.seteffectchain</msdn-id>	
@@ -1532,7 +1554,7 @@
             <param name="operationSet"><dd>[in]  Identifies this call as part of a deferred batch. See the XAudio2 Operation Sets overview for more information. </dd></param>	
             <returns><p>Returns <see cref="F:SharpDX.Result.Ok"/> if successful, an error code otherwise. See XAudio2 Error Codes for descriptions of error codes.</p></returns>	
             <remarks>	
-            <p>This method is valid only for source and submix voices, because mastering voices write directly to the device with no matrix mixing.</p> <p>Volume levels are expressed as floating-point amplitude multipliers between -<see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> and <see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> (-224 to 224), with a maximum gain of 144.5 dB. A volume level of 1.0 means there is no attenuation or gain and 0 means silence. Negative levels can be used to invert the audio's phase. See XAudio2 Volume and Pitch Control for additional information on volume control.</p> <p></p> <p>The X3DAudio function <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> can produce an output matrix for use with <strong>SetOutputMatrix</strong> based on a sound's position and a listener's position.</p> <table><tr><th>Note </th></tr><tr><td><see cref="M:SharpDX.XAudio2.Voice.GetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[])"/> always returns the levels most recently set by <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>. However, they may not actually be in effect yet: they only take effect the next time the audio engine runs after the <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> call (or after the corresponding <see cref="M:SharpDX.XAudio2.XAudio2.CommitChanges(System.Int32)"/> call, if <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> was called with a deferred operation ID).</td></tr></table>	
+            <p>This method is valid only for source and submix voices, because mastering voices write directly to the device with no matrix mixing.</p> <p>Volume levels are expressed as floating-point amplitude multipliers between -<see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> and <see cref="F:SharpDX.XAudio2.XAudio2.MaximumVolumeLevel"/> (-224 to 224), with a maximum gain of 144.5 dB. A volume level of 1.0 means there is no attenuation or gain and 0 means silence. Negative levels can be used to invert the audio's phase. See XAudio2 Volume and Pitch Control for additional information on volume control.</p> <p></p> <p>The X3DAudio function <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> can produce an output matrix for use with <strong>SetOutputMatrix</strong> based on a sound's position and a listener's position.</p> <table><tr><th>Note </th></tr><tr><td><see cref="M:SharpDX.XAudio2.Voice.GetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[])"/> always returns the levels most recently set by <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>. However, they may not actually be in effect yet: they only take effect the next time the audio engine runs after the <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> call (or after the corresponding <see cref="M:SharpDX.XAudio2.XAudio2.CommitChanges(System.Int32)"/> call, if <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> was called with a deferred operation ID).</td></tr></table>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice::SetOutputMatrix']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2voice.ixaudio2voice.setoutputmatrix</msdn-id>	
@@ -1560,7 +1582,7 @@
             Destroys the voice. If necessary, stops the voice and removes it from the XAudio2 graph.	
             </summary>	
             <remarks>	
-            <p>If any other voice is currently sending audio to this voice, the method fails.</p> <p><strong>DestroyVoice</strong> waits for the audio processing thread to be idle, so it can take a little while (typically no more  than a couple of milliseconds).  This is necessary to guarantee that the voice will no longer make any  callbacks or read any audio data, so the application can safely free up these resources as soon as the call returns.</p> <p>To avoid title thread interruptions from a blocking <strong>DestroyVoice</strong> call, the application can destroy voices on a separate non-critical thread, or  the application can use voice pooling strategies to reuse voices rather than destroying them. Note that voices can only be reused with audio  that has the same data format and the same number of channels the voice was created with.  A voice can play audio data with different sample rates  than that of the voice by calling <see cref="M:SharpDX.XAudio2.SourceVoice.SetFrequencyRatio(System.Single,System.Int32)"/> with an appropriate ratio parameter.</p> <p>It is illegal to call <strong>DestroyVoice</strong> from within a callback. If <strong>DestroyVoice</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>If any other voice is currently sending audio to this voice, the method fails.</p> <p><strong>DestroyVoice</strong> waits for the audio processing thread to be idle, so it can take a little while (typically no more  than a couple of milliseconds).  This is necessary to guarantee that the voice will no longer make any  callbacks or read any audio data, so the application can safely free up these resources as soon as the call returns.</p> <p>To avoid title thread interruptions from a blocking <strong>DestroyVoice</strong> call, the application can destroy voices on a separate non-critical thread, or  the application can use voice pooling strategies to reuse voices rather than destroying them. Note that voices can only be reused with audio  that has the same data format and the same number of channels the voice was created with.  A voice can play audio data with different sample rates  than that of the voice by calling <see cref="M:SharpDX.XAudio2.SourceVoice.SetFrequencyRatio(System.Single,System.Int32)"/> with an appropriate ratio parameter.</p> <p>It is illegal to call <strong>DestroyVoice</strong> from within a callback. If <strong>DestroyVoice</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice::DestroyVoice']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2voice.ixaudio2voice.destroyvoice</msdn-id>	
@@ -1650,7 +1672,7 @@
             <summary>	
             Designates a new set of submix or mastering voices to receive the output of the voice.	
             </summary>	
-            <param name="outputVoices">[in]  Array of <see cref="T:SharpDX.XAudio2.VoiceSendDescriptor"/> structure pointers to destination voices. If outputVoices is NULL, the voice will send its output to the current mastering voice. To set the voice to not send its output anywhere set an array of lenvth 0. All of the voices in a send list must have the same input sample rate, see {{XAudio2 Sample Rate Conversions}} for additional information. </param>
+            <param name="outputVoices">[in]  Array of <see cref="T:SharpDX.XAudio2.VoiceSendDescriptor"/> structure pointers to destination voices. If outputVoices is NULL, the voice will send its output to the current mastering voice. To set the voice to not send its output anywhere set an array of length 0. All of the voices in a send list must have the same input sample rate, see {{XAudio2 Sample Rate Conversions}} for additional information. </param>
             <returns>No documentation.</returns>
             <unmanaged>HRESULT IXAudio2Voice::SetOutputVoices([In, Optional] const XAUDIO2_VOICE_SENDS* pSendList)</unmanaged>
         </member>
@@ -1701,7 +1723,7 @@
             Designates a new set of submix or mastering voices to receive the output of the voice.	
             </summary>	
             <remarks>	
-            <p>This method is only valid for source and submix voices. Mastering voices can not send audio to another voice.</p> <p>After calling <strong>SetOutputVoices</strong> a voice's current send levels will be replaced by a default send matrix. The <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> method must be called to set a custom matrix for the new sendlist.</p> <p>It is illegal to call <strong>SetOutputVoices</strong> from within a callback. If <strong>SetOutputVoices</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p> <table><tr><th>Note </th></tr><tr><td>Calling <strong>SetOutputVoices</strong> invalidates any send matrices previously set with <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>.</td></tr></table>	
+            <p>This method is only valid for source and submix voices. Mastering voices can not send audio to another voice.</p> <p>After calling <strong>SetOutputVoices</strong> a voice's current send levels will be replaced by a default send matrix. The <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/> method must be called to set a custom matrix for the new sendlist.</p> <p>It is illegal to call <strong>SetOutputVoices</strong> from within a callback. If <strong>SetOutputVoices</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p> <table><tr><th>Note </th></tr><tr><td>Calling <strong>SetOutputVoices</strong> invalidates any send matrices previously set with <see cref="M:SharpDX.XAudio2.Voice.SetOutputMatrix(SharpDX.XAudio2.Voice,System.Int32,System.Int32,System.Single[],System.Int32)"/>.</td></tr></table>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2Voice::SetOutputVoices']/*"/>	
             <msdn-id>ee418599</msdn-id>	
@@ -1989,16 +2011,16 @@
             <unmanaged>HRESULT IXAudio2::CreateSourceVoice([Out] IXAudio2SourceVoice** ppSourceVoice,[In] const WAVEFORMATEX* pSourceFormat,[None] UINT32 Flags,[None] float MaxFrequencyRatio,[In, Optional] IXAudio2VoiceCallback* pCallback,[In, Optional] const XAUDIO2_VOICE_SENDS* pSendList,[In, Optional] const XAUDIO2_EFFECT_CHAIN* pEffectChain)</unmanaged>
         </member>
         <member name="M:SharpDX.XAudio2.SourceVoice.#ctor(SharpDX.XAudio2.XAudio2,SharpDX.Multimedia.WaveFormat,SharpDX.XAudio2.VoiceFlags,System.Single,System.Boolean)">
-            <summary>	
+            <summary>
             Creates and configures a source voice with callback through delegates.
-            </summary>	
+            </summary>
             <param name="device">an instance of <see cref="T:SharpDX.XAudio2.XAudio2"/></param>
-            <param name="sourceFormat">[in]  Pointer to a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure. This structure contains the expected format for all audio buffers submitted to the source voice. XAudio2 supports voice types of PCM, xWMA, ADPCM (Windows only), and XMA (Xbox 360 only). XAudio2 supports the following PCM formats.   8-bit (unsigned) integer PCM   16-bit integer PCM (Optimal format for XAudio2)   20-bit integer PCM (either in 24 or 32 bit containers)   24-bit integer PCM (either in 24 or 32 bit containers)   32-bit integer PCM   32-bit float PCM (Preferred format after 16-bit integer)   The number of channels in a source voice must be less than or equal to XAUDIO2_MAX_AUDIO_CHANNELS. The sample rate of a source voice must be between XAUDIO2_MIN_SAMPLE_RATE and XAUDIO2_MAX_SAMPLE_RATE. Note Data formats such as XMA, {{ADPCM}}, and {{xWMA}} that require more information than provided by <see cref="T:SharpDX.Multimedia.WaveFormat"/> have a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure as the first member in their format structure. When creating a source voice with one of those formats cast the format's structure as a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure and use it as the value for pSourceFormat. </param>
-            <param name="flags">[in]  Flags that specify the behavior of the source voice. A flag can be 0 or a combination of one or more of the following: ValueDescriptionXAUDIO2_VOICE_NOPITCHNo pitch control is available on the voice.?XAUDIO2_VOICE_NOSRCNo sample rate conversion is available on the voice, the voice's  outputs must have the same sample rate.Note The XAUDIO2_VOICE_NOSRC flag causes the voice to behave as though the XAUDIO2_VOICE_NOPITCH flag also is specified. ?XAUDIO2_VOICE_USEFILTERThe filter effect should be available on this voice.?XAUDIO2_VOICE_MUSICThe voice is used to play background music. The system automatically  can replace the voice with music selected by the user.? </param>
-            <param name="maxFrequencyRatio">[in]  Highest allowable frequency ratio that can be set on this voice. The value for this argument must be between XAUDIO2_MIN_FREQ_RATIO and XAUDIO2_MAX_FREQ_RATIO. Subsequent calls to <see cref="M:SharpDX.XAudio2.SourceVoice.SetFrequencyRatio(System.Single,System.Int32)"/> are clamped between XAUDIO2_MIN_FREQ_RATIO and MaxFrequencyRatio. The maximum value for this argument is defined as XAUDIO2_MAX_FREQ_RATIO, which allows pitch to be raised by up to 10 octaves. If MaxFrequencyRatio is less than 1.0, the voice will use that ratio immediately after being created (rather than the default of 1.0). Xbox 360  For XMA voices there is an additional restriction on the MaxFrequencyRatio argument and the voice's sample rate. The product of these two numbers cannot exceed XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO for one-channel voices or XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL for voices with any other number of channels. If the value specified for MaxFrequencyRatio is too high for the specified format, the call to CreateSourceVoice fails and produces a debug message.  Note XAudio2's memory usage can be reduced by using the lowest possible MaxFrequencyRatio value. </param>
-            <param name="enableDelegateCallbacks">True to enable delegate callbacks on this instance. Default is false</param>
+            <param name="sourceFormat">[in]  Pointer to a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure. This structure contains the expected format for all audio buffers submitted to the source voice. XAudio2 supports voice types of PCM, xWMA, ADPCM (Windows only), and XMA (Xbox 360 only). XAudio2 supports the following PCM formats.   8-bit (unsigned) integer PCM   16-bit integer PCM (Optimal format for XAudio2)   20-bit integer PCM (either in 24 or 32 bit containers)   24-bit integer PCM (either in 24 or 32 bit containers)   32-bit integer PCM   32-bit float PCM (Preferred format after 16-bit integer)   The number of channels in a source voice must be less than or equal to XAUDIO2_MAX_AUDIO_CHANNELS. The sample rate of a source voice must be between XAUDIO2_MIN_SAMPLE_RATE and XAUDIO2_MAX_SAMPLE_RATE. Note Data formats such as XMA, {{ADPCM}}, and {{xWMA}} that require more information than provided by <see cref="T:SharpDX.Multimedia.WaveFormat"/> have a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure as the first member in their format structure. When creating a source voice with one of those formats cast the format's structure as a <see cref="T:SharpDX.Multimedia.WaveFormat"/> structure and use it as the value for pSourceFormat.</param>
+            <param name="flags">[in]  Flags that specify the behavior of the source voice. A flag can be 0 or a combination of one or more of the following: ValueDescriptionXAUDIO2_VOICE_NOPITCHNo pitch control is available on the voice.?XAUDIO2_VOICE_NOSRCNo sample rate conversion is available on the voice, the voice's  outputs must have the same sample rate.Note The XAUDIO2_VOICE_NOSRC flag causes the voice to behave as though the XAUDIO2_VOICE_NOPITCH flag also is specified. ?XAUDIO2_VOICE_USEFILTERThe filter effect should be available on this voice.?XAUDIO2_VOICE_MUSICThe voice is used to play background music. The system automatically  can replace the voice with music selected by the user.?</param>
+            <param name="maxFrequencyRatio">[in]  Highest allowable frequency ratio that can be set on this voice. The value for this argument must be between XAUDIO2_MIN_FREQ_RATIO and XAUDIO2_MAX_FREQ_RATIO. Subsequent calls to <see cref="M:SharpDX.XAudio2.SourceVoice.SetFrequencyRatio(System.Single,System.Int32)"/> are clamped between XAUDIO2_MIN_FREQ_RATIO and MaxFrequencyRatio. The maximum value for this argument is defined as XAUDIO2_MAX_FREQ_RATIO, which allows pitch to be raised by up to 10 octaves. If MaxFrequencyRatio is less than 1.0, the voice will use that ratio immediately after being created (rather than the default of 1.0). Xbox 360  For XMA voices there is an additional restriction on the MaxFrequencyRatio argument and the voice's sample rate. The product of these two numbers cannot exceed XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MONO for one-channel voices or XAUDIO2_MAX_RATIO_TIMES_RATE_XMA_MULTICHANNEL for voices with any other number of channels. If the value specified for MaxFrequencyRatio is too high for the specified format, the call to CreateSourceVoice fails and produces a debug message.  Note XAudio2's memory usage can be reduced by using the lowest possible MaxFrequencyRatio value.</param>
+            <param name="enableCallbackEvents">if set to <c>true</c> [enable callback events].</param>
             <returns>No enableCallbackEvents.</returns>
-            <unmanaged>HRESULT IXAudio2::CreateSourceVoice([Out] IXAudio2SourceVoice** ppSourceVoice,[In] const WAVEFORMATEX* pSourceFormat,[None] UINT32 Flags,[None] float MaxFrequencyRatio,[In, Optional] IXAudio2VoiceCallback* pCallback,[In, Optional] const XAUDIO2_VOICE_SENDS* pSendList,[In, Optional] const XAUDIO2_EFFECT_CHAIN* pEffectChain)</unmanaged>
+              <unmanaged>HRESULT IXAudio2::CreateSourceVoice([Out] IXAudio2SourceVoice** ppSourceVoice,[In] const WAVEFORMATEX* pSourceFormat,[None] UINT32 Flags,[None] float MaxFrequencyRatio,[In, Optional] IXAudio2VoiceCallback* pCallback,[In, Optional] const XAUDIO2_VOICE_SENDS* pSendList,[In, Optional] const XAUDIO2_EFFECT_CHAIN* pEffectChain)</unmanaged>
         </member>
         <member name="M:SharpDX.XAudio2.SourceVoice.Start">
             <summary>	
@@ -2076,7 +2098,7 @@
             Occurs just before the processing pass for the voice begins.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.ProcessingPassEnd">
@@ -2084,7 +2106,7 @@
             Occurs just after the processing pass for the voice ends.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.StreamEnd">
@@ -2092,7 +2114,7 @@
             Occurs when the voice has just finished playing a contiguous audio stream.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.BufferStart">
@@ -2100,7 +2122,7 @@
             Occurs when the voice is about to start processing a new audio buffer.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.BufferEnd">
@@ -2108,7 +2130,7 @@
             Occurs when the voice finishes processing a buffer.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.LoopEnd">
@@ -2116,7 +2138,7 @@
             Occurs when a critical error occurs during voice processing.
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="E:SharpDX.XAudio2.SourceVoice.VoiceError">
@@ -2124,7 +2146,7 @@
             Occurs when [voice error].
             </summary>
             <remarks>
-            In order to use this delegate, this instance must have been intialized with events delegate support.
+            In order to use this delegate, this instance must have been initialized with events delegate support.
             </remarks>
         </member>
         <member name="T:SharpDX.XAudio2.VoiceCallback">
@@ -2391,7 +2413,7 @@
             <param name="callbackRef">No documentation.</param>	
             <returns><p>Returns <see cref="F:SharpDX.Result.Ok"/> if successful, an error code otherwise.  See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>This method can be called multiple times, allowing different components or layers of the same application to manage their own engine callback implementations separately.</p> <p>It is illegal to call <strong>RegisterForCallbacks</strong> from within a callback. If <strong>RegisterForCallbacks</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>This method can be called multiple times, allowing different components or layers of the same application to manage their own engine callback implementations separately.</p> <p>It is illegal to call <strong>RegisterForCallbacks</strong> from within a callback. If <strong>RegisterForCallbacks</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::RegisterForCallbacks']/*"/>	
             <msdn-id>ee418620</msdn-id>	
@@ -2404,7 +2426,7 @@
             </summary>	
             <param name="callbackRef">No documentation.</param>	
             <remarks>	
-            <p>It is illegal to call <strong>UnregisterForCallbacks</strong> from within a callback. If <strong>UnregisterForCallbacks</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>It is illegal to call <strong>UnregisterForCallbacks</strong> from within a callback. If <strong>UnregisterForCallbacks</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::UnregisterForCallbacks']/*"/>	
             <msdn-id>ee418630</msdn-id>	
@@ -2424,7 +2446,7 @@
             <param name="effectChainRef"><dd>[in, optional]  Pointer to a list of <see cref="T:SharpDX.XAudio2.EffectChain"/> structures that describe  an effect chain to use in the source voice. </dd></param>	
             <returns><p> Returns <see cref="F:SharpDX.Result.Ok"/> if successful; otherwise, an error code. </p> <p> See XAudio2 Error Codes for descriptions of XAudio2-specific error codes.</p></returns>	
             <remarks>	
-            <p>Source voices read audio data from the client. They process the data and send it to the XAudio2 processing graph.</p> <p>A source voice includes a variable-rate sample rate conversion,  to convert data from the source format sample rate to the output rate required for the voice send list. If you use a <c>null</c> send list,  the target sample rate will be the mastering voice's input sample rate.  If you provide a single voice in <em>pSendList</em>, that voice's input sample rate  is the target rate. If you provide multiple voices in the <em>pSendList</em>,  all the source voice's output voices must be running at the same input sample rate.</p> <p>You cannot create any source or submix voices until a mastering voice exists,  and you cannot destory a mastering voice if any source or submix voices still exist.</p> <p>Source voices are always processed before any submix or mastering voices.  This means that you do not need a <em>ProcessingStage</em> parameter to control the processing order.</p> <p>When first created, source voices are in the stopped state.</p> <p>XAudio2 uses an internal memory pooler for voices with the same format. This means memory allocation for voices will occur less frequently as more voices  are created and then destroyed. To minimize just-in-time allocations, a title can create the anticipated maximum number of voices needed up front, and then delete them as necessary. Voices will then be reused from the XAudio2 pool. The memory pool is tied to an XAudio2 engine instance.  You can reclaim all the memory used by an instance of the XAudio2 engine  by destroying the XAudio2 object and recreating it as necessary (forcing the memory pool  to grow via preallocation would have to be reapplied as needed).</p> <p>It is illegal to call <strong>CreateSourceVoice</strong> from within a callback. If you call <strong>CreateSourceVoice</strong> within a callback, XAUDIO2_E_INVALID_CALL is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>CreateSourceVoice</strong> successfully completes, and may be deleted immediately after <strong>CreateSourceVoice</strong> is called.</p>	
+            <p>Source voices read audio data from the client. They process the data and send it to the XAudio2 processing graph.</p> <p>A source voice includes a variable-rate sample rate conversion,  to convert data from the source format sample rate to the output rate required for the voice send list. If you use a <c>null</c> send list,  the target sample rate will be the mastering voice's input sample rate.  If you provide a single voice in <em>pSendList</em>, that voice's input sample rate  is the target rate. If you provide multiple voices in the <em>pSendList</em>,  all the source voice's output voices must be running at the same input sample rate.</p> <p>You cannot create any source or submix voices until a mastering voice exists,  and you cannot destory a mastering voice if any source or submix voices still exist.</p> <p>Source voices are always processed before any submix or mastering voices.  This means that you do not need a <em>ProcessingStage</em> parameter to control the processing order.</p> <p>When first created, source voices are in the stopped state.</p> <p>XAudio2 uses an internal memory pooler for voices with the same format. This means memory allocation for voices will occur less frequently as more voices  are created and then destroyed. To minimize just-in-time allocations, a title can create the anticipated maximum number of voices needed up front, and then delete them as necessary. Voices will then be reused from the XAudio2 pool. The memory pool is tied to an XAudio2 engine instance.  You can reclaim all the memory used by an instance of the XAudio2 engine  by destroying the XAudio2 object and recreating it as necessary (forcing the memory pool  to grow via preallocation would have to be reapplied as needed).</p> <p>It is illegal to call <strong>CreateSourceVoice</strong> from within a callback. If you call <strong>CreateSourceVoice</strong> within a callback, <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>CreateSourceVoice</strong> successfully completes, and may be deleted immediately after <strong>CreateSourceVoice</strong> is called.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::CreateSourceVoice']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2.ixaudio2.createsourcevoice</msdn-id>	
@@ -2444,7 +2466,7 @@
             <param name="effectChainRef"><dd>[in, optional]  Pointer to a list of <see cref="T:SharpDX.XAudio2.EffectChain"/> structures that describe an  effect chain to use in the submix voice. </dd></param>	
             <returns><p> Returns <see cref="F:SharpDX.Result.Ok"/> if successful; otherwise, an error code. </p> <p> See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>Submix voices receive the output of one or more source or submix voices. They process the output,  and then send it to another submix voice or to a mastering voice.</p> <p>A submix voice performs a sample rate conversion from the input sample rate to the input rate of  its output voices in <em>pSendList</em>. If you specify multiple voice sends, they must  all have the input same sample rate.</p> <p>You cannot create any source or submix voices until a mastering voice exists,  and you cannot destroy a mastering voice if any source or submix voices still exist.</p> <p>When first created, submix voices are in the started state.</p> <p>XAudio2 uses an internal memory pooler for voices with the same format.  This means that memory allocation for voices will occur less frequently as more voices are created  and then destroyed.  To minimize just-in-time allocations, a title can create the anticipated maximum number of voices needed up front, and then delete them as necessary. Voices will then be reused from the XAudio2 pool. The memory pool is tied  to an XAudio2 engine instance.  You can reclaim all the memory used by an instance  of the XAudio2 engine by destroying the XAudio2 object and recreating it as necessary  (forcing the memory pool to grow via preallocation would have to be reapplied as needed).</p> <p>It is illegal to call <strong>CreateSubmixVoice</strong> from within a callback. If you call <strong>CreateSubmixVoice</strong> within a callback, XAUDIO2_E_INVALID_CALL is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>CreateSubmixVoice</strong> successfully completes,  and may be deleted immediately after <strong>CreateSubmixVoice</strong> is called.</p>	
+            <p>Submix voices receive the output of one or more source or submix voices. They process the output,  and then send it to another submix voice or to a mastering voice.</p> <p>A submix voice performs a sample rate conversion from the input sample rate to the input rate of  its output voices in <em>pSendList</em>. If you specify multiple voice sends, they must  all have the input same sample rate.</p> <p>You cannot create any source or submix voices until a mastering voice exists,  and you cannot destroy a mastering voice if any source or submix voices still exist.</p> <p>When first created, submix voices are in the started state.</p> <p>XAudio2 uses an internal memory pooler for voices with the same format.  This means that memory allocation for voices will occur less frequently as more voices are created  and then destroyed.  To minimize just-in-time allocations, a title can create the anticipated maximum number of voices needed up front, and then delete them as necessary. Voices will then be reused from the XAudio2 pool. The memory pool is tied  to an XAudio2 engine instance.  You can reclaim all the memory used by an instance  of the XAudio2 engine by destroying the XAudio2 object and recreating it as necessary  (forcing the memory pool to grow via preallocation would have to be reapplied as needed).</p> <p>It is illegal to call <strong>CreateSubmixVoice</strong> from within a callback. If you call <strong>CreateSubmixVoice</strong> within a callback, <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> is returned.</p> <p>The <see cref="T:SharpDX.XAudio2.EffectChain"/> that is passed in  as the <em>pEffectChain</em> argument and any <see cref="T:SharpDX.XAudio2.EffectDescriptor"/> information  contained within it are no longer needed after <strong>CreateSubmixVoice</strong> successfully completes,  and may be deleted immediately after <strong>CreateSubmixVoice</strong> is called.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::CreateSubmixVoice']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2.ixaudio2.createsubmixvoice</msdn-id>	
@@ -2463,7 +2485,7 @@
             <param name="effectChainRef"><dd>[in, optional]  Pointer to an <see cref="T:SharpDX.XAudio2.EffectChain"/> structure that describe an effect chain to use in the mastering voice, or <c>null</c> to use no effects. </dd></param>	
             <returns><p>Returns <see cref="F:SharpDX.Result.Ok"/> if successful, an error code otherwise. See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>Mastering voices receive the output of one or more source or submix voices. They process the data and send it to the audio output device.</p> <p>Typically, a mastering voice should be created with an input sample rate that will be used by the majority of the title's audio content. The mastering voice performs a sample rate conversion from this input sample rate to the actual device output rate. Alternatively, <see cref="M:SharpDX.XAudio2.XAudio2.GetDeviceDetails(System.Int32,SharpDX.XAudio2.DeviceDetails@)"/> can be used to find the native audio rate, and that can be used throughout the majority of the title's audio graph.</p> <p>No source or submix voices can be created until a mastering voice exists, and a mastering voice cannot be destroyed if any source or submix voices still exist.</p> <p>Mastering voices are always processed after all source and submix voices. This means that you need not specify a <em>ProcessingStage</em> parameter to control the processing order.</p> <p>Several mastering voices can exist at once, but only one of them can be started. Only one device can be used by XAudio2 at a time.</p> <p>When first created, mastering voices are in the started state.</p> <p>It is illegal to call <strong>CreateMasteringVoice</strong> from within a callback. If <strong>CreateMasteringVoice</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>Mastering voices receive the output of one or more source or submix voices. They process the data and send it to the audio output device.</p> <p>Typically, a mastering voice should be created with an input sample rate that will be used by the majority of the title's audio content. The mastering voice performs a sample rate conversion from this input sample rate to the actual device output rate. Alternatively, <see cref="M:SharpDX.XAudio2.XAudio2.GetDeviceDetails(System.Int32,SharpDX.XAudio2.DeviceDetails@)"/> can be used to find the native audio rate, and that can be used throughout the majority of the title's audio graph.</p> <p>No source or submix voices can be created until a mastering voice exists, and a mastering voice cannot be destroyed if any source or submix voices still exist.</p> <p>Mastering voices are always processed after all source and submix voices. This means that you need not specify a <em>ProcessingStage</em> parameter to control the processing order.</p> <p>Several mastering voices can exist at once, but only one of them can be started. Only one device can be used by XAudio2 at a time.</p> <p>When first created, mastering voices are in the started state.</p> <p>It is illegal to call <strong>CreateMasteringVoice</strong> from within a callback. If <strong>CreateMasteringVoice</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::CreateMasteringVoice']/*"/>	
             <msdn-id>ee418605</msdn-id>	
@@ -2476,7 +2498,7 @@
             </summary>	
             <returns><p>Returns <see cref="F:SharpDX.Result.Ok"/> if successful, an error code otherwise.  See XAudio2 Error Codes for descriptions of XAudio2 specific error codes.</p></returns>	
             <remarks>	
-            <p>After <strong>StartEngine</strong> is called, all started voices begin to consume audio. All enabled effects start running, and the resulting audio is sent to any connected output devices. When XAudio2 is first initialized, the engine is already in the started state.</p> <p>It is illegal to call <strong>StartEngine</strong> from within a callback. If <strong>StartEngine</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>After <strong>StartEngine</strong> is called, all started voices begin to consume audio. All enabled effects start running, and the resulting audio is sent to any connected output devices. When XAudio2 is first initialized, the engine is already in the started state.</p> <p>It is illegal to call <strong>StartEngine</strong> from within a callback. If <strong>StartEngine</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::StartEngine']/*"/>	
             <msdn-id>ee418626</msdn-id>	
@@ -2488,7 +2510,7 @@
             Stops the audio processing thread.	
             </summary>	
             <remarks>	
-            <p>When <strong>StopEngine</strong> is called, all output is stopped immediately. However, the audio graph is left untouched, preserving effect parameters, effect histories (for example, the data stored by a reverb effect in order to emit echoes of a previous sound), voice states, pending source buffers, cursor positions, and so forth. When the engine is restarted, the resulting audio output will be identical?apart from a period of silence?to the output that would have been produced if the engine had never been stopped.</p> <p>It is illegal to call <strong>StopEngine</strong> from within a callback. If <strong>StopEngine</strong> is called within a callback XAUDIO2_E_INVALID_CALL will be returned.</p>	
+            <p>When <strong>StopEngine</strong> is called, all output is stopped immediately. However, the audio graph is left untouched, preserving effect parameters, effect histories (for example, the data stored by a reverb effect in order to emit echoes of a previous sound), voice states, pending source buffers, cursor positions, and so forth. When the engine is restarted, the resulting audio output will be identical?apart from a period of silence?to the output that would have been produced if the engine had never been stopped.</p> <p>It is illegal to call <strong>StopEngine</strong> from within a callback. If <strong>StopEngine</strong> is called within a callback <see cref="F:SharpDX.XAudio2.ResultCode.InvalidCall"/> will be returned.</p>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAudio2::StopEngine']/*"/>	
             <msdn-id>microsoft.directx_sdk.ixaudio2.ixaudio2.stopengine</msdn-id>	
@@ -3232,7 +3254,7 @@
             Speed of sound in the air.
             </summary>
         </member>
-        <member name="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)">
+        <member name="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)">
             <summary>	
             Calculates DSP settings with respect to 3D parameters.	
             </summary>	
@@ -3243,7 +3265,7 @@
             <param name="dSPSettingsRef"><dd>[in, out]  Pointer to an <see cref="T:SharpDX.X3DAudio.DspSettings"/> structure  that receives the calculation results. </dd></param>	
             <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='X3DAudioCalculate']/*"/>	
             <msdn-id>ee419052</msdn-id>	
-            <unmanaged>void X3DAudioCalculate([In] const X3DAUDIOHANDLE* Instance,[In] const X3DAUDIO_LISTENER* pListener,[In] const X3DAUDIO_EMITTER* pEmitter,[In] X3DAudioCalculateFlags Flags,[InOut] X3DAUDIO_DSP_SETTINGS* pDSPSettings)</unmanaged>	
+            <unmanaged>void X3DAudioCalculate([In] const X3DAUDIOHANDLE* Instance,[In] const X3DAUDIO_LISTENER* pListener,[In] const X3DAUDIO_EMITTER* pEmitter,[In] X3DAudioCalculateFlags Flags,[In] void* pDSPSettings)</unmanaged>	
             <unmanaged-short>X3DAudioCalculate</unmanaged-short>	
         </member>
         <member name="M:SharpDX.X3DAudio.X3DAudio.X3DAudioInitialize(SharpDX.Multimedia.Speakers,System.Single,SharpDX.X3DAudio.X3DAudioHandle@)">
@@ -3252,7 +3274,7 @@
             </summary>	
             <param name="speakerChannelMask"><dd>[in]  Assignment of channels to speaker positions. This value must not be zero. The only permissible value on Xbox 360 is SPEAKER_XBOX. </dd></param>	
             <param name="speedOfSound"><dd>[in]  Speed of sound, in user-defined world units per second. Use this value only for doppler calculations.  It must be greater than or equal to FLT_MIN. </dd></param>	
-            <param name="instance"><dd>[out]  3D audio instance handle. Use this handle when you call <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/>. </dd></param>	
+            <param name="instance"><dd>[out]  3D audio instance handle. Use this handle when you call <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/>. </dd></param>	
             <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='X3DAudioInitialize']/*"/>	
             <msdn-id>microsoft.directx_sdk.x3daudio.x3daudioinitialize</msdn-id>	
             <unmanaged>void X3DAudioInitialize([In] SPEAKER_FLAGS SpeakerChannelMask,[In] float SpeedOfSound,[Out] X3DAUDIOHANDLE* Instance)</unmanaged>	
@@ -3263,6 +3285,9 @@
             Initializes a new instance of the <see cref="T:SharpDX.X3DAudio.X3DAudio"/> class.
             </summary>
             <param name="speakers">The speakers config.</param>
+            <msdn-id>microsoft.directx_sdk.x3daudio.x3daudioinitialize</msdn-id>	
+            <unmanaged>void X3DAudioInitialize([In] SPEAKER_FLAGS SpeakerChannelMask,[In] float SpeedOfSound,[Out] X3DAUDIOHANDLE* Instance)</unmanaged>	
+            <unmanaged-short>X3DAudioInitialize</unmanaged-short>	
         </member>
         <member name="M:SharpDX.X3DAudio.X3DAudio.#ctor(SharpDX.Multimedia.Speakers,System.Single)">
             <summary>
@@ -3270,17 +3295,36 @@
             </summary>
             <param name="speakers">The speakers config.</param>
             <param name="speedOfSound">The speed of sound.</param>
+            <msdn-id>microsoft.directx_sdk.x3daudio.x3daudioinitialize</msdn-id>	
+            <unmanaged>void X3DAudioInitialize([In] SPEAKER_FLAGS SpeakerChannelMask,[In] float SpeedOfSound,[Out] X3DAUDIOHANDLE* Instance)</unmanaged>	
+            <unmanaged-short>X3DAudioInitialize</unmanaged-short>	
         </member>
         <member name="M:SharpDX.X3DAudio.X3DAudio.Calculate(SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.Int32,System.Int32)">
             <summary>
-            Calculates dsp settings for the specified listener and emitter.
+            Calculates DSP settings for the specified listener and emitter.
             </summary>
             <param name="listener">The listener.</param>
             <param name="emitter">The emitter.</param>
             <param name="flags">The flags.</param>
             <param name="sourceChannelCount">The source channel count.</param>
             <param name="destinationChannelCount">The destination channel count.</param>
-            <returns>Dsp settings</returns>
+            <returns>DSP settings</returns>
+            <msdn-id>ee419052</msdn-id>	
+            <unmanaged>void X3DAudioCalculate([In] const X3DAUDIOHANDLE* Instance,[In] const X3DAUDIO_LISTENER* pListener,[In] const X3DAUDIO_EMITTER* pEmitter,[In] X3DAudioCalculateFlags Flags,[In] void* pDSPSettings)</unmanaged>	
+            <unmanaged-short>X3DAudioCalculate</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.X3DAudio.X3DAudio.Calculate(SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)">
+            <summary>
+            Calculates DSP settings for the specified listener and emitter. See remarks.
+            </summary>
+            <param name="listener">The listener.</param>
+            <param name="emitter">The emitter.</param>
+            <param name="flags">The flags.</param>
+            <param name="settings">The settings.</param>
+            <remarks>The source and destination channel count must be set on <see cref="T:SharpDX.X3DAudio.DspSettings"/> before calling this method.</remarks>
+            <msdn-id>ee419052</msdn-id>	
+            <unmanaged>void X3DAudioCalculate([In] const X3DAUDIOHANDLE* Instance,[In] const X3DAUDIO_LISTENER* pListener,[In] const X3DAUDIO_EMITTER* pEmitter,[In] X3DAudioCalculateFlags Flags,[In] void* pDSPSettings)</unmanaged>	
+            <unmanaged-short>X3DAudioCalculate</unmanaged-short>	
         </member>
         <member name="T:SharpDX.X3DAudio.Cone">
             <summary>	
@@ -3425,7 +3469,7 @@
             Receives the results from a call toX3DAudioCalculate.	
             </summary>	
             <remarks>	
-            <p>The following members must be initialized before passing this structure to the <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> function:</p> <ul> <li> <p><strong>pMatrixCoefficients</strong></p> </li> <li> <p><strong>pDelayTimes</strong></p> </li> <li> <p><strong>SrcChannelCount</strong></p> </li> <li> <p><strong>DstChannelCount</strong></p> </li> </ul> <p>The following members are returned by passing this structure to the <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> function:</p> <ul> <li> <p><strong>pMatrixCoefficients</strong></p> </li> <li> <p><strong>pDelayTimes</strong></p> </li> <li> <p><strong>LPFDirectCoefficient</strong></p> </li> <li> <p><strong>LPFReverbCoefficient</strong></p> </li> <li> <p><strong>ReverbLevel</strong></p> </li> <li> <p><strong>DopplerFactor</strong></p> </li> <li> <p><strong>EmitterToListenerAngle</strong></p> </li> <li> <p><strong>EmitterToListenerDistance</strong></p> </li> <li> <p><strong>EmitterVelocityComponent</strong></p> </li> <li> <p><strong>ListenerVelocityComponent</strong></p> </li> </ul> <table><tr><th>Note </th></tr><tr><td>For <strong>pMatrixCoefficients</strong> and <strong>pDelayTimes</strong>, <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> does not allocate additional memory. <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,SharpDX.X3DAudio.DspSettings)"/> merely modifies the values at the memory locations allocated for these references.</td></tr></table>	
+            <p>The following members must be initialized before passing this structure to the <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> function:</p> <ul> <li> <p><strong>pMatrixCoefficients</strong></p> </li> <li> <p><strong>pDelayTimes</strong></p> </li> <li> <p><strong>SrcChannelCount</strong></p> </li> <li> <p><strong>DstChannelCount</strong></p> </li> </ul> <p>The following members are returned by passing this structure to the <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> function:</p> <ul> <li> <p><strong>pMatrixCoefficients</strong></p> </li> <li> <p><strong>pDelayTimes</strong></p> </li> <li> <p><strong>LPFDirectCoefficient</strong></p> </li> <li> <p><strong>LPFReverbCoefficient</strong></p> </li> <li> <p><strong>ReverbLevel</strong></p> </li> <li> <p><strong>DopplerFactor</strong></p> </li> <li> <p><strong>EmitterToListenerAngle</strong></p> </li> <li> <p><strong>EmitterToListenerDistance</strong></p> </li> <li> <p><strong>EmitterVelocityComponent</strong></p> </li> <li> <p><strong>ListenerVelocityComponent</strong></p> </li> </ul> <table><tr><th>Note </th></tr><tr><td>For <strong>pMatrixCoefficients</strong> and <strong>pDelayTimes</strong>, <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> does not allocate additional memory. <see cref="M:SharpDX.X3DAudio.X3DAudio.X3DAudioCalculate(SharpDX.X3DAudio.X3DAudioHandle@,SharpDX.X3DAudio.Listener,SharpDX.X3DAudio.Emitter,SharpDX.X3DAudio.CalculateFlags,System.IntPtr)"/> merely modifies the values at the memory locations allocated for these references.</td></tr></table>	
             </remarks>	
             <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='X3DAUDIO_DSP_SETTINGS']/*"/>	
             <msdn-id>ee419057</msdn-id>	
@@ -3532,6 +3576,23 @@
             <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='X3DAUDIO_DSP_SETTINGS::ListenerVelocityComponent']/*"/>	
             <unmanaged>float ListenerVelocityComponent</unmanaged>	
             <unmanaged-short>float ListenerVelocityComponent</unmanaged-short>	
+        </member>
+        <member name="M:SharpDX.X3DAudio.DspSettings.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.X3DAudio.DspSettings"/> class.
+            </summary>
+            <param name="sourceChannelCount">The source channel count.</param>
+            <param name="destinationChannelCount">The destination channel count.</param>
+        </member>
+        <member name="F:SharpDX.X3DAudio.DspSettings.MatrixCoefficients">
+            <summary>
+            The matrix coefficients
+            </summary>
+        </member>
+        <member name="F:SharpDX.X3DAudio.DspSettings.DelayTimes">
+            <summary>
+            The delay times
+            </summary>
         </member>
         <member name="T:SharpDX.X3DAudio.Emitter">
             <summary>	
@@ -3890,279 +3951,44 @@
             <unmanaged>XAPO_FLAG_DEFAULT</unmanaged>	
             <unmanaged-short>XAPO_FLAG_DEFAULT</unmanaged-short>	
         </member>
-        <member name="T:SharpDX.XAPO.Fx.XAPOFx">
+        <member name="T:SharpDX.XAPO.Fx.Echo">
             <summary>	
             Functions	
             </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.XAPOFx']/*"/>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.Echo']/*"/>	
+            <summary>
+            An Echo XAPO AudioProcessor
+            </summary>
         </member>
-        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXEQ">
-            <summary>Constant CLSID_FXEQ.</summary>
-            <unmanaged>CLSID_FXEQ</unmanaged>
+        <member name="T:SharpDX.XAPO.AudioProcessorParamNative`1">
+            <summary>
+            Implements this class to call an existing unmanaged AudioProcessor which supports parameter.
+            </summary>
+            <typeparam name="T">the parameter type of this AudioProcessor</typeparam>
         </member>
-        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXMasteringLimiter">
-            <summary>Constant CLSID_FXMasteringLimiter.</summary>
-            <unmanaged>CLSID_FXMasteringLimiter</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXReverb">
-            <summary>Constant CLSID_FXReverb.</summary>
-            <unmanaged>CLSID_FXReverb</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXEcho">
-            <summary>Constant CLSID_FXEcho.</summary>
-            <unmanaged>CLSID_FXEcho</unmanaged>
-        </member>
-        <member name="M:SharpDX.XAPO.Fx.XAPOFx.CreateFX(System.Guid,SharpDX.ComObject)">
+        <member name="T:SharpDX.XAPO.AudioProcessorNative">
             <summary>	
-            Creates an instance of the requested XAPOFX effect.	
-            </summary>	
-            <param name="clsid"><dd> ID of the effect to create. Use the <strong>__uuidof</strong> on the effect class name  to get the CLSID for an effect. For example, <strong>__uuidof(FXReverb)</strong> would provide  the CLSID for the FXReverb effect. For a list of effects provided by XAPOFX, see XAPOFX Overview. For an example  of retrieving the CLSID for an effect, see How to: Use XAPOFX in XAudio2. </dd></param>	
-            <param name="effectRef"><dd> Receives a reference to the created XAPO instance. If <strong>CreateFX</strong> fails, <em>pEffect</em> is untouched. </dd></param>	
-            <returns>Returns <see cref="F:SharpDX.Result.Ok"/> if successful; otherwise, an error code.</returns>	
-            <remarks>	
-            <p>The created XAPO will have a reference count of 1. Client code should call <strong>IUnknown::Release</strong> after passing the XAPO to XAudio2 to allow XAudio2 to dispose of the XAPO when it is no longer needed.  Use <see cref="M:SharpDX.XAudio2.XAudio2.CreateSourceVoice_(SharpDX.XAudio2.SourceVoice,System.IntPtr,SharpDX.XAudio2.VoiceFlags,System.Single,System.IntPtr,System.Nullable{SharpDX.XAudio2.VoiceSendDescriptors},System.Nullable{SharpDX.XAudio2.EffectChain})"/> or <see cref="M:SharpDX.XAudio2.Voice.SetEffectChain(System.Nullable{SharpDX.XAudio2.EffectChain})"/> to pass an XAPO to XAudio2.</p>	
-            </remarks>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='CreateFX']/*"/>	
-            <msdn-id>hh405044</msdn-id>	
-            <unmanaged>HRESULT CreateFX([In] const GUID&amp; clsid,[Out, Fast] IUnknown** pEffect)</unmanaged>	
-            <unmanaged-short>CreateFX</unmanaged-short>	
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.EchoParameters">
-            <summary>	
-            Parameters for use with the FXEcho XAPO.	
+            Called by XAudio2 to lock the input and output configurations of an XAPO allowing it to	
+            do any final initialization beforeProcessis called on the realtime thread.	
             </summary>	
             <remarks>	
-            <p>Echo only supports FLOAT32 audio formats.</p>	
+            <p>Once locked, the input and output configuration and any other locked parameters remain constant until 	
+            UnLockForProcess is called.  After an XAPO is locked, further calls to <strong>LockForProcess</strong> have no effect until the UnLockForProcess function is called.</p> <p>An XAPO indicates what specific formats it supports through its implementation of the 	
+            IsInputFormatSupported and 	
+            IsOutputFormatSupported methods. An XAPO should assert the input and 	
+            output configurations are supported and that any required effect-specific initialization is complete.  The 	
+            IsInputFormatSupported, 	
+            IsOutputFormatSupported, and 	
+            Initialize methods should be used as necessary before calling this method.</p> <p>Because Process is a nonblocking method, all internal memory buffers required for 	
+            Process should be allocated in <strong>LockForProcess</strong>.</p> <p>Process is never called before <strong>LockForProcess</strong> returns successfully.</p> <p><strong>LockForProcess</strong> is called directly by XAudio2 and should not be called by the client code.</p>	
             </remarks>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS']/*"/>	
-            <msdn-id>ee417667</msdn-id>	
-            <unmanaged>FXECHO_PARAMETERS</unmanaged>	
-            <unmanaged-short>FXECHO_PARAMETERS</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EchoParameters.WetDryMix">
-            <summary>	
-            <dd> Ratio of wet (processed) signal to dry (original) signal. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::WetDryMix']/*"/>	
-            <msdn-id>ee417667</msdn-id>	
-            <unmanaged>float WetDryMix</unmanaged>	
-            <unmanaged-short>float WetDryMix</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EchoParameters.Feedback">
-            <summary>	
-            <dd> Amount of output to feed back into input. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::Feedback']/*"/>	
-            <msdn-id>ee417667</msdn-id>	
-            <unmanaged>float Feedback</unmanaged>	
-            <unmanaged-short>float Feedback</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EchoParameters.Delay">
-            <summary>	
-            <dd> Delay to all channels in milliseconds. This value must be between <strong>FXECHO_MIN_DELAY</strong> and <strong>FXECHO_INITDATA.MaxDelay</strong>. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::Delay']/*"/>	
-            <msdn-id>ee417667</msdn-id>	
-            <unmanaged>float Delay</unmanaged>	
-            <unmanaged-short>float Delay</unmanaged-short>	
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.EqualizerParameters">
-            <summary>	
-            Parameters for use with the FXEQ XAPO.	
-            </summary>	
-            <remarks>	
-            <p>Each band ranges from <strong>FrequencyCenterN</strong> - (<strong>BandwidthN</strong> / 2) to  <strong>FrequencyCenterN</strong> + (<strong>BandwidthN</strong> / 2).</p>	
-            </remarks>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>FXEQ_PARAMETERS</unmanaged>	
-            <unmanaged-short>FXEQ_PARAMETERS</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter0">
-            <summary>	
-            <dd> Center frequency in Hz for band 0.   Must be between FXEQ_MIN_FREQUENCY_CENTER and FXEQ_MAX_FREQUENCY_CENTER. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter0']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float FrequencyCenter0</unmanaged>	
-            <unmanaged-short>float FrequencyCenter0</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain0">
-            <summary>	
-            <dd> The boost or decrease to frequencies in band 0. Must be between FXEQ_MIN_GAIN and FXEQ_MAX_GAIN </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain0']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Gain0</unmanaged>	
-            <unmanaged-short>float Gain0</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth0">
-            <summary>	
-            <dd> Width of band 0.  Must be between FXEQ_MIN_BANDWIDTH and FXEQ_MAX_BANDWIDTH. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth0']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Bandwidth0</unmanaged>	
-            <unmanaged-short>float Bandwidth0</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter1">
-            <summary>	
-            <dd> Center frequency in Hz for band 1.   Must be between FXEQ_MIN_FREQUENCY_CENTER and FXEQ_MAX_FREQUENCY_CENTER. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter1']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float FrequencyCenter1</unmanaged>	
-            <unmanaged-short>float FrequencyCenter1</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain1">
-            <summary>	
-            <dd> The boost or decrease to frequencies in band 1.  Must be between FXEQ_MIN_GAIN and FXEQ_MAX_GAIN </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain1']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Gain1</unmanaged>	
-            <unmanaged-short>float Gain1</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth1">
-            <summary>	
-            <dd> Width of band 1. Must be between FXEQ_MIN_BANDWIDTH and FXEQ_MAX_BANDWIDTH. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth1']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Bandwidth1</unmanaged>	
-            <unmanaged-short>float Bandwidth1</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter2">
-            <summary>	
-            <dd> Center frequency in Hz for band 2.   Must be between FXEQ_MIN_FREQUENCY_CENTER and FXEQ_MAX_FREQUENCY_CENTER. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter2']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float FrequencyCenter2</unmanaged>	
-            <unmanaged-short>float FrequencyCenter2</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain2">
-            <summary>	
-            <dd> The boost or decrease to frequencies in band 2.  Must be between FXEQ_MIN_GAIN and FXEQ_MAX_GAIN </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain2']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Gain2</unmanaged>	
-            <unmanaged-short>float Gain2</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth2">
-            <summary>	
-            <dd> Width of band 2. Must be between FXEQ_MIN_BANDWIDTH and FXEQ_MAX_BANDWIDTH. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth2']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Bandwidth2</unmanaged>	
-            <unmanaged-short>float Bandwidth2</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter3">
-            <summary>	
-            <dd> Center frequency in Hz for band 3.   Must be between FXEQ_MIN_FREQUENCY_CENTER and FXEQ_MAX_FREQUENCY_CENTER. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter3']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float FrequencyCenter3</unmanaged>	
-            <unmanaged-short>float FrequencyCenter3</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain3">
-            <summary>	
-            <dd> The boost or decrease to frequencies in band 3.  Must be between FXEQ_MIN_GAIN and FXEQ_MAX_GAIN </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain3']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Gain3</unmanaged>	
-            <unmanaged-short>float Gain3</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth3">
-            <summary>	
-            <dd> Width of band 3. Must be between FXEQ_MIN_BANDWIDTH and FXEQ_MAX_BANDWIDTH. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth3']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
-            <unmanaged>float Bandwidth3</unmanaged>	
-            <unmanaged-short>float Bandwidth3</unmanaged-short>	
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.MasteringLimiterParameters">
-            <summary>	
-            Parameters for use with the FXMasteringLimiter XAPO.	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
-            <unmanaged>FXMASTERINGLIMITER_PARAMETERS</unmanaged>	
-            <unmanaged-short>FXMASTERINGLIMITER_PARAMETERS</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MinimumLoudness">
-            <summary>Constant MinimumLoudness.</summary>
-            <unmanaged>FXMASTERINGLIMITER_MIN_LOUDNESS</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MaximumLoudness">
-            <summary>Constant MaximumLoudness.</summary>
-            <unmanaged>FXMASTERINGLIMITER_MAX_LOUDNESS</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.DefaultLoudness">
-            <summary>Constant DefaultLoudness.</summary>
-            <unmanaged>FXMASTERINGLIMITER_DEFAULT_LOUDNESS</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MaximumRelease">
-            <summary>Constant MaximumRelease.</summary>
-            <unmanaged>FXMASTERINGLIMITER_MAX_RELEASE</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.DefaultRelease">
-            <summary>Constant DefaultRelease.</summary>
-            <unmanaged>FXMASTERINGLIMITER_DEFAULT_RELEASE</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MinimumRelease">
-            <summary>Constant MinimumRelease.</summary>
-            <unmanaged>FXMASTERINGLIMITER_MIN_RELEASE</unmanaged>
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.Release">
-            <summary>	
-            <dd> Speed at which the limiter stops affecting audio once it drops below the limiter's threshold. Value must be between <see cref="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MinimumRelease"/> and <see cref="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MaximumRelease"/>. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS::Release']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
-            <unmanaged>unsigned int Release</unmanaged>	
-            <unmanaged-short>unsigned int Release</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.Loudness">
-            <summary>	
-            <dd> Threshold of the limiter. Value must be between <see cref="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MinimumLoudness"/> and <see cref="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.MaximumLoudness"/>. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS::Loudness']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
-            <unmanaged>unsigned int Loudness</unmanaged>	
-            <unmanaged-short>unsigned int Loudness</unmanaged-short>	
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.ReverbParameters">
-            <summary>	
-            Parameters for use with the FXReverb XAPO.	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
-            <unmanaged>FXREVERB_PARAMETERS</unmanaged>	
-            <unmanaged-short>FXREVERB_PARAMETERS</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.ReverbParameters.Diffusion">
-            <summary>	
-            <dd> Controls the character of the individual wall reflections. Set to minimum value to simulate a hard flat surface and to maximum value to simulate a diffuse surface.Value must be between FXREVERB_MIN_DIFFUSION and FXREVERB_MAX_DIFFUSION. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS::Diffusion']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
-            <unmanaged>float Diffusion</unmanaged>	
-            <unmanaged-short>float Diffusion</unmanaged-short>	
-        </member>
-        <member name="F:SharpDX.XAPO.Fx.ReverbParameters.RoomSize">
-            <summary>	
-            <dd> Size of the room. Value must be between FXREVERB_MIN_ROOMSIZE and FXREVERB_MAX_ROOMSIZE. Note that physical meaning of <em>RoomSize</em> is subjective and not tied to any particular units. A smaller value will result in reflections reaching the listener more quickly while reflections will take longer with larger values for <em>RoomSize</em>. </dd>	
-            </summary>	
-            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS::RoomSize']/*"/>	
-            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
-            <unmanaged>float RoomSize</unmanaged>	
-            <unmanaged-short>float RoomSize</unmanaged-short>	
+            <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAPO']/*"/>	
+            <msdn-id>ee418455</msdn-id>	
+            <unmanaged>IXAPO</unmanaged>	
+            <unmanaged-short>IXAPO</unmanaged-short>	
+            <summary>
+            Native Accessor to an existing AudioProcessor instance
+            </summary>
         </member>
         <member name="T:SharpDX.XAPO.AudioProcessor">
             <summary>	
@@ -4224,8 +4050,8 @@
             Called by XAudio2 to lock the input and output configurations of an XAPO allowing it to	
             do any final initialization before {{Process}} is called on the realtime thread.	
             </summary>	
-            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise itmust have InputLockedParameterCount elements.</param>
-            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise itmust have OutputLockedParameterCount elements.</param>
+            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise it must have InputLockedParameterCount elements.</param>
+            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise it must have OutputLockedParameterCount elements.</param>
             <returns>No documentation.</returns>
             <unmanaged>HRESULT IXAPO::LockForProcess([None] UINT32 InputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pInputLockedParameters,[None] UINT32 OutputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pOutputLockedParameters)</unmanaged>
         </member>
@@ -4264,32 +4090,8 @@
             <summary>	
             Returns the registration properties of an XAPO.	
             </summary>	
-            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing theregistration properties the XAPO was created with; use XAPOFree to free thestructure.</returns>
+            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing the registration properties the XAPO was created with; use XAPOFree to free the structure.</returns>
             <unmanaged>HRESULT IXAPO::GetRegistrationProperties([Out] XAPO_REGISTRATION_PROPERTIES** ppRegistrationProperties)</unmanaged>
-        </member>
-        <member name="T:SharpDX.XAPO.AudioProcessorNative">
-            <summary>	
-            Called by XAudio2 to lock the input and output configurations of an XAPO allowing it to	
-            do any final initialization beforeProcessis called on the realtime thread.	
-            </summary>	
-            <remarks>	
-            <p>Once locked, the input and output configuration and any other locked parameters remain constant until 	
-            UnLockForProcess is called.  After an XAPO is locked, further calls to <strong>LockForProcess</strong> have no effect until the UnLockForProcess function is called.</p> <p>An XAPO indicates what specific formats it supports through its implementation of the 	
-            IsInputFormatSupported and 	
-            IsOutputFormatSupported methods. An XAPO should assert the input and 	
-            output configurations are supported and that any required effect-specific initialization is complete.  The 	
-            IsInputFormatSupported, 	
-            IsOutputFormatSupported, and 	
-            Initialize methods should be used as necessary before calling this method.</p> <p>Because Process is a nonblocking method, all internal memory buffers required for 	
-            Process should be allocated in <strong>LockForProcess</strong>.</p> <p>Process is never called before <strong>LockForProcess</strong> returns successfully.</p> <p><strong>LockForProcess</strong> is called directly by XAudio2 and should not be called by the client code.</p>	
-            </remarks>	
-            <!-- No matching elements were found for the following include tag --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='IXAPO']/*"/>	
-            <msdn-id>ee418455</msdn-id>	
-            <unmanaged>IXAPO</unmanaged>	
-            <unmanaged-short>IXAPO</unmanaged-short>	
-            <summary>
-            Native Accessor to an existing AudioProcessor instance
-            </summary>
         </member>
         <member name="M:SharpDX.XAPO.AudioProcessorNative.#ctor(System.IntPtr)">
             <summary>
@@ -4503,8 +4305,8 @@
             Called by XAudio2 to lock the input and output configurations of an XAPO allowing it to	
             do any final initialization before {{Process}} is called on the realtime thread.	
             </summary>	
-            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise itmust have InputLockedParameterCount elements.</param>
-            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise itmust have OutputLockedParameterCount elements.</param>
+            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise it must have InputLockedParameterCount elements.</param>
+            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise it must have OutputLockedParameterCount elements.</param>
             <returns>No documentation.</returns>
             <unmanaged>HRESULT IXAPO::LockForProcess([None] UINT32 InputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pInputLockedParameters,[None] UINT32 OutputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pOutputLockedParameters)</unmanaged>
         </member>
@@ -4543,8 +4345,461 @@
             <summary>	
             Returns the registration properties of an XAPO.	
             </summary>	
-            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing theregistration properties the XAPO was created with; use XAPOFree to free thestructure.</returns>
+            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing the registration properties the XAPO was created with; use XAPOFree to free the structure.</returns>
             <unmanaged>HRESULT IXAPO::GetRegistrationProperties([Out] XAPO_REGISTRATION_PROPERTIES** ppRegistrationProperties)</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.AudioProcessorParamNative`1.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.XAPO.AudioProcessorParamNative`1"/> class.
+            </summary>
+            <param name="basePtr">The base PTR.</param>
+        </member>
+        <member name="M:SharpDX.XAPO.AudioProcessorParamNative`1.NativePointerUpdated(System.IntPtr)">
+            <summary>
+            Update the Native Pointer. Rebuild ParameterProviderNative.
+            </summary>
+        </member>
+        <member name="P:SharpDX.XAPO.AudioProcessorParamNative`1.Parameter">
+            <summary>
+            Get or Set the parameters for this AudioProcessor
+            </summary>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MinimumFeedback">
+            <summary>Constant MinimumFeedback.</summary>
+            <unmanaged>FXECHO_MIN_FEEDBACK</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MaximumFeedback">
+            <summary>Constant MaximumFeedback.</summary>
+            <unmanaged>FXECHO_MAX_FEEDBACK</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MinimumDelay">
+            <summary>Constant MinimumDelay.</summary>
+            <unmanaged>FXECHO_MIN_DELAY</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.DefaultWetdrymix">
+            <summary>Constant DefaultWetdrymix.</summary>
+            <unmanaged>FXECHO_DEFAULT_WETDRYMIX</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MaximumDelay">
+            <summary>Constant MaximumDelay.</summary>
+            <unmanaged>FXECHO_MAX_DELAY</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MaximumWetdrymix">
+            <summary>Constant MaximumWetdrymix.</summary>
+            <unmanaged>FXECHO_MAX_WETDRYMIX</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.MinimumWetdrymix">
+            <summary>Constant MinimumWetdrymix.</summary>
+            <unmanaged>FXECHO_MIN_WETDRYMIX</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.DefaultDelay">
+            <summary>Constant DefaultDelay.</summary>
+            <unmanaged>FXECHO_DEFAULT_DELAY</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Echo.DefaultFeedback">
+            <summary>Constant DefaultFeedback.</summary>
+            <unmanaged>FXECHO_DEFAULT_FEEDBACK</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.Fx.Echo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Echo"/> class.
+            </summary>
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.Equalizer">
+            <summary>	
+            Functions	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.Equalizer']/*"/>	
+            <summary>
+            A Equalizer XAPO AudioProcessor
+            </summary>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MaximumBandwidth">
+            <summary>Constant MaximumBandwidth.</summary>
+            <unmanaged>FXEQ_MAX_BANDWIDTH</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrameRate">
+            <summary>Constant MaximumFrameRate.</summary>
+            <unmanaged>FXEQ_MAX_FRAMERATE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MinimumBandwidth">
+            <summary>Constant MinimumBandwidth.</summary>
+            <unmanaged>FXEQ_MIN_BANDWIDTH</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrameRate">
+            <summary>Constant MinimumFrameRate.</summary>
+            <unmanaged>FXEQ_MIN_FRAMERATE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MaximumGain">
+            <summary>Constant MaximumGain.</summary>
+            <unmanaged>FXEQ_MAX_GAIN</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultFrequencyCenter2">
+            <summary>Constant DefaultFrequencyCenter2.</summary>
+            <unmanaged>FXEQ_DEFAULT_FREQUENCY_CENTER_2</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MinimumGain">
+            <summary>Constant MinimumGain.</summary>
+            <unmanaged>FXEQ_MIN_GAIN</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultGain">
+            <summary>Constant DefaultGain.</summary>
+            <unmanaged>FXEQ_DEFAULT_GAIN</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultBandwidth">
+            <summary>Constant DefaultBandwidth.</summary>
+            <unmanaged>FXEQ_DEFAULT_BANDWIDTH</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultFrequencyCenter1">
+            <summary>Constant DefaultFrequencyCenter1.</summary>
+            <unmanaged>FXEQ_DEFAULT_FREQUENCY_CENTER_1</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrequencyCenter">
+            <summary>Constant MaximumFrequencyCenter.</summary>
+            <unmanaged>FXEQ_MAX_FREQUENCY_CENTER</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultFrequencyCenter3">
+            <summary>Constant DefaultFrequencyCenter3.</summary>
+            <unmanaged>FXEQ_DEFAULT_FREQUENCY_CENTER_3</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.DefaultFrequencyCenter0">
+            <summary>Constant DefaultFrequencyCenter0.</summary>
+            <unmanaged>FXEQ_DEFAULT_FREQUENCY_CENTER_0</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrequencyCenter">
+            <summary>Constant MinimumFrequencyCenter.</summary>
+            <unmanaged>FXEQ_MIN_FREQUENCY_CENTER</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.Fx.Equalizer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Equalizer"/> class.
+            </summary>
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.MasteringLimiter">
+            <summary>	
+            Functions	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.MasteringLimiter']/*"/>	
+            <summary>
+            A MateringLimiter XAPO AudioProcessor
+            </summary>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.MinimumLoudness">
+            <summary>Constant MinimumLoudness.</summary>
+            <unmanaged>FXMASTERINGLIMITER_MIN_LOUDNESS</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.MaximumLoudness">
+            <summary>Constant MaximumLoudness.</summary>
+            <unmanaged>FXMASTERINGLIMITER_MAX_LOUDNESS</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.DefaultLoudness">
+            <summary>Constant DefaultLoudness.</summary>
+            <unmanaged>FXMASTERINGLIMITER_DEFAULT_LOUDNESS</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.MaximumRelease">
+            <summary>Constant MaximumRelease.</summary>
+            <unmanaged>FXMASTERINGLIMITER_MAX_RELEASE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.DefaultRelease">
+            <summary>Constant DefaultRelease.</summary>
+            <unmanaged>FXMASTERINGLIMITER_DEFAULT_RELEASE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiter.MinimumRelease">
+            <summary>Constant MinimumRelease.</summary>
+            <unmanaged>FXMASTERINGLIMITER_MIN_RELEASE</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.Fx.MasteringLimiter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.MasteringLimiter"/> class.
+            </summary>
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.Reverb">
+            <summary>	
+            Functions	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.Reverb']/*"/>	
+            <summary>
+            A Reverb XAPO AudioProcessor
+            </summary>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.MaximumRoomsize">
+            <summary>Constant MaximumRoomsize.</summary>
+            <unmanaged>FXREVERB_MAX_ROOMSIZE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.MinimumRoomsize">
+            <summary>Constant MinimumRoomsize.</summary>
+            <unmanaged>FXREVERB_MIN_ROOMSIZE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.MinimumDiffusion">
+            <summary>Constant MinimumDiffusion.</summary>
+            <unmanaged>FXREVERB_MIN_DIFFUSION</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.DefaultRoomsize">
+            <summary>Constant DefaultRoomsize.</summary>
+            <unmanaged>FXREVERB_DEFAULT_ROOMSIZE</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.MaximumDiffusion">
+            <summary>Constant MaximumDiffusion.</summary>
+            <unmanaged>FXREVERB_MAX_DIFFUSION</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.Reverb.DefaultDiffusion">
+            <summary>Constant DefaultDiffusion.</summary>
+            <unmanaged>FXREVERB_DEFAULT_DIFFUSION</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.Fx.Reverb.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Reverb"/> class.
+            </summary>
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.XAPOFx">
+            <summary>	
+            Functions	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='SharpDX.XAPO.Fx.XAPOFx']/*"/>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXEQ">
+            <summary>Constant CLSID_FXEQ.</summary>
+            <unmanaged>CLSID_FXEQ</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXMasteringLimiter">
+            <summary>Constant CLSID_FXMasteringLimiter.</summary>
+            <unmanaged>CLSID_FXMasteringLimiter</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXReverb">
+            <summary>Constant CLSID_FXReverb.</summary>
+            <unmanaged>CLSID_FXReverb</unmanaged>
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.XAPOFx.CLSID_FXEcho">
+            <summary>Constant CLSID_FXEcho.</summary>
+            <unmanaged>CLSID_FXEcho</unmanaged>
+        </member>
+        <member name="M:SharpDX.XAPO.Fx.XAPOFx.CreateFX(System.Guid,SharpDX.ComObject)">
+            <summary>	
+            Creates an instance of the requested XAPOFX effect.	
+            </summary>	
+            <param name="clsid"><dd> ID of the effect to create. Use the <strong>__uuidof</strong> on the effect class name  to get the CLSID for an effect. For example, <strong>__uuidof(FXReverb)</strong> would provide  the CLSID for the FXReverb effect. For a list of effects provided by XAPOFX, see XAPOFX Overview. For an example  of retrieving the CLSID for an effect, see How to: Use XAPOFX in XAudio2. </dd></param>	
+            <param name="effectRef"><dd> Receives a reference to the created XAPO instance. If <strong>CreateFX</strong> fails, <em>pEffect</em> is untouched. </dd></param>	
+            <returns>Returns <see cref="F:SharpDX.Result.Ok"/> if successful; otherwise, an error code.</returns>	
+            <remarks>	
+            <p>The created XAPO will have a reference count of 1. Client code should call <strong>IUnknown::Release</strong> after passing the XAPO to XAudio2 to allow XAudio2 to dispose of the XAPO when it is no longer needed.  Use <see cref="M:SharpDX.XAudio2.XAudio2.CreateSourceVoice_(SharpDX.XAudio2.SourceVoice,System.IntPtr,SharpDX.XAudio2.VoiceFlags,System.Single,System.IntPtr,System.Nullable{SharpDX.XAudio2.VoiceSendDescriptors},System.Nullable{SharpDX.XAudio2.EffectChain})"/> or <see cref="M:SharpDX.XAudio2.Voice.SetEffectChain(System.Nullable{SharpDX.XAudio2.EffectChain})"/> to pass an XAPO to XAudio2.</p>	
+            </remarks>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='CreateFX']/*"/>	
+            <msdn-id>hh405044</msdn-id>	
+            <unmanaged>HRESULT CreateFX([In] const GUID&amp; clsid,[Out, Fast] IUnknown** pEffect)</unmanaged>	
+            <unmanaged-short>CreateFX</unmanaged-short>	
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.EchoParameters">
+            <summary>	
+            Parameters for use with the FXEcho XAPO.	
+            </summary>	
+            <remarks>	
+            <p>Echo only supports FLOAT32 audio formats.</p>	
+            </remarks>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS']/*"/>	
+            <msdn-id>ee417667</msdn-id>	
+            <unmanaged>FXECHO_PARAMETERS</unmanaged>	
+            <unmanaged-short>FXECHO_PARAMETERS</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EchoParameters.WetDryMix">
+            <summary>	
+            <dd> Ratio of wet (processed) signal to dry (original) signal. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::WetDryMix']/*"/>	
+            <msdn-id>ee417667</msdn-id>	
+            <unmanaged>float WetDryMix</unmanaged>	
+            <unmanaged-short>float WetDryMix</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EchoParameters.Feedback">
+            <summary>	
+            <dd> Amount of output to feed back into input. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::Feedback']/*"/>	
+            <msdn-id>ee417667</msdn-id>	
+            <unmanaged>float Feedback</unmanaged>	
+            <unmanaged-short>float Feedback</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EchoParameters.Delay">
+            <summary>	
+            <dd> Delay to all channels in milliseconds. This value must be between <strong><see cref="F:SharpDX.XAPO.Fx.Echo.MinimumDelay"/></strong> and <strong>FXECHO_INITDATA.MaxDelay</strong>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXECHO_PARAMETERS::Delay']/*"/>	
+            <msdn-id>ee417667</msdn-id>	
+            <unmanaged>float Delay</unmanaged>	
+            <unmanaged-short>float Delay</unmanaged-short>	
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.EqualizerParameters">
+            <summary>	
+            Parameters for use with the FXEQ XAPO.	
+            </summary>	
+            <remarks>	
+            <p>Each band ranges from <strong>FrequencyCenterN</strong> - (<strong>BandwidthN</strong> / 2) to  <strong>FrequencyCenterN</strong> + (<strong>BandwidthN</strong> / 2).</p>	
+            </remarks>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>FXEQ_PARAMETERS</unmanaged>	
+            <unmanaged-short>FXEQ_PARAMETERS</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter0">
+            <summary>	
+            <dd> Center frequency in Hz for band 0.   Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrequencyCenter"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrequencyCenter"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter0']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float FrequencyCenter0</unmanaged>	
+            <unmanaged-short>float FrequencyCenter0</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain0">
+            <summary>	
+            <dd> The boost or decrease to frequencies in band 0. Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumGain"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumGain"/> </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain0']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Gain0</unmanaged>	
+            <unmanaged-short>float Gain0</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth0">
+            <summary>	
+            <dd> Width of band 0.  Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumBandwidth"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumBandwidth"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth0']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Bandwidth0</unmanaged>	
+            <unmanaged-short>float Bandwidth0</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter1">
+            <summary>	
+            <dd> Center frequency in Hz for band 1.   Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrequencyCenter"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrequencyCenter"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter1']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float FrequencyCenter1</unmanaged>	
+            <unmanaged-short>float FrequencyCenter1</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain1">
+            <summary>	
+            <dd> The boost or decrease to frequencies in band 1.  Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumGain"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumGain"/> </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain1']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Gain1</unmanaged>	
+            <unmanaged-short>float Gain1</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth1">
+            <summary>	
+            <dd> Width of band 1. Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumBandwidth"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumBandwidth"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth1']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Bandwidth1</unmanaged>	
+            <unmanaged-short>float Bandwidth1</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter2">
+            <summary>	
+            <dd> Center frequency in Hz for band 2.   Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrequencyCenter"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrequencyCenter"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter2']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float FrequencyCenter2</unmanaged>	
+            <unmanaged-short>float FrequencyCenter2</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain2">
+            <summary>	
+            <dd> The boost or decrease to frequencies in band 2.  Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumGain"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumGain"/> </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain2']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Gain2</unmanaged>	
+            <unmanaged-short>float Gain2</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth2">
+            <summary>	
+            <dd> Width of band 2. Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumBandwidth"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumBandwidth"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth2']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Bandwidth2</unmanaged>	
+            <unmanaged-short>float Bandwidth2</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.FrequencyCenter3">
+            <summary>	
+            <dd> Center frequency in Hz for band 3.   Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumFrequencyCenter"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumFrequencyCenter"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::FrequencyCenter3']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float FrequencyCenter3</unmanaged>	
+            <unmanaged-short>float FrequencyCenter3</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Gain3">
+            <summary>	
+            <dd> The boost or decrease to frequencies in band 3.  Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumGain"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumGain"/> </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Gain3']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Gain3</unmanaged>	
+            <unmanaged-short>float Gain3</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.EqualizerParameters.Bandwidth3">
+            <summary>	
+            <dd> Width of band 3. Must be between <see cref="F:SharpDX.XAPO.Fx.Equalizer.MinimumBandwidth"/> and <see cref="F:SharpDX.XAPO.Fx.Equalizer.MaximumBandwidth"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXEQ_PARAMETERS::Bandwidth3']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxeq_parameters</msdn-id>	
+            <unmanaged>float Bandwidth3</unmanaged>	
+            <unmanaged-short>float Bandwidth3</unmanaged-short>	
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.MasteringLimiterParameters">
+            <summary>	
+            Parameters for use with the FXMasteringLimiter XAPO.	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
+            <unmanaged>FXMASTERINGLIMITER_PARAMETERS</unmanaged>	
+            <unmanaged-short>FXMASTERINGLIMITER_PARAMETERS</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.Release">
+            <summary>	
+            <dd> Speed at which the limiter stops affecting audio once it drops below the limiter's threshold. Value must be between <see cref="F:SharpDX.XAPO.Fx.MasteringLimiter.MinimumRelease"/> and <see cref="F:SharpDX.XAPO.Fx.MasteringLimiter.MaximumRelease"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS::Release']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
+            <unmanaged>unsigned int Release</unmanaged>	
+            <unmanaged-short>unsigned int Release</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.MasteringLimiterParameters.Loudness">
+            <summary>	
+            <dd> Threshold of the limiter. Value must be between <see cref="F:SharpDX.XAPO.Fx.MasteringLimiter.MinimumLoudness"/> and <see cref="F:SharpDX.XAPO.Fx.MasteringLimiter.MaximumLoudness"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXMASTERINGLIMITER_PARAMETERS::Loudness']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxmasteringlimiter_parameters</msdn-id>	
+            <unmanaged>unsigned int Loudness</unmanaged>	
+            <unmanaged-short>unsigned int Loudness</unmanaged-short>	
+        </member>
+        <member name="T:SharpDX.XAPO.Fx.ReverbParameters">
+            <summary>	
+            Parameters for use with the FXReverb XAPO.	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
+            <unmanaged>FXREVERB_PARAMETERS</unmanaged>	
+            <unmanaged-short>FXREVERB_PARAMETERS</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.ReverbParameters.Diffusion">
+            <summary>	
+            <dd> Controls the character of the individual wall reflections. Set to minimum value to simulate a hard flat surface and to maximum value to simulate a diffuse surface.Value must be between <see cref="F:SharpDX.XAPO.Fx.Reverb.MinimumDiffusion"/> and <see cref="F:SharpDX.XAPO.Fx.Reverb.MaximumDiffusion"/>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS::Diffusion']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
+            <unmanaged>float Diffusion</unmanaged>	
+            <unmanaged-short>float Diffusion</unmanaged-short>	
+        </member>
+        <member name="F:SharpDX.XAPO.Fx.ReverbParameters.RoomSize">
+            <summary>	
+            <dd> Size of the room. Value must be between <see cref="F:SharpDX.XAPO.Fx.Reverb.MinimumRoomsize"/> and <see cref="F:SharpDX.XAPO.Fx.Reverb.MaximumRoomsize"/>. Note that physical meaning of <em>RoomSize</em> is subjective and not tied to any particular units. A smaller value will result in reflections reaching the listener more quickly while reflections will take longer with larger values for <em>RoomSize</em>. </dd>	
+            </summary>	
+            <!-- Failed to insert some or all of included XML --><include file="..\..\Documentation\CodeComments.xml" path="/comments/comment[@id='FXREVERB_PARAMETERS::RoomSize']/*"/>	
+            <msdn-id>microsoft.directx_sdk.xapofx.fxreverb_parameters</msdn-id>	
+            <unmanaged>float RoomSize</unmanaged>	
+            <unmanaged-short>float RoomSize</unmanaged-short>	
         </member>
         <member name="T:SharpDX.XAPO.ParameterProvider">
             <summary>	
@@ -4782,6 +5037,19 @@
             <unmanaged>unsigned int MaxOutputBufferCount</unmanaged>	
             <unmanaged-short>unsigned int MaxOutputBufferCount</unmanaged-short>	
         </member>
+        <member name="T:SharpDX.XAudio2.ModuleInit">
+            <summary>
+            Internal class used to initialize this assembly.
+            </summary>
+        </member>
+        <member name="M:SharpDX.XAudio2.ModuleInit.Setup">
+            <summary>
+            Initializes this assembly.
+            </summary>
+            <remarks>
+            This method is called when the assembly is loaded.
+            </remarks>
+        </member>
         <member name="T:SharpDX.XAudio2.NamespaceDoc">
             <summary>
             The <see cref="N:SharpDX.XAudio2"/> namespace provides a managed XAudio2 API.
@@ -4792,12 +5060,12 @@
         </member>
         <member name="T:SharpDX.XAudio2.VoiceShadow">
             <summary>
-            Internal VoiceCallback callback Impl
+            Internal VoiceCallback callback Implementation
             </summary>
         </member>
         <member name="M:SharpDX.XAudio2.VoiceShadow.ToIntPtr(SharpDX.XAudio2.VoiceCallback)">
             <summary>
-            Return a pointer to the unamanged version of this callback.
+            Return a pointer to the unmanaged version of this callback.
             </summary>
             <param name="callback">The callback.</param>
             <returns>A pointer to a shadow c++ callback</returns>
@@ -4856,8 +5124,8 @@
             Called by XAudio2 to lock the input and output configurations of an XAPO allowing it to	
             do any final initialization before {{Process}} is called on the realtime thread.	
             </summary>	
-            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise itmust have InputLockedParameterCount elements.</param>
-            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise itmust have OutputLockedParameterCount elements.</param>
+            <param name="inputLockedParameters"> Array of input <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pInputLockedParameters may be NULL if InputLockedParameterCount is 0, otherwise it must have InputLockedParameterCount elements.</param>
+            <param name="outputLockedParameters"> Array of output <see cref="T:SharpDX.XAPO.LockParameters"/> structures.pOutputLockedParameters may be NULL if OutputLockedParameterCount is 0, otherwise it must have OutputLockedParameterCount elements.</param>
             <returns>No documentation.</returns>
             <unmanaged>HRESULT IXAPO::LockForProcess([None] UINT32 InputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pInputLockedParameters,[None] UINT32 OutputLockedParameterCount,[In, Buffer, Optional] const XAPO_LOCKFORPROCESS_BUFFER_PARAMETERS* pOutputLockedParameters)</unmanaged>
         </member>
@@ -4933,30 +5201,8 @@
             <summary>	
             Returns the registration properties of an XAPO.	
             </summary>	
-            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing theregistration properties the XAPO was created with; use XAPOFree to free thestructure.</returns>
+            <returns> a <see cref="T:SharpDX.XAPO.RegistrationProperties"/> structure containing the registration properties the XAPO was created with; use XAPOFree to free the structure.</returns>
             <unmanaged>HRESULT IXAPO::GetRegistrationProperties([Out] XAPO_REGISTRATION_PROPERTIES** ppRegistrationProperties)</unmanaged>
-        </member>
-        <member name="T:SharpDX.XAPO.AudioProcessorParamNative`1">
-            <summary>
-            Implements this class to call an existing unmanaged AudioProcessor which supports parameter.
-            </summary>
-            <typeparam name="T">the parameter type of this AudioProcessor</typeparam>
-        </member>
-        <member name="M:SharpDX.XAPO.AudioProcessorParamNative`1.#ctor(System.IntPtr)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharpDX.XAPO.AudioProcessorParamNative`1"/> class.
-            </summary>
-            <param name="basePtr">The base PTR.</param>
-        </member>
-        <member name="M:SharpDX.XAPO.AudioProcessorParamNative`1.NativePointerUpdated(System.IntPtr)">
-            <summary>
-            Update the Native Poinder. Rebuild ParameterProviderNative.
-            </summary>
-        </member>
-        <member name="P:SharpDX.XAPO.AudioProcessorParamNative`1.Parameter">
-            <summary>
-            Get or Set the parameters for this AudioProcessor
-            </summary>
         </member>
         <member name="T:SharpDX.XAPO.AudioProcessorShadow">
             <summary>
@@ -4966,7 +5212,7 @@
         </member>
         <member name="M:SharpDX.XAPO.AudioProcessorShadow.ToIntPtr(SharpDX.XAPO.AudioProcessor)">
             <summary>
-            Return a pointer to the unamanged version of this callback.
+            Return a pointer to the unmanaged version of this callback.
             </summary>
             <param name="callback">The callback.</param>
             <returns>A pointer to a shadow c++ callback</returns>
@@ -5016,46 +5262,6 @@
             <returns>No documentation.</returns>
             <unmanaged>UINT32 IXAPO::CalcOutputFrames([None] UINT32 InputFrameCount)</unmanaged>
         </member>
-        <member name="T:SharpDX.XAPO.Fx.Echo">
-            <summary>
-            An Echo XAPO AudioProcessor
-            </summary>
-        </member>
-        <member name="M:SharpDX.XAPO.Fx.Echo.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Echo"/> class.
-            </summary>
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.Equalizer">
-            <summary>
-            A Equalizer XAPO AudioProcessor
-            </summary>
-        </member>
-        <member name="M:SharpDX.XAPO.Fx.Equalizer.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Equalizer"/> class.
-            </summary>
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.MasteringLimiter">
-            <summary>
-            A MateringLimiter XAPO AudioProcessor
-            </summary>
-        </member>
-        <member name="M:SharpDX.XAPO.Fx.MasteringLimiter.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.MasteringLimiter"/> class.
-            </summary>
-        </member>
-        <member name="T:SharpDX.XAPO.Fx.Reverb">
-            <summary>
-            A Reverb XAPO AudioProcessor
-            </summary>
-        </member>
-        <member name="M:SharpDX.XAPO.Fx.Reverb.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharpDX.XAPO.Fx.Reverb"/> class.
-            </summary>
-        </member>
         <member name="T:SharpDX.XAPO.ParameterProviderShadow">
             <summary>
             Internal AudioProcessorShadow
@@ -5064,7 +5270,7 @@
         </member>
         <member name="M:SharpDX.XAPO.ParameterProviderShadow.ToIntPtr(SharpDX.XAPO.ParameterProvider)">
             <summary>
-            Return a pointer to the unamanged version of this callback.
+            Return a pointer to the unmanaged version of this callback.
             </summary>
             <param name="callback">The callback.</param>
             <returns>A pointer to a shadow c++ callback</returns>

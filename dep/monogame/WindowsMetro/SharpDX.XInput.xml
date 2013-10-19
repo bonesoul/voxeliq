@@ -1004,6 +1004,18 @@
             <unmanaged>unsigned int XInputGetKeystroke([In] unsigned int dwUserIndex,[In] unsigned int dwReserved,[Out] XINPUT_KEYSTROKE* pKeystroke)</unmanaged>	
             <unmanaged-short>XInputGetKeystroke</unmanaged-short>	
         </member>
+        <member name="M:SharpDX.XInput.XInput.XInputSetState(System.Int32,SharpDX.XInput.Vibration)">
+            <summary>	
+            Sends data to a connected controller. This function is used to activate the vibration function of a controller.	
+            </summary>	
+            <param name="dwUserIndex"><dd>[in]  Index of the user's controller. Can be a value from 0 to 3. For information about how this value is determined and how the value maps to indicators on the controller, see Multiple Controllers. </dd></param>	
+            <param name="vibrationRef"><dd>[in, out]  Pointer to an <see cref="T:SharpDX.XInput.Vibration"/> structure containing the vibration information to send to the controller. </dd></param>	
+            <returns><p>If the function succeeds, the return value is <see cref="F:SharpDX.Win32.ErrorCode.Success"/>.</p> <p>If the controller is not connected, the return value is <see cref="F:SharpDX.Win32.ErrorCode.DeviceNotConnected"/>.</p> <p>If the function fails, the return value is an error code defined in Winerror.h. The function does not use <strong>SetLastError</strong> to set the calling thread's last-error code.</p></returns>	
+            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='XInputSetState']/*"/>	
+            <msdn-id>microsoft.directx_sdk.reference.xinputsetstate</msdn-id>	
+            <unmanaged>unsigned int XInputSetState([In] unsigned int dwUserIndex,[In] XINPUT_VIBRATION* pVibration)</unmanaged>	
+            <unmanaged-short>XInputSetState</unmanaged-short>	
+        </member>
         <member name="M:SharpDX.XInput.XInput.XInputGetAudioDeviceIds(System.Int32,System.IntPtr,System.IntPtr,System.IntPtr,System.IntPtr)">
             <summary>	
             No documentation.	
@@ -1017,18 +1029,6 @@
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='XInputGetAudioDeviceIds']/*"/>	
             <unmanaged>unsigned int XInputGetAudioDeviceIds([In] unsigned int dwUserIndex,[Out, Buffer, Optional] wchar_t* pRenderDeviceId,[InOut, Optional] unsigned int* pRenderCount,[Out, Buffer, Optional] wchar_t* pCaptureDeviceId,[InOut, Optional] unsigned int* pCaptureCount)</unmanaged>	
             <unmanaged-short>XInputGetAudioDeviceIds</unmanaged-short>	
-        </member>
-        <member name="M:SharpDX.XInput.XInput.XInputSetState(System.Int32,SharpDX.XInput.Vibration)">
-            <summary>	
-            Sends data to a connected controller. This function is used to activate the vibration function of a controller.	
-            </summary>	
-            <param name="dwUserIndex"><dd>[in]  Index of the user's controller. Can be a value from 0 to 3. For information about how this value is determined and how the value maps to indicators on the controller, see Multiple Controllers. </dd></param>	
-            <param name="vibrationRef"><dd>[in, out]  Pointer to an <see cref="T:SharpDX.XInput.Vibration"/> structure containing the vibration information to send to the controller. </dd></param>	
-            <returns><p>If the function succeeds, the return value is <see cref="F:SharpDX.Win32.ErrorCode.Success"/>.</p> <p>If the controller is not connected, the return value is <see cref="F:SharpDX.Win32.ErrorCode.DeviceNotConnected"/>.</p> <p>If the function fails, the return value is an error code defined in Winerror.h. The function does not use <strong>SetLastError</strong> to set the calling thread's last-error code.</p></returns>	
-            <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='XInputSetState']/*"/>	
-            <msdn-id>microsoft.directx_sdk.reference.xinputsetstate</msdn-id>	
-            <unmanaged>unsigned int XInputSetState([In] unsigned int dwUserIndex,[In] XINPUT_VIBRATION* pVibration)</unmanaged>	
-            <unmanaged-short>XInputSetState</unmanaged-short>	
         </member>
         <member name="M:SharpDX.XInput.XInput.XInputGetState(System.Int32,SharpDX.XInput.State@)">
             <summary>	
@@ -1263,8 +1263,8 @@
             </summary>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='XINPUT_VIBRATION::wLeftMotorSpeed']/*"/>	
             <msdn-id>microsoft.directx_sdk.reference.xinput_vibration</msdn-id>	
-            <unmanaged>unsigned short wLeftMotorSpeed</unmanaged>	
-            <unmanaged-short>unsigned short wLeftMotorSpeed</unmanaged-short>	
+            <unmanaged>SHARPDX_USHORT wLeftMotorSpeed</unmanaged>	
+            <unmanaged-short>SHARPDX_USHORT wLeftMotorSpeed</unmanaged-short>	
         </member>
         <member name="F:SharpDX.XInput.Vibration.RightMotorSpeed">
             <summary>	
@@ -1272,8 +1272,8 @@
             </summary>	
             <!-- No matching elements were found for the following include tag --><include file=".\..\Documentation\CodeComments.xml" path="/comments/comment[@id='XINPUT_VIBRATION::wRightMotorSpeed']/*"/>	
             <msdn-id>microsoft.directx_sdk.reference.xinput_vibration</msdn-id>	
-            <unmanaged>unsigned short wRightMotorSpeed</unmanaged>	
-            <unmanaged-short>unsigned short wRightMotorSpeed</unmanaged-short>	
+            <unmanaged>SHARPDX_USHORT wRightMotorSpeed</unmanaged>	
+            <unmanaged-short>SHARPDX_USHORT wRightMotorSpeed</unmanaged-short>	
         </member>
         <member name="T:SharpDX.XInput.NamespaceDoc">
             <summary>

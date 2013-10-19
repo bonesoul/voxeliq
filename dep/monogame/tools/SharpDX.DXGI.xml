@@ -539,20 +539,20 @@
             <remarks>	
             A software adapter is a DLL that implements the entirety of a device driver interface, plus emulation, if necessary, of kernel-mode graphics components for Windows. Details on implementing a software adapter can be found in the Windows Vista Driver Development Kit. This is a very complex development task, and is not recommended for general readers. Calling this method will increment the module's reference count by one. The reference count can be decremented by calling {{FreeLibrary}}. The typical calling scenario is to call {{LoadLibrary}}, pass the handle to CreateSoftwareAdapter, then immediately call {{FreeLibrary}} on the DLL and forget the DLL's {{HMODULE}}. Since the software adapter calls FreeLibrary when it is destroyed, the lifetime of the DLL will now be owned by the adapter, and the application is free of any further consideration of its lifetime. 	
             </remarks>	
-            <param name="module">Handle to the software adapter's dll.</param>
+            <param name="module">Handle to the software adapter's DLL.</param>
             <returns>A reference to an adapter (see <see cref="T:SharpDX.DXGI.Adapter" />). </returns>
             <unmanaged>HRESULT IDXGIFactory::CreateSoftwareAdapter([None] void* Module,[Out] IDXGIAdapter** ppAdapter)</unmanaged>
         </member>
         <member name="M:SharpDX.DXGI.Factory.GetAdapter(System.Int32)">
-            <summary>	
-            Gets both adapters (video cards) with or without outputs.	
-            </summary>	
-            <param name="adapter"><para>The index of the adapter to enumerate.</para></param>	
+            <summary>
+            Gets both adapters (video cards) with or without outputs.
+            </summary>
+            <param name="index"><para>The index of the adapter to enumerate.</para></param>
             <returns>a reference to an <see cref="T:SharpDX.DXGI.Adapter"/> interface at the position specified by the Adapter parameter</returns>
-            <remarks>	
+            <remarks>
             When you create a factory, the factory enumerates the set of adapters that are available in the system. Therefore, if you change the adapters in a system, you must destroy  and recreate the <see cref="T:SharpDX.DXGI.Factory"/> object. The number of adapters in a system changes when you add or remove a display card, or dock or undock a laptop.When the EnumAdapters method succeeds and fills the ppAdapter parameter with the address of the reference to the adapter interface, EnumAdapters increments the adapter interface's reference count. When you finish using the  adapter interface, call the Release method to decrement the reference count before you destroy the reference.EnumAdapters first returns the local adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. EnumAdapters then returns other adapters with outputs.	
-            </remarks>	
-            <unmanaged>HRESULT IDXGIFactory::EnumAdapters([In] unsigned int Adapter,[Out] IDXGIAdapter** ppAdapter)</unmanaged>	
+            </remarks>
+            <unmanaged>HRESULT IDXGIFactory::EnumAdapters([In] unsigned int Adapter,[Out] IDXGIAdapter** ppAdapter)</unmanaged>
         </member>
         <member name="M:SharpDX.DXGI.Factory.GetAdapterCount">
             <summary>
@@ -676,7 +676,7 @@
             <summary>	
             Gets both adapters (video cards) with or without outputs.	
             </summary>	
-            <param name="adapter"><para>The index of the adapter to enumerate.</para></param>	
+            <param name="index"><para>The index of the adapter to enumerate.</para></param>	
             <returns>a reference to an <see cref="T:SharpDX.DXGI.Adapter1"/> interface at the position specified by the Adapter parameter</returns>	
             <remarks>	
             This method is not supported by DXGI 1.0, which shipped in Windows?Vista and Windows Server?2008. DXGI 1.1 support is required, which is available on  Windows?7, Windows Server?2008?R2, and as an update to Windows?Vista with Service Pack?2 (SP2) (KB 971644) and Windows Server?2008 (KB 971512).When you create a factory, the factory enumerates the set of adapters that are available in the system. Therefore, if you change the adapters in a system, you must destroy  and recreate the <see cref="T:SharpDX.DXGI.Factory1"/> object. The number of adapters in a system changes when you add or remove a display card, or dock or undock a laptop.When the EnumAdapters1 method succeeds and fills the ppAdapter parameter with the address of the reference to the adapter interface, EnumAdapters1 increments the adapter interface's reference count. When you finish using the  adapter interface, call the Release method to decrement the reference count before you destroy the reference.EnumAdapters1 first returns the local adapter with the output on which the desktop primary is displayed. This adapter corresponds with an index of zero. EnumAdapters1 next returns other adapters with outputs. EnumAdapters1 finally returns adapters without outputs.	
@@ -761,14 +761,14 @@
             <summary>
             Calculates the size of a <see cref="T:SharpDX.DXGI.Format"/> in bytes.
             </summary>
-            <param name="format">The dxgi format.</param>
+            <param name="format">The DXGI format.</param>
             <returns>size of in bytes</returns>
         </member>
         <member name="M:SharpDX.DXGI.FormatHelper.SizeOfInBits(SharpDX.DXGI.Format)">
             <summary>
             Calculates the size of a <see cref="T:SharpDX.DXGI.Format"/> in bits.
             </summary>
-            <param name="format">The dxgi format.</param>
+            <param name="format">The DXGI format.</param>
             <returns>size of in bits</returns>
         </member>
         <member name="M:SharpDX.DXGI.FormatHelper.IsValid(SharpDX.DXGI.Format)">
@@ -2838,7 +2838,7 @@
             Find the display mode that most closely matches the requested display mode.	
             </summary>	
             <remarks>	
-            Direct3D devices require UNORM formats. This method finds the closest matching available display mode to the mode specified in pModeToMatch. Similarly ranked fields (ie. all specified, or all unspecified, etc) are resolved in the following order.  ScanlineOrdering Scaling Format Resolution RefreshRate  When determining the closest value for a particular field, previously matched fields are used to filter the display mode list choices, and  other fields are ignored. For example, when matching Resolution, the display mode list will have already been filtered by a certain ScanlineOrdering,  Scaling, and Format, while RefreshRate is ignored. This ordering doesn't define the absolute ordering for every usage scenario of FindClosestMatchingMode, because  the application can choose some values initially, effectively changing the order that fields are chosen. Fields of the display mode are matched one at a time, generally in a specified order. If a field is unspecified, FindClosestMatchingMode gravitates toward the values for the desktop related to this output.  If this output is not part of the desktop, then the default desktop output is used to find values. If an application uses a fully unspecified  display mode, FindClosestMatchingMode will typically return a display mode that matches the desktop settings for this output.   Unspecified fields are lower priority than specified fields and will be resolved later than specified fields. 	
+            Direct3D devices require UNORM formats. This method finds the closest matching available display mode to the mode specified in pModeToMatch. Similarly ranked fields (i.e. all specified, or all unspecified, etc) are resolved in the following order.  ScanlineOrdering Scaling Format Resolution RefreshRate  When determining the closest value for a particular field, previously matched fields are used to filter the display mode list choices, and  other fields are ignored. For example, when matching Resolution, the display mode list will have already been filtered by a certain ScanlineOrdering,  Scaling, and Format, while RefreshRate is ignored. This ordering doesn't define the absolute ordering for every usage scenario of FindClosestMatchingMode, because  the application can choose some values initially, effectively changing the order that fields are chosen. Fields of the display mode are matched one at a time, generally in a specified order. If a field is unspecified, FindClosestMatchingMode gravitates toward the values for the desktop related to this output.  If this output is not part of the desktop, then the default desktop output is used to find values. If an application uses a fully unspecified  display mode, FindClosestMatchingMode will typically return a display mode that matches the desktop settings for this output.   Unspecified fields are lower priority than specified fields and will be resolved later than specified fields. 	
             </remarks>	
             <param name="device">A reference to the Direct3D device interface. If this parameter is NULL, only modes whose format matches that of pModeToMatch will  be returned; otherwise, only those formats that are supported for scan-out by the device are returned. </param>
             <param name="modeToMatch">The desired display mode (see <see cref="T:SharpDX.DXGI.ModeDescription"/>). Members of DXGI_MODE_DESC can be unspecified indicating no preference for  that member.  A value of 0 for Width or Height indicates the value is unspecified.  If either Width or  Height are 0 both must be 0.  A numerator and denominator of 0 in RefreshRate indicate it is unspecified. Other members  of DXGI_MODE_DESC have enumeration values indicating the member is unspecified.  If pConnectedDevice is NULL Format cannot be DXGI_FORMAT_UNKNOWN. </param>
