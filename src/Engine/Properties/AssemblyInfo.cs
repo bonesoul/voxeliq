@@ -8,7 +8,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using VoxeliqEngine.Common.Platform;
+using VoxeliqEngine.Platforms;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -41,6 +41,6 @@ using VoxeliqEngine.Common.Platform;
 //
 
 // Set the assembly version from VersionInfo.cs file.
-[assembly: AssemblyVersion(VersionInfo.Assembly.Version)]
+[assembly: AssemblyVersion(VersionInfo.VersionPattern)]
 
 [assembly: InternalsVisibleTo("EngineTests")] // let internals be visible to EngineTests project.

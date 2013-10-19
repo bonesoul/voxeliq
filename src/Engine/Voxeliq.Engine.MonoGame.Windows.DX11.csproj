@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
+    <XnaProfile>HiDef</XnaProfile>
     <XnaCrossPlatformGroupID>696a1687-6361-40bf-94dd-3e3a8cab37d4</XnaCrossPlatformGroupID>
     <XnaOutputType>Library</XnaOutputType>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug\windows\monogame\directx\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11, DESKTOP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -108,8 +108,6 @@
     <Compile Include="Common\Math\MathHelper.cs" />
     <Compile Include="Common\Noise\PerlinNoise.cs" />
     <Compile Include="Common\Noise\SimplexNoise.cs" />
-    <Compile Include="Common\Platform\PlatformInfo.cs" />
-    <Compile Include="Common\Platform\VersionInfo.cs" />
     <Compile Include="Common\Randomization\FastRandom.cs" />
     <Compile Include="Common\Randomization\RandomHelper.cs" />
     <Compile Include="Common\SparseMatrix.cs" />
@@ -165,6 +163,8 @@
     <Compile Include="Graphics\Texture\TextureHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interface\UserInterface.cs" />
+    <Compile Include="Platforms\Android\AndroidActivity.cs" />
+    <Compile Include="Platforms\Android\AndroidPlatform.cs" />
     <Compile Include="Platforms\Config\DebuggerConfig.cs" />
     <Compile Include="Platforms\Config\GraphicsConfig.cs" />
     <Compile Include="Platforms\Config\InputConfig.cs" />
@@ -172,11 +172,24 @@
     <Compile Include="Platforms\Config\ScreenConfig.cs" />
     <Compile Include="Platforms\Frameworks.cs" />
     <Compile Include="Platforms\GraphicsAPI.cs" />
+    <Compile Include="Platforms\IOS\IOSPlatform.cs" />
+    <Compile Include="Platforms\IOS\Main.cs" />
+    <Compile Include="Platforms\Linux\LinuxPlatform.cs" />
+    <Compile Include="Platforms\MacOS\MacOSPlatform.cs" />
+    <Compile Include="Platforms\Metro\WindowsMetroHelper.cs" />
+    <Compile Include="Platforms\Metro\WindowsMetroPlatform.cs" />
     <Compile Include="Platforms\PlatformHandler.cs" />
     <Compile Include="Platforms\PlatformHelper.cs" />
     <Compile Include="Platforms\PlatformManager.cs" />
     <Compile Include="Platforms\Platforms.cs" />
     <Compile Include="Platforms\VersionInfo.cs" />
+    <Compile Include="Platforms\Windows\WindowsHelper.cs" />
+    <Compile Include="Platforms\Windows\WindowsPlatform.cs" />
+    <Compile Include="Platforms\WP7\WindowsPhone7.cs" />
+    <Compile Include="Platforms\WP7\WindowsPhone7Helper.cs" />
+    <Compile Include="Platforms\WP8\LocalizedStrings.cs" />
+    <Compile Include="Platforms\WP8\WindowsPhone8Helper.cs" />
+    <Compile Include="Platforms\WP8\WindowsPhone8Platform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sky\NewSky.cs" />
     <Compile Include="Universe\Commands.cs" />
@@ -187,6 +200,20 @@
     <Compile Include="Universe\Time.cs" />
     <Compile Include="Universe\Weapon.cs" />
     <Compile Include="Universe\World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Platforms\IOS\info.plist" />
+    <None Include="Platforms\Linux\app.desktop" />
+    <None Include="Platforms\MacOS\Info.plist" />
+    <None Include="Platforms\Metro\Package.appxmanifest" />
+    <None Include="Platforms\Windows\app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Platforms\WP7\.gitignore" />
+    <Content Include="Platforms\WP7\Background.png" />
+    <Content Include="Platforms\WP7\GameThumbnail.png" />
+    <Content Include="Platforms\WP7\PhoneGameThumb.png" />
+    <Content Include="Platforms\WP7\WMAppManifest.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

@@ -7,12 +7,12 @@
 
 using Microsoft.Xna.Framework;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Platform;
 using VoxeliqEngine.Core;
 using VoxeliqEngine.Core.Config;
 using VoxeliqEngine.Debugging.Timing;
 using VoxeliqEngine.Graphics;
 using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
+using VoxeliqEngine.Platforms;
 using VoxeliqGame.Settings.Readers;
 
 namespace VoxeliqGame
@@ -20,7 +20,7 @@ namespace VoxeliqGame
     /// <summary>
     /// The game client.
     /// </summary>
-    public class SampleGame : Game
+    public class VoxeliqGame : Game
     {
         /// <summary>
         /// Graphics device manager.
@@ -44,7 +44,7 @@ namespace VoxeliqGame
         /// <summary>
         /// Creates a new game instance.
         /// </summary>
-        public SampleGame()
+        public VoxeliqGame()
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -56,7 +56,7 @@ namespace VoxeliqGame
         protected override void Initialize()
         {
             Logger.Trace("init()"); // log the init.
-            this.Window.Title = string.Format("Voxeliq [{0}/{1}]", PlatformInfo.GameFramework, PlatformInfo.GraphicsApi); // set the window title.
+            this.Window.Title = string.Format("Voxeliq [{0}/{1}]", PlatformManager.GameFramework, PlatformManager.GraphicsApi); // set the window title.
 
             this.IsMouseVisible = false;
 

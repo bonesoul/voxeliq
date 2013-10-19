@@ -13,7 +13,7 @@ namespace VoxeliqEngine.Platforms
     public static class VersionInfo
     {
         /// <summary>
-        /// Main assemblies version pattern.
+        /// Main assemblies version pattern to be used in AssemblyInfo.cs.
         /// </summary>
         public const string VersionPattern = "0.2.0.*";
 

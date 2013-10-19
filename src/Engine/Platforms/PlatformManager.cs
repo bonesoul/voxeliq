@@ -55,6 +55,11 @@ namespace VoxeliqEngine.Platforms
         /// </summary>
         public static PlatformHelper Helper { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public static Game Game { get; private set; }
+
         static PlatformManager()
         {
             IdentifyPlatform();
@@ -63,8 +68,9 @@ namespace VoxeliqEngine.Platforms
         /// <summary>
         /// Should be called by platform-specific startup code.
         /// </summary>
-        public static void Startup()
+        public static void Startup(Game game)
         {
+            Game = game;
             Handler.PlatformEntrance(); // run the appropriate platform entrace code.
         }
 
@@ -96,7 +102,7 @@ namespace VoxeliqEngine.Platforms
                 Platform = Platforms.Linux;
                 Handler = new Linux.LinuxPlatform();
             #elif MACOS && DESKTOP
-                Platform=Platforms.MacOS;
+                Platform = Platforms.MacOS;
                 Handler = new MacOS.MacOSPlatform();
             #elif WINPHONE7
                 Platform = Platforms.WindowsPhone7;

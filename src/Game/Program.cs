@@ -10,7 +10,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Threading;
 using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Platform;
+using VoxeliqEngine.Platforms;
 using VoxeliqEngine.Universe;
 using VoxeliqGame.Settings.Readers;
 
@@ -30,7 +30,7 @@ namespace VoxeliqGame
             #endif
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Use invariant culture - we have to set it explicitly for every thread we create to prevent any mpq-reading problems (mostly because of number formats).
-            
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
@@ -40,13 +40,13 @@ namespace VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
-            Logger.Info(string.Format("Running over {0} {1}.", PlatformInfo.DotNetFramework, PlatformInfo.DotNetFrameworkVersion));
-            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformInfo.GameFramework, PlatformInfo.GameFrameworkVersion, PlatformInfo.GraphicsApi));            
+            Logger.Info(string.Format("Running over {0} {1}.", PlatformManager.DotNetFramework, PlatformManager.DotNetFrameworkVersion));
+            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformManager.GameFramework, PlatformManager.GameFrameworkVersion, PlatformManager.GraphicsApi));            
 
-            using (var game = new SampleGame()) // startup the game.
+            using (var game = new VoxeliqGame()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
-                game.Run();
+                PlatformManager.Startup(game);
             }
         }
 

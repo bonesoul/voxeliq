@@ -5,19 +5,13 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Common.Platform
+namespace VoxeliqEngine.Platforms.Windows
 {
-    public static class VersionInfo
+    public class WindowsHelper : PlatformHelper
     {
-        /// <summary>
-        /// Main assembly version info.
-        /// </summary>
-        public static class Assembly
+        public override void LaunchURI(string url)
         {
-            /// <summary>
-            /// Main assemblies version.
-            /// </summary>
-            public const string Version = "0.2.0.*";
+            System.Diagnostics.Process.Start(url);
         }
     }
 }
