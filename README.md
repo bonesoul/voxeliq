@@ -13,8 +13,11 @@ Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/mas
 - You need to install [XNA](http://www.microsoft.com/en-us/download/details.aspx?id=27599) first. Check the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) for details.
 - You can then compile from sources.
 
-# More info
 
+# What's new?
+- Check the [blog](http://www.int6.org/tag/voxeliq/).
+
+# More info
 <a href='http://www.int6.org/' target='_blank' title='Development Blog'><img src='http://0.gravatar.com/blavatar/4e21d703d81809d215ceaabbf07efbc6?s=16' width='16' height='16'></a>
 <a href='https://github.com/raistlinthewiz/voxeliq' target='_blank' title='Voxeliq@Github'><img src='https://github.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.indiedb.com/engines/voxeliq' target='_blank' title='Voxeliq@IndieDB'><img src='http://www.indiedb.com/favicon.ico' width='16' height='16'></a>
@@ -23,11 +26,6 @@ Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/mas
 <a href='https://www.facebook.com/Int6Studios' target='_blank' title='Voxeliq@Facebook'><img src='https://www.facebook.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.youtube.com/int6games' target='_blank' title='Voxeliq@Youtube'><img src='http://www.youtube.com/favicon.ico' width='16' height='16'></a>
 <a href='http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/' target='_blank' title='Voxeliq@reddit'><img src='http://www.reddit.com/favicon.ico' width='16' height='16'></a>
-
-# What's new?
-- Check the [blog](http://www.int6.org/tag/voxeliq/).
-
-# From the web
 - [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
 - [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
 - [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
