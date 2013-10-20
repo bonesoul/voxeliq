@@ -1,13 +1,13 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Blocks;
+using Engine.Blocks;
 
-namespace VoxeliqEngine.Chunks.Generators.Biomes
+namespace Engine.Chunks.Generators.Biomes
 {
     /// <summary>
     /// Antartic tundra generator.
@@ -22,9 +22,6 @@ namespace VoxeliqEngine.Chunks.Generators.Biomes
             {
                 BlockStorage.Blocks[groundOffset + y].Type = BlockType.Snow;
             }
-
-            if (groundLevel + SnowDepth > chunk.HighestSolidBlockOffset)
-                chunk.HighestSolidBlockOffset = (byte)(groundLevel + SnowDepth);
         }
     }
 }

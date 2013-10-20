@@ -1,11 +1,11 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Blocks
+namespace Engine.Blocks
 {
     /// <summary>
     /// Basic block structure.
@@ -130,6 +130,16 @@ namespace VoxeliqEngine.Blocks
                 default:
                     return BlockTexture.Rock;
             }
+        }
+
+        /// <summary>
+        /// Returns a string that represents block's type.
+        /// </summary>      
+        /// <returns><see cref="string"/></returns>
+        /// <remarks>Used by the Visual Studio debugger.</remarks>
+        public override string ToString()
+        {
+            return this.Type.ToString();
         }
     }
 

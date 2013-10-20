@@ -1,21 +1,20 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
 using System.Collections.Generic;
+using Engine.Blocks;
+using Engine.Common.Vector;
+using Engine.Debugging.Ingame;
+using Engine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
-namespace VoxeliqEngine.Chunks
+namespace Engine.Chunks
 {
     /// <summary>
     /// Unit drawable chunk of blocks.
@@ -30,37 +29,22 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// Chunk width in blocks.
         /// </summary>
-        public static byte WidthInBlocks = 16;
-
-        /// <summary>
-        /// Maximum width index in blocks for chunk.
-        /// </summary>
-        public static byte MaxWidthIndexInBlocks = 15;
+        public static byte WidthInBlocks = Core.Engine.Instance.Configuration.Chunk.WidthInBlocks;
 
         /// <summary>
         /// Chunk lenght in blocks
         /// </summary>
-        public static byte LenghtInBlocks = 16;
-
-        /// <summary>
-        /// Maximum lenght index in blocks for chunk.
-        /// </summary>
-        public static byte MaxLenghtIndexInBlocks = 15;
+        public static byte LenghtInBlocks = Core.Engine.Instance.Configuration.Chunk.LenghtInBlocks;
 
         /// <summary>
         /// Chunk height in blocks.
         /// </summary>
-        public static byte HeightInBlocks = 128;
+        public static byte HeightInBlocks = Core.Engine.Instance.Configuration.Chunk.HeightInBlocks;
 
         /// <summary>
         /// Maximum height index in blocks for chunk.
         /// </summary>
-        public static byte MaxHeightIndexInBlocks = 127;
-
-        /// <summary>
-        /// Chunk volume in blocks.
-        /// </summary>
-        public static readonly int Volume = WidthInBlocks*HeightInBlocks*LenghtInBlocks;
+        public static byte MaxHeightIndexInBlocks = Core.Engine.Instance.Configuration.Chunk.MaxHeightInBlocks;
 
         /// <summary>
         /// The chunks world position.
@@ -82,13 +66,16 @@ namespace VoxeliqEngine.Chunks
         /// </summary>
         public ChunkState ChunkState { get; set; }
 
+        // note: we keep track of highset solid blocks offset and lowest empty block offset
+        // so that we can only generate the mesh for those blocks.
+
         /// <summary>
-        /// Highest solid blocks offset.
+        /// Highest solid block's offset in chunk.
         /// </summary>
         public byte HighestSolidBlockOffset;
 
         /// <summary>
-        /// Lowest empty block offset.
+        /// Lowest empty block's offset in chunk.
         /// </summary>
         public byte LowestEmptyBlockOffset = HeightInBlocks;
 
@@ -116,51 +103,6 @@ namespace VoxeliqEngine.Chunks
         /// TODO: fix comment.
         /// </summary>
         public short Index;
-
-        /// <summary>
-        /// Is the region disposed already?
-        /// </summary>
-        public bool Disposed = false;
-
-        public Chunk North
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk South
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X, this.RelativePosition.Z - 1]; }
-        }
-
-        public Chunk West
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z]; }
-        }
-
-        public Chunk East
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z]; }
-        }
-
-        public Chunk NorthWest
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk NorthEast
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z + 1]; }
-        }
-
-        public Chunk SouthWest
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X - 1, this.RelativePosition.Z - 1]; }
-        }
-
-        public Chunk SouthEast
-        {
-            get { return ChunkStorage.Instance[this.RelativePosition.X + 1, this.RelativePosition.Z - 1]; }
-        }
 
         /// <summary>
         /// Creates a new chunk instance.
@@ -200,64 +142,98 @@ namespace VoxeliqEngine.Chunks
         }
 
         /// <summary>
-        /// Returns the block at given wolrd coordinate.
+        /// Gets a block by given world position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
         public Block BlockAt(int x, int y, int z)
         {
             return BlockStorage.BlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
         /// <summary>
-        /// Returns the block at given wolrd coordinate.
+        /// Gets a block by given world position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public Block FastBlockAt(int x, int y, int z)
         {
             return BlockStorage.FastBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
-
         /// <summary>
-        /// Sets block at given relative position.
+        /// Sets a block by given relative position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="block"></param>
-        public void FastSetBlockAt(byte x, byte y, byte z, Block block)
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <param name="block">Block to set.</param>        
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
+        public void FastSetBlockAt(sbyte x, sbyte y, sbyte z, Block block)
         {
-            switch (block.Exists)
-            {
-                case false:
-                    if (this.LowestEmptyBlockOffset > y && y > 0)
-                        this.LowestEmptyBlockOffset = (byte) (y - 1);
-                    break;
-                case true:
-                    if (y > this.HighestSolidBlockOffset && y < MaxHeightIndexInBlocks)
-                        this.HighestSolidBlockOffset = (byte) (y + 1);
-                    break;
-            }
+            if (x < 0)
+                x += (sbyte)Chunk.WidthInBlocks;
+            if (z < 0)
+                z += (sbyte) Chunk.LenghtInBlocks;
 
             BlockStorage.FastSetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 
+        public void CalculateHeightIndexes()
+        {
+            for (byte x = 0; x < Chunk.WidthInBlocks; x++)
+            {
+                var worldPositionX = this.WorldPosition.X + x;
+
+                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                {
+                    int worldPositionZ = this.WorldPosition.Z + z;
+
+                    var offset = BlockStorage.BlockIndexByWorldPosition(worldPositionX, worldPositionZ);
+                    for (int y = Chunk.MaxHeightIndexInBlocks; y >= 0; y--)
+                    {
+                        if ((y > this.HighestSolidBlockOffset) && (BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.HighestSolidBlockOffset = (byte)y;
+                        }
+                        else if ((this.LowestEmptyBlockOffset > y) && (!BlockStorage.Blocks[offset + y].Exists))
+                        {
+                            this.LowestEmptyBlockOffset = (byte)y;
+                        }
+                    }
+                }
+            }
+
+            this.LowestEmptyBlockOffset--;
+        }
+
+        /// <summary>
+        /// Returns a string that represents chunks relative position and state.
+        /// </summary>      
+        /// <returns><see cref="String"/></returns>
+        /// <remarks>Used by the Visual Studio debugger.</remarks>
         public override string ToString()
         {
-            return RelativePosition.ToString();
+            return string.Format("{0} {1}", RelativePosition, ChunkState);
         }
 
         #region ingame debugger
 
-        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch,
-                                          SpriteFont spriteFont)
+        /// <summary>
+        /// Draws ingame chunk debugger.
+        /// </summary>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="camera"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="spriteFont"></param>
+        public void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
             var position = RelativePosition + " " + this.ChunkState;
             var positionSize = spriteFont.MeasureString(position);
@@ -276,19 +252,17 @@ namespace VoxeliqEngine.Chunks
 
         // IDisposable pattern: http://msdn.microsoft.com/en-us/library/fs2xkftw(v=VS.100).aspx
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-                // Take object out the finalization queue to prevent finalization code for it from executing a second time.
-        }
+        /// <summary>
+        /// Is the region disposed already?
+        /// </summary>
+        public bool Disposed = false;
 
         private void Dispose(bool disposing)
         {
-            if (this.Disposed) return; // if already disposed, just return
+            if (this.Disposed) 
+                return; // if already disposed, just return
 
-            if (disposing)
-                // only dispose managed resources if we're called from directly or in-directly from user code.
+            if (disposing) // only dispose managed resources if we're called from directly or in-directly from user code.
             {
                 this.IndexList.Clear();
                 this.IndexList = null;
@@ -305,12 +279,13 @@ namespace VoxeliqEngine.Chunks
             Disposed = true;
         }
 
-        ~Chunk()
+        public void Dispose()
         {
-            Dispose(false);
+            Dispose(true); // Object being disposed by the code itself, dispose both managed and unmanaged objects.
+            GC.SuppressFinalize(this); // Take object out the finalization queue to prevent finalization code for it from executing a second time.
         }
 
-        // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones.    
+        ~Chunk() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones. 
 
         #endregion
     }

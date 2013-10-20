@@ -1,19 +1,19 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Logging;
-using VoxeliqEngine.Utils.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
 
-namespace VoxeliqEngine.Blocks
+namespace Engine.Blocks
 {
     /// <summary>
     /// Stores all blocks in viewable chunks in a single huge array.
@@ -25,15 +25,17 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         public static Block[] Blocks;
 
-        /// <summary>
-        /// View cache width in blocks.
-        /// </summary>
-        public static int CacheWidthInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.WidthInBlocks;
+        // note: below values should be calculated according to cache-range, using view-range will be buggy.
 
         /// <summary>
-        /// View cache lenght in blocks.
+        /// Cache width in blocks.
         /// </summary>
-        public static int CacheLenghtInBlocks = ((ChunkCache.ViewRange*2) + 1)*Chunk.LenghtInBlocks;
+        public static int CacheWidthInBlocks = ((ChunkCache.CacheRange*2) + 1)*Chunk.WidthInBlocks;
+
+        /// <summary>
+        /// Cache lenght in blocks.
+        /// </summary>
+        public static int CacheLenghtInBlocks = ((ChunkCache.CacheRange * 2) + 1) * Chunk.LenghtInBlocks;
 
         /// <summary>
         /// Flatten offset x step to advance next block in x direction.
@@ -93,6 +95,30 @@ namespace VoxeliqEngine.Blocks
         /// <summary>
         /// Gets a block by given world position.
         /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block BlockAt(Vector3 position)
+        {
+            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        public static Block BlockAt(Vector3Int position)
+        {
+            return BlockAt(position.X, position.Y, position.Z);
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
         /// <param name="x">Block's x world position.</param>
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
@@ -123,26 +149,7 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(Vector3 position)
-        {
-            return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(Vector3Int position)
-        {
-            return BlockAt(position.X, position.Y, position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
         /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public static Block FastBlockAt(Vector3 position)
         {
@@ -154,7 +161,7 @@ namespace VoxeliqEngine.Blocks
         /// </summary>
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
         public static Block FastBlockAt(Vector3Int position)
         {
             return FastBlockAt(position.X, position.Y, position.Z);
@@ -190,7 +197,7 @@ namespace VoxeliqEngine.Blocks
             // calculate the flatten index.
             var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
 
-            // sett the block
+            // set the block
             Blocks[flattenIndex] = block;
         }
 
@@ -226,10 +233,6 @@ namespace VoxeliqEngine.Blocks
         /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
         public static void FastSetBlockAt(int x, int y, int z, Block block)
         {
-            // make sure given coordinates are in chunk cache's bounds.
-            if (!ChunkCache.IsInBounds(x, y, z))
-                return; // if it's out of bounds, just return;
-
             // wrap x coordinate.
             var wrapX = x % CacheWidthInBlocks;
             if (wrapX < 0)

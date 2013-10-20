@@ -1,21 +1,20 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Blocks;
+using Engine.Common.Vector;
+using Engine.Graphics.Texture;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Graphics.PackedVector;
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Texture;
-using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
 // TODO: Document this file!
 
-namespace VoxeliqEngine.Chunks.Processors
+namespace Engine.Chunks.Processors
 {
     public interface IVertexBuilder
     {
@@ -50,11 +49,7 @@ namespace VoxeliqEngine.Chunks.Processors
 
             chunk.ChunkState = ChunkState.Building; // set chunk state to building.
 
-            if (chunk.HighestSolidBlockOffset < Chunk.MaxHeightIndexInBlocks)
-                chunk.HighestSolidBlockOffset++;
-
-            if (chunk.LowestEmptyBlockOffset > 0)
-                chunk.LowestEmptyBlockOffset--;
+            chunk.CalculateHeightIndexes();
 
             chunk.BoundingBox = new BoundingBox(
                 new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), 
@@ -89,7 +84,7 @@ namespace VoxeliqEngine.Chunks.Processors
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
-                    for (byte y = chunk.LowestEmptyBlockOffset; y < chunk.HighestSolidBlockOffset; y++)
+                    for (byte y = chunk.LowestEmptyBlockOffset; y <= chunk.HighestSolidBlockOffset; y++)
                     {
                         var blockIndex = offset + y;
 

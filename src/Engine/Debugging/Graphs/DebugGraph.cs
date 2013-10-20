@@ -1,16 +1,16 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System.Collections.Generic;
+using Engine.Graphics.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Graphics.Drawing;
 
-namespace VoxeliqEngine.Debugging.Graphs
+namespace Engine.Debugging.Graphs
 {
     /// <summary>
     /// DebugGraph is a special graph module that can draw graphs for debugging purposes.
@@ -48,7 +48,7 @@ namespace VoxeliqEngine.Debugging.Graphs
         /// <summary>
         /// Used for drawing the background shape.
         /// </summary>
-        protected readonly Vector2[] Background = new Vector2[4];
+        protected readonly Vector2[] BackgroundPolygon = new Vector2[4];
 
         /// <summary>
         /// Current maximum value.
@@ -132,10 +132,10 @@ namespace VoxeliqEngine.Debugging.Graphs
         public void LoadContent()
         {
             // calculate the coordinates for drawing the background.
-            Background[0] = new Vector2(Bounds.X - 2, Bounds.Y - 2); // top left
-            Background[3] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y - 2); // top right
-            Background[1] = new Vector2(Bounds.X - 2, Bounds.Y + Bounds.Height + 14); // bottom left
-            Background[2] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y + Bounds.Height + 14); // bottom right
+            BackgroundPolygon[0] = new Vector2(Bounds.X - 2, Bounds.Y - 2); // top left
+            BackgroundPolygon[3] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y - 2); // top right
+            BackgroundPolygon[1] = new Vector2(Bounds.X - 2, Bounds.Y + Bounds.Height + 14); // bottom left
+            BackgroundPolygon[2] = new Vector2(Bounds.X + 2 + Bounds.Width, Bounds.Y + Bounds.Height + 14); // bottom right
         }
 
         /// <summary>

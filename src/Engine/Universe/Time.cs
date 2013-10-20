@@ -1,13 +1,13 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     /// <summary>
     /// Processes universe time.
@@ -25,8 +25,8 @@ namespace VoxeliqEngine.Universe
 
         public static float GetGameTimeOfDay()
         {
-            return (float)((DateTime.Now.TimeOfDay.TotalSeconds / GameHourInRealSeconds) % 24); // quick demonstration of day & night cycles.
-            //return 12; // this disables the day & night cycle.
+            //return (float)((DateTime.Now.TimeOfDay.TotalSeconds / GameHourInRealSeconds) % 24); // quick demonstration of day & night cycles.
+            return 12; // this disables the day & night cycle.
         }
     }
 }

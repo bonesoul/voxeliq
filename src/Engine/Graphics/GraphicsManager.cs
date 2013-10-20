@@ -1,14 +1,14 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Graphics
+namespace Engine.Graphics
 {
     /// <summary>
     /// Screen service for controlling screen.
@@ -18,7 +18,7 @@ namespace VoxeliqEngine.Graphics
         /// <summary>
         /// Returns true if game is set to fixed time steps.
         /// </summary>
-        bool IsFixedTimeStep { get; }
+        bool FixedTimeStepsEnabled { get; }
 
         /// <summary>
         /// Returns true if vertical sync is enabled.
@@ -36,9 +36,16 @@ namespace VoxeliqEngine.Graphics
         void ToggleFixedTimeSteps();
 
         /// <summary>
-        /// Toggles vertical sync.
+        /// Sets vertical sync on or off.
         /// </summary>
-        void ToggleVerticalSync();
+        /// <param name="enabled"></param>
+        void EnableVerticalSync(bool enabled);
+
+        /// <summary>
+        /// Sets full screen on or off.
+        /// </summary>
+        /// <param name="enabled"></param>
+        void EnableFullScreen(bool enabled);
     }
 
     /// <summary>
@@ -47,7 +54,7 @@ namespace VoxeliqEngine.Graphics
     public sealed class GraphicsManager : IGraphicsManager
     {
         // settings
-        public bool IsFixedTimeStep { get; private set; } // Returns true if game is set to fixed time steps.
+        public bool FixedTimeStepsEnabled { get; private set; } // Returns true if game is set to fixed time steps.
         public bool VerticalSyncEnabled { get; private set; } // Returns true if vertical sync is enabled.
         public bool FullScreenEnabled { get; private set; } // Returns true if full-screen is enabled.
 
@@ -64,13 +71,13 @@ namespace VoxeliqEngine.Graphics
 
             this._game = game;
             this._graphicsDeviceManager = graphicsDeviceManager;
-            this._game.Services.AddService(typeof (IGraphicsManager), this); // export service.
+            this._game.Services.AddService(typeof(IGraphicsManager), this); // export service.
 
-            this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = GraphicsConfig.Instance.FullScreenEnabled;
-            this._graphicsDeviceManager.PreferredBackBufferWidth = GraphicsConfig.Instance.Width;
-            this._graphicsDeviceManager.PreferredBackBufferHeight = GraphicsConfig.Instance.Height;
-            this.IsFixedTimeStep = this._game.IsFixedTimeStep = false;
-            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = false;
+            this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = Core.Engine.Instance.Configuration.Graphics.FullScreenEnabled;
+            this._graphicsDeviceManager.PreferredBackBufferWidth = Core.Engine.Instance.Configuration.Graphics.Width;
+            this._graphicsDeviceManager.PreferredBackBufferHeight = Core.Engine.Instance.Configuration.Graphics.Height;
+            this.FixedTimeStepsEnabled = this._game.IsFixedTimeStep = Core.Engine.Instance.Configuration.Graphics.FixedTimeStepsEnabled;
+            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = Core.Engine.Instance.Configuration.Graphics.VerticalSyncEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }
 
@@ -79,17 +86,14 @@ namespace VoxeliqEngine.Graphics
         /// </summary>
         public void ToggleFixedTimeSteps()
         {
-            this.IsFixedTimeStep = !this.IsFixedTimeStep;
-            this._game.IsFixedTimeStep = this.IsFixedTimeStep;
+            this.FixedTimeStepsEnabled = !this.FixedTimeStepsEnabled;
+            this._game.IsFixedTimeStep = this.FixedTimeStepsEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }
 
-        /// <summary>
-        /// Toggles vertical syncs.
-        /// </summary>
-        public void ToggleVerticalSync()
+        public void EnableVerticalSync(bool enabled)
         {
-            this.VerticalSyncEnabled = !this.VerticalSyncEnabled;
+            this.VerticalSyncEnabled = enabled;
             this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = this.VerticalSyncEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }

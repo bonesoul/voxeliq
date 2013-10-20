@@ -1,17 +1,20 @@
-﻿using System;
+﻿/*
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
+ *
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
+ * it under the terms of the Microsoft Public License (Ms-PL).
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Engine.Assets;
+using Engine.Debugging.Graphs.Implementations;
+using Engine.Debugging.Graphs.Implementations.ChunkGraphs;
+using Engine.Graphics.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Debugging.Graphs.Implementations;
-using VoxeliqEngine.Debugging.Graphs.Implementations.ChunkGraphs;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Graphics.Drawing;
 
-namespace VoxeliqEngine.Debugging.Graphs
+namespace Engine.Debugging.Graphs
 {
     /// <summary>
     /// GraphManager can render debug graphs.
@@ -31,6 +34,8 @@ namespace VoxeliqEngine.Debugging.Graphs
         private Matrix _localProjection;
         private Matrix _localView;
 
+        private IAssetManager _assetManager;
+
         private readonly List<DebugGraph> _graphs=new List<DebugGraph>(); // the current graphs list.
 
         public GraphManager(Game game)
@@ -42,12 +47,18 @@ namespace VoxeliqEngine.Debugging.Graphs
         public override void Initialize()
         {
             // create the graphs modules.
-            this._graphs.Add(new FPSGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 10, 270, 35)));
-            this._graphs.Add(new MemGraph(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 65, 270, 35)));
-            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 120, 270, 35)));
-            this._graphs.Add(new LightenQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 175, 270, 35)));
-            this._graphs.Add(new BuildQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 230, 270, 35)));
-            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(GraphicsConfig.Instance.Width - 280, 285, 270, 35)));
+            this._graphs.Add(new FPSGraph(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 50, 270, 35)));
+            this._graphs.Add(new MemGraph(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 105, 270, 35)));
+            this._graphs.Add(new GenerateQ(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 160, 270, 35)));
+            this._graphs.Add(new LightenQ(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 215, 270, 35)));
+            this._graphs.Add(new BuildQ(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 270, 270, 35)));
+            this._graphs.Add(new ReadyQ(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 325, 270, 35)));
+            this._graphs.Add(new RemoveQ(this.Game, new Rectangle(Core.Engine.Instance.Configuration.Graphics.Width - 280, 380, 270, 35)));
+
+            // import required services.
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
 
             base.Initialize();
         }
@@ -57,7 +68,7 @@ namespace VoxeliqEngine.Debugging.Graphs
             // init the drawing related objects.
             _primitiveBatch = new PrimitiveBatch(this.GraphicsDevice, 1000);
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _spriteFont = AssetManager.Instance.Verdana;
+            _spriteFont = this._assetManager.Verdana;
             _localProjection = Matrix.CreateOrthographicOffCenter(0f, this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height, 0f, 0f, 1f);
             _localView = Matrix.Identity;           
             
@@ -72,7 +83,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Draw(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Core.Engine.Instance.Configuration.Debugging.GraphsEnabled) // check if graphs are enabled.
                 return;
 
             // backup  the raster and depth-stencil states.
@@ -110,7 +121,7 @@ namespace VoxeliqEngine.Debugging.Graphs
 
         public override void Update(GameTime gameTime)
         {
-            if (!Engine.Settings.Debugging.DebugGraphsEnabled) // check if graphs are enabled.
+            if (!Core.Engine.Instance.Configuration.Debugging.GraphsEnabled) // check if graphs are enabled.
                 return;
 
             foreach (var graph in this._graphs)

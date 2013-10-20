@@ -1,14 +1,14 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Chunks.Generators.Biomes;
+using Engine.Blocks;
+using Engine.Chunks.Generators.Biomes;
 
-namespace VoxeliqEngine.Chunks.Generators.Terrain
+namespace Engine.Chunks.Generators.Terrain
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.
@@ -17,7 +17,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
     {
         private const byte DirtHeight = 1;
 
-        public FlatDebugTerrain(BiomeGenerator biomeGenerator) 
+        public FlatDebugTerrain(BiomeGenerator biomeGenerator)
             : base(biomeGenerator)
         { }
 
@@ -33,11 +33,8 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
             }
 
-            chunk.HighestSolidBlockOffset = DirtHeight - 1;
-            chunk.LowestEmptyBlockOffset = 0;
-
             // apply the biome generator on x-z column.
             this.BiomeGenerator.ApplyBiome(chunk, DirtHeight - 1, offset + DirtHeight - 1, worldPositionX + this.Seed, worldPositionZ);
-        }     
+        }
     }
 }

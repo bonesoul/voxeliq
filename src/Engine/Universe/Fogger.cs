@@ -1,37 +1,33 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Debugging.Console;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     public interface IFogger
     {
         /// <summary>
         /// Fog state.
         /// </summary>
-        FogState State { get; }
+        FogState State { get; set; }
 
         /// <summary>
         /// Fog vector value for current fog-state.
         /// </summary>
         Vector2 FogVector { get; }
-
-        /// <summary>
-        /// Fog vectors.
-        /// </summary>
-        void ToggleFog();
     }
 
     public class Fogger : GameComponent, IFogger
     {
-        public FogState State { get; private set; }
+        public FogState State { get; set; }
 
         public Vector2 FogVector
         {
@@ -55,25 +51,6 @@ namespace VoxeliqEngine.Universe
             this.State = FogState.None;
             this.Game.Services.AddService(typeof (IFogger), this);
         }
-
-        /// <summary>
-        /// Toggles fog to near, far and none.
-        /// </summary>
-        public void ToggleFog()
-        {
-            switch (this.State)
-            {
-                case FogState.None:
-                    this.State = FogState.Near;
-                    break;
-                case FogState.Near:
-                    this.State = FogState.Far;
-                    break;
-                case FogState.Far:
-                    this.State = FogState.None;
-                    break;
-            }
-        }
     }
 
     /// <summary>
@@ -84,5 +61,44 @@ namespace VoxeliqEngine.Universe
         None,
         Near,
         Far
+    }
+
+    [Command("fog", "Sets fog mode.\nusage: fog [off|near|far]")]
+    public class FoggerCommand : Command
+    {
+        private IFogger _fogger;
+
+        public FoggerCommand()
+        {
+            this._fogger = (IFogger)Core.Engine.Instance.Game.Services.GetService(typeof(IFogger));
+        }
+
+        [DefaultCommand]
+        public string Default(string[] @params)
+        {
+            return string.Format("Fog is currently set to {0} mode.\nusage: fog [off|near|far]",
+                                 this._fogger.State.ToString().ToLower());
+        }
+
+        [Subcommand("off", "Sets fog to off.")]
+        public string Off(string[] @params)
+        {
+            this._fogger.State = FogState.None;
+            return "Fog is off.";
+        }
+
+        [Subcommand("near", "Sets fog to near.")]
+        public string Near(string[] @params)
+        {
+            this._fogger.State = FogState.Near;
+            return "Fog is near.";
+        }
+
+        [Subcommand("far", "Sets fog to far.")]
+        public string Far(string[] @params)
+        {
+            this._fogger.State = FogState.Far;
+            return "Fog is far.";
+        }
     }
 }

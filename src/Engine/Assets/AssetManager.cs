@@ -1,17 +1,16 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
-using System.Collections.Generic;
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Assets
+namespace Engine.Assets
 {
     /// <summary>
     /// Asset manager that loads assets at the very first loading.
@@ -37,6 +36,7 @@ namespace VoxeliqEngine.Assets
         Texture2D CrossHairShovelTexture { get; }
         Texture2D CloudMapTexture { get; }
         Texture2D StarMapTexture { get; }
+        Texture2D CloudTexture { get; }
 
         SpriteFont Verdana { get; }
     }
@@ -65,30 +65,38 @@ namespace VoxeliqEngine.Assets
         public Texture2D CrossHairShovelTexture { get; private set; }
         public Texture2D CloudMapTexture { get; private set; }
         public Texture2D StarMapTexture { get; private set; }
+        public Texture2D CloudTexture { get; private set; }
 
         public SpriteFont Verdana { get; private set; }
 
+        // MonoGame requires specially compiled shaders with mgfxo extension. 
 #if MONOGAME
-        private const string EffectShaderExtension = ".mgfxo";
+        private const string EffectShaderExtension = ".mgfxo"; 
 #else 
         private const string EffectShaderExtension = ""; 
 #endif
 
         private static readonly Logger Logger = LogManager.CreateLogger(); // the logger.
 
+        //Creates a new asset manager instance.
         public AssetManager(Game game)
             : base(game)
         {
             this.Game.Services.AddService(typeof(IAssetManager), this); // export service.   
-            _instance = this;
         }
 
+        /// <summary>
+        /// Initializes the asset manager.
+        /// </summary>
         public override void Initialize()
         {
             this.LoadContent();
             base.Initialize();
         }
 
+        /// <summary>
+        /// Loads required assets.
+        /// </summary>
         public void LoadContent()
         {
             try
@@ -112,6 +120,7 @@ namespace VoxeliqEngine.Assets
                 this.CrossHairShovelTexture = Game.Content.Load<Texture2D>(@"Textures/Crosshairs/Shovel");
                 this.CloudMapTexture = Game.Content.Load<Texture2D>(@"Textures/cloudmap");
                 this.StarMapTexture = Game.Content.Load<Texture2D>(@"Textures/starmap");
+                this.CloudTexture = Game.Content.Load<Texture2D>(@"Textures/cloud-texture");
 
                 this.Verdana = Game.Content.Load<SpriteFont>(@"Fonts/Verdana");
             }
@@ -123,16 +132,15 @@ namespace VoxeliqEngine.Assets
             }
         }
 
+        /// <summary>
+        /// Loads an effect shared file.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private Effect LoadEffectShader(string path)
         {
+            // Note that monogame requires special compiled shaders with mgfxo extension.
             return this.Game.Content.Load<Effect>(path + EffectShaderExtension);
-        }
-
-        private static AssetManager _instance; // the instance.
-
-        public static AssetManager Instance
-        {
-            get { return _instance; }
         }
     }
 }

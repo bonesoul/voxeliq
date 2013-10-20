@@ -20,9 +20,9 @@ Texture BlockTextureAtlas;
 sampler BlockTextureAtlasSampler = sampler_state
 {
 	texture = <BlockTextureAtlas>;
-	magfilter = POINT; // filter for objects smaller than actual.
-	minfilter = POINT; // filter for objects larger than actual.
-	mipfilter = POINT; // filter for resizing the image up close and far away.
+	magfilter = point; // filter for objects smaller than actual.
+	minfilter = point; // filter for objects larger than actual.
+	mipfilter = point; // filter for resizing the image up close and far away.
 	AddressU = WRAP;
 	AddressV = WRAP;
 };

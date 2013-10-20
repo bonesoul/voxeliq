@@ -1,7 +1,7 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
@@ -9,12 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Audio
+namespace Engine.Audio
 {
     enum AmbientMusic
     {
@@ -65,10 +65,10 @@ namespace VoxeliqEngine.Audio
 
         private void AmbientMusicLoop()
         {
-            if (!AudioConfig.Instance.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
-            while(true)
+            while (true)
             {
                 if (this._currentAmbientMusic == null || this._currentAmbientMusic.IsDisposed || this._currentAmbientMusic.State == SoundState.Playing)
                 {
@@ -82,12 +82,14 @@ namespace VoxeliqEngine.Audio
 
         private void PlayBackroundSong()
         {
-            if (!AudioConfig.Instance.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
+            #if !MONOGAME
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(this._backgroundSong);
             MediaPlayer.Volume = 0.3f;
+            #endif
         }
 
         private void PlayRandomAmbientMusic()

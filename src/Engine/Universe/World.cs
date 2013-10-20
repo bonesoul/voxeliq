@@ -1,17 +1,17 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
+using Engine.Graphics;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
-using VoxeliqEngine.Utils.Vector;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     /// <summary>
     /// World service interface.
@@ -66,15 +66,11 @@ namespace VoxeliqEngine.Universe
             Logger.Trace("init()");
 
             // import required services.
-            this._cameraController =
-                (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
+            this._cameraController = (ICameraControlService) this.Game.Services.GetService(typeof (ICameraControlService));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
 
-            //this.ChunkBuilder = new QueuedBuilder(this.Game, this._player, this); // the chunk builder.        
-            //this.Game.Components.Add(this.ChunkBuilder);
-
             this._cameraController.LookAt(Vector3.Down);
-            this._player.SpawnPlayer(new Vector2Int(1000, 1000));
+            this._player.SpawnPlayer(new Vector2Int(0, 0));
 
             base.Initialize();
         }

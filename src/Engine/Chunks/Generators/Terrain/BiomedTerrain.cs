@@ -1,15 +1,15 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Chunks.Generators.Biomes;
-using VoxeliqEngine.Utils.Randomization.Procedural;
+using Engine.Blocks;
+using Engine.Chunks.Generators.Biomes;
+using Engine.Common.Noise;
 
-namespace VoxeliqEngine.Chunks.Generators.Terrain
+namespace Engine.Chunks.Generators.Terrain
 {
     /// <summary>
     /// A basic terrain generator that supports biomes.
@@ -19,7 +19,7 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         /// <summary>
         /// Sets or gets assigned biome generator.
         /// </summary>
-        protected BiomeGenerator BiomeGenerator { get; private set; }       
+        public BiomeGenerator BiomeGenerator { get; private set; }
 
         /// <summary>
         /// Creates a new biomed terrain instance with given biome generator.
@@ -56,17 +56,14 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
                 if (y > dirtHeight) // air
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.None);
-                    if (chunk.LowestEmptyBlockOffset > y) chunk.LowestEmptyBlockOffset = (byte)y;
                 }
                 else if (y > rockHeight) // dirt level
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Dirt);
-                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
                 else // rock level
                 {
                     BlockStorage.Blocks[offset + y] = new Block(BlockType.Rock);
-                    if (y > chunk.HighestSolidBlockOffset) chunk.HighestSolidBlockOffset = (byte)y;
                 }
             }
 
@@ -78,9 +75,9 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         {
             blockX += this.Seed;
 
-            float octave1 = SimplexNoise.noise((blockX + 100) * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
-            float octave2 = SimplexNoise.noise((blockX + 100) * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
-            float octave3 = SimplexNoise.noise((blockX + 100) * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
+            float octave1 = SimplexNoise.noise(blockX * 0.001f, this.Seed, blockZ * 0.001f) * 0.5f;
+            float octave2 = SimplexNoise.noise(blockX * 0.002f, this.Seed, blockZ * 0.002f) * 0.25f;
+            float octave3 = SimplexNoise.noise(blockX * 0.01f, this.Seed, blockZ * 0.01f) * 0.25f;
             float octaveSum = octave1 + octave2 + octave3;
 
             return (int)(octaveSum * (Chunk.HeightInBlocks / 8)) + (int)(rockHeight);
@@ -90,15 +87,15 @@ namespace VoxeliqEngine.Chunks.Generators.Terrain
         {
             blockX += this.Seed;
 
-            int minimumGroundheight = Chunk.HeightInBlocks/2;
-            int minimumGroundDepth = (int) (Chunk.HeightInBlocks*0.4f);
+            int minimumGroundheight = Chunk.HeightInBlocks / 2;
+            int minimumGroundDepth = (int)(Chunk.HeightInBlocks * 0.4f);
 
-            float octave1 = SimplexNoise.noise(blockX * 0.0001f, this.Seed, blockZ * 0.0001f) * 0.5f;
-            float octave2 = SimplexNoise.noise(blockX * 0.0005f, this.Seed, blockZ * 0.0005f) * 0.35f;
+            float octave1 = SimplexNoise.noise(blockX * 0.004f, this.Seed, blockZ * 0.004f) * 0.5f;
+            float octave2 = SimplexNoise.noise(blockX * 0.003f, this.Seed, blockZ * 0.003f) * 0.25f;
             float octave3 = SimplexNoise.noise(blockX * 0.02f, this.Seed, blockZ * 0.02f) * 0.15f;
             float lowerGroundHeight = octave1 + octave2 + octave3;
 
-            lowerGroundHeight = lowerGroundHeight*minimumGroundDepth + minimumGroundheight;
+            lowerGroundHeight = lowerGroundHeight * minimumGroundDepth + minimumGroundheight;
 
             return lowerGroundHeight;
         }

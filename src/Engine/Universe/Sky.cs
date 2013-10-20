@@ -1,18 +1,18 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
+using Engine.Assets;
+using Engine.Common.Logging;
+using Engine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     /// <summary>
     /// Allows interaction with sky service.
@@ -33,20 +33,9 @@ namespace VoxeliqEngine.Universe
         // settings
         private bool _dynamicCloudsEnabled;
 
-        /// <summary>
-        /// Sky dome model
-        /// </summary>
-        private Model _skyDome;
-
-        /// <summary>
-        /// Cloud map.
-        /// </summary>
-        private Texture2D _cloudMap;
-
-        /// <summary>
-        /// Star map.
-        /// </summary>
-        private Texture2D _starMap;
+        private Model _skyDome; // Sky dome model
+        private Texture2D _cloudMap; // Cloud map.
+        private Texture2D _starMap; // Star map.
 
         private Texture2D _staticCloudMap; // gpu generated cloud maps.
         private Effect _perlinNoiseEffect; // noise used for generating clouds.
@@ -70,6 +59,7 @@ namespace VoxeliqEngine.Universe
 
         // required services.
         private ICamera _camera;
+        private IAssetManager _assetManager;
 
         public Sky(Game game, bool enableDynamicClouds = true)
             : base(game)
@@ -85,6 +75,10 @@ namespace VoxeliqEngine.Universe
             // import require services.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
 
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
+
             base.Initialize();
         }
 
@@ -93,15 +87,15 @@ namespace VoxeliqEngine.Universe
             // load required assets.
 
             // load the dome.
-            this._skyDome = AssetManager.Instance.SkyDomeModel;
-            this._skyDome.Meshes[0].MeshParts[0].Effect = AssetManager.Instance.SkyDomeEffect;
+            this._skyDome = this._assetManager.SkyDomeModel;
+            this._skyDome.Meshes[0].MeshParts[0].Effect = this._assetManager.SkyDomeEffect;
 
             // load maps.
-            this._cloudMap = AssetManager.Instance.CloudMapTexture;
-            this._starMap = AssetManager.Instance.StarMapTexture;
+            this._cloudMap = this._assetManager.CloudMapTexture;
+            this._starMap = this._assetManager.StarMapTexture;
 
             // for gpu generated clouds.
-            this._perlinNoiseEffect = AssetManager.Instance.PerlinNoiseEffect;
+            this._perlinNoiseEffect = this._assetManager.PerlinNoiseEffect;
             var presentationParameters = GraphicsDevice.PresentationParameters;
 
             this._cloudsRenderTarget = new RenderTarget2D(GraphicsDevice, presentationParameters.BackBufferWidth,presentationParameters.BackBufferHeight, false, SurfaceFormat.Color, DepthFormat.None); // the mipmap does not work on all configurations            

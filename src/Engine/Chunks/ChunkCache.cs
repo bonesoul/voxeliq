@@ -1,29 +1,28 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
+using Engine.Assets;
+using Engine.Blocks;
+using Engine.Chunks.Generators.Biomes;
+using Engine.Chunks.Generators.Terrain;
+using Engine.Chunks.Processors;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
+using Engine.Debugging.Timing;
+using Engine.Graphics;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Chunks.Generators.Biomes;
-using VoxeliqEngine.Chunks.Generators.Terrain;
-using VoxeliqEngine.Chunks.Processors;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Profiling;
-using VoxeliqEngine.Engine;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Logging;
-using VoxeliqEngine.Universe;
-using VoxeliqEngine.Utils.Vector;
 
-namespace VoxeliqEngine.Chunks
+namespace Engine.Chunks
 {
     public interface IChunkCache
     {
@@ -74,24 +73,26 @@ namespace VoxeliqEngine.Chunks
     }
 
     /// <summary>
-    /// The chunk cache & manager.
+    /// The chunk cache that consists of two seperate caches, one for chunks in view range, one for chunks in cache range.
     /// </summary>
     public class ChunkCache : DrawableGameComponent, IChunkCache
     {
         /// <summary>
-        /// Range of viewable chunks.
+        /// Range of cached chunk which can be greater than the view range. 
+        /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public const byte ViewRange = 10;
+        public static byte CacheRange = Core.Engine.Instance.Configuration.Cache.CacheRange;
+
+        /// <summary>
+        /// Range of viewable chunks by the player.
+        /// Chunks in view range will be always generated, lightend and built.
+        /// </summary>
+        public static byte ViewRange = Core.Engine.Instance.Configuration.Cache.ViewRange;
 
         /// <summary>
         /// Bounding box for view range.
         /// </summary>
         public BoundingBox ViewRangeBoundingBox { get; set; }
-
-        /// <summary>
-        /// Chunk range cache.
-        /// </summary>
-        public const byte CacheRange = 10;
 
         /// <summary>
         /// Bounding box for cache range.
@@ -116,7 +117,7 @@ namespace VoxeliqEngine.Chunks
         /// <summary>
         /// The terrain generator.
         /// </summary>
-        protected TerrainGenerator Generator { get; set; }
+        public TerrainGenerator Generator { get; set; }
 
         /// <summary>
         /// The chunk vertex builder.
@@ -128,13 +129,13 @@ namespace VoxeliqEngine.Chunks
         private ICamera _camera;
         private IPlayer _player;
         private IFogger _fogger;
+        private IAssetManager _assetManager;
         private TimeRuler _timeRuler;
 
         public bool CacheThreadStarted { get; private set; }
 
         public Dictionary<ChunkState, int> StateStatistics { get; private set; }
 
-        // misc.
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility.
 
         public ChunkCache(Game game)
@@ -142,9 +143,12 @@ namespace VoxeliqEngine.Chunks
         {
             this.Game.Services.AddService(typeof (IChunkCache), this); // export service.
 
+            if (ViewRange > CacheRange) // check if cache range is big enough to include view-range.
+                throw new ChunkCacheException(); 
+
             this.CacheThreadStarted = false;
 
-            this.StateStatistics = new Dictionary<ChunkState, int>
+            this.StateStatistics = new Dictionary<ChunkState, int> // init. the debug stastics.
                                        {
                                            {ChunkState.AwaitingGenerate, 0},
                                            {ChunkState.Generating, 0},
@@ -168,8 +172,12 @@ namespace VoxeliqEngine.Chunks
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._fogger = (IFogger) this.Game.Services.GetService(typeof (IFogger));
-            this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));
+            this.VertexBuilder = (IVertexBuilder) this.Game.Services.GetService(typeof (IVertexBuilder));            
             this._timeRuler = (TimeRuler) this.Game.Services.GetService(typeof (TimeRuler));
+
+            this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            if (this._assetManager == null)
+                throw new NullReferenceException("Can not find asset manager component.");
 
             this.Generator = new BiomedTerrain(new RainForest());
             base.Initialize();
@@ -177,16 +185,26 @@ namespace VoxeliqEngine.Chunks
 
         protected override void LoadContent()
         {
-            this._blockEffect = AssetManager.Instance.BlockEffect;
-            this._blockTextureAtlas = AssetManager.Instance.BlockTextureAtlas;
-            this._crackTextureAtlas = AssetManager.Instance.CrackTextureAtlas;
+            this._blockEffect = this._assetManager.BlockEffect;
+            this._blockTextureAtlas = this._assetManager.BlockTextureAtlas;
+            this._crackTextureAtlas = this._assetManager.CrackTextureAtlas;
         }
 
+        /// <summary>
+        /// Returns a boolean stating if chunk is current in view range.
+        /// </summary>
+        /// <param name="chunk">Chunk to check.</param>
+        /// <returns><see cref="bool"/></returns>
         public bool IsChunkInViewRange(Chunk chunk)
         {
             return ViewRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
         }
 
+        /// <summary>
+        /// Returns a boolean stating if chunk is current in cache range.
+        /// </summary>
+        /// <param name="chunk">Chunk to check.</param>
+        /// <returns><see cref="bool"/></returns>
         public bool IsChunkInCacheRange(Chunk chunk)
         {
             return CacheRangeBoundingBox.Contains(chunk.BoundingBox) == ContainmentType.Contains;
@@ -194,30 +212,33 @@ namespace VoxeliqEngine.Chunks
 
         public override void Update(GameTime gameTime)
         {
+            this.UpdateBoundingBoxes();
+
+            if (this.CacheThreadStarted) 
+                return;
+
+            var cacheThread = new Thread(CacheThread) {IsBackground = true};
+            cacheThread.Start();
+
+            this.CacheThreadStarted = true;
+        }
+
+        protected void UpdateBoundingBoxes()
+        {
             this.ViewRangeBoundingBox = new BoundingBox(
-                new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (ViewRange*Chunk.LenghtInBlocks)),
-                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1)*Chunk.WidthInBlocks),
-                            Chunk.HeightInBlocks,
-                            this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1)*Chunk.LenghtInBlocks))
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1)*Chunk.WidthInBlocks),
+                            Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1)*Chunk.LenghtInBlocks))
                 );
 
             this.CacheRangeBoundingBox = new BoundingBox(
-                new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
                             this._player.CurrentChunk.WorldPosition.Z - (CacheRange*Chunk.LenghtInBlocks)),
-                new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
+                        new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
                             Chunk.HeightInBlocks,
                             this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
                 );
-
-                if (!this.CacheThreadStarted)
-                {
-                    var cacheThread = new Thread(CacheThread) {IsBackground = true};
-                    cacheThread.Start();
-
-                    this.CacheThreadStarted = true;
-                }
-
         }
 
         private void CacheThread()
@@ -233,26 +254,10 @@ namespace VoxeliqEngine.Chunks
 
         protected void Process()
         {
-            this.StateStatistics[ChunkState.AwaitingGenerate] = 0;
-            this.StateStatistics[ChunkState.Generating] = 0;
-            this.StateStatistics[ChunkState.AwaitingLighting] = 0;
-            this.StateStatistics[ChunkState.Lighting] = 0;
-            this.StateStatistics[ChunkState.AwaitingBuild] = 0;
-            this.StateStatistics[ChunkState.Building] = 0;
-            this.StateStatistics[ChunkState.Ready] = 0;
-            this.StateStatistics[ChunkState.AwaitingRelighting] = 0;
-            this.StateStatistics[ChunkState.AwaitingRebuild] = 0;
-            this.StateStatistics[ChunkState.AwaitingRemoval] = 0;
-
-
-            Profiler.Start("chunk-cache-loop");
-            //this._timeRuler.BeginMark(1,"Chunk Cache", Color.Green);
             foreach (var chunk in this._chunkStorage.Values)
             {
                 if (this.IsChunkInViewRange(chunk))
-                {
                     this.ProcessChunkInViewRange(chunk);
-                }
                 else
                 {
                     if (this.IsChunkInCacheRange(chunk))
@@ -264,16 +269,9 @@ namespace VoxeliqEngine.Chunks
                         chunk.Dispose();
                     }
                 }
-
-                this.StateStatistics[chunk.ChunkState]++;
             }
-            //this._timeRuler.EndMark(1, "Chunk Cache");
-            Profiler.Stop("chunk-cache-loop");
 
-            //if (Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds > 10)
-                //Console.WriteLine("chunk-cache-loop:" + Profiler.Timers["chunk-cache-loop"].ElapsedMilliseconds);
-
-            if (Settings.World.IsInfinitive)
+            if (Core.Engine.Instance.Configuration.World.IsInfinitive)
                 this.RecacheChunks();
         }
 
@@ -303,12 +301,19 @@ namespace VoxeliqEngine.Chunks
                                 (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
         }
 
+        /// <summary>
+        /// Processes chunks in cache range and generates or lightens them.
+        /// </summary>
+        /// <param name="chunk"><see cref="Chunk"/></param>
+        /// <remarks>Note that chunks in cache range only gets generated or lightened. They are built once they get in view-range.</remarks>
         private void ProcessChunkInCacheRange(Chunk chunk)
         {
-            if (chunk.ChunkState == ChunkState.Ready || chunk.ChunkState != ChunkState.AwaitingGenerate)
-                return;
+            if (chunk.ChunkState != ChunkState.AwaitingGenerate && chunk.ChunkState != ChunkState.AwaitingLighting)
+                return; // only generate or lighten the chunks.
 
-            switch (chunk.ChunkState) // switch on the chunk state.
+            // note: we don't care about chunks that await re-lighting because re-lightig only occurs a chunk gets modified.       
+
+            switch (chunk.ChunkState)
             {
                 case ChunkState.AwaitingGenerate:
                     Generator.Generate(chunk);
@@ -358,11 +363,7 @@ namespace VoxeliqEngine.Chunks
             _blockEffect.Parameters["CameraPosition"].SetValue(this._camera.Position);
 
             // texture parameters
-#if XNA
             _blockEffect.Parameters["BlockTextureAtlas"].SetValue(_blockTextureAtlas);
-#elif MONOGAME
-            _blockEffect.Parameters["BlockTextureAtlasSampler"].SetValue(_blockTextureAtlas);
-#endif
 
             // atmospheric settings
             _blockEffect.Parameters["SunColor"].SetValue(World.SunColor);
@@ -408,11 +409,28 @@ namespace VoxeliqEngine.Chunks
                     this.ChunksDrawn++;
                 }
             }
+
+            this.StateStatistics[ChunkState.AwaitingGenerate] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingGenerate);
+            this.StateStatistics[ChunkState.Generating] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Generating);
+            this.StateStatistics[ChunkState.AwaitingLighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingLighting);
+            this.StateStatistics[ChunkState.Lighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Lighting);
+            this.StateStatistics[ChunkState.AwaitingRelighting] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRelighting);
+            this.StateStatistics[ChunkState.AwaitingBuild] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingBuild);
+            this.StateStatistics[ChunkState.Building] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Building);
+            this.StateStatistics[ChunkState.AwaitingRebuild] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRebuild);
+            this.StateStatistics[ChunkState.Ready] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.Ready);
+            this.StateStatistics[ChunkState.AwaitingRemoval] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRemoval);
         }
 
         // Returns the chunk in given x-z position.
         public Chunk GetChunk(int x, int z)
         {
+            if (x < 0)
+                x -= Chunk.WidthInBlocks;
+
+            if (z < 0)
+                z -= Chunk.LenghtInBlocks;
+
             return !this._chunkStorage.ContainsKey(x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks) ? null : this._chunkStorage[x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks];
         }
 
@@ -429,7 +447,7 @@ namespace VoxeliqEngine.Chunks
             if (chunk == null)
                 return;
 
-            chunk.FastSetBlockAt((byte) (x%Chunk.WidthInBlocks), (byte) y, (byte) (z%Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
+            chunk.FastSetBlockAt((sbyte)(x % Chunk.WidthInBlocks), (sbyte)y, (sbyte)(z % Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
         }
 
         /// <summary>
@@ -448,5 +466,11 @@ namespace VoxeliqEngine.Chunks
 
             return true;
         }
+    }
+
+    public class ChunkCacheException : Exception
+    {
+        public ChunkCacheException() : base("View range can not be larger than cache range!")
+        { }
     }
 }
