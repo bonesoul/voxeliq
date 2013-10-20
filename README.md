@@ -6,13 +6,14 @@ voxeliq is an open source block-based game engine implementation developed with 
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
 Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/master/LICENSE) for licensing details.
 
+# Why?
+We would like to develop an open-source and 100% moddable blocky-game which will run on any platform that [Mono](http://www.mono-project.com/Main_Page) can. Though we are still far away from being complete which means you are more then welcome to contribute!
+
 # Stay awhile and listen
 - Read the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) and check the [wiki](https://github.com/raistlinthewiz/voxeliq/wiki) before asking!
 
 # How to run & test?
 - You need to install [XNA](http://www.microsoft.com/en-us/download/details.aspx?id=27599) first. Check the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) for details.
-- You can then compile from sources.
-
 
 # What's new?
 - Check the [blog](http://www.int6.org/tag/voxeliq/).
@@ -30,7 +31,7 @@ Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/mas
 - [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
 - [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
 
-# DevLog Videos
+# devlog
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
 - [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
 - [Devlog-VII - Bloom Effect](http://www.youtube.com/watch?v=xTvzKK2TqmQ)
