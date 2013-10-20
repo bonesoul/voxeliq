@@ -64,17 +64,17 @@
     <Compile Include="Chunks\ChunkStorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Voxeliq.Windows.XNA.DX9.Engine.csproj">
-      <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>Voxeliq.Windows.XNA.DX9.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\game\Voxeliq.Windows.XNA.DX9.Client.csproj">
-      <Project>{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}</Project>
-      <Name>Voxeliq.Windows.XNA.DX9.Client</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Engine\Voxeliq.Windows.Monogame.DX11.Engine.csproj">
+      <Project>{121e6761-22f9-4401-a1e3-3e4fa72ae149}</Project>
+      <Name>Voxeliq.Windows.Monogame.DX11.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\game\Voxeliq.Windows.Monogame.DX11.Client.csproj">
+      <Project>{72be671f-8476-4c25-b6bd-48dfe25e9ccf}</Project>
+      <Name>Voxeliq.Windows.Monogame.DX11.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
