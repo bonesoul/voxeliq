@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Engine</RootNamespace>
+    <AssemblyName>Engine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>696a1687-6361-40bf-94dd-3e3a8cab37d4</XnaCrossPlatformGroupID>
+    <XnaOutputType>Library</XnaOutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug\windows\monogame\directx\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WINDOWS, MONOGAME, DIRECTX11, DESKTOP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release\windows\monogame\directx\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS, MONOGAME</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dep\monogame\windowsDX\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="Nini">
+      <HintPath>..\..\dep\nini\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\BlockStorage.cs" />
+    <Compile Include="Blocks\BlockVertex.cs" />
+    <Compile Include="Blocks\PositionedBlock.cs" />
+    <Compile Include="Chunks\Chunk.cs" />
+    <Compile Include="Chunks\ChunkCache.cs" />
+    <Compile Include="Chunks\ChunkState.cs" />
+    <Compile Include="Chunks\ChunkStorage.cs" />
+    <Compile Include="Chunks\Generators\Biomes\AntarticTundra.cs" />
+    <Compile Include="Chunks\Generators\Biomes\BiomeGenerator.cs" />
+    <Compile Include="Chunks\Generators\Biomes\Desert.cs" />
+    <Compile Include="Chunks\Generators\Biomes\RainForest.cs" />
+    <Compile Include="Chunks\Generators\Terrain\BiomedTerrain.cs" />
+    <Compile Include="Chunks\Generators\Terrain\FlatDebugTerrain.cs" />
+    <Compile Include="Chunks\Generators\Terrain\MountainousTerrain.cs" />
+    <Compile Include="Chunks\Generators\Terrain\TerrainGenerator.cs" />
+    <Compile Include="Chunks\Generators\Terrain\ValleyTerrain.cs" />
+    <Compile Include="Chunks\Populators\TreePopulator.cs" />
+    <Compile Include="Chunks\Processors\Lightning.cs" />
+    <Compile Include="Chunks\Processors\VertexBuilder.cs" />
+    <Compile Include="Common\DoubleIndexedDictionary.cs" />
+    <Compile Include="Common\Extensions\ArrayExtensions.cs" />
+    <Compile Include="Common\Extensions\BigIntegerExtensions.cs" />
+    <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Common\Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Common\Extensions\ListExtensions.cs" />
+    <Compile Include="Common\Extensions\NumberExtensions.cs" />
+    <Compile Include="Common\Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Common\Extensions\StringExtensions.cs" />
+    <Compile Include="Common\Helpers\ConcurrentList.cs" />
+    <Compile Include="Common\Helpers\IO\FileHelper.cs" />
+    <Compile Include="Common\Logging\ConsoleTarget.cs" />
+    <Compile Include="Common\Logging\FileTarget.cs" />
+    <Compile Include="Common\Logging\Logger.cs" />
+    <Compile Include="Common\Logging\LogManager.cs" />
+    <Compile Include="Common\Logging\LogRouter.cs" />
+    <Compile Include="Common\Logging\LogTarget.cs" />
+    <Compile Include="Common\Math\MathHelper.cs" />
+    <Compile Include="Common\Noise\PerlinNoise.cs" />
+    <Compile Include="Common\Noise\SimplexNoise.cs" />
+    <Compile Include="Common\Randomization\FastRandom.cs" />
+    <Compile Include="Common\Randomization\RandomHelper.cs" />
+    <Compile Include="Common\SparseMatrix.cs" />
+    <Compile Include="Common\Vector\Vector2Int.cs" />
+    <Compile Include="Common\Vector\Vector3Int.cs" />
+    <Compile Include="Common\Vector\Vector4Byte.cs" />
+    <Compile Include="Core\Config\AudioConfig.cs" />
+    <Compile Include="Core\Config\BloomConfig.cs" />
+    <Compile Include="Core\Config\CacheConfig.cs" />
+    <Compile Include="Core\Config\ChunkConfig.cs" />
+    <Compile Include="Core\Config\DebugConfig.cs" />
+    <Compile Include="Core\Config\EngineConfig.cs" />
+    <Compile Include="Core\Config\GraphicsConfig.cs" />
+    <Compile Include="Core\Config\WorldConfig.cs" />
+    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Debugging\Commands.cs" />
+    <Compile Include="Debugging\Console\Command.cs" />
+    <Compile Include="Debugging\Console\CommandAttributes.cs" />
+    <Compile Include="Debugging\Console\CommandHistory.cs" />
+    <Compile Include="Debugging\Console\CommandManager.cs" />
+    <Compile Include="Debugging\Console\CommandProcesser.cs" />
+    <Compile Include="Debugging\Console\GameConsole.cs" />
+    <Compile Include="Debugging\Console\GameConsoleComponent.cs" />
+    <Compile Include="Debugging\Console\GameConsoleOptions.cs" />
+    <Compile Include="Debugging\Console\InputProcessor.cs" />
+    <Compile Include="Debugging\Console\KeyEventArgs.cs" />
+    <Compile Include="Debugging\Console\OutputLine.cs" />
+    <Compile Include="Debugging\Console\Renderer.cs" />
+    <Compile Include="Debugging\DebugBar.cs" />
+    <Compile Include="Debugging\Graphs\DebugGraph.cs" />
+    <Compile Include="Debugging\Graphs\GraphManager.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\BuildQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\GenerateQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\LightenQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\ReadyQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\ChunkGraphs\RemoveQ.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\FPSGraph.cs" />
+    <Compile Include="Debugging\Graphs\Implementations\MemGraph.cs" />
+    <Compile Include="Debugging\Ingame\BoundingBoxRenderer.cs" />
+    <Compile Include="Debugging\Ingame\InGameDebugger.cs" />
+    <Compile Include="Debugging\Profiling\Profiler.cs" />
+    <Compile Include="Debugging\Timing\Layout.cs" />
+    <Compile Include="Debugging\Timing\TimeRuler.cs" />
+    <Compile Include="Graphics\Camera.cs" />
+    <Compile Include="Graphics\Commands.cs" />
+    <Compile Include="Graphics\Drawing\BasicShapes.cs" />
+    <Compile Include="Graphics\Drawing\PrimitiveBatch.cs" />
+    <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomComponent.cs" />
+    <Compile Include="Graphics\Effects\PostProcessing\Bloom\BloomSettings.cs" />
+    <Compile Include="Graphics\GraphicsManager.cs" />
+    <Compile Include="Graphics\Rasterizer.cs" />
+    <Compile Include="Graphics\Texture\DualTextured.cs" />
+    <Compile Include="Graphics\Texture\TextureHelper.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Interface\UserInterface.cs" />
+    <Compile Include="Platforms\Android\AndroidActivity.cs" />
+    <Compile Include="Platforms\Android\AndroidPlatform.cs" />
+    <Compile Include="Platforms\Config\DebuggerConfig.cs" />
+    <Compile Include="Platforms\Config\GraphicsConfig.cs" />
+    <Compile Include="Platforms\Config\InputConfig.cs" />
+    <Compile Include="Platforms\Config\PlatformConfig.cs" />
+    <Compile Include="Platforms\Config\ScreenConfig.cs" />
+    <Compile Include="Platforms\Frameworks.cs" />
+    <Compile Include="Platforms\GraphicsAPI.cs" />
+    <Compile Include="Platforms\IOS\IOSPlatform.cs" />
+    <Compile Include="Platforms\IOS\Main.cs" />
+    <Compile Include="Platforms\Linux\LinuxPlatform.cs" />
+    <Compile Include="Platforms\MacOS\MacOSPlatform.cs" />
+    <Compile Include="Platforms\Metro\WindowsMetroHelper.cs" />
+    <Compile Include="Platforms\Metro\WindowsMetroPlatform.cs" />
+    <Compile Include="Platforms\PlatformHandler.cs" />
+    <Compile Include="Platforms\PlatformHelper.cs" />
+    <Compile Include="Platforms\PlatformManager.cs" />
+    <Compile Include="Platforms\Platforms.cs" />
+    <Compile Include="Platforms\VersionInfo.cs" />
+    <Compile Include="Platforms\Windows\WindowsHelper.cs" />
+    <Compile Include="Platforms\Windows\WindowsPlatform.cs" />
+    <Compile Include="Platforms\WP7\WindowsPhone7.cs" />
+    <Compile Include="Platforms\WP7\WindowsPhone7Helper.cs" />
+    <Compile Include="Platforms\WP8\LocalizedStrings.cs" />
+    <Compile Include="Platforms\WP8\WindowsPhone8Helper.cs" />
+    <Compile Include="Platforms\WP8\WindowsPhone8Platform.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sky\NewSky.cs" />
+    <Compile Include="Universe\Commands.cs" />
+    <Compile Include="Universe\Fogger.cs" />
+    <Compile Include="Universe\Player.cs" />
+    <Compile Include="Universe\Shovel.cs" />
+    <Compile Include="Universe\Sky.cs" />
+    <Compile Include="Universe\Time.cs" />
+    <Compile Include="Universe\Weapon.cs" />
+    <Compile Include="Universe\World.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Platforms\IOS\info.plist" />
+    <None Include="Platforms\Linux\app.desktop" />
+    <None Include="Platforms\MacOS\Info.plist" />
+    <None Include="Platforms\Metro\Package.appxmanifest" />
+    <None Include="Platforms\Windows\app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Platforms\WP7\.gitignore" />
+    <Content Include="Platforms\WP7\Background.png" />
+    <Content Include="Platforms\WP7\GameThumbnail.png" />
+    <Content Include="Platforms\WP7\PhoneGameThumb.png" />
+    <Content Include="Platforms\WP7\WMAppManifest.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>

@@ -1,18 +1,16 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
+using Engine.Assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Core;
 
-namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
+namespace Engine.Graphics.Effects.PostProcessing.Bloom
 {
     public interface IBloomService
     {
@@ -114,7 +112,7 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
         public override void Update(GameTime gameTime)
         {
-            this.Visible = Engine.Instance.Configuration.Bloom.Enabled;
+            this.Visible = Core.Engine.Instance.Configuration.Bloom.Enabled;
         }
 
         /// <summary>
@@ -141,7 +139,7 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
             // Pass 1: draw the scene into rendertarget 1, using a
             // shader that extracts only the brightest parts of the image.
-            bloomExtractEffect.Parameters["BloomThreshold"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomThreshold);
+            bloomExtractEffect.Parameters["BloomThreshold"].SetValue(BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BloomThreshold);
 
             DrawFullscreenQuad(sceneRenderTarget, renderTarget1,
                                bloomExtractEffect,
@@ -170,10 +168,10 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
 
             EffectParameterCollection parameters = bloomCombineEffect.Parameters;
 
-            parameters["BloomIntensity"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomIntensity);
-            parameters["BaseIntensity"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BaseIntensity);
-            parameters["BloomSaturation"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BloomSaturation);
-            parameters["BaseSaturation"].SetValue(BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BaseSaturation);
+            parameters["BloomIntensity"].SetValue(BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BloomIntensity);
+            parameters["BaseIntensity"].SetValue(BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BaseIntensity);
+            parameters["BloomSaturation"].SetValue(BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BloomSaturation);
+            parameters["BaseSaturation"].SetValue(BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BaseSaturation);
 
             GraphicsDevice.Textures[1] = sceneRenderTarget;
 
@@ -295,7 +293,7 @@ namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
         /// </summary>
         float ComputeGaussian(float n)
         {
-            float theta = BloomSettings.PresetSettings[Engine.Instance.Configuration.Bloom.State].BlurAmount;
+            float theta = BloomSettings.PresetSettings[Core.Engine.Instance.Configuration.Bloom.State].BlurAmount;
 
             return (float)((1.0 / Math.Sqrt(2 * Math.PI * theta)) *
                            Math.Exp(-(n * n) / (2 * theta * theta)));

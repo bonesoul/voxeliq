@@ -1,8 +1,7 @@
 /*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
@@ -10,12 +9,12 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Platform;
-using VoxeliqEngine.Universe;
-using VoxeliqGame.Settings.Readers;
+using Client.Settings.Readers;
+using Engine.Common.Logging;
+using Engine.Platforms;
+using Engine.Universe;
 
-namespace VoxeliqGame
+namespace Client
 {
     public static class Program
     {
@@ -31,7 +30,7 @@ namespace VoxeliqGame
             #endif
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture; // Use invariant culture - we have to set it explicitly for every thread we create to prevent any mpq-reading problems (mostly because of number formats).
-            
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintBanner();
             PrintLicense();
@@ -41,13 +40,13 @@ namespace VoxeliqGame
             InitLoggers(); // init logging facility.
 
             Logger.Info("voxeliq v{0} warming-up..", Assembly.GetAssembly(typeof (Player)).GetName().Version);
-            Logger.Info(string.Format("Running over {0} {1}.", PlatformInfo.DotNetFramework, PlatformInfo.DotNetFrameworkVersion));
-            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformInfo.GameFramework, PlatformInfo.GameFrameworkVersion, PlatformInfo.GraphicsApi));            
+            Logger.Info(string.Format("Running over {0} {1}.", PlatformManager.DotNetFramework, PlatformManager.DotNetFrameworkVersion));
+            Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformManager.GameFramework, PlatformManager.GameFrameworkVersion, PlatformManager.GraphicsApi));            
 
-            using (var game = new SampleGame()) // startup the game.
+            using (var game = new GameClient()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
-                game.Run();
+                PlatformManager.Startup(game);
             }
         }
 

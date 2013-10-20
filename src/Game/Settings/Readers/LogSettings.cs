@@ -5,9 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Common.Logging;
+using Engine.Common.Logging;
 
-namespace VoxeliqGame.Settings.Readers
+namespace Client.Settings.Readers
 {
     /// <summary>
     /// Holds configuration info for log manager.

@@ -1,30 +1,29 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
+using Engine.Assets;
+using Engine.Audio;
+using Engine.Chunks;
+using Engine.Chunks.Processors;
+using Engine.Core.Config;
+using Engine.Debugging;
+using Engine.Debugging.Console;
+using Engine.Debugging.Graphs;
+using Engine.Debugging.Ingame;
+using Engine.Graphics;
+using Engine.Input;
+using Engine.Interface;
+using Engine.Sky;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Audio;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Chunks.Processors;
-using VoxeliqEngine.Core.Config;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Console;
-using VoxeliqEngine.Debugging.Graphs;
-using VoxeliqEngine.Debugging.Ingame;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Input;
-using VoxeliqEngine.Interface;
-using VoxeliqEngine.Sky;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Core
+namespace Engine.Core
 {
     public class Engine
     {

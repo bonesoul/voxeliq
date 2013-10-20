@@ -1,18 +1,16 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
 using System;
-using System.Collections.Generic;
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqEngine.Assets
+namespace Engine.Assets
 {
     /// <summary>
     /// Asset manager that loads assets at the very first loading.

@@ -1,18 +1,16 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Debugging.Console;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     public interface IFogger
     {
@@ -72,7 +70,7 @@ namespace VoxeliqEngine.Universe
 
         public FoggerCommand()
         {
-            this._fogger = (IFogger)Engine.Instance.Game.Services.GetService(typeof(IFogger));
+            this._fogger = (IFogger)Core.Engine.Instance.Game.Services.GetService(typeof(IFogger));
         }
 
         [DefaultCommand]

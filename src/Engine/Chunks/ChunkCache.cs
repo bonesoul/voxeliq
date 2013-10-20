@@ -1,8 +1,7 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
@@ -10,21 +9,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Engine.Assets;
+using Engine.Blocks;
+using Engine.Chunks.Generators.Biomes;
+using Engine.Chunks.Generators.Terrain;
+using Engine.Chunks.Processors;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
+using Engine.Debugging.Timing;
+using Engine.Graphics;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Chunks.Generators.Biomes;
-using VoxeliqEngine.Chunks.Generators.Terrain;
-using VoxeliqEngine.Chunks.Processors;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Vector;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Timing;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Chunks
+namespace Engine.Chunks
 {
     public interface IChunkCache
     {
@@ -83,13 +81,13 @@ namespace VoxeliqEngine.Chunks
         /// Range of cached chunk which can be greater than the view range. 
         /// Chunks in cache range will be only generated and lightened.
         /// </summary>
-        public static byte CacheRange = Engine.Instance.Configuration.Cache.CacheRange;
+        public static byte CacheRange = Core.Engine.Instance.Configuration.Cache.CacheRange;
 
         /// <summary>
         /// Range of viewable chunks by the player.
         /// Chunks in view range will be always generated, lightend and built.
         /// </summary>
-        public static byte ViewRange = Engine.Instance.Configuration.Cache.ViewRange;
+        public static byte ViewRange = Core.Engine.Instance.Configuration.Cache.ViewRange;
 
         /// <summary>
         /// Bounding box for view range.
@@ -273,7 +271,7 @@ namespace VoxeliqEngine.Chunks
                 }
             }
 
-            if (Engine.Instance.Configuration.World.IsInfinitive)
+            if (Core.Engine.Instance.Configuration.World.IsInfinitive)
                 this.RecacheChunks();
         }
 

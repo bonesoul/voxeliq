@@ -1,8 +1,7 @@
 ﻿/*
- * Copyright (C) 2011 - 2013 Int6 Studios - http://www.int6.org,
- * Voxeliq Engine - http://www.voxeliq.org - https://github.com/raistlinthewiz/voxeliq
+ * Voxeliq Engine, Copyright (C) 2011 - 2013 Int6 Studios - All Rights Reserved. - http://www.int6.org - https://github.com/raistlinthewiz/voxeliq
  *
- * This program is free software; you can redistribute it and/or modify 
+ * This file is part of Voxeliq Engine project. This program is free software; you can redistribute it and/or modify 
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
@@ -10,13 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
 
-namespace VoxeliqEngine.Audio
+namespace Engine.Audio
 {
     enum AmbientMusic
     {
@@ -67,7 +65,7 @@ namespace VoxeliqEngine.Audio
 
         private void AmbientMusicLoop()
         {
-            if (!Engine.Instance.Configuration.Audio.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
             while (true)
@@ -84,7 +82,7 @@ namespace VoxeliqEngine.Audio
 
         private void PlayBackroundSong()
         {
-            if (!Engine.Instance.Configuration.Audio.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
             #if !MONOGAME

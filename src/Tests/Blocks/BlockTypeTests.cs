@@ -6,8 +6,8 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Blocks;
 using NUnit.Framework;
-using VoxeliqEngine.Blocks;
 
 namespace EngineTests.Blocks
 {
