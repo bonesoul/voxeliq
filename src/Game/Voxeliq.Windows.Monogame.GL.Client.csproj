@@ -149,7 +149,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir $(TargetDir)Content
 xcopy $(TargetDir)..\..\xna\Content $(TargetDir)Content /Y /E /D
