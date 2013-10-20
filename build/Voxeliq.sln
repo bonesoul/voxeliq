@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Voxeliq\Client.csproj", "{54CC60B6-1BF3-4E53-B2A8-DAAE2353831D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "..\src\Client\Client.csproj", "{54CC60B6-1BF3-4E53-B2A8-DAAE2353831D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

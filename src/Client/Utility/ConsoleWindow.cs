@@ -9,6 +9,9 @@ using System;
 
 namespace Client.Utility
 {
+    /// <summary>
+    /// Utility class to handle console window stuff.
+    /// </summary>
     public static class ConsoleWindow
     {
         /// <summary>
@@ -31,8 +34,8 @@ namespace Client.Utility
         /// </summary>
         public static void PrintLicense()
         {
-            Console.WriteLine("Copyright (C) 2011 - 2013, Voxeliq Engine");
-            Console.WriteLine("mooege comes with ABSOLUTELY NO WARRANTY.");
+            Console.WriteLine("Copyright (C) 2011 - 2013, Voxeliq");
+            Console.WriteLine("Voxeliq comes with ABSOLUTELY NO WARRANTY.");
             Console.WriteLine("This is free software, and you are welcome to redistribute it under certain conditions; see the LICENSE file for details.");
             Console.WriteLine();
         }

@@ -25,6 +25,7 @@ namespace Client
 
             using (var game = new GameClient()) // instantiate the game.
             {
+                game.Run();
             }
         }
 

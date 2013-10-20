@@ -11,5 +11,16 @@ namespace Client
 {
     public class GameClient : Game
     {
+        // Graphics device manager for the game.
+        private readonly GraphicsDeviceManager _graphicsDeviceManager;
+
+        /// <summary>
+        /// Initializes a new GameClient instance.
+        /// </summary>
+        public GameClient()
+        {
+            this.Content.RootDirectory = "Content";
+            this._graphicsDeviceManager = new GraphicsDeviceManager(this);
+        }
     }
 }
