@@ -9,13 +9,13 @@ Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/mas
 # Why?
 We would like to develop an open-source and 100% moddable blocky-game which will run on any platform that [Mono](http://www.mono-project.com/Main_Page) can. Though we are still far away from being complete which means you are more then welcome to contribute!
 
+# Retake?
+The project initially started as a hack & slash project and growth un-intendedly. The old-code was quite un-maintainable and buggy (the famous meshing bug!)
+* We decided to re-code it from strach with clean comments and tests for all major functionality.
+* The old code resides in [contrib/old-codebase](https://github.com/raistlinthewiz/voxeliq/tree/feature/feature-skeleton/contrib/old-codebase).
+
 # Stay awhile and listen
 - Read the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) and check the [wiki](https://github.com/raistlinthewiz/voxeliq/wiki) before asking!
-
-# How to run & test?
-- You need to install [XNA](http://www.microsoft.com/en-us/download/details.aspx?id=27599) first. Check the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) for details.
-- For the first time you have to open build Voxeliq.Windows.XNA.DX9.sln project so the content files are compiled. (Alternatively you can extract contents of [this archive](https://github.com/raistlinthewiz/voxeliq/releases/download/0.2/Content.rar) to bin\debug\windows\xna\Content folder.)
-- Then you can use the MonoGame targeted project files.
 
 # What's new?
 - Check the [blog](http://www.int6.org/tag/voxeliq/).
