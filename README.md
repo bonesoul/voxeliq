@@ -12,6 +12,7 @@ We would like to develop an open-source and 100% moddable blocky-game which will
 # Retake?
 The project initially started as a hack & slash project and growth un-intendedly. The old-code was quite un-maintainable and buggy (the famous meshing bug!)
 * We decided to re-code it from strach with clean comments and tests for all major functionality.
+* Dropped support for XNA, the new version will be just use MonoGame as it was quite hard to maintain all platforms together.
 * The old code resides in [contrib/old-codebase](https://github.com/raistlinthewiz/voxeliq/tree/develop/contrib/old-codebase).
 
 # Stay awhile and listen
