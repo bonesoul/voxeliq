@@ -14,6 +14,8 @@ We would like to develop an open-source and 100% moddable blocky-game which will
 
 # How to run & test?
 - You need to install [XNA](http://www.microsoft.com/en-us/download/details.aspx?id=27599) first. Check the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) for details.
+- For the first time you have to open build Voxeliq.Windows.XNA.DX9.sln project so the content files are compiled. (Alternatively you can extract contents of [this archive](https://github.com/raistlinthewiz/voxeliq/releases/download/0.2/Content.rar) to bin\debug\windows\xna\Content folder.)
+- Then you can use the MonoGame targeted project files.
 
 # What's new?
 - Check the [blog](http://www.int6.org/tag/voxeliq/).
