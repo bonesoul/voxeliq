@@ -1,4 +1,4 @@
-# voxeliq engine
+# voxeliq
 
 ![Screenshot](http://www.int6.org/blog/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
