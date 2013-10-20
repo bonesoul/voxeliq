@@ -22,5 +22,24 @@ namespace Client
             this.Content.RootDirectory = "Content";
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
         }
+
+        /// <summary>
+        /// Game's update method.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Game's draw method.
+        /// </summary>
+        /// <param name="gameTime"></param>
+        protected override void Draw(GameTime gameTime)
+        {
+            var skyColor = new Color(128, 173, 254);
+            this.GraphicsDevice.Clear(skyColor);
+        }
     }
 }
