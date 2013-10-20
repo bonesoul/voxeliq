@@ -1,5 +1,6 @@
 v0.2 
 * More code cleanup & bug-fixes.
+* Improved mesh optimization (http://www.int6.org/development/voxeliq-engine/improved-mesh-optimization/)
 * Added unit tests for engine.
 * Implemented a basic & buggy console & commands subsystem.
 * Implemented a very primitive blocky sky & clouds.
