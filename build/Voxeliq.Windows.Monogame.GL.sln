@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.Windows.Monogame.GL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.Windows.Monogame.GL.Engine", "..\src\Engine\Voxeliq.Windows.Monogame.GL.Engine.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests", "..\src\Tests\Engine.Tests.csproj", "{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests.MonoGame.GL", "..\src\Tests\Engine.Tests.MonoGame.GL.csproj", "{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

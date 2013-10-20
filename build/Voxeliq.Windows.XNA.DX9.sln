@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.Windows.XNA.DX9.Eng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.Windows.XNA.DX9.Client", "..\src\game\Voxeliq.Windows.XNA.DX9.Client.csproj", "{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests", "..\src\Tests\Engine.Tests.csproj", "{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests.XNA.DX9", "..\src\Tests\Engine.Tests.XNA.DX9.csproj", "{5C069D5E-9AB8-46DD-B7D6-A95D922A8FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
