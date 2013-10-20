@@ -40,4 +40,4 @@ The project initially started as a hack & slash project and growth un-intendedly
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-15-27-29.jpg)
 
 # Built With
-![](http://i.imgur.com/PRxru.png) ![](http://i.imgur.com/tYyL2.jpg) 
+![](http://i.imgur.com/PRxru.png)
