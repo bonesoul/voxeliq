@@ -12,7 +12,7 @@ We would like to develop an open-source and 100% moddable blocky-game which will
 # Retake?
 The project initially started as a hack & slash project and growth un-intendedly. The old-code was quite un-maintainable and buggy (the famous meshing bug!)
 * We decided to re-code it from strach with clean comments and tests for all major functionality.
-* The old code resides in [contrib/old-codebase](https://github.com/raistlinthewiz/voxeliq/tree/feature/feature-skeleton/contrib/old-codebase).
+* The old code resides in [contrib/old-codebase](https://github.com/raistlinthewiz/voxeliq/tree/develop/contrib/old-codebase).
 
 # Stay awhile and listen
 - Read the [FAQ](https://github.com/raistlinthewiz/voxeliq/wiki/FAQ) and check the [wiki](https://github.com/raistlinthewiz/voxeliq/wiki) before asking!
