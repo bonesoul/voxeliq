@@ -27,28 +27,28 @@ namespace Engine.Chunks
     public interface IChunkCache
     {
         /// <summary>
-        /// Returns the chunk in given x-z position.
+        /// Returns chunk that exists in given world position.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="z"></param>
+        /// <param name="x">X in world coordinate.</param>
+        /// <param name="z">Z in world coordinate</param>
+        /// <returns>Returns the <see cref="Chunk"/> that exists in given position or null if otherwise.</returns>
+        Chunk GetChunkByWorldPosition(int x, int z);
+
+        /// <summary>
+        /// Returns chunk that exists in given relative position.
+        /// </summary>
+        /// <param name="x">X in relative coordinate.</param>
+        /// <param name="z">Z in relative coordinate</param>
+        /// <returns>Returns the <see cref="Chunk"/> that exists in given position or null if otherwise.</returns>
+        Chunk GetChunkByRelativePosition(int x, int z);
+
+        /// <summary>
+        /// Returns the chunk in given neighborhood.
+        /// </summary>
+        /// <param name="origin">The origin chunk.</param>
+        /// <param name="edge">The neighbor edge.</param>
         /// <returns></returns>
-        Chunk GetChunk(int x, int z);
-
-        /// <summary>
-        /// Sets a block in given x-y-z coordinate.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="block"></param>
-        void SetBlockAt(int x, int y, int z, Block block);
-
-        /// <summary>
-        /// Sets a block in given x-y-z coordinate.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="block"></param>
-        void SetBlockAt(Vector3Int position, Block block);
+        Chunk GetNeighborChunk(Chunk origin, Chunk.Edges edge);
 
         /// <summary>
         /// Returns chunks drawn in last draw() call.
@@ -227,17 +227,17 @@ namespace Engine.Chunks
         {
             this.ViewRangeBoundingBox = new BoundingBox(
                         new Vector3(this._player.CurrentChunk.WorldPosition.X - (ViewRange*Chunk.WidthInBlocks), 0,
-                            this._player.CurrentChunk.WorldPosition.Z - (ViewRange*Chunk.LenghtInBlocks)),
+                            this._player.CurrentChunk.WorldPosition.Z - (ViewRange * Chunk.LengthInBlocks)),
                         new Vector3(this._player.CurrentChunk.WorldPosition.X + ((ViewRange + 1)*Chunk.WidthInBlocks),
-                            Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1)*Chunk.LenghtInBlocks))
+                            Chunk.HeightInBlocks, this._player.CurrentChunk.WorldPosition.Z + ((ViewRange + 1) * Chunk.LengthInBlocks))
                 );
 
             this.CacheRangeBoundingBox = new BoundingBox(
                         new Vector3(this._player.CurrentChunk.WorldPosition.X - (CacheRange*Chunk.WidthInBlocks), 0,
-                            this._player.CurrentChunk.WorldPosition.Z - (CacheRange*Chunk.LenghtInBlocks)),
+                            this._player.CurrentChunk.WorldPosition.Z - (CacheRange * Chunk.LengthInBlocks)),
                         new Vector3(this._player.CurrentChunk.WorldPosition.X + ((CacheRange + 1)*Chunk.WidthInBlocks),
                             Chunk.HeightInBlocks,
-                            this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1)*Chunk.LenghtInBlocks))
+                            this._player.CurrentChunk.WorldPosition.Z + ((CacheRange + 1) * Chunk.LengthInBlocks))
                 );
         }
 
@@ -278,7 +278,10 @@ namespace Engine.Chunks
 
         private void RecacheChunks()
         {
-            this._player.CurrentChunk = this.GetChunk((int) _player.Position.X, (int) _player.Position.Z);
+            this._player.CurrentChunk = this.GetChunkByWorldPosition((int)_player.Position.X, (int)_player.Position.Z);
+            
+            if (this._player.CurrentChunk == null)
+                return;
 
             for (int z = -CacheRange; z <= CacheRange; z++)
             {
@@ -296,9 +299,9 @@ namespace Engine.Chunks
             var northEastEdge = new Vector2Int(this._player.CurrentChunk.RelativePosition.X + ViewRange, this._player.CurrentChunk.RelativePosition.Z + ViewRange);
 
             BoundingBox = new BoundingBox(
-                    new Vector3(southWestEdge.X*Chunk.WidthInBlocks, 0, southWestEdge.Z*Chunk.LenghtInBlocks),
+                    new Vector3(southWestEdge.X * Chunk.WidthInBlocks, 0, southWestEdge.Z * Chunk.LengthInBlocks),
                     new Vector3((northEastEdge.X + 1)*Chunk.WidthInBlocks, Chunk.HeightInBlocks,
-                                (northEastEdge.Z + 1)*Chunk.LenghtInBlocks));
+                                (northEastEdge.Z + 1) * Chunk.LengthInBlocks));
         }
 
         /// <summary>
@@ -422,32 +425,56 @@ namespace Engine.Chunks
             this.StateStatistics[ChunkState.AwaitingRemoval] = this._chunkStorage.Values.Count(chunk => chunk.ChunkState == ChunkState.AwaitingRemoval);
         }
 
-        // Returns the chunk in given x-z position.
-        public Chunk GetChunk(int x, int z)
+        /// <summary>
+        /// Returns chunk that exists in given world position.
+        /// </summary>
+        /// <param name="x">X in world coordinate.</param>
+        /// <param name="z">Z in world coordinate</param>
+        /// <returns>Returns the <see cref="Chunk"/> that exists in given position or null if otherwise.</returns>
+        public Chunk GetChunkByWorldPosition(int x, int z)
         {
+            // fix the negative x coordinates.
             if (x < 0)
                 x -= Chunk.WidthInBlocks;
 
+            // fix the negative z coordinates.
             if (z < 0)
-                z -= Chunk.LenghtInBlocks;
+                z -= Chunk.LengthInBlocks;
 
-            return !this._chunkStorage.ContainsKey(x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks) ? null : this._chunkStorage[x/Chunk.WidthInBlocks, z/Chunk.LenghtInBlocks];
+            return !this._chunkStorage.ContainsKey(x / Chunk.WidthInBlocks, z / Chunk.LengthInBlocks) ? null : this._chunkStorage[x / Chunk.WidthInBlocks, z / Chunk.LengthInBlocks];
         }
 
-        // Sets a block in given x-y-z coordinate.
-        public void SetBlockAt(Vector3Int position, Block block)
+        /// <summary>
+        /// Returns chunk that exists in given relative position.
+        /// </summary>
+        /// <param name="x">X in relative coordinate.</param>
+        /// <param name="z">Z in relative coordinate</param>
+        /// <returns>Returns the <see cref="Chunk"/> that exists in given position or null if otherwise.</returns>
+        public Chunk GetChunkByRelativePosition(int x, int z)
         {
-            this.SetBlockAt(position.X, position.Y, position.Z, block);
+            return !this._chunkStorage.ContainsKey(x, z) ? null : this._chunkStorage[x, z];
         }
 
-        // Sets a block in given x-y-z coordinate.
-        public void SetBlockAt(int x, int y, int z, Block block)
+        /// <summary>
+        /// Returns the chunk in given neighborhood.
+        /// </summary>
+        /// <param name="origin">The origin chunk.</param>
+        /// <param name="edge">The neighbor edge.</param>
+        /// <returns></returns>
+        public Chunk GetNeighborChunk(Chunk origin, Chunk.Edges edge)
         {
-            var chunk = this.GetChunk(x, z);
-            if (chunk == null)
-                return;
-
-            chunk.FastSetBlockAt((sbyte)(x % Chunk.WidthInBlocks), (sbyte)y, (sbyte)(z % Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
+            switch (edge)
+            {
+                case Chunk.Edges.XDecreasing:
+                    return this.GetChunkByRelativePosition(origin.RelativePosition.X - 1, origin.RelativePosition.Z);
+                case Chunk.Edges.XIncreasing:
+                    return this.GetChunkByRelativePosition(origin.RelativePosition.X + 1, origin.RelativePosition.Z);
+                case Chunk.Edges.ZDecreasing:
+                    return this.GetChunkByRelativePosition(origin.RelativePosition.X, origin.RelativePosition.Z - 1);
+                case Chunk.Edges.ZIncreasing:
+                    return this.GetChunkByRelativePosition(origin.RelativePosition.X, origin.RelativePosition.Z + 1);
+            }
+            return null;
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace Engine.Platforms
         /// <summary>
         /// Main assemblies version pattern to be used in AssemblyInfo.cs.
         /// </summary>
-        public const string VersionPattern = "0.2.0.*";
+        public const string VersionPattern = "0.3.0.*";
 
         /// <summary>
         /// Main assemblies version.

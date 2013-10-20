@@ -29,7 +29,7 @@ namespace Engine.Core.Config
         /// <summary>
         /// Chunk lenght in blocks.
         /// </summary>
-        public byte LenghtInBlocks { get; set; }
+        public byte LengthInBlocks { get; set; }
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Engine.Core.Config
         /// <summary>
         /// Maximum width index in blocks for chunk.
         /// </summary>
-        public byte MaxLenghtInBlocks { get; private set; }
+        public byte MaxLengthInBlocks { get; private set; }
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace Engine.Core.Config
         {
             this.WidthInBlocks = 16;
             this.HeightInBlocks = 128;
-            this.LenghtInBlocks = 16;
+            this.LengthInBlocks = 16;
         }
 
         /// <summary>
@@ -72,10 +72,10 @@ namespace Engine.Core.Config
         /// </summary>
         private void Setup()
         {
-            this.Volume = WidthInBlocks * HeightInBlocks * LenghtInBlocks;
+            this.Volume = WidthInBlocks * HeightInBlocks * LengthInBlocks;
             this.MaxWidthInBlocks = (byte)(this.WidthInBlocks - 1);
             this.MaxHeightInBlocks = (byte)(this.HeightInBlocks - 1);
-            this.MaxLenghtInBlocks = (byte)(this.LenghtInBlocks - 1);
+            this.MaxLengthInBlocks = (byte)(this.LengthInBlocks - 1);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Engine.Core.Config
             if (HeightInBlocks == 0)
                 throw new ChunkConfigException("Chunk height in blocks can not be set to zero!");
 
-            if (LenghtInBlocks == 0)
+            if (LengthInBlocks == 0)
                 throw new ChunkConfigException("Chunk lenght in blocks can not be set to zero!");
 
             return true;

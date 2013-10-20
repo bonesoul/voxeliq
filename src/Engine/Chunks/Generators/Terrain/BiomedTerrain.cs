@@ -36,7 +36,7 @@ namespace Engine.Chunks.Generators.Terrain
             {
                 var worldPositionX = chunk.WorldPosition.X + x;
 
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int worldPositionZ = chunk.WorldPosition.Z + z;
                     this.GenerateBlocks(chunk, worldPositionX, worldPositionZ);
@@ -106,7 +106,7 @@ namespace Engine.Chunks.Generators.Terrain
         //{
         //    for (int x = 0; x < Chunk.WidthInBlocks; x++)
         //    {
-        //        for (int z = 0; z < Chunk.LenghtInBlocks; z++)
+        //        for (int z = 0; z < Chunk.LengthInBlocks; z++)
         //        {
         //            int offset = x * Chunk.XStep + z * Chunk.HeightInBlocks;
         //            for (int y=WaterLevel + 3; y>= RockHeight; y--)

@@ -33,12 +33,12 @@ namespace EngineTests.Config
             // make sure default dimensions are valid.
             Assert.Greater(config.Chunk.WidthInBlocks, 0);
             Assert.Greater(config.Chunk.HeightInBlocks, 0);
-            Assert.Greater(config.Chunk.LenghtInBlocks, 0);
+            Assert.Greater(config.Chunk.LengthInBlocks, 0);
 
             // calculate expected chunk volume in blocks
             var expectedChunkVolumeInBlocks = config.Chunk.WidthInBlocks*
                                               config.Chunk.HeightInBlocks*
-                                              config.Chunk.LenghtInBlocks;
+                                              config.Chunk.LengthInBlocks;
             Assert.AreEqual(config.Chunk.Volume, expectedChunkVolumeInBlocks);
 
             // make sure max-width-index is valid.
@@ -50,8 +50,8 @@ namespace EngineTests.Config
                             config.Chunk.HeightInBlocks - 1);
 
             // make sure max-lenght-index is valid.
-            Assert.AreEqual(config.Chunk.MaxLenghtInBlocks,
-                            config.Chunk.LenghtInBlocks - 1);
+            Assert.AreEqual(config.Chunk.MaxLengthInBlocks,
+                            config.Chunk.LengthInBlocks - 1);
 
             #endregion
 
@@ -68,7 +68,7 @@ namespace EngineTests.Config
             var expectedCacheHeightInBlocks = config.Chunk.HeightInBlocks;
 
             var expectedCacheLenghtInBlocks = (config.Cache.CacheRange * 2 + 1) *
-                                              config.Chunk.LenghtInBlocks;
+                                              config.Chunk.LengthInBlocks;
 
             Assert.AreEqual(config.Cache.CacheRangeWidthInBlocks, expectedCacheWidthInBlocks);
             Assert.AreEqual(config.Cache.CacheRangeHeightInBlocks, expectedCacheHeightInBlocks);
@@ -106,12 +106,12 @@ namespace EngineTests.Config
         }
 
         [Test]
-        [Description("Tests invalid chunk configuration where LenghtInBlocks value is set to invalid value of zero.")]
+        [Description("Tests invalid chunk configuration where LengthInBlocks value is set to invalid value of zero.")]
         [ExpectedException(typeof(ChunkConfigException),
             ExpectedMessage = "Chunk lenght in blocks can not be set to zero!", MatchType = MessageMatch.Exact)]
         public void TestInvalidLenghtInBlocksValue()
         {
-            var config = new EngineConfig {Chunk = {LenghtInBlocks = 0}};
+            var config = new EngineConfig {Chunk = {LengthInBlocks = 0}};
             config.Validate();
         }
 
