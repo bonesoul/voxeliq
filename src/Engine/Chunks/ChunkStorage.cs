@@ -60,12 +60,12 @@ namespace Engine.Chunks
         private readonly DoubleIndexedDictionary<Chunk> _dictionary = new DoubleIndexedDictionary<Chunk>();
 
         /// <summary>
-        /// South west edge of the current chunk storage.
+        /// South west edge of the current chunk.
         /// </summary>
         public Vector2Int SouthWestEdge;
 
         /// <summary>
-        /// North east edge of the current chunk storage.
+        /// North east edge of the current chunk.
         /// </summary>
         public Vector2Int NorthEastEdge;
 

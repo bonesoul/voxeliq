@@ -37,7 +37,7 @@ namespace EngineTests.Blocks
             this._engine = new Engine.Core.Engine(this._game, this._config);
 
             var cacheWidthInBlocks = ((_config.Cache.CacheRange * 2) + 1) * _config.Chunk.WidthInBlocks;
-            var cacheLenghtInBlocks = ((_config.Cache.CacheRange*2) + 1) * _config.Chunk.LenghtInBlocks;
+            var cacheLenghtInBlocks = ((_config.Cache.CacheRange*2) + 1) * _config.Chunk.LengthInBlocks;
 
             this._cacheXStartIndex = -cacheWidthInBlocks/2;
             this._cacheXEndIndex = cacheWidthInBlocks / 2;

@@ -32,9 +32,19 @@ namespace Engine.Chunks
         public static byte WidthInBlocks = Core.Engine.Instance.Configuration.Chunk.WidthInBlocks;
 
         /// <summary>
-        /// Chunk lenght in blocks
+        /// Maximum width index in blocks for chunk.
         /// </summary>
-        public static byte LenghtInBlocks = Core.Engine.Instance.Configuration.Chunk.LenghtInBlocks;
+        public static byte MaxWidthIndexInBlocks = Core.Engine.Instance.Configuration.Chunk.MaxWidthInBlocks;
+
+        /// <summary>
+        /// Chunk length in blocks
+        /// </summary>
+        public static byte LengthInBlocks = Core.Engine.Instance.Configuration.Chunk.LengthInBlocks;
+
+        /// <summary>
+        /// Maximum length index in blocks for chunk.
+        /// </summary>
+        public static byte MaxLenghtIndexInBlocks = Core.Engine.Instance.Configuration.Chunk.MaxLengthInBlocks;
 
         /// <summary>
         /// Chunk height in blocks.
@@ -115,12 +125,12 @@ namespace Engine.Chunks
 
             // calculate the real world position.
             this.WorldPosition = new Vector2Int(this.RelativePosition.X*WidthInBlocks,
-                                                this.RelativePosition.Z*LenghtInBlocks);
+                                                this.RelativePosition.Z * LengthInBlocks);
 
             // calculate bounding-box.
             this.BoundingBox = new BoundingBox(new Vector3(WorldPosition.X, 0, WorldPosition.Z),
                                                new Vector3(this.WorldPosition.X + WidthInBlocks, HeightInBlocks,
-                                                           this.WorldPosition.Z + LenghtInBlocks));
+                                                           this.WorldPosition.Z + LengthInBlocks));
 
             // create vertex & index lists.
             this.VertexList = new List<BlockVertex>();
@@ -141,31 +151,13 @@ namespace Engine.Chunks
             return true;
         }
 
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public Block BlockAt(int x, int y, int z)
-        {
-            return BlockStorage.BlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
-        }
-
-        public void SetBlockAt(int x, int y, int z, Block block)
-        {
-            BlockStorage.SetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
-            this.ChunkState = ChunkState.AwaitingRelighting;
-        }
-
         public void CalculateHeightIndexes()
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
                 var worldPositionX = this.WorldPosition.X + x;
 
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int worldPositionZ = this.WorldPosition.Z + z;
 
@@ -212,7 +204,7 @@ namespace Engine.Chunks
             var positionSize = spriteFont.MeasureString(position);
 
             var projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
-                                                            Matrix.CreateTranslation(new Vector3(WorldPosition.X + WidthInBlocks/2, HighestSolidBlockOffset - 1, WorldPosition.Z + LenghtInBlocks/2)));
+                                                            Matrix.CreateTranslation(new Vector3(WorldPosition.X + WidthInBlocks / 2, HighestSolidBlockOffset - 1, WorldPosition.Z + LengthInBlocks / 2)));
 
             spriteBatch.DrawString(spriteFont, position, new Vector2(projected.X - positionSize.X/2, projected.Y - positionSize.Y/2), Color.Yellow);
 
@@ -261,5 +253,25 @@ namespace Engine.Chunks
         ~Chunk() { Dispose(false); } // finalizer called by the runtime. we should only dispose unmanaged objects and should NOT reference managed ones. 
 
         #endregion
+
+        public enum Edges
+        {
+            /// <summary>
+            /// Left edge
+            /// </summary>
+            XDecreasing = 0,
+            /// <summary>
+            /// Right edge
+            /// </summary>
+            XIncreasing = 1,
+            /// <summary>
+            /// Front edge
+            /// </summary>
+            ZDecreasing = 2,
+            /// <summary>
+            /// Backwards edge
+            /// </summary>
+            ZIncreasing = 3
+        }
     }
 }

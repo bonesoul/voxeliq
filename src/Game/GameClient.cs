@@ -70,7 +70,7 @@ namespace Client
                 {
                     WidthInBlocks = 16,
                     HeightInBlocks = 128,
-                    LenghtInBlocks = 16,
+                    LengthInBlocks = 16,
                 },
                 Cache =
                 {

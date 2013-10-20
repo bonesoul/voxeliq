@@ -5,6 +5,8 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using System;
+using System.Collections.Generic;
 using Engine.Chunks;
 using Engine.Common.Logging;
 using Engine.Common.Vector;
@@ -20,6 +22,55 @@ namespace Engine.Blocks
     /// </summary>
     public interface IBlockStorage
     {
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        Block BlockAt(Vector3 position);
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        Block BlockAt(Vector3Int position);
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        Block BlockAt(int x, int y, int z);
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <param name="block">Block to set.</param>
+        void SetBlockAt(int x, int y, int z, Block block);
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        void SetBlockAt(Vector3 position, Block block);
+
+        /// <summary>
+        /// Sets a block by given world position.
+        /// </summary>
+        /// <param name="position">Point/block position.</param>
+        /// <returns>Copy of <see cref="Block"/></returns>
+        /// <param name="block">Block to set.</param>
+        void SetBlockAt(Vector3Int position, Block block);
     }
 
     /// <summary>
@@ -42,7 +93,7 @@ namespace Engine.Blocks
         /// <summary>
         /// Cache lenght in blocks.
         /// </summary>
-        public static int CacheLenghtInBlocks = ((ChunkCache.CacheRange * 2) + 1) * Chunk.LenghtInBlocks;
+        public static int CacheLenghtInBlocks = ((ChunkCache.CacheRange * 2) + 1) * Chunk.LengthInBlocks;
 
         /// <summary>
         /// Flatten offset x step to advance next block in x direction.
@@ -54,13 +105,13 @@ namespace Engine.Blocks
         /// </summary>
         public static readonly int ZStep = Chunk.HeightInBlocks;
 
+        // required services.
+        private IChunkCache _chunkCache;
+
         /// <summary>
         /// Logger.
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
-
-        // required services.
-        private IChunkCache _chunkCache;
 
         public BlockStorage(Game game)
             :base(game)
@@ -84,11 +135,29 @@ namespace Engine.Blocks
         /// <summary>
         /// Gets a block by given world position.
         /// </summary>
+        /// <param name="x">Block's x world position.</param>
+        /// <param name="y">Block's y world position.</param>
+        /// <param name="z">Block's z world position.</param>
+        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
+        public Block BlockAt(int x, int y, int z)
+        {
+            // make sure given coordinates are in chunk cache's bounds.
+            if (!ChunkCache.IsInBounds(x, y, z))
+                return Block.Empty; // if it's out of bounds, just return an empty block.
+
+            var flattenIndex = BlockIndexByWorldPosition(x, y, z);
+
+            // return block copy.
+            return Blocks[flattenIndex];
+        }
+
+        /// <summary>
+        /// Gets a block by given world position.
+        /// </summary>
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
         /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public static Block BlockAt(Vector3 position)
+        public Block BlockAt(Vector3 position)
         {
             return BlockAt((int)position.X, (int)position.Y, (int)position.Z);
         }
@@ -99,29 +168,9 @@ namespace Engine.Blocks
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
         /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public static Block BlockAt(Vector3Int position)
+        public Block BlockAt(Vector3Int position)
         {
             return BlockAt(position.X, position.Y, position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(int x, int y, int z)
-        {
-            // make sure given coordinates are in chunk cache's bounds.
-            if (!ChunkCache.IsInBounds(x, y, z))
-                return Block.Empty; // if it's out of bounds, just return an empty block.
-
-            var flattenIndex = BlockIndexByWorldPosition(x, y, z);
-
-            // return block copy.
-            return Blocks[flattenIndex];
         }
 
         #endregion
@@ -135,18 +184,54 @@ namespace Engine.Blocks
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
         /// <param name="block">Block to set.</param>
-        public static void SetBlockAt(int x, int y, int z, Block block)
+        public void SetBlockAt(int x, int y, int z, Block block)
         {
-            //var chunk = ChunkCache.GetChunk(x, z); // get the chunk that block is hosted in.
-            //if (chunk == null)
-            //    return;
-
-            // TODO: check if block is in edges, if so rebuild the neighboor chunks too.
+            var chunk = _chunkCache.GetChunkByWorldPosition(x, z); // get the chunk that block is hosted in.
+            if (chunk == null) // make sure chuck exists.
+                return;
 
             var flattenIndex = BlockIndexByWorldPosition(x, y, z);
 
             // set the block
             Blocks[flattenIndex] = block;
+
+            // Check if block is chunk's edges, if so re-process the neighbor chunks too.
+            var edgesBlockIsIn = this.GetChunkEdgesBlockIsIn(x, y, z);
+            foreach (var edge in edgesBlockIsIn)
+            {
+                var neighborChunk = this._chunkCache.GetNeighborChunk(chunk, edge);
+                neighborChunk.ChunkState = ChunkState.AwaitingRelighting;
+            }
+
+            // let the owner chunk get rebuilt.
+            // note: we re-process the originally altered chunk last because we wan't neighbor chunk's to get ready before, so we don't see any graphical glitches.
+            chunk.ChunkState = ChunkState.AwaitingRelighting;
+        }
+
+        public List<Chunk.Edges> GetChunkEdgesBlockIsIn(int x, int y, int z)
+        {
+            var edges = new List<Chunk.Edges>();
+
+            //var localX = x % Chunk.WidthInBlocks;
+            //var localZ = z % Chunk.LengthInBlocks;
+
+            //if (localX == 0)
+            //    edges.Add(Chunk.Edges.XDecreasing);
+            //else if (localX == Chunk.MaxWidthIndexInBlocks)
+            //    edges.Add(Chunk.Edges.XIncreasing);
+
+            //if (localZ == 0)
+            //    edges.Add(Chunk.Edges.ZDecreasing);
+            //else if (localZ == Chunk.MaxLenghtIndexInBlocks)
+            //    edges.Add(Chunk.Edges.ZIncreasing);
+
+            // FIXME: right now it returns every neighbor chunk!
+            edges.Add(Chunk.Edges.XDecreasing);
+            edges.Add(Chunk.Edges.XIncreasing);
+            edges.Add(Chunk.Edges.ZDecreasing);
+            edges.Add(Chunk.Edges.ZIncreasing);
+
+            return edges;
         }
 
         /// <summary>
@@ -155,7 +240,7 @@ namespace Engine.Blocks
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
         /// <param name="block">Block to set.</param>
-        public static void SetBlockAt(Vector3 position, Block block)
+        public void SetBlockAt(Vector3 position, Block block)
         {
             SetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
         }
@@ -166,7 +251,7 @@ namespace Engine.Blocks
         /// <param name="position">Point/block position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
         /// <param name="block">Block to set.</param>
-        public static void SetBlockAt(Vector3Int position, Block block)
+        public void SetBlockAt(Vector3Int position, Block block)
         {
             SetBlockAt(position.X, position.Y, position.Z, block);
         }
