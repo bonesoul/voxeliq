@@ -38,14 +38,10 @@ This program is free software; you can redistribute it and/or modify it under th
 - [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
 - [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
 - [Devlog-VII - Bloom Effect](http://www.youtube.com/watch?v=xTvzKK2TqmQ)
-- [Devlog-VI](http://www.youtube.com/watch?v=N7LnQtPJ5JE)
-- [Devlog-V](http://www.youtube.com/watch?v=ZTZaNTXu5jw)
-- [Devlog-IV - Infinitive Terrain 2.0](http://www.youtube.com/watch?v=VT0gNgJowMY)
-- [Devlog-III - Infinitive Terrain](http://www.youtube.com/watch?v=i4XHIAmUNFQ)
-- [Devlog-II](http://www.youtube.com/watch?v=6WQwXvebp2M)
-- [Devlog-I](http://www.youtube.com/watch?v=T200A6nqoj4)
-- [Bonus - Techno Visualizer](http://www.youtube.com/watch?v=oKy4cH7r5qE)
+- More: [voxeliq@youtube](http://www.youtube.com/voxeliq)
 
 # Screenshots
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-15-27-29.jpg)
+
+![](http://i.imgur.com/PRxru.png) ![](http://i.imgur.com/tYyL2.jpg) 
