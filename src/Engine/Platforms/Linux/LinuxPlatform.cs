@@ -5,9 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Platforms.Config;
+using Engine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.Linux
+namespace Engine.Platforms.Linux
 {
     public class LinuxPlatform : PlatformHandler
     {

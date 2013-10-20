@@ -6,34 +6,33 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Client;
+using Engine.Chunks;
+using Engine.Common.Vector;
+using Engine.Core.Config;
 using NUnit.Framework;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Core.Config;
-using VoxeliqGame;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Vector;
 
 namespace EngineTests.Chunks
 {
     [TestFixture]
     public class ChunkStorageTests
     {
-        private SampleGame _game;
+        private GameClient _game;
         private EngineConfig _config;
-        private Engine _engine;
+        private Engine.Core.Engine _engine;
         private ChunkStorage _chunkStorage;
         private Chunk _chunk;
 
         [SetUp]
         public void Init()
         {
-            _game = new SampleGame();
+            _game = new GameClient();
             this._config = new EngineConfig();
 
-            if(Engine.Instance!=null) // if there exists already an engine instance, dispose it first.
-                Engine.Instance.Dispose(); 
+            if(Engine.Core.Engine.Instance!=null) // if there exists already an engine instance, dispose it first.
+                Engine.Core.Engine.Instance.Dispose(); 
 
-            this._engine = new Engine(this._game, this._config);
+            this._engine = new Engine.Core.Engine(this._game, this._config);
             this._chunkStorage = new ChunkStorage(_game);
             this._chunk = new Chunk(new Vector2Int(0, 0));
         }
@@ -44,7 +43,7 @@ namespace EngineTests.Chunks
         [TearDown]
         public void Dispose()
         {
-            VoxeliqEngine.Core.Engine.Instance.Dispose();
+            Engine.Core.Engine.Instance.Dispose();
         }
 
         [Test]

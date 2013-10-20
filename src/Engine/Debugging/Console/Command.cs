@@ -8,9 +8,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VoxeliqEngine.Common.Logging;
+using Engine.Common.Logging;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     public class Command
     {

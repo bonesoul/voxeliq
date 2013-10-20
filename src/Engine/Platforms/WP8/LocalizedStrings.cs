@@ -9,7 +9,7 @@
 using VoxeliqEngine.Resources;
 #endif
 
-namespace VoxeliqEngine.Platforms.WP8
+namespace Engine.Platforms.WP8
 {
     /// <summary>
     /// Provides access to string resources.

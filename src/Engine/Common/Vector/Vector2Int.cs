@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Common.Vector
+namespace Engine.Common.Vector
 {
     public struct Vector2Int
     {

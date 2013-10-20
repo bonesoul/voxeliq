@@ -6,24 +6,24 @@
  */
 
 using System;
+using Engine.Assets;
+using Engine.Audio;
+using Engine.Chunks;
+using Engine.Chunks.Processors;
+using Engine.Core.Config;
+using Engine.Debugging;
+using Engine.Debugging.Console;
+using Engine.Debugging.Graphs;
+using Engine.Debugging.Ingame;
+using Engine.Graphics;
+using Engine.Input;
+using Engine.Interface;
+using Engine.Sky;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Audio;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Chunks.Processors;
-using VoxeliqEngine.Core.Config;
-using VoxeliqEngine.Debugging;
-using VoxeliqEngine.Debugging.Console;
-using VoxeliqEngine.Debugging.Graphs;
-using VoxeliqEngine.Debugging.Ingame;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Input;
-using VoxeliqEngine.Interface;
-using VoxeliqEngine.Sky;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Core
+namespace Engine.Core
 {
     public class Engine
     {

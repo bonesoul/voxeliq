@@ -6,11 +6,11 @@
  */
 
 using System;
+using Engine.Common.Helpers.IO;
+using Engine.Common.Logging;
 using Nini.Config;
-using VoxeliqEngine.Common.Helpers.IO;
-using VoxeliqEngine.Common.Logging;
 
-namespace VoxeliqGame.Settings
+namespace Client.Settings
 {
     public sealed class SettingsManager
     {

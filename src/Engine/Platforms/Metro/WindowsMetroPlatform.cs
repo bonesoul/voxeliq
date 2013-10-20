@@ -5,9 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Platforms.Config;
+using Engine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.Metro
+namespace Engine.Platforms.Metro
 {
     public class WindowsMetroPlatform : PlatformHandler
     {

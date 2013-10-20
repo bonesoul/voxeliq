@@ -5,10 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Chunks.Generators.Biomes;
+using Engine.Blocks;
+using Engine.Chunks.Generators.Biomes;
 
-namespace VoxeliqEngine.Chunks.Generators.Terrain
+namespace Engine.Chunks.Generators.Terrain
 {
     /// <summary>
     /// Flat terrain that can be used for debugging purposes.

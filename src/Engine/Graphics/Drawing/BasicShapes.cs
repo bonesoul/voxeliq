@@ -9,7 +9,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VoxeliqEngine.Graphics.Drawing
+namespace Engine.Graphics.Drawing
 {
     public static class BasicShapes
     {

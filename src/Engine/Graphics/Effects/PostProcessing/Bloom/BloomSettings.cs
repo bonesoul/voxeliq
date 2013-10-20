@@ -7,7 +7,7 @@
 
 using System.Collections.Generic;
 
-namespace VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom
+namespace Engine.Graphics.Effects.PostProcessing.Bloom
 {
     public class BloomSettings
     {

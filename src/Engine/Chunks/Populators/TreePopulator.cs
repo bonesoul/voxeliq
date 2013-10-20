@@ -5,13 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VoxeliqEngine.Blocks;
+using Engine.Blocks;
 
-namespace VoxeliqEngine.Chunks.Populators
+namespace Engine.Chunks.Populators
 {
     public static class TreePopulator
     {

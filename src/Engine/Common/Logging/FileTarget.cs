@@ -8,7 +8,7 @@
 using System;
 using System.IO;
 
-namespace VoxeliqEngine.Common.Logging
+namespace Engine.Common.Logging
 {
     /// <summary>
     /// Logs messages to a log file.

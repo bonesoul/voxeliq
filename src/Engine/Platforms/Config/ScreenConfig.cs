@@ -7,7 +7,7 @@
 
 using Microsoft.Xna.Framework;
 
-namespace VoxeliqEngine.Platforms.Config
+namespace Engine.Platforms.Config
 {
     public class ScreenConfig
     {

@@ -8,7 +8,7 @@
 using System;
 using System.Linq;
 
-namespace VoxeliqEngine.Common.Logging
+namespace Engine.Common.Logging
 {
     /// <summary>
     /// LogRouter class that routes messages to appropriate log-targets.

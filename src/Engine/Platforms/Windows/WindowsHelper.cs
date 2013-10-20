@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Platforms.Windows
+namespace Engine.Platforms.Windows
 {
     public class WindowsHelper : PlatformHelper
     {

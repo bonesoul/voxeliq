@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace VoxeliqEngine.Common.Helpers.IO
+namespace Engine.Common.Helpers.IO
 {
     public static class FileHelpers
     {

@@ -5,10 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Platforms.Config;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.WP8
+namespace Engine.Platforms.WP8
 {
     public class WindowsPhone8Platform : PlatformHandler
     {

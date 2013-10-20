@@ -5,9 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
+using Engine.Graphics.Effects.PostProcessing.Bloom;
 
-namespace VoxeliqEngine.Core.Config
+namespace Engine.Core.Config
 {
     public class BloomConfig
     {

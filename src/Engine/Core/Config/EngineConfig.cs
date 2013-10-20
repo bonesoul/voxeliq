@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Core.Config
+namespace Engine.Core.Config
 {
     /// <summary>
     /// Holds the configuration parameters to be used by the engine.

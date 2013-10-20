@@ -9,7 +9,7 @@ using System;
 using System.Globalization;
 using System.Text;
 
-namespace VoxeliqEngine.Common.Extensions
+namespace Engine.Common.Extensions
 {
     /// <summary>
     /// Options for StringBuilder extension methods.

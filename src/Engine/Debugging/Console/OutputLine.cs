@@ -7,7 +7,7 @@
 
 /* Code based on: http://code.google.com/p/xnagameconsole/ */
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     enum OutputLineType
     {

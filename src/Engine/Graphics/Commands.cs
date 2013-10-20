@@ -5,10 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
+using Engine.Debugging.Console;
 
-namespace VoxeliqEngine.Graphics
+namespace Engine.Graphics
 {
     [Command("vsync", "Sets the vsync mode.\nusage: vsync [on|off]")]
     public class VSyncCommand:Command
@@ -17,7 +16,7 @@ namespace VoxeliqEngine.Graphics
 
         public VSyncCommand()
         {
-            this._graphicsManager = (IGraphicsManager)Engine.Instance.Game.Services.GetService(typeof(IGraphicsManager));
+            this._graphicsManager = (IGraphicsManager)Core.Engine.Instance.Game.Services.GetService(typeof(IGraphicsManager));
         }
 
         [DefaultCommand]
@@ -51,7 +50,7 @@ namespace VoxeliqEngine.Graphics
 
         public FullScreenCommand()
         {
-            this._graphicsManager = (IGraphicsManager)Engine.Instance.Game.Services.GetService(typeof(IGraphicsManager));
+            this._graphicsManager = (IGraphicsManager)Core.Engine.Instance.Game.Services.GetService(typeof(IGraphicsManager));
         }
 
         [DefaultCommand]

@@ -5,10 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Platforms.Config;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms
+namespace Engine.Platforms
 {
     public class PlatformHandler
     {

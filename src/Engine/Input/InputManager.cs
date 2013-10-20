@@ -6,18 +6,17 @@
  */
 
 using System;
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Debugging.Console;
+using Engine.Debugging.Ingame;
+using Engine.Graphics;
+using Engine.Graphics.Effects.PostProcessing.Bloom;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
-using VoxeliqEngine.Debugging.Ingame;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Input
+namespace Engine.Input
 {
     /// <summary>
     /// Interface that allows interracting with the input manager.
@@ -121,10 +120,10 @@ namespace VoxeliqEngine.Input
             if (currentState == this._previousMouseState || !this.CaptureMouse) // if there's no mouse-state change or if it's not captured, just return.
                 return;
 
-            float rotation = currentState.X - Engine.Instance.Configuration.Graphics.Width / 2;
+            float rotation = currentState.X - Core.Engine.Instance.Configuration.Graphics.Width / 2;
             if (rotation != 0) _cameraController.RotateCamera(rotation);
 
-            float elevation = currentState.Y - Engine.Instance.Configuration.Graphics.Height / 2;
+            float elevation = currentState.Y - Core.Engine.Instance.Configuration.Graphics.Height / 2;
             if (elevation != 0) _cameraController.ElevateCamera(elevation);
 
             if (currentState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
@@ -147,7 +146,7 @@ namespace VoxeliqEngine.Input
             if (currentState.IsKeyDown(Keys.Escape)) // allows quick exiting of the game.
                 this.Game.Exit();
 
-            if (!Engine.Instance.Console.Opened)
+            if (!Core.Engine.Instance.Console.Opened)
             {
                 if (_previousKeyboardState.IsKeyUp(Keys.OemTilde) && currentState.IsKeyDown(Keys.OemTilde)) // tilda
                     KeyDown(null, new KeyEventArgs(Keys.OemTilde));
@@ -166,7 +165,7 @@ namespace VoxeliqEngine.Input
                 // debug keys.
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F1) && currentState.IsKeyDown(Keys.F1)) // toggles infinitive world on or off.
-                    Engine.Instance.Configuration.World.ToggleInfinitiveWorld();
+                    Core.Engine.Instance.Configuration.World.ToggleInfinitiveWorld();
 
                 if (_previousKeyboardState.IsKeyUp(Keys.F2) && currentState.IsKeyDown(Keys.F2)) // toggles flying on or off.
                     this._player.ToggleFlyForm();

@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Common.Extensions
+namespace Engine.Common.Extensions
 {
     public static class StringExtensions
     {

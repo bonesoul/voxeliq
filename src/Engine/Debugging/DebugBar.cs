@@ -8,17 +8,16 @@
 using System;
 using System.Globalization;
 using System.Text;
+using Engine.Assets;
+using Engine.Chunks;
+using Engine.Common.Extensions;
+using Engine.Common.Logging;
+using Engine.Graphics.Drawing;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Extensions;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Graphics.Drawing;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Debugging
+namespace Engine.Debugging
 {
     /// <summary>
     /// Allows interaction with the statistics service.
@@ -183,7 +182,7 @@ namespace VoxeliqEngine.Debugging
             else if (this._chunkStorage.Count > 1) 
                 _totalBlocks = (this._chunkStorage.Count / 0.03f).ToString("F2") + "K";
             else 
-                _totalBlocks = Engine.Instance.Configuration.Chunk.Volume.ToString(CultureInfo.InvariantCulture);
+                _totalBlocks = Core.Engine.Instance.Configuration.Chunk.Volume.ToString(CultureInfo.InvariantCulture);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
@@ -257,7 +256,7 @@ namespace VoxeliqEngine.Debugging
             // infinitive world
             _stringBuilder.Length = 0;
             _stringBuilder.Append("inf:");
-            _stringBuilder.Append(Engine.Instance.Configuration.World.IsInfinitive ? "On" : "Off");
+            _stringBuilder.Append(Core.Engine.Instance.Configuration.World.IsInfinitive ? "On" : "Off");
             _spriteBatch.DrawString(_spriteFont, _stringBuilder, new Vector2(this._bounds.X + 5, this._bounds.Y + 15), Color.White);
 
             // fly

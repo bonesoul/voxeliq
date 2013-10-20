@@ -9,10 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
+using Engine.Common.Logging;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     public static class CommandManager
     {
@@ -177,7 +176,7 @@ namespace VoxeliqEngine.Debugging.Console
             [DefaultCommand]
             public string Default(string[] @params)
             {
-                Engine.Instance.Game.Exit();
+                Core.Engine.Instance.Game.Exit();
                 return "Exiting the game..";
             }
         }

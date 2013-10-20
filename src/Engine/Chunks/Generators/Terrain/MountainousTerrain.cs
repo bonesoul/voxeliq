@@ -5,10 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Chunks.Generators.Biomes;
-using VoxeliqEngine.Common.Noise;
+using Engine.Chunks.Generators.Biomes;
+using Engine.Common.Noise;
 
-namespace VoxeliqEngine.Chunks.Generators.Terrain
+namespace Engine.Chunks.Generators.Terrain
 {
     public class MountainousTerrain : BiomedTerrain
     {

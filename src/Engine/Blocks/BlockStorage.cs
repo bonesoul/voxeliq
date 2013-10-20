@@ -5,15 +5,15 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Vector;
 
 // http://stackoverflow.com/questions/8162100/2d-array-with-wrapped-edges-in-c-sharp
 // http://www.voxeliq.org/page/story/_/devlog/optimizing-the-engine-i-r175
 
-namespace VoxeliqEngine.Blocks
+namespace Engine.Blocks
 {
     /// <summary>
     /// Stores all blocks in viewable chunks in a single huge array.

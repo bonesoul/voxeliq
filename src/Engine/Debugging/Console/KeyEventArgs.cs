@@ -10,7 +10,7 @@
 using System;
 using Microsoft.Xna.Framework.Input;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     public class KeyEventArgs : EventArgs
     {

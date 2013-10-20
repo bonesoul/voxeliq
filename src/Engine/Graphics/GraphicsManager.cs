@@ -5,11 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
 
-namespace VoxeliqEngine.Graphics
+namespace Engine.Graphics
 {
     /// <summary>
     /// Screen service for controlling screen.
@@ -74,11 +73,11 @@ namespace VoxeliqEngine.Graphics
             this._graphicsDeviceManager = graphicsDeviceManager;
             this._game.Services.AddService(typeof(IGraphicsManager), this); // export service.
 
-            this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = Engine.Instance.Configuration.Graphics.FullScreenEnabled;
-            this._graphicsDeviceManager.PreferredBackBufferWidth = Engine.Instance.Configuration.Graphics.Width;
-            this._graphicsDeviceManager.PreferredBackBufferHeight = Engine.Instance.Configuration.Graphics.Height;
-            this.FixedTimeStepsEnabled = this._game.IsFixedTimeStep = Engine.Instance.Configuration.Graphics.FixedTimeStepsEnabled;
-            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = Engine.Instance.Configuration.Graphics.VerticalSyncEnabled;
+            this.FullScreenEnabled = this._graphicsDeviceManager.IsFullScreen = Core.Engine.Instance.Configuration.Graphics.FullScreenEnabled;
+            this._graphicsDeviceManager.PreferredBackBufferWidth = Core.Engine.Instance.Configuration.Graphics.Width;
+            this._graphicsDeviceManager.PreferredBackBufferHeight = Core.Engine.Instance.Configuration.Graphics.Height;
+            this.FixedTimeStepsEnabled = this._game.IsFixedTimeStep = Core.Engine.Instance.Configuration.Graphics.FixedTimeStepsEnabled;
+            this.VerticalSyncEnabled = this._graphicsDeviceManager.SynchronizeWithVerticalRetrace = Core.Engine.Instance.Configuration.Graphics.VerticalSyncEnabled;
             this._graphicsDeviceManager.ApplyChanges();
         }
 

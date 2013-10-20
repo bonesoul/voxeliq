@@ -6,10 +6,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Client;
+using Engine.Core.Config;
 using NUnit.Framework;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Core.Config;
-using VoxeliqGame;
 
 namespace EngineTests.Config
 {
@@ -20,9 +19,9 @@ namespace EngineTests.Config
         [Description("Tests default engine configurations.")]
         public void TestDefaultValidConfig()
         {
-            var game = new SampleGame();
+            var game = new GameClient();
             var config = new EngineConfig();
-            var engine = new Engine(game, config);
+            var engine = new Engine.Core.Engine(game, config);
 
             Assert.IsTrue(config.Validate()); // expect config validation to succeed.
 

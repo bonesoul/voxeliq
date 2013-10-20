@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace VoxeliqEngine.Common.Logging
+namespace Engine.Common.Logging
 {
     /// <summary>
     /// Log manager class.

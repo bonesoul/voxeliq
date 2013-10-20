@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Platforms.Config
+namespace Engine.Platforms.Config
 {
     public class GraphicsConfig
     {

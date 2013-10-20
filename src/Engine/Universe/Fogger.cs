@@ -5,13 +5,12 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Debugging.Console;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     public interface IFogger
     {
@@ -71,7 +70,7 @@ namespace VoxeliqEngine.Universe
 
         public FoggerCommand()
         {
-            this._fogger = (IFogger)Engine.Instance.Game.Services.GetService(typeof(IFogger));
+            this._fogger = (IFogger)Core.Engine.Instance.Game.Services.GetService(typeof(IFogger));
         }
 
         [DefaultCommand]

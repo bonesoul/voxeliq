@@ -9,13 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Engine.Common.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
 
-namespace VoxeliqEngine.Audio
+namespace Engine.Audio
 {
     enum AmbientMusic
     {
@@ -66,7 +65,7 @@ namespace VoxeliqEngine.Audio
 
         private void AmbientMusicLoop()
         {
-            if (!Engine.Instance.Configuration.Audio.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
             while (true)
@@ -83,7 +82,7 @@ namespace VoxeliqEngine.Audio
 
         private void PlayBackroundSong()
         {
-            if (!Engine.Instance.Configuration.Audio.Enabled)
+            if (!Core.Engine.Instance.Configuration.Audio.Enabled)
                 return;
 
             #if !MONOGAME

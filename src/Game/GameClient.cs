@@ -5,22 +5,21 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Client.Settings.Readers;
+using Engine.Common.Logging;
+using Engine.Core.Config;
+using Engine.Debugging.Timing;
+using Engine.Graphics;
+using Engine.Graphics.Effects.PostProcessing.Bloom;
+using Engine.Platforms;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Core.Config;
-using VoxeliqEngine.Debugging.Timing;
-using VoxeliqEngine.Graphics;
-using VoxeliqEngine.Graphics.Effects.PostProcessing.Bloom;
-using VoxeliqEngine.Platforms;
-using VoxeliqGame.Settings.Readers;
 
-namespace VoxeliqGame
+namespace Client
 {
     /// <summary>
     /// The game client.
     /// </summary>
-    public class VoxeliqGame : Game
+    public class GameClient : Game
     {
         /// <summary>
         /// Graphics device manager.
@@ -44,7 +43,7 @@ namespace VoxeliqGame
         /// <summary>
         /// Creates a new game instance.
         /// </summary>
-        public VoxeliqGame()
+        public GameClient()
         {
             this.Content.RootDirectory = "Content"; // set content root directory.
             this._graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -98,7 +97,7 @@ namespace VoxeliqGame
                 Bloom =
                 {
                     Enabled = false,
-                    State = BloomState.Default,
+                    State = BloomState.Saturated,
                 },
                 Audio =
                 {
@@ -106,7 +105,7 @@ namespace VoxeliqGame
                 }
             };
 
-            var engine = new Engine(this, config);
+            var engine = new Engine.Core.Engine(this, config);
             this.ScreenManager = new GraphicsManager(this._graphicsDeviceManager, this); // start the screen manager.
 
             engine.EngineStart += OnEngineStart;
@@ -121,10 +120,10 @@ namespace VoxeliqGame
             this._timeRuler = new TimeRuler(this) { Visible = true, ShowLog = true };
             this.Components.Add(this._timeRuler);
 
-#if XNA
+        #if XNA
             this._bloomComponent = new BloomComponent(this);
             this.Components.Add(this._bloomComponent);
-#endif
+        #endif
         }
 
         /// <summary>
@@ -160,7 +159,7 @@ namespace VoxeliqGame
 			var skyColor = new Color(128, 173, 254);
             this.GraphicsDevice.Clear(skyColor);
 
-            this.GraphicsDevice.RasterizerState = Engine.Instance.Rasterizer.State;
+            this.GraphicsDevice.RasterizerState = Engine.Core.Engine.Instance.Rasterizer.State;
 
             base.Draw(gameTime);
 

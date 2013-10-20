@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace VoxeliqEngine.Common
+namespace Engine.Common
 {
     /// <summary>
     /// A dictionary objects that accepts dual keys for indexing.

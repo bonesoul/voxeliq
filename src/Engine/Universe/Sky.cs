@@ -6,13 +6,13 @@
  */
 
 using System;
+using Engine.Assets;
+using Engine.Common.Logging;
+using Engine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Assets;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Graphics;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     /// <summary>
     /// Allows interaction with sky service.

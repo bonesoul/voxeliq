@@ -9,12 +9,12 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Threading;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Platforms;
-using VoxeliqEngine.Universe;
-using VoxeliqGame.Settings.Readers;
+using Client.Settings.Readers;
+using Engine.Common.Logging;
+using Engine.Platforms;
+using Engine.Universe;
 
-namespace VoxeliqGame
+namespace Client
 {
     public static class Program
     {
@@ -43,7 +43,7 @@ namespace VoxeliqGame
             Logger.Info(string.Format("Running over {0} {1}.", PlatformManager.DotNetFramework, PlatformManager.DotNetFrameworkVersion));
             Logger.Info(string.Format("Using game framework {0} {1}, over {2}.", PlatformManager.GameFramework, PlatformManager.GameFrameworkVersion, PlatformManager.GraphicsApi));            
 
-            using (var game = new VoxeliqGame()) // startup the game.
+            using (var game = new GameClient()) // startup the game.
             {
                 Logger.Trace("Starting game loop..");
                 PlatformManager.Startup(game);

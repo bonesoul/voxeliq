@@ -64,13 +64,13 @@
     <Compile Include="Chunks\ChunkStorageTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Voxeliq.Engine.XNA.Windows.DX9.csproj">
+    <ProjectReference Include="..\Engine\Voxeliq.Windows.XNA.DX9.Engine.csproj">
       <Project>{121E6761-22F9-4401-A1E3-3E4FA72AE149}</Project>
-      <Name>Voxeliq.Engine.XNA.Windows.DX9</Name>
+      <Name>Voxeliq.Windows.XNA.DX9.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\game\Voxeliq.Game.XNA.Windows.DX9.csproj">
+    <ProjectReference Include="..\game\Voxeliq.Windows.XNA.DX9.Client.csproj">
       <Project>{72BE671F-8476-4C25-B6BD-48DFE25E9CCF}</Project>
-      <Name>Voxeliq.Game.XNA.Windows.DX9</Name>
+      <Name>Voxeliq.Windows.XNA.DX9.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -6,10 +6,10 @@
  */
 
 using System.Linq;
+using Engine.Graphics.Drawing;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Graphics.Drawing;
 
-namespace VoxeliqEngine.Debugging.Graphs.Implementations
+namespace Engine.Debugging.Graphs.Implementations
 {
     public class FPSGraph:DebugGraph
     {

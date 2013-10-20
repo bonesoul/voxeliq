@@ -10,11 +10,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine.Input;
 using Microsoft.Xna.Framework.Input;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Input;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     class InputProcessor
     {
@@ -41,7 +40,7 @@ namespace VoxeliqEngine.Debugging.Console
             Out = new List<OutputLine>();
             Buffer = new OutputLine("", OutputLineType.Command);
 
-            var inputManager = (IInputManager)Engine.Instance.Game.Services.GetService(typeof(IInputManager));
+            var inputManager = (IInputManager)Core.Engine.Instance.Game.Services.GetService(typeof(IInputManager));
             inputManager.KeyDown += new InputManager.KeyEventHandler(OnKeyDown);
         }
 

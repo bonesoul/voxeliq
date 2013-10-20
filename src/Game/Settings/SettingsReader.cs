@@ -7,7 +7,7 @@
 
 using Nini.Config;
 
-namespace VoxeliqGame.Settings
+namespace Client.Settings
 {
     public class SettingsReader
     {

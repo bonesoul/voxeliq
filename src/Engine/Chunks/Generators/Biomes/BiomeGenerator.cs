@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Chunks.Generators.Biomes
+namespace Engine.Chunks.Generators.Biomes
 {
     public class BiomeGenerator
     {

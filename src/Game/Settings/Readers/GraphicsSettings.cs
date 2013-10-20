@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqGame.Settings.Readers
+namespace Client.Settings.Readers
 {
     public sealed class GraphicsSettings : SettingsReader
     {

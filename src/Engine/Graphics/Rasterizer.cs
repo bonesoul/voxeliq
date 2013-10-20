@@ -5,11 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Debugging.Console;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
 
-namespace VoxeliqEngine.Graphics
+namespace Engine.Graphics
 {
     /// <summary>
     /// Rasterizer helper.
@@ -64,7 +63,7 @@ namespace VoxeliqEngine.Graphics
         public string Default(string[] @params)
         {
             return string.Format("Rasterizer is currently set to {0} mode.\nusage: rasterizer [wireframed|normal].",
-                                 Engine.Instance.Rasterizer.Wireframed
+                                 Core.Engine.Instance.Rasterizer.Wireframed
                                      ? "wireframed"
                                      : "normal");
         }
@@ -72,14 +71,14 @@ namespace VoxeliqEngine.Graphics
         [Subcommand("wireframed","Sets rasterizer mode to wireframed.")]
         public string Wireframed(string[] @params)
         {
-            Engine.Instance.Rasterizer.Wireframed = true;
+            Core.Engine.Instance.Rasterizer.Wireframed = true;
             return "Rasterizer mode set to wireframed.";
         }
 
         [Subcommand("normal", "Sets rasterizer mode to normal.")]
         public string Normal(string[] @params)
         {
-            Engine.Instance.Rasterizer.Wireframed = false;
+            Core.Engine.Instance.Rasterizer.Wireframed = false;
             return "Rasterizer mode set to normal mode.";
         }
     }

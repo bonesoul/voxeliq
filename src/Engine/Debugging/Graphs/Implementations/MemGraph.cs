@@ -6,11 +6,11 @@
  */
 
 using System.Linq;
+using Engine.Common.Extensions;
+using Engine.Graphics.Drawing;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Common.Extensions;
-using VoxeliqEngine.Graphics.Drawing;
 
-namespace VoxeliqEngine.Debugging.Graphs.Implementations
+namespace Engine.Debugging.Graphs.Implementations
 {
     public class MemGraph:DebugGraph
     {

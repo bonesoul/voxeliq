@@ -14,10 +14,10 @@ using Android.Views;
 using Android.Widget;
 #endif
 
+using Engine.Platforms.Config;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.Android
+namespace Engine.Platforms.Android
 {
     public class AndroidPlatform : PlatformHandler
     {

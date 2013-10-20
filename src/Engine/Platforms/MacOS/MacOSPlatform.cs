@@ -5,15 +5,13 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using System;
-using Microsoft.Xna.Framework;
+using Engine.Platforms.Config;
 #if MACOS
 using MonoMac.AppKit;
 using MonoMac.Foundation;
 #endif
-using VoxeliqEngine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.MacOS
+namespace Engine.Platforms.MacOS
 {
     public class MacOSPlatform : PlatformHandler
     {

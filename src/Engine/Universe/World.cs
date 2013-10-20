@@ -5,13 +5,13 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Chunks;
+using Engine.Common.Logging;
+using Engine.Common.Vector;
+using Engine.Graphics;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Chunks;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Common.Vector;
-using VoxeliqEngine.Graphics;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     /// <summary>
     /// World service interface.

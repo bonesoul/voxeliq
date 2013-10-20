@@ -12,7 +12,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace VoxeliqEngine.Common.Helpers
+namespace Engine.Common.Helpers
 {
     public class ConcurrentList<T> : IList<T>, IList
     {

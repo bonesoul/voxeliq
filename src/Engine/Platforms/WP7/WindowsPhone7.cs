@@ -6,10 +6,10 @@
  */
 
 using System;
+using Engine.Platforms.Config;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Platforms.Config;
 
-namespace VoxeliqEngine.Platforms.WP7
+namespace Engine.Platforms.WP7
 {
     public class WindowsPhone7Platform : PlatformHandler
     {

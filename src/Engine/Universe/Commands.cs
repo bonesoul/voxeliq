@@ -5,10 +5,9 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Debugging.Console;
+using Engine.Debugging.Console;
 
-namespace VoxeliqEngine.Universe
+namespace Engine.Universe
 {
     [Command("fly", "Sets the flying mode.\nusage: fly [on|off]")]
     public class FlyCommand : Command
@@ -17,7 +16,7 @@ namespace VoxeliqEngine.Universe
 
         public FlyCommand()
         {
-            this._player = (IPlayer)Engine.Instance.Game.Services.GetService(typeof(IPlayer));
+            this._player = (IPlayer)Core.Engine.Instance.Game.Services.GetService(typeof(IPlayer));
         }
 
         [DefaultCommand]
@@ -51,7 +50,7 @@ namespace VoxeliqEngine.Universe
         public string Default(string[] @params)
         {
             return string.Format("Infinitive mode is currently {0}.\nusage: infinitive [on|off].",
-                                 Engine.Instance.Configuration.World.IsInfinitive
+                                 Core.Engine.Instance.Configuration.World.IsInfinitive
                                      ? "on"
                                      : "off");
         }
@@ -59,14 +58,14 @@ namespace VoxeliqEngine.Universe
         [Subcommand("on", "Sets infinitive mode on.")]
         public string On(string[] @params)
         {
-            Engine.Instance.Configuration.World.IsInfinitive = true;
+            Core.Engine.Instance.Configuration.World.IsInfinitive = true;
             return "Infinitive on.";
         }
 
         [Subcommand("off", "Sets infinitive off.")]
         public string Off(string[] @params)
         {
-            Engine.Instance.Configuration.World.IsInfinitive = false;
+            Core.Engine.Instance.Configuration.World.IsInfinitive = false;
             return "Infinitive off.";
         }
     }

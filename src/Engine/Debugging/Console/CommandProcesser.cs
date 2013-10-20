@@ -9,7 +9,7 @@
 
 using System.Linq;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     class CommandProcesser
     {

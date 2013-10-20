@@ -7,7 +7,7 @@
 
 using System;
 
-namespace VoxeliqEngine.Debugging.Console
+namespace Engine.Debugging.Console
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class CommandAttribute : Attribute

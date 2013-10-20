@@ -8,20 +8,19 @@
 
 using System;
 using System.Collections.Generic;
+using Client;
+using Engine.Blocks;
+using Engine.Core.Config;
 using NUnit.Framework;
-using VoxeliqEngine.Blocks;
-using VoxeliqEngine.Core;
-using VoxeliqEngine.Core.Config;
-using VoxeliqGame;
 
 namespace EngineTests.Blocks
 {
     [TestFixture]
     public class BlockStorageTests
     {
-        private SampleGame _game;
+        private GameClient _game;
         private EngineConfig _config;
-        private Engine _engine;
+        private Engine.Core.Engine _engine;
 
         private int _cacheXStartIndex;
         private int _cacheXEndIndex;
@@ -33,9 +32,9 @@ namespace EngineTests.Blocks
         [SetUp]
         public void Init()
         {
-            _game = new SampleGame();
+            _game = new GameClient();
             this._config = new EngineConfig();
-            this._engine = new Engine(this._game, this._config);
+            this._engine = new Engine.Core.Engine(this._game, this._config);
 
             var cacheWidthInBlocks = ((_config.Cache.CacheRange * 2) + 1) * _config.Chunk.WidthInBlocks;
             var cacheLenghtInBlocks = ((_config.Cache.CacheRange*2) + 1) * _config.Chunk.LenghtInBlocks;

@@ -7,7 +7,7 @@
 
 using System;
 
-namespace VoxeliqEngine.Common.Vector
+namespace Engine.Common.Vector
 {
     public struct Vector4Byte
     {

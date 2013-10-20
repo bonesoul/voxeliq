@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace VoxeliqEngine.Debugging.Profiling
+namespace Engine.Debugging.Profiling
 {
     /// <summary>
     /// Provides methods for profiling.

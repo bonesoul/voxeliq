@@ -9,7 +9,7 @@
 using Microsoft.Phone.Tasks;
 #endif
 
-namespace VoxeliqEngine.Platforms.WP7
+namespace Engine.Platforms.WP7
 {
     public class WindowsPhone7Helper : PlatformHelper
     {

@@ -5,7 +5,7 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
-namespace VoxeliqEngine.Chunks.Generators.Terrain
+namespace Engine.Chunks.Generators.Terrain
 {
     /// <summary>
     /// A terrain generator.

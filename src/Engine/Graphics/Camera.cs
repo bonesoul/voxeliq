@@ -5,11 +5,11 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Engine.Common.Logging;
+using Engine.Universe;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Common.Logging;
-using VoxeliqEngine.Universe;
 
-namespace VoxeliqEngine.Graphics
+namespace Engine.Graphics
 {
     /// <summary>
     /// Interface that provides camera information.

@@ -6,11 +6,11 @@
  */
 
 using System.Collections.Generic;
+using Engine.Graphics.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using VoxeliqEngine.Graphics.Drawing;
 
-namespace VoxeliqEngine.Debugging.Graphs
+namespace Engine.Debugging.Graphs
 {
     /// <summary>
     /// DebugGraph is a special graph module that can draw graphs for debugging purposes.
