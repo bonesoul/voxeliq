@@ -1,4 +1,4 @@
-# voxeliq
+# voxeliq [![Build status](https://ci.appveyor.com/api/projects/status?id=06sdyq1kf99oapol)](https://ci.appveyor.com/project/voxeliq)
 
 ![Screenshot](http://www.int6.org/blog/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
@@ -32,12 +32,7 @@ We would like to develop an open-source and 100% moddable blocky-game which will
 - [channel9](http://channel9.msdn.com/coding4fun/blog/Block-out-some-time-to-play-with-the-C-open-source-block-game-engine-Voxeliq)
 - [reddit](http://www.reddit.com/r/gamedev/comments/15gqil/voxeliq_my_tiny_c_blockengine_is_open_source_now/)
 - [indiedb](http://www.indiedb.com/engines/voxeliq/news/voxeliq-engine-is-now-open-source)
-
-# devlog
-- [Devlog-IX - MonoGame support](http://www.youtube.com/watch?v=80ujxU8t8Zc)
-- [Devlog-VIII - Speed Test](http://www.youtube.com/watch?v=CVVTT5b02S4)
-- [Devlog-VII - Bloom Effect](http://www.youtube.com/watch?v=xTvzKK2TqmQ)
-- [more](http://www.youtube.com/int6games)
+- [devlog videos](http://www.youtube.com/int6games)
 
 # Screenshots
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
