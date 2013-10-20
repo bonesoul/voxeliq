@@ -40,7 +40,7 @@ namespace Engine.Chunks.Processors
 
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
                     bool inShade = false; // if we get direct sunlight, inShade will be set to false.
@@ -65,7 +65,7 @@ namespace Engine.Chunks.Processors
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
@@ -130,7 +130,7 @@ namespace Engine.Chunks.Processors
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
@@ -195,7 +195,7 @@ namespace Engine.Chunks.Processors
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
@@ -260,7 +260,7 @@ namespace Engine.Chunks.Processors
         {
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 

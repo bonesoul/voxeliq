@@ -71,12 +71,12 @@ namespace Engine.Core.Config
 
             this.CacheRangeWidthInBlocks = (this.CacheRange * 2 + 1) * Engine.Instance.Configuration.Chunk.WidthInBlocks;
             this.CacheRangeHeightInBlocks = Engine.Instance.Configuration.Chunk.HeightInBlocks;
-            this.CacheRangeLenghtInBlocks = (this.CacheRange * 2 + 1) * Engine.Instance.Configuration.Chunk.LenghtInBlocks;
+            this.CacheRangeLenghtInBlocks = (this.CacheRange * 2 + 1) * Engine.Instance.Configuration.Chunk.LengthInBlocks;
             this.CacheRangeVolume = this.CacheRangeWidthInBlocks * this.CacheRangeHeightInBlocks * this.CacheRangeLenghtInBlocks;
 
             this.ViewRangeWidthInBlocks = (this.ViewRange * 2 + 1) * Engine.Instance.Configuration.Chunk.WidthInBlocks;
             this.ViewRangeHeightInBlocks = Engine.Instance.Configuration.Chunk.HeightInBlocks;
-            this.ViewRangeLenghtInBlocks = (this.ViewRange * 2 + 1) * Engine.Instance.Configuration.Chunk.LenghtInBlocks;
+            this.ViewRangeLenghtInBlocks = (this.ViewRange * 2 + 1) * Engine.Instance.Configuration.Chunk.LengthInBlocks;
             this.ViewRangeVolume = this.ViewRangeWidthInBlocks * this.ViewRangeHeightInBlocks * this.ViewRangeLenghtInBlocks;
         }
 

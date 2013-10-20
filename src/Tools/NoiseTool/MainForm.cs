@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Engine.Common.Noise;
 using Microsoft.Xna.Framework;
-using VoxeliqEngine.Common.Noise;
 using Color = System.Drawing.Color;
 
 namespace NoiseTool

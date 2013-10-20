@@ -20,6 +20,7 @@ namespace Engine.Universe
         private IPlayer _player;
         private IWorld _world;
         private IChunkCache _chunkCache;
+        private IBlockStorage _blockStorage;
 
         public Shovel(Game game) : base(game)
         {
@@ -30,6 +31,7 @@ namespace Engine.Universe
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this._blockStorage = (IBlockStorage) this.Game.Services.GetService(typeof (IBlockStorage));
         }
 
         public override void Use()
@@ -37,7 +39,7 @@ namespace Engine.Universe
             if (!_player.AimedSolidBlock.HasValue) 
                 return;
 
-            this._chunkCache.SetBlockAt(_player.AimedSolidBlock.Value.Position, Block.Empty);
+            this._blockStorage.SetBlockAt(_player.AimedSolidBlock.Value.Position,Block.Empty);
         }
 
         public override void SecondaryUse()
@@ -46,19 +48,32 @@ namespace Engine.Universe
             if (!_player.AimedEmptyBlock.HasValue || _player.AimedEmptyBlock.Value.Position == new Vector3Int(_player.Position + new Vector3(0f, -0.5f, 0f)))
                 return;
 
-            this._chunkCache.SetBlockAt(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
+            this._blockStorage.SetBlockAt(_player.AimedEmptyBlock.Value.Position, new Block(BlockType.Iron));
         }
 
+        /// <summary>
+        /// Draws an ingame debug visual on the block that is targeted.
+        /// </summary>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="camera"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="spriteFont"></param>
         public override void DrawInGameDebugVisual(GraphicsDevice graphicsDevice, ICamera camera, SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
-            if (!_player.AimedSolidBlock.HasValue) return;
-            var text = _player.AimedSolidBlock.Value.Position + " Sun: " + _player.AimedSolidBlock.Value.Block.Sun;
-            var textSize = spriteFont.MeasureString(text);
+            if (!_player.AimedSolidBlock.HasValue) // make sure we have a solid block.
+                return;
+
+            var positionedBlock = _player.AimedSolidBlock.Value;
+            var hostChunk = this._chunkCache.GetChunkByWorldPosition(positionedBlock.Position.X, positionedBlock.Position.Z);
+
+
+            var text = string.Format("Block: {0}, Pos: {1}, Chunk: {2}", positionedBlock.Block.ToString(), positionedBlock.Position, hostChunk.ToString());
+            
 
             Vector3 projected = graphicsDevice.Viewport.Project(Vector3.Zero, camera.Projection, camera.View,
-                                                                Matrix.CreateTranslation(
-                                                                    new Vector3(_player.AimedSolidBlock.Value.Position.X + 0.5f, _player.AimedSolidBlock.Value.Position.Y + 0.5f, _player.AimedSolidBlock.Value.Position.Z + 0.5f)));
+                                                                Matrix.CreateTranslation(new Vector3(positionedBlock.Position.X + 0.5f, positionedBlock.Position.Y + 0.5f, positionedBlock.Position.Z + 0.5f)));
 
+            var textSize = spriteFont.MeasureString(text);
             spriteBatch.DrawString(spriteFont, text, new Vector2(projected.X - textSize.X/2, projected.Y - textSize.Y/2), Color.Yellow);
         }
     }

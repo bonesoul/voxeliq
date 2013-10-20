@@ -27,8 +27,9 @@ namespace Engine.Chunks.Processors
 
     public class VertexBuilder : GameComponent, IVertexBuilder
     {
-        // required services.
+        // import required services.
         private IChunkCache _chunkCache;
+        private IBlockStorage _blockStorage;
 
         public VertexBuilder(Game game)
             : base(game)
@@ -40,6 +41,7 @@ namespace Engine.Chunks.Processors
         {
             // import required services.
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this._blockStorage = (IBlockStorage)this.Game.Services.GetService(typeof(IBlockStorage));
         }
 
         public void Build(Chunk chunk)
@@ -52,8 +54,8 @@ namespace Engine.Chunks.Processors
             chunk.CalculateHeightIndexes();
 
             chunk.BoundingBox = new BoundingBox(
-                new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z), 
-                new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LenghtInBlocks));
+                new Vector3(chunk.WorldPosition.X, chunk.LowestEmptyBlockOffset, chunk.WorldPosition.Z),
+                new Vector3(chunk.WorldPosition.X + Chunk.WidthInBlocks, chunk.HighestSolidBlockOffset, chunk.WorldPosition.Z + Chunk.LengthInBlocks));
 
             this.BuildVertexList(chunk);
 
@@ -80,7 +82,7 @@ namespace Engine.Chunks.Processors
 
             for (byte x = 0; x < Chunk.WidthInBlocks; x++)
             {
-                for (byte z = 0; z < Chunk.LenghtInBlocks; z++)
+                for (byte z = 0; z < Chunk.LengthInBlocks; z++)
                 {
                     int offset = BlockStorage.BlockIndexByRelativePosition(chunk, x, z);
 
@@ -126,37 +128,37 @@ namespace Engine.Chunks.Processors
             Block blockMidNW, blockMidN, blockMidNE, blockMidW, blockMidM, blockMidE, blockMidSW, blockMidS, blockMidSE;
             Block blockBotNW, blockBotN, blockBotNE, blockBotW, blockBotM, blockBotE, blockBotSW, blockBotS, blockBotSE;
 
-            blockTopNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
-            blockTopW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
-            blockTopM = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
-            blockTopE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
-            blockTopSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
-            blockTopS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
-            blockTopSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopNW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopN = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopNE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z + 1);
+            blockTopW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopM = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z);
+            blockTopE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z);
+            blockTopSW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopS = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y + 1, worldPosition.Z - 1);
+            blockTopSE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y + 1, worldPosition.Z - 1);
 
-            blockMidNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
-            blockMidN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
-            blockMidNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
-            blockMidW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
+            blockMidNW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidN = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z + 1);
+            blockMidNE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z + 1);
+            blockMidW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z);
             
             // here comes the self block in order but we don't need to calculate it ;)
 
-            blockMidE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
-            blockMidSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
-            blockMidS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
-            blockMidSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z);
+            blockMidSW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y, worldPosition.Z - 1);
+            blockMidS = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y, worldPosition.Z - 1);
+            blockMidSE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y, worldPosition.Z - 1);
 
-            blockBotNW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotN = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotNE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
-            blockBotW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
-            blockBotM = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
-            blockBotE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
-            blockBotSW = BlockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
-            blockBotS = BlockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
-            blockBotSE = BlockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotNW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotN = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotNE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z + 1);
+            blockBotW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotM = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z);
+            blockBotE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z);
+            blockBotSW = _blockStorage.BlockAt(worldPosition.X - 1, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotS = _blockStorage.BlockAt(worldPosition.X, worldPosition.Y - 1, worldPosition.Z - 1);
+            blockBotSE = _blockStorage.BlockAt(worldPosition.X + 1, worldPosition.Y - 1, worldPosition.Z - 1);
 
             float sunTR, sunTL, sunBR, sunBL;
             float redTR, redTL, redBR, redBL;

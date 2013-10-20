@@ -70,13 +70,13 @@ namespace Client
                 {
                     WidthInBlocks = 16,
                     HeightInBlocks = 128,
-                    LenghtInBlocks = 16,
+                    LengthInBlocks = 16,
                 },
                 Cache =
                 {
                     CacheExtraChunks = true,
-                    ViewRange = 8,
-                    CacheRange = 12,
+                    ViewRange = 12,
+                    CacheRange = 16,
                 },
                 Graphics =
                 {

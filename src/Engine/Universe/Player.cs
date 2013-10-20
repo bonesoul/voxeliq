@@ -106,6 +106,7 @@ namespace Engine.Universe
         private ICamera _camera;
         private IChunkCache _chunkCache;
         private IAssetManager _assetManager;
+        private IBlockStorage _blockStorage;
 
         // misc
         private static readonly Logger Logger = LogManager.CreateLogger(); // logging-facility
@@ -127,6 +128,7 @@ namespace Engine.Universe
             // import required services.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._chunkCache = (IChunkCache) this.Game.Services.GetService(typeof (IChunkCache));
+            this._blockStorage = (IBlockStorage) this.Game.Services.GetService(typeof (IBlockStorage));
 
             this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
             if (this._assetManager == null)
@@ -157,7 +159,7 @@ namespace Engine.Universe
 
             this.Velocity.Y += Gravity*(float) gameTime.ElapsedGameTime.TotalSeconds;
             var footPosition = Position + new Vector3(0f, -1.5f, 0f);
-            Block standingBlock = BlockStorage.BlockAt(footPosition);
+            Block standingBlock = _blockStorage.BlockAt(footPosition);
 
             if (standingBlock.Exists) this.Velocity.Y = 0;
             this.Position += Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds;
@@ -176,7 +178,7 @@ namespace Engine.Universe
         public void Jump()
         {
             var footPosition = Position + new Vector3(0f, -1.5f, 0f);
-            Block standingBlock = BlockStorage.BlockAt(footPosition);
+            Block standingBlock = _blockStorage.BlockAt(footPosition);
 
             if (!standingBlock.Exists && this.Velocity.Y != 0) return;
             float amountBelowSurface = ((ushort) footPosition.Y) + 1 - footPosition.Y;
@@ -232,11 +234,11 @@ namespace Engine.Universe
             testVector *= moveVector.Length() + 0.3f;
             var footPosition = Position + new Vector3(0f, -0.5f, 0f);
             Vector3 testPosition = footPosition + testVector;
-            if (BlockStorage.BlockAt(testPosition).Exists) return;
+            if (_blockStorage.BlockAt(testPosition).Exists) return;
 
             // There should be some bounding box so his head does not enter a block above ;) /fasbat
             testPosition -= 2*new Vector3(0f, -0.5f, 0f);
-            if (BlockStorage.BlockAt(testPosition).Exists) return;
+            if (_blockStorage.BlockAt(testPosition).Exists) return;
 
 
             this.Position += moveVector;
@@ -246,7 +248,7 @@ namespace Engine.Universe
         {
             this.RelativePosition = relativePosition;
             this.Position = new Vector3(relativePosition.X*Chunk.WidthInBlocks, 150,
-                                        relativePosition.Z*Chunk.LenghtInBlocks);
+                                        relativePosition.Z * Chunk.LengthInBlocks);
             this._world.SpawnPlayer(relativePosition);
         }
 
@@ -255,7 +257,7 @@ namespace Engine.Universe
             for (float x = 0.5f; x < 8f; x += 0.1f)
             {
                 Vector3 target = this._camera.Position + (LookVector*x);
-                var block = BlockStorage.BlockAt(target);
+                var block = _blockStorage.BlockAt(target);
                 if (!block.Exists) this.AimedEmptyBlock = new PositionedBlock(new Vector3Int(target), block);
                 else
                 {
