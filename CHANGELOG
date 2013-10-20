@@ -1,5 +1,26 @@
-v0.1 [28.12.2012]
-* Synced with monogame's develop3d branch. (#345cddf0c1 as of 24/12/2012).
+v0.2 
+* More code cleanup & bug-fixes.
+* Added unit tests for engine.
+* Implemented a basic & buggy console & commands subsystem.
+* Implemented a very primitive blocky sky & clouds.
+* Improved logging & configuration facilities.
+* Implemented platform manager that can identify running platform & frameworks.
+* Added vsync & fixed timesteps options to config.ini.
+* Log targets are now also configured in config.ini now.
+* Added an engine.log file log-target.
+* Fixed a bug where chunks in cache-range were not lightened as expected.
+* Added cache-range checks.
+* Improved Chunk's and Block's string representation.
+* Fixed issue #18 where view-range value was incorrectly used when calculating cache width and height. Instead cache-range had to be used and fixed so.
+* Fixed Chunk.FastSetBlockAt() so that minus world coordinates also work. ChunkCache.GetChunk is also fixed for minus values. Player is now spawned at 0,0.
+* Moved chunk statistics calculation to ChunkCache.Draw() - finally the values are preserved, which eventually fixes the chunk debug graph bugs.
+* Added chunk removal queue debug-graph.
+* Fixed a tiny capture mouse & mouse visibility bug.
+* Moved ini-file based config-classes from Engine to Client project. Engine is now free of both Nini reference and the ini file itself. The actual game can do what-ever he wants when he supplies parameters to EngineConfig.
+* The Engine ctor() will now throw an exception when additional instances created (Discussed in issue #43).
+
+v0.1
+* Synced with monogame's develop3d branch. (#345cddf0c1).
 * MonoGame version now also uses threaded chunk processors.
 * The console will now show underlying framework's version.
 * Added asset-manager.
