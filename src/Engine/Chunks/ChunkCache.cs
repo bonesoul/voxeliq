@@ -447,7 +447,8 @@ namespace Engine.Chunks
             if (chunk == null)
                 return;
 
-            chunk.FastSetBlockAt((sbyte)(x % Chunk.WidthInBlocks), (sbyte)y, (sbyte)(z % Chunk.LenghtInBlocks), block); // use FastSetBlock as we already do bounds check by finding the chunk block is owned by.
+            BlockStorage.SetBlockAt(x, y, z, block);
+            chunk.ChunkState = ChunkState.AwaitingRelighting;
         }
 
         /// <summary>

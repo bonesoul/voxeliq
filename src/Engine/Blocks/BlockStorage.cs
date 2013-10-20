@@ -16,9 +16,16 @@ using Microsoft.Xna.Framework;
 namespace Engine.Blocks
 {
     /// <summary>
+    /// Stores blocks data and allows access to it.
+    /// </summary>
+    public interface IBlockStorage
+    {
+    }
+
+    /// <summary>
     /// Stores all blocks in viewable chunks in a single huge array.
     /// </summary>
-    public static class BlockStorage
+    public class BlockStorage : GameComponent, IBlockStorage
     {
         /// <summary>
         /// The single huge block array.
@@ -52,45 +59,27 @@ namespace Engine.Blocks
         /// </summary>
         private static readonly Logger Logger = LogManager.CreateLogger();
 
-        static BlockStorage()
+        // required services.
+        private IChunkCache _chunkCache;
+
+        public BlockStorage(Game game)
+            :base(game)
+        {
+            this.Game.Services.AddService(typeof(IBlockStorage), this); // export service.            
+        }
+
+        public override void Initialize()
         {
             Logger.Trace("init()");
 
+            // import required services.
+            this._chunkCache = (IChunkCache)this.Game.Services.GetService(typeof(IChunkCache));
+
             // init the block array.
-            Blocks = new Block[CacheWidthInBlocks*CacheLenghtInBlocks*Chunk.HeightInBlocks];
+            Blocks = new Block[CacheWidthInBlocks * CacheLenghtInBlocks * Chunk.HeightInBlocks];
         }
 
         #region block accessors
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        public static Block BlockAt(int x, int y, int z)
-        {
-            // make sure given coordinates are in chunk cache's bounds.
-            if (!ChunkCache.IsInBounds(x, y, z))
-                return Block.Empty; // if it's out of bounds, just return an empty block.
-
-            // wrap x coordinate.
-            var wrapX = x % CacheWidthInBlocks;
-            if (wrapX < 0)
-                wrapX += CacheWidthInBlocks;
-
-            // wrap z coordinate.
-            var wrapZ = z % CacheLenghtInBlocks;
-            if (wrapZ < 0)
-                wrapZ += CacheLenghtInBlocks;
-
-            // calculate the flatten index.
-            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
-
-            // return block copy.
-            return Blocks[flattenIndex];
-        }
 
         /// <summary>
         /// Gets a block by given world position.
@@ -123,48 +112,16 @@ namespace Engine.Blocks
         /// <param name="y">Block's y world position.</param>
         /// <param name="z">Block's z world position.</param>
         /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public static Block FastBlockAt(int x, int y, int z)
+        public static Block BlockAt(int x, int y, int z)
         {
-            // wrap x coordinate.
-            var wrapX = x%CacheWidthInBlocks;
-            if (wrapX < 0)
-                wrapX += CacheWidthInBlocks;
+            // make sure given coordinates are in chunk cache's bounds.
+            if (!ChunkCache.IsInBounds(x, y, z))
+                return Block.Empty; // if it's out of bounds, just return an empty block.
 
-            // wrap z coordinate.
-            var wrapZ = z%CacheLenghtInBlocks;
-            if (wrapZ < 0)
-                wrapZ += CacheLenghtInBlocks;
-
-            // calculate the flatten index.
-            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
+            var flattenIndex = BlockIndexByWorldPosition(x, y, z);
 
             // return block copy.
             return Blocks[flattenIndex];
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public static Block FastBlockAt(Vector3 position)
-        {
-            return FastBlockAt((int)position.X, (int)position.Y, (int)position.Z);
-        }
-
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public static Block FastBlockAt(Vector3Int position)
-        {
-            return FastBlockAt(position.X, position.Y, position.Z);
         }
 
         #endregion
@@ -180,22 +137,13 @@ namespace Engine.Blocks
         /// <param name="block">Block to set.</param>
         public static void SetBlockAt(int x, int y, int z, Block block)
         {
-            // make sure given coordinates are in chunk cache's bounds.
-            if (!ChunkCache.IsInBounds(x, y, z))
-                return; // if it's out of bounds, just return;
+            //var chunk = ChunkCache.GetChunk(x, z); // get the chunk that block is hosted in.
+            //if (chunk == null)
+            //    return;
 
-            // wrap x coordinate.
-            var wrapX = x % CacheWidthInBlocks;
-            if (wrapX < 0)
-                wrapX += CacheWidthInBlocks;
+            // TODO: check if block is in edges, if so rebuild the neighboor chunks too.
 
-            // wrap z coordinate.
-            var wrapZ = z % CacheLenghtInBlocks;
-            if (wrapZ < 0)
-                wrapZ += CacheLenghtInBlocks;
-
-            // calculate the flatten index.
-            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
+            var flattenIndex = BlockIndexByWorldPosition(x, y, z);
 
             // set the block
             Blocks[flattenIndex] = block;
@@ -221,57 +169,6 @@ namespace Engine.Blocks
         public static void SetBlockAt(Vector3Int position, Block block)
         {
             SetBlockAt(position.X, position.Y, position.Z, block);
-        }
-
-        /// <summary>
-        /// Sets a block by given world position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <param name="block">Block to set.</param>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
-        public static void FastSetBlockAt(int x, int y, int z, Block block)
-        {
-            // wrap x coordinate.
-            var wrapX = x % CacheWidthInBlocks;
-            if (wrapX < 0)
-                wrapX += CacheWidthInBlocks;
-
-            // wrap z coordinate.
-            var wrapZ = z % CacheLenghtInBlocks;
-            if (wrapZ < 0)
-                wrapZ += CacheLenghtInBlocks;
-
-            // calculate the flatten index.
-            var flattenIndex = wrapX * XStep + wrapZ * ZStep + y;
-
-            // sett the block
-            Blocks[flattenIndex] = block;
-        }
-
-        /// <summary>
-        /// Sets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <param name="block">Block to set.</param>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
-        public static void FastSetBlockAt(Vector3 position, Block block)
-        {
-            FastSetBlockAt((int)position.X, (int)position.Y, (int)position.Z, block);
-        }
-
-        /// <summary>
-        /// Sets a block by given world position.
-        /// </summary>
-        /// <param name="position">Point/block position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <param name="block">Block to set.</param>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
-        public static void FastSetBlockAt(Vector3Int position, Block block)
-        {
-            FastSetBlockAt(position.X, position.Y, position.Z, block);
         }
 
         #endregion
@@ -305,7 +202,7 @@ namespace Engine.Blocks
         /// <param name="y">Block's world position's Y-coordinate</param>
         /// <param name="z">Block's world position's Z-coordinate</param>
         /// <returns></returns>
-        public static int BlockIndexByWorldPosition(int x, byte y, int z)
+        public static int BlockIndexByWorldPosition(int x, int y, int z)
         {
             var wrapX = x%CacheWidthInBlocks;
             if (wrapX < 0)

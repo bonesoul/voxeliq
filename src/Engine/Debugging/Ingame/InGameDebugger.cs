@@ -65,13 +65,13 @@ namespace Engine.Debugging.Ingame
         {
             Logger.Trace("init()");
 
-            // import service.
+            // import required service.
             this._camera = (ICamera) this.Game.Services.GetService(typeof (ICamera));
             this._world = (IWorld) this.Game.Services.GetService(typeof (IWorld));
             this._player = (IPlayer) this.Game.Services.GetService(typeof (IPlayer));
             this._chunkStorage = (IChunkStorage) this.Game.Services.GetService(typeof (IChunkStorage));
-
             this._assetManager = (IAssetManager)this.Game.Services.GetService(typeof(IAssetManager));
+            
             if (this._assetManager == null)
                 throw new NullReferenceException("Can not find asset manager component.");
 
@@ -85,14 +85,17 @@ namespace Engine.Debugging.Ingame
             var viewFrustrum = new BoundingFrustum(this._camera.View*this._camera.Projection);
 
             _spriteBatch.Begin();
+            
+            //foreach (Chunk chunk in this._chunkStorage.Values)
+            //{
+            //    if (chunk != this._player.CurrentChunk)
+            //        continue;
 
-            foreach (Chunk chunk in this._chunkStorage.Values)
-            {
-                if (!chunk.BoundingBox.Intersects(viewFrustrum)) 
-                    continue;
+            //    if (!chunk.BoundingBox.Intersects(viewFrustrum)) 
+            //        continue;
 
-                chunk.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
-            }
+            //    chunk.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
+            //}
 
             _player.Weapon.DrawInGameDebugVisual(Game.GraphicsDevice, _camera, _spriteBatch, _spriteFont);
 

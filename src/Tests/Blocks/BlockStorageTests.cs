@@ -90,8 +90,8 @@ namespace EngineTests.Blocks
                         var blockIndexed = BlockStorage.Blocks[index];
                         Assert.AreEqual(expectedType, blockIndexed.Type);
 
-                        var blockFastAt = BlockStorage.FastBlockAt(x, y, z);
-                        Assert.AreEqual(expectedType, blockFastAt.Type);
+                        var blockAt = BlockStorage.BlockAt(x, y, z);
+                        Assert.AreEqual(expectedType, blockAt.Type);
                     }
                 }
             }            

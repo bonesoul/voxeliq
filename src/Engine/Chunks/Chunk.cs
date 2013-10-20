@@ -153,36 +153,9 @@ namespace Engine.Chunks
             return BlockStorage.BlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
         }
 
-        /// <summary>
-        /// Gets a block by given world position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <returns>Copy of <see cref="Block"/></returns>
-        /// <remarks>As <see cref="Block"/> is a struct, the returned block will be a copy of original one.</remarks>
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="BlockAt"/> instead.</remarks>
-        public Block FastBlockAt(int x, int y, int z)
+        public void SetBlockAt(int x, int y, int z, Block block)
         {
-            return BlockStorage.FastBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z);
-        }
-
-        /// <summary>
-        /// Sets a block by given relative position.
-        /// </summary>
-        /// <param name="x">Block's x world position.</param>
-        /// <param name="y">Block's y world position.</param>
-        /// <param name="z">Block's z world position.</param>
-        /// <param name="block">Block to set.</param>        
-        /// <remarks>This method will not check if given point/block coordinates are in chunk-cache's bounds. If you need a reliable & safe way, use <see cref="SetBlockAt"/> instead.</remarks>
-        public void FastSetBlockAt(sbyte x, sbyte y, sbyte z, Block block)
-        {
-            if (x < 0)
-                x += (sbyte)Chunk.WidthInBlocks;
-            if (z < 0)
-                z += (sbyte) Chunk.LenghtInBlocks;
-
-            BlockStorage.FastSetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
+            BlockStorage.SetBlockAt(this.WorldPosition.X + x, y, this.WorldPosition.Z + z, block);
             this.ChunkState = ChunkState.AwaitingRelighting;
         }
 

@@ -75,8 +75,8 @@ namespace Client
                 Cache =
                 {
                     CacheExtraChunks = true,
-                    ViewRange = 8,
-                    CacheRange = 12,
+                    ViewRange = 12,
+                    CacheRange = 16,
                 },
                 Graphics =
                 {

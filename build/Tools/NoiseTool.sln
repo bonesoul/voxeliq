@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoiseTool", "..\..\src\Tools\NoiseTool\NoiseTool.csproj", "{862F784A-683B-4A36-9CDB-B0F06D8D1E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voxeliq.Windows.Monogame.DX11.Engine", "..\..\src\Engine\Voxeliq.Windows.Monogame.DX11.Engine.csproj", "{121E6761-22F9-4401-A1E3-3E4FA72AE149}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{862F784A-683B-4A36-9CDB-B0F06D8D1E54}.Debug|x86.Build.0 = Debug|x86
 		{862F784A-683B-4A36-9CDB-B0F06D8D1E54}.Release|x86.ActiveCfg = Release|x86
 		{862F784A-683B-4A36-9CDB-B0F06D8D1E54}.Release|x86.Build.0 = Release|x86
+		{121E6761-22F9-4401-A1E3-3E4FA72AE149}.Debug|x86.ActiveCfg = Debug|x86
+		{121E6761-22F9-4401-A1E3-3E4FA72AE149}.Debug|x86.Build.0 = Debug|x86
+		{121E6761-22F9-4401-A1E3-3E4FA72AE149}.Release|x86.ActiveCfg = Release|x86
+		{121E6761-22F9-4401-A1E3-3E4FA72AE149}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

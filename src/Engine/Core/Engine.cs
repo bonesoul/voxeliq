@@ -8,6 +8,7 @@
 using System;
 using Engine.Assets;
 using Engine.Audio;
+using Engine.Blocks;
 using Engine.Chunks;
 using Engine.Chunks.Processors;
 using Engine.Core.Config;
@@ -97,6 +98,9 @@ namespace Engine.Core
 
             var chunkCache = new ChunkCache(this.Game);
             this.Game.Components.Add(chunkCache);
+
+            var blockStorage = new BlockStorage(this.Game);
+            this.Game.Components.Add(blockStorage);
 
             var world = new World(this.Game, chunkStorage, chunkCache);
             this.Game.Components.Add(world);
