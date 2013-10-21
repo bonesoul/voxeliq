@@ -40,6 +40,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dep\monogame\windowsDX\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Serilog">
+      <HintPath>..\..\build\packages\Serilog.1.0.2\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx">
+      <HintPath>..\..\build\packages\Serilog.1.0.2\lib\net45\Serilog.FullNetFx.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX, Version=2.4.2.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dep\monogame\windowsDX\SharpDX.dll</HintPath>
@@ -91,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

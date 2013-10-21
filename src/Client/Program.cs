@@ -6,7 +6,9 @@
  */
 
 using System;
+using System.Reflection;
 using Client.Utility;
+using Serilog;
 
 namespace Client
 {
@@ -23,11 +25,25 @@ namespace Client
             ConsoleWindow.PrintLicense();
             Console.ResetColor();
 
+            InitLogging();
+            Log.Information("voxeliq client {0} warming-up..", Assembly.GetAssembly(typeof(Program)).GetName().Version);
+
             using (var game = new GameClient()) // instantiate the game.
             {
                 game.Run();
             }
         }
+
+        #region logging facility
+
+        private static void InitLogging()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole()
+                .CreateLogger();
+        }
+
+        #endregion
 
         #region unhandled exception emitter
 
