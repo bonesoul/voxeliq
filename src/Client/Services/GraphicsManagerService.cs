@@ -77,7 +77,7 @@ namespace Client.Services
             this.GraphicsDeviceManager = new GraphicsDeviceManager(this.Game); // init graphics device manager.
             this.Game.Services.AddService(typeof (IGraphicsManagerService), this); // register ourself as a service.
 
-            // TODO: read from configs.
+            // TODO read from configs.
             this.FullScreenEnabled = this.GraphicsDeviceManager.IsFullScreen = false;
             this.GraphicsDeviceManager.PreferredBackBufferWidth = 1280;
             this.GraphicsDeviceManager.PreferredBackBufferHeight = 724;
