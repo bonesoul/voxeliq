@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\GraphicsManagerService.cs" />
     <Compile Include="Utility\ConsoleWindow.cs" />
     <Compile Include="GameClient.cs" />
     <Compile Include="Program.cs" />
@@ -96,6 +97,9 @@
       <Project>{44fc4601-875d-4234-9513-b2eb1885f6c5}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
