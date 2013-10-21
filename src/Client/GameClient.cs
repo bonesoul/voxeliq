@@ -5,22 +5,20 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Client.Services;
 using Microsoft.Xna.Framework;
 
 namespace Client
 {
     public class GameClient : Game
     {
-        // Graphics device manager for the game.
-        private readonly GraphicsDeviceManager _graphicsDeviceManager;
-
         /// <summary>
         /// Initializes a new GameClient instance.
         /// </summary>
         public GameClient()
         {
             this.Content.RootDirectory = "Content";
-            this._graphicsDeviceManager = new GraphicsDeviceManager(this);
+            this.Components.Add(new GraphicsManagerService(this)); // init the graphics manager service.
         }
 
         /// <summary>
