@@ -53,9 +53,9 @@ namespace Client.Services
     }
 
     /// <summary>
-    /// Graphics manager service that is responsible for screen & graphics managment.
+    /// Graphics manager that is responsible for screen & graphics managment.
     /// </summary>
-    public class GraphicsManagerService : GameComponent, IGraphicsManagerService
+    public class GraphicsManager : GameComponent, IGraphicsManagerService
     {
         #region settings
 
@@ -71,7 +71,7 @@ namespace Client.Services
 
         #endregion
 
-        public GraphicsManagerService(Game game)
+        public GraphicsManager(Game game)
             : base(game)
         {
             this.GraphicsDeviceManager = new GraphicsDeviceManager(this.Game); // init graphics device manager.

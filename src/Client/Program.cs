@@ -40,6 +40,7 @@ namespace Client
         {
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.ColoredConsole()
+                .MinimumLevel.Verbose()
                 .CreateLogger();
         }
 

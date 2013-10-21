@@ -5,8 +5,10 @@
  * it under the terms of the Microsoft Public License (Ms-PL).
  */
 
+using Client.Graphics;
 using Client.Services;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Client
 {
@@ -18,7 +20,8 @@ namespace Client
         public GameClient()
         {
             this.Content.RootDirectory = "Content";
-            this.Components.Add(new GraphicsManagerService(this)); // init the graphics manager service.
+            this.Components.Add(new GraphicsManager(this)); // init the graphics manager service.
+            this.Components.Add(new Camera(this));
         }
 
         /// <summary>
