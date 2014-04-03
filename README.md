@@ -1,4 +1,4 @@
-# voxeliq [![Build status](https://ci.appveyor.com/api/projects/status?id=06sdyq1kf99oapol)](https://ci.appveyor.com/project/voxeliq)
+# voxeliq [![Build status](https://ci.appveyor.com/api/projects/status/06sdyq1kf99oapol)](https://ci.appveyor.com/project/voxeliq)
 
 ![Screenshot](http://www.int6.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
 
