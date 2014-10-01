@@ -1,10 +1,11 @@
 # voxeliq [![Build status](https://ci.appveyor.com/api/projects/status/06sdyq1kf99oapol)](https://ci.appveyor.com/project/voxeliq)
 
-![Screenshot](http://www.int6.org/wp-content/uploads/2012/05/voxeliq-1024x582.jpg)
-
 voxeliq is an open source block-based game engine implementation developed with C#. It uses XNA or the Monogame as the basis.
 It can be compiled with Microsoft .NET or Mono, which means you can run it on Windows, MacOS, and Linux. 
 Please see the file [LICENSE](https://github.com/raistlinthewiz/voxeliq/blob/master/LICENSE) for licensing details.
+
+# Code
+The last working version resides in [contrib/old-codebase](https://github.com/raistlinthewiz/voxeliq/tree/develop/contrib/old-codebase)
 
 # Why?
 We would like to develop an open-source and 100% moddable blocky-game which will run on any platform that [Mono](http://www.mono-project.com/Main_Page) can. Though we are still far away from being complete which means you are more then welcome to contribute!
@@ -38,6 +39,3 @@ The project initially started as a hack & slash project and growth un-intendedly
 # Screenshots
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-13-05-46.jpg)
 ![Screenshot](http://media.indiedb.com/images/engines/1/1/399/VoxeliqClient_2012-03-16_14-15-27-29.jpg)
-
-# Built With
-![](http://i.imgur.com/PRxru.png)
